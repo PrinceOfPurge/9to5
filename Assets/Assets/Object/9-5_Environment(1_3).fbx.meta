@@ -1,0 +1,299 @@
+fileFormatVersion: 2
+guid: a626132c6f649ee45ac6f2b79750a240
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: BrickTexture
+    second: {fileID: 2800000, guid: 88cc7969465c8324688a398b2f57c30e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: BrickTextureWHITE
+    second: {fileID: 2800000, guid: 489a014ee9b150d49b595e9660fa5a3f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: DefaultMaterial_Base_color
+    second: {fileID: 2800000, guid: 86057701bdd00364abe79b34dea4652d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: DefaultMaterial_Metallic
+    second: {fileID: 2800000, guid: 6b4be11687ceb9d4aae513310ce13204, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: DefaultMaterial_Normal
+    second: {fileID: 2800000, guid: 030999fcde02d8745a4258678de82e1a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: DefaultMaterial_Roughness
+    second: {fileID: 2800000, guid: 617870b269fba6a47b5d2b99e21680d5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Gym_LinePaint
+    second: {fileID: 2800000, guid: 5962882071d37f44c9655a380eeb387a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: JanitorFloor_Base_color
+    second: {fileID: 2800000, guid: 0db7c2c7be1be0d48b9d29974261ae5e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: JanitorFloor_Metallic
+    second: {fileID: 2800000, guid: 81a2314e2c4f0034dafb3e0d6a85d862, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: JanitorFloor_Normal
+    second: {fileID: 2800000, guid: 5be27cd7b57978e49b948b595056448c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: JanitorFloor_Roughness
+    second: {fileID: 2800000, guid: 4924e5f95721d0147afd855ebc7e451e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: JanitorWallBorder_Base_color
+    second: {fileID: 2800000, guid: 182a97fe79aa7994c90d8bd2e6bd668b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: JanitorWallBorder_Metallic
+    second: {fileID: 2800000, guid: 98de2a501fabce24c9fee48f02947e9a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: JanitorWallBorder_Normal
+    second: {fileID: 2800000, guid: c1c0c2a82d1ed7e428fcc8a2cecf014f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: JanitorWallBorder_Roughness
+    second: {fileID: 2800000, guid: a9ed59738a9da9142891c48403cbd165, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: JanitorWall_Base_color
+    second: {fileID: 2800000, guid: 7fc34a2a904a64a4885dd46c1f7a4b1e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: JanitorWall_Metallic
+    second: {fileID: 2800000, guid: 1c485cdcbe5285b449d8340403fa97f3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: JanitorWall_Normal
+    second: {fileID: 2800000, guid: 2b66ad3db04f79d41a72392a4b6293d5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: JanitorWall_Roughness
+    second: {fileID: 2800000, guid: 5bd2c006398693f4a95d7c98f25f3d71, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Material.003_Metallic
+    second: {fileID: 2800000, guid: 4958eb36b59c60a4ba832de4d5fbd579, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Material.003_Normal
+    second: {fileID: 2800000, guid: f2489faaa874aa747ac19b08642edfce, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Material.003_Roughness
+    second: {fileID: 2800000, guid: c0f9eeb4991949448a7ca866b1360bf0, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Metal_Base_color
+    second: {fileID: 2800000, guid: 38ed9284a8e57d944b4c6b14dc51c7f3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Metal_Metallic
+    second: {fileID: 2800000, guid: 9e176d0f0db9c104ab483121ff1e9de2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Metal_Normal
+    second: {fileID: 2800000, guid: 5fb4789d86f1f5f45b4a5eaa0bbe84a6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Metal_Roughness
+    second: {fileID: 2800000, guid: 39927acb46c307b41b3dac8455245386, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: WashroomTileFloor_Base_color
+    second: {fileID: 2800000, guid: e2fe759110f816a46a7e2c4d683e602b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: WashroomTileFloor_Metallic
+    second: {fileID: 2800000, guid: bbb9aa9a41ef11f469ff7abb474c04c3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: WashroomTileFloor_Normal
+    second: {fileID: 2800000, guid: ae2efbd3ecc069f41b9b6d774a5311be, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: WashroomTileFloor_Roughness
+    second: {fileID: 2800000, guid: 3a98e2673b482294d9f6370a159cd317, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: WashroomTileWall_Base_color
+    second: {fileID: 2800000, guid: 7d6905011bc88c14a879dee8d91272ad, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: WashroomTileWall_Metallic
+    second: {fileID: 2800000, guid: 3bec8a6d03a5fd84aabf26cc48b4aa39, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: WashroomTileWall_Normal
+    second: {fileID: 2800000, guid: ce14292408e2c3e45b06329abd5f8a1d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: WashroomTileWall_Roughness
+    second: {fileID: 2800000, guid: a3919ec00e7fb1b4cbd18014b64ea8b5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Wood_Base_color
+    second: {fileID: 2800000, guid: 6f1a8b8a823de7342b8d8c0f740cad22, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Wood_Metallic
+    second: {fileID: 2800000, guid: 4b619343370dc3c4a849d0e435e62ae9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Wood_Normal
+    second: {fileID: 2800000, guid: 6f99aefa280225d4786ab8bc0ff87e16, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Wood_Roughness
+    second: {fileID: 2800000, guid: 647d5aeccbf8b564f993fcf5ec9f711b, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

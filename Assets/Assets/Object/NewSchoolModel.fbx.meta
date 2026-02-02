@@ -1,0 +1,349 @@
+fileFormatVersion: 2
+guid: 809564e99ed713a48a8579728ee8f424
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_BWashDoorTexture_Albedo
+    second: {fileID: 2800000, guid: 929d91b704f5ec0459969588ad539eac, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_BWashDoorTexture_Metallic
+    second: {fileID: 2800000, guid: 29867a90400208645bc844bfb140e53c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_BWashDoorTexture_Normal
+    second: {fileID: 2800000, guid: 431f93fe4f20c234cb6881f81710da0b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_ClassTextures_Albedo
+    second: {fileID: 2800000, guid: f0f4c36afdb21fe428119f1b85cc4709, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_ClassTextures_Metallic
+    second: {fileID: 2800000, guid: 0498ca9375546c948ba331957c33ebff, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_ClassTextures_Normal
+    second: {fileID: 2800000, guid: 2097b0d3772b6854687b60bfa734a71d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_FurnitureTextures_Albedo
+    second: {fileID: 2800000, guid: 80233d25db5a9b747ae0904aae98dba3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_FurnitureTextures_Metallic
+    second: {fileID: 2800000, guid: d70b6d986cfd71542b7b933d9b378445, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_FurnitureTextures_Normal
+    second: {fileID: 2800000, guid: c78bf1225f936e149b48b6e6ea0ba768, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_GWashDoorTexture_Albedo
+    second: {fileID: 2800000, guid: 09c5688512b52ee41ba9f8710c529781, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_GWashDoorTexture_Metallic
+    second: {fileID: 2800000, guid: 19b7e0b64f069084398d76ce5a143f12, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_GWashDoorTexture_Normal
+    second: {fileID: 2800000, guid: eefef993dd6516c4c861b31f7210d03b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_JanitorDoorTexture_Albedo
+    second: {fileID: 2800000, guid: 9d69b2431b981644ca3c0c6dcefbf014, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_JanitorDoorTexture_Metallic
+    second: {fileID: 2800000, guid: 86e4901cdf792a548bb291842df709c2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_JanitorDoorTexture_Normal
+    second: {fileID: 2800000, guid: 738b2b9939176774b8180a038ecc8688, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_JanitorObject2Textures_Albedo
+    second: {fileID: 2800000, guid: b50047ebf864089409ae495f608af0b3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_JanitorObject2Textures_Metallic
+    second: {fileID: 2800000, guid: 24835ec2920088d41a675808a10491fa, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_JanitorObject2Textures_Normal
+    second: {fileID: 2800000, guid: 8947e695ac25bc847b82fae03055b5b1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_JanitorObjectTextures_Albedo
+    second: {fileID: 2800000, guid: 6c88a85f0be16714aa1c65892a417ac5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_JanitorObjectTextures_Metallic
+    second: {fileID: 2800000, guid: 137f4ab65a35aa14f834e829289ce829, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_JanitorObjectTextures_Normal
+    second: {fileID: 2800000, guid: e726be8d540385545ac0c0ed9d005f9b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_OtherFurnitureTexture_Albedo
+    second: {fileID: 2800000, guid: e094de7f2cf86b7489a0bcd83e0432e8, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_OtherFurnitureTexture_Metallic
+    second: {fileID: 2800000, guid: 6e0fa03f1fe745c4c83d1bc934a88f2d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_OtherFurnitureTexture_Normal
+    second: {fileID: 2800000, guid: aa25081ff716b994ea9876664525ad26, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_SchoolDoorTexture_Albedo
+    second: {fileID: 2800000, guid: 475b5a50edd160644a3fdedb841a00fc, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_SchoolDoorTexture_Metallic
+    second: {fileID: 2800000, guid: d3f59f7c0744d7c4287e9486377a6800, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_SchoolDoorTexture_Normal
+    second: {fileID: 2800000, guid: 07a7e4a78429f2647911c9978cdd664f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_Washroom2ObjectTextures_Albedo
+    second: {fileID: 2800000, guid: 99e8d9e98ff71a8468ebdd9b2e45e4d5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_Washroom2ObjectTextures_Metallic
+    second: {fileID: 2800000, guid: 809ae273c16f56a40a640b580e6ad580, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_Washroom2ObjectTextures_Normal
+    second: {fileID: 2800000, guid: 1ede1fcd535786a4dbafffbfd63712da, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_WashroomObjectTextures_Albedo
+    second: {fileID: 2800000, guid: 700078d4cb85ce34894202a0209b5f6d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_WashroomObjectTextures_Metallic
+    second: {fileID: 2800000, guid: 6264d26956acc1c4e981f5267332aa3c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_EnvProps_WashroomObjectTextures_Normal
+    second: {fileID: 2800000, guid: d33fe6d1e32bcd1479b33438648c795a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_TrimSheet1_9-5TrimSheet1_Albedo
+    second: {fileID: 2800000, guid: 4661c019a30c4784f9c1128a70f9972d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_TrimSheet1_9-5TrimSheet1_Metallic
+    second: {fileID: 2800000, guid: e81bf5e7e9168df499db0d80cbb96d73, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_TrimSheet1_9-5TrimSheet1_Normal
+    second: {fileID: 2800000, guid: 55053778b6310054bb1af1e06c391c87, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: NewHallwayDoor_NewHallwayTexture_Albedo
+    second: {fileID: 2800000, guid: 22c3bbfd965f47e409f973a85ee7f00b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: NewHallwayDoor_NewHallwayTexture_Metallic
+    second: {fileID: 2800000, guid: a0af04dad74b13b41a09375e617b8b84, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: NewHallwayDoor_NewHallwayTexture_Normal
+    second: {fileID: 2800000, guid: cbd995e1d8033754abfe4475b5c3e56e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: NewPlayer(1)_NewplayerTexture.002_Albedo
+    second: {fileID: 2800000, guid: fc7448494789f354bb9e11cdd6d70f80, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: NewPlayer(1)_NewplayerTexture.002_Metallic
+    second: {fileID: 2800000, guid: 5d03b77283d4ff0408e3d7e8c71db2fb, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: NewPlayer(1)_NewplayerTexture.002_Normal
+    second: {fileID: 2800000, guid: a6ed96154855493438fc93f495178990, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: NewSchoolModel_Tiles++Stairs_Albedo
+    second: {fileID: 2800000, guid: dba2798beecb40b42886c5a3892a39ac, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: NewSchoolModel_Tiles++Stairs_Metallic
+    second: {fileID: 2800000, guid: bb255937b29af3946862dac3096a6e61, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: NewSchoolModel_Tiles++Stairs_Normal
+    second: {fileID: 2800000, guid: 9e7406edaded8444eaf6063e15f7da1e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Stage_StageTextures_Albedo
+    second: {fileID: 2800000, guid: cde9c90dbeb6d514798a0f0301bc1fcb, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Stage_StageTextures_Metallic
+    second: {fileID: 2800000, guid: 25d219bd155f7b742ae4db25807da75e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Stage_StageTextures_Normal
+    second: {fileID: 2800000, guid: f28758937af80f742b47d2c07fb71738, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

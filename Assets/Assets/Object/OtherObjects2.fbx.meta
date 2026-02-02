@@ -1,0 +1,374 @@
+fileFormatVersion: 2
+guid: c199e16b78e06d8408039ebcb64c53b6
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Backboard_Base_color
+    second: {fileID: 2800000, guid: 07993d74edb6e4545804a869a3c6e801, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Backboard_Metallic
+    second: {fileID: 2800000, guid: 7eb81f5eeba7dd14c9a1c41c5877deb2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Backboard_Normal
+    second: {fileID: 2800000, guid: e440808cba3f89b4ea2f7e2742df3c30, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Backboard_Roughness
+    second: {fileID: 2800000, guid: 6b71594cae24995429917a7028c05a57, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: BrickTexture
+    second: {fileID: 2800000, guid: 6e071d78c18fc1845af55a8433c6018b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CafeTableMetal_Base_color
+    second: {fileID: 2800000, guid: 01684eb81e7b4374b9ba7a144efb03cb, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CafeTableMetal_Metallic
+    second: {fileID: 2800000, guid: 4a96f1883abc96e41a808d06b50c8d11, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CafeTableMetal_Normal
+    second: {fileID: 2800000, guid: 9b68da70b164b044186589f48ef9be0b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CafeTableMetal_Roughness
+    second: {fileID: 2800000, guid: bf69e76548f18464aa8ef0ca50606cdd, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CafeTable_Base_color
+    second: {fileID: 2800000, guid: a961d03186814584bb62b976e4978d25, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CafeTable_Metallic
+    second: {fileID: 2800000, guid: c07a623d3a4434640a74022a71270d1a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CafeTable_Normal
+    second: {fileID: 2800000, guid: d90059c783fd76e4e9038b0f14a2f779, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CafeTable_Roughness
+    second: {fileID: 2800000, guid: 88b11e7dce23569408a7c26ba9a94ff6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ClassroomTile.002_Base_color
+    second: {fileID: 2800000, guid: 6d5132884d9ffdd4ca7b9d22f8a56089, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ClassroomTile.002_Metallic
+    second: {fileID: 2800000, guid: 63032bdd719029d418cf0a7ca113f523, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ClassroomTile.002_Normal
+    second: {fileID: 2800000, guid: c633f547ddb028946bed325d20137bf1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: ClassroomTile.002_Roughness
+    second: {fileID: 2800000, guid: 8a8dc98c7f6c0f94f94776345ae58b01, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GymMats_Base_color
+    second: {fileID: 2800000, guid: e5f27074816208d43bb2808e2fbe7ba9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GymMats_Metallic
+    second: {fileID: 2800000, guid: 9c043121d85776a44bc0ea1fb24106a5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GymMats_Normal
+    second: {fileID: 2800000, guid: 55d8a41893e6693488f39b843845890c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GymMats_Roughness
+    second: {fileID: 2800000, guid: c0afd83d88244e74a87ddea999bb0f75, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LockerBase_Base_color
+    second: {fileID: 2800000, guid: 6a4bf3f15fea38a4c9a00b02dfa97a32, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LockerBase_Metallic
+    second: {fileID: 2800000, guid: 77625643ddc7be7438e4f30fbb6cfa6b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LockerBase_Normal
+    second: {fileID: 2800000, guid: 34a863ae29aa9f14e823dffb56e96698, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LockerBase_Roughness
+    second: {fileID: 2800000, guid: 1f787253ddf970a4b8ae9f9619fa2c68, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LockerCombination_Base_color
+    second: {fileID: 2800000, guid: afdc539f8d05b7042a1fcc974ca87b1e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LockerCombination_Metallic
+    second: {fileID: 2800000, guid: 3623d2d3259a7dc4594c65f5f596dd6e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LockerCombination_Normal
+    second: {fileID: 2800000, guid: 08ff15227b63a0b499b22afd01185bf7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LockerCombination_Roughness
+    second: {fileID: 2800000, guid: 347f518aafb4fe142894774e280beb1c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LockerDoor_Base_color
+    second: {fileID: 2800000, guid: 311c343647c9a864d92a95649fc61e5d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LockerDoor_Metallic
+    second: {fileID: 2800000, guid: 3c083c91d49e9934a821f0549085e164, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LockerDoor_Normal
+    second: {fileID: 2800000, guid: 5a167088091dfbf4a8601e87a5247193, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LockerDoor_Roughness
+    second: {fileID: 2800000, guid: ef4b255aaadfcc44a8a19e9c5246449a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LockerHinges_Base_color
+    second: {fileID: 2800000, guid: 8263f698655ab1040bd52644e42fcf3d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LockerHinges_Metallic
+    second: {fileID: 2800000, guid: ce33abc28cd989d4ebf9044037f42458, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LockerHinges_Normal
+    second: {fileID: 2800000, guid: 85d2f2e5ccf78c941b34fe4393473ea5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LockerHinges_Roughness
+    second: {fileID: 2800000, guid: 99e4a55035f830c40abf6dc84ec9451f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LockerInsides_Base_color
+    second: {fileID: 2800000, guid: 6ab1f830e0674834ca6f4ddb841b90e9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LockerInsides_Metallic
+    second: {fileID: 2800000, guid: 311661f3b8550084cb6da4cba17c5b9d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LockerInsides_Normal
+    second: {fileID: 2800000, guid: 107a6648b7108ff498473e2b2163e564, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LockerInsides_Roughness
+    second: {fileID: 2800000, guid: 55ab759798a37d746ba4b091bffe085d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LockerStand_Base_color
+    second: {fileID: 2800000, guid: 6000bdbe7105ee64bb2bef4b6e9d1515, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LockerStand_Metallic
+    second: {fileID: 2800000, guid: a8503e5263efb8540be54db0e15677f7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LockerStand_Normal
+    second: {fileID: 2800000, guid: 8e29cfa20c1062542aa6180a5db78759, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: LockerStand_Roughness
+    second: {fileID: 2800000, guid: b49703df06f640244aa0da20e5dcb9bd, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: NetMetal_Base_color
+    second: {fileID: 2800000, guid: c6f409cbcb489bb47a1f73bb689fc8f9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: NetMetal_Metallic
+    second: {fileID: 2800000, guid: 9f5155a120eca97418342daaf9cb9332, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: NetMetal_Normal
+    second: {fileID: 2800000, guid: bd44f5a840a74fd4791d796a356c7739, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: NetMetal_Roughness
+    second: {fileID: 2800000, guid: a7b197dfeef2a3a4b924f72a130bc343, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: StairRailing_Base_color
+    second: {fileID: 2800000, guid: 9ec976598a58ec043a987371e23a8920, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: StairRailing_Metallic
+    second: {fileID: 2800000, guid: de952c4cec7ec2d4d8b0db4417abef5d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: StairRailing_Normal
+    second: {fileID: 2800000, guid: 930c1b6708f95f340b1fcbf28232f2f7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: StairRailing_Roughness
+    second: {fileID: 2800000, guid: 607259648126a1b4a9807cbc14d40a79, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

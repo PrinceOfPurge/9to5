@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 8dc57fa53c78d6e41a52c293ee6a875d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - NormalLUT: {fileID: 2100000, guid: 1cb5945ea125f5c44b571d7b0d481c7e, type: 2}
+  - awesomeShader: {fileID: 4800000, guid: 9a20a0fc636af9749824d3fdc03caa31, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

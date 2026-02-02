@@ -1,0 +1,249 @@
+fileFormatVersion: 2
+guid: 9d793bee210ea2b46bcd83b96e38b0a6
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AppleCore_Base_color
+    second: {fileID: 2800000, guid: be179909adbd46b468a2058c3c0f6875, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AppleCore_Metallic
+    second: {fileID: 2800000, guid: e307e88d691550d408fe491acead90e7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AppleCore_Normal
+    second: {fileID: 2800000, guid: 1c8c4da6bbe16d441afc936581ef36a2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AppleCore_Roughness
+    second: {fileID: 2800000, guid: 571b2bda908641742b1b3961b5c6a336, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AppleStem_Base_color
+    second: {fileID: 2800000, guid: 41f5092180e46b548a94fd05f632257c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AppleStem_Metallic
+    second: {fileID: 2800000, guid: 6a7b6051d8fab5847879efad12dee75a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AppleStem_Normal
+    second: {fileID: 2800000, guid: 65a563fcf132b5545807f4e7fb29ec47, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AppleStem_Roughness
+    second: {fileID: 2800000, guid: 1035567d65f83854bbc74a9cc995b08d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: BananaPeel_Base_color
+    second: {fileID: 2800000, guid: f9ece030f4b2add47b4390c186a08068, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: BananaPeel_Metallic
+    second: {fileID: 2800000, guid: fb797d52346c22946ac7a87cd7f5470e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: BananaPeel_Normal
+    second: {fileID: 2800000, guid: 7819633ef234755419d4fb831b34bc66, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: BananaPeel_Roughness
+    second: {fileID: 2800000, guid: e2463372c3e118f428d5c57301b0a24e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageBag_Base_color
+    second: {fileID: 2800000, guid: 6e4aaf09b2385fa45b44ebb6f9f3c6a5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageBag_Metallic
+    second: {fileID: 2800000, guid: cf10b13b0adfa0746a5aa8c4a141e8ae, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageBag_Normal
+    second: {fileID: 2800000, guid: 688b7d588067e8d45a19d62cca5c7605, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageBag_Roughness
+    second: {fileID: 2800000, guid: 7fab79bba28d8c04fae0e7c95ad56333, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: SodaCan_Base_color
+    second: {fileID: 2800000, guid: 1c192ce95144bd948952fdd3ee717be4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: SodaCan_Metallic
+    second: {fileID: 2800000, guid: 770aec9b60810a34794cb4b7a7ffbadd, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: SodaCan_Normal
+    second: {fileID: 2800000, guid: 09e0fe22c41510443adf56d49098a683, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: SodaCan_Roughness
+    second: {fileID: 2800000, guid: 6b66a53173aebc947a09f2d45060ddb5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: WaterBottleCap_Base_color
+    second: {fileID: 2800000, guid: f947ff0223815e9458a7c41e0bb2a000, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: WaterBottleCap_Metallic
+    second: {fileID: 2800000, guid: d091f9c1a3315f7419cddb3003b413c3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: WaterBottleCap_Normal
+    second: {fileID: 2800000, guid: 4e3bfa30d536b8740b84f4e35784b8ca, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: WaterBottleCap_Roughness
+    second: {fileID: 2800000, guid: 89a469059d9ad734283936ff5547892b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: WaterBottle_Base_color
+    second: {fileID: 2800000, guid: 86af81838d58c624783509f5a5ec6ec7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: WaterBottle_Metallic
+    second: {fileID: 2800000, guid: 4ab16c3619e447041b64ddcfbfd0c618, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: WaterBottle_Normal
+    second: {fileID: 2800000, guid: 6d444797c9ca38b458ac32c9113fe3a6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: WaterBottle_Roughness
+    second: {fileID: 2800000, guid: 499f057baf12f7742807aeeb290676db, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
