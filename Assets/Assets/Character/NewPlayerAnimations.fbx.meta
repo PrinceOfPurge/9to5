@@ -1,0 +1,305 @@
+fileFormatVersion: 2
+guid: 21ac5ca04fd5af941923b43afe59022d
+ModelImporter:
+  serializedVersion: 24200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_NewCleaningTools_NewBleachBottleTextures_Albedo
+    second: {fileID: 2800000, guid: 9aca15437dd1bc1408b6834036c55c00, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_NewCleaningTools_NewBleachBottleTextures_Metallic
+    second: {fileID: 2800000, guid: 93424245cca225b49ab643ca2bf17514, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_NewCleaningTools_NewBleachBottleTextures_Normal
+    second: {fileID: 2800000, guid: 5c08f4c7f89299c4ab462f4d393faf54, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_NewCleaningTools_NewMopTexture_Albedo
+    second: {fileID: 2800000, guid: 90567ca83c08a0f4ab88fed963467358, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_NewCleaningTools_NewMopTexture_Metallic
+    second: {fileID: 2800000, guid: 46773309e39526b4e885c99e1f31f2b6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_NewCleaningTools_NewMopTexture_Normal
+    second: {fileID: 2800000, guid: f0694b65eab95d14587bfe5001ffacb4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_NewCleaningTools_PlungerTexture_Albedo
+    second: {fileID: 2800000, guid: 1ccef8281cf1aea43bdfef12d5d8dada, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_NewCleaningTools_PlungerTexture_Metallic
+    second: {fileID: 2800000, guid: 791f67e8b83d153469c3c2bfa3bbb798, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_NewCleaningTools_PlungerTexture_Normal
+    second: {fileID: 2800000, guid: 8b834952f9969c048b5c6381f82338e3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_NewCleaningTools_SprayBaseTexture_Albedo
+    second: {fileID: 2800000, guid: 5d5a782455b3a0c4892193d1fdce4bf5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_NewCleaningTools_SprayBaseTexture_Metallic
+    second: {fileID: 2800000, guid: aedc2fad9d08b0b4e88b3084db5b245c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_NewCleaningTools_SprayBaseTexture_Normal
+    second: {fileID: 2800000, guid: ca20bab23a73dc24cbc1478a00e2d66e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_NewCleaningTools_SprayLidTexture_Albedo
+    second: {fileID: 2800000, guid: a6bff15307ef03a47ade06d5ebae2403, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_NewCleaningTools_SprayLidTexture_Metallic
+    second: {fileID: 2800000, guid: 4bfc22c451ca6834d98b9cebcb374265, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_NewCleaningTools_SprayLidTexture_Normal
+    second: {fileID: 2800000, guid: 5a9e81d6b3672914db0f2ecc85c52f01, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_NewCleaningTools_SprayLiquidTexture_Albedo
+    second: {fileID: 2800000, guid: 5c02875988f5f6c43b7bbf5340754326, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_NewCleaningTools_SprayLiquidTexture_Metallic
+    second: {fileID: 2800000, guid: dc48736d3d699074793fe57f69c9c0a6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 9-5_NewCleaningTools_SprayLiquidTexture_Normal
+    second: {fileID: 2800000, guid: a6bb69fac46572241a999358c07368c8, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: BrushBrissels_Base_color
+    second: {fileID: 2800000, guid: 995dad505ebf8a745aed5c63edb2bdf4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: BrushBrissels_Metallic
+    second: {fileID: 2800000, guid: b5b71a6b6e51fd64c889635239220087, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: BrushBrissels_Normal
+    second: {fileID: 2800000, guid: e275f31d45f9bb949b91f451fcd413a3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: BrushBrissels_Roughness
+    second: {fileID: 2800000, guid: 46f3f17096cc0ea40bff216bec48460f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: BrushHandle_Base_color
+    second: {fileID: 2800000, guid: 9238ff688407f7d45bd310852ba0efa7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: BrushHandle_Metallic
+    second: {fileID: 2800000, guid: f4db7b33b09ce3b42ac7501b3cbb18b3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: BrushHandle_Normal
+    second: {fileID: 2800000, guid: d225af93cc916d54b923d49eb2b881ff, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: BrushHandle_Roughness
+    second: {fileID: 2800000, guid: df73b06c11c18234f9d7ce1f9769fcad, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CleaningCloth_Base_color
+    second: {fileID: 2800000, guid: e94a12796c2450f4bb59f1d483f0daa5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CleaningCloth_Metallic
+    second: {fileID: 2800000, guid: 6967516b5d79d364e8b6124864370925, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CleaningCloth_Normal
+    second: {fileID: 2800000, guid: cf4daf46b8888d74989c2c60cb6eb913, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: CleaningCloth_Roughness
+    second: {fileID: 2800000, guid: 510fde2c01dcc594b80e8051db700805, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageBag_Base_color
+    second: {fileID: 2800000, guid: 0476e03595fd15b49b5ec0fc0e01769a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageBag_Metallic
+    second: {fileID: 2800000, guid: 3e693382bd2dfef4a92a63d356cc2708, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageBag_Normal
+    second: {fileID: 2800000, guid: 872f335e6d1c4f944bf035239124d35a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GarbageBag_Roughness
+    second: {fileID: 2800000, guid: a00c79567e0555f4f87d83a98273e5f9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: NewPlayer(1)_NewplayerTexture.002_Albedo
+    second: {fileID: 2800000, guid: a5040e9925d644f44b70c88f26b5f44d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: NewPlayer(1)_NewplayerTexture.002_Metallic
+    second: {fileID: 2800000, guid: e4065c92feb5faf4bb7a613803d219b9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: NewPlayer(1)_NewplayerTexture.002_Normal
+    second: {fileID: 2800000, guid: 481307f57fce72548a9a292fc6291931, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PlayerHairBake_Diffuse
+    second: {fileID: 2800000, guid: 1cd2b5fde64362140acb95bea0e56654, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: PlayerHairBake_Normal
+    second: {fileID: 2800000, guid: 91277dc5eda1343478d1ed31fb19cd1d, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,24 +1,49 @@
 fileFormatVersion: 2
-guid: f91a1a56be424bb448cef8afea41f9e8
+guid: 5502f17712ccb5d4fa78bd2f8c4079d5
 ModelImporter:
-  serializedVersion: 22200
+  serializedVersion: 24200
   internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
+      name: StuFemaleHair_Diffuse
+    second: {fileID: 2800000, guid: f30d49be419e6554cbf6411f53cc7d06, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: StuFemaleHair_Normal
+    second: {fileID: 2800000, guid: 117a7f1af27283c47a661aca7db427f9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: StuHairMale_Diffuse
+    second: {fileID: 2800000, guid: 6fc450d05c3a98a4aa46e727e6d192e4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: StuHairMale_Roughness
+    second: {fileID: 2800000, guid: afa5ae1e501821242a311b0199703617, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: StuMaleHair_Normal
+    second: {fileID: 2800000, guid: fa858202e02760d49aa673c6efdcca4f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
       name: StudentLow_StudentTexture1_Albedo
-    second: {fileID: 2800000, guid: 00403a44a249d524dbfb059ce6aec696, type: 3}
+    second: {fileID: 2800000, guid: ace2af87d5dac6d4da94d04895a28869, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: StudentLow_StudentTexture1_Metallic
-    second: {fileID: 2800000, guid: 078d0b96f2945cd4ebeeeb8b1c0bdbf1, type: 3}
+    second: {fileID: 2800000, guid: e595d00fccdf332448abb78c9360613e, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: StudentLow_StudentTexture1_Normal
-    second: {fileID: 2800000, guid: bbf0008a4b5cbed4e97eef69e4dfd80c, type: 3}
+    second: {fileID: 2800000, guid: cff14cdf5ca392143b0626736edf4548, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -31,8 +56,6 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -73,6 +96,9 @@ ModelImporter:
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
     optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
