@@ -3,7 +3,7 @@ Shader "Outline"
     Properties{
         _MainTex ("Texture", 2D) = "white" {}
         _OutlineColor ("Outline Colour", Color) = (0,0,0,1)
-        _Outline ("Outline Width", Range (.002, 0.1)) = .005
+        _Outline ("Outline Width", Range (.002, 0.9)) = .005
     }
     SubShader
     {

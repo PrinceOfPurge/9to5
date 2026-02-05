@@ -53960,6 +53960,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StudentModel
       objectReference: {fileID: 0}
+    - target: {fileID: 3133900134270352308, guid: 5502f17712ccb5d4fa78bd2f8c4079d5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9ff94fd625e1deb41b6923ef34f1963b, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
