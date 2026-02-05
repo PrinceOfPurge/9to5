@@ -20,7 +20,4 @@ public class SinglePlayerStats : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
-
-
-
 }

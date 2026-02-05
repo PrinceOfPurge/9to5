@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -10,13 +11,19 @@ public class SinglePlayerModeManager : MonoBehaviour
     [SerializeField]
     // Timer
     public TextMeshProUGUI TimerText;
+    public float maxTimerValue = 120f;
     public float TimerValue;
     public bool TimerisRunning;
+    public float upgradedMaxTimerValue = 150f;
 
     // Score
     public TextMeshProUGUI BagsRemainingText;
     public int BagsRemaining;
     public int SinglePlayerScore;
+
+    private bool gameEnded = false;
+
+    public int PlayerMoney;
 
 
     public static SinglePlayerModeManager Instance;
@@ -41,10 +48,19 @@ public class SinglePlayerModeManager : MonoBehaviour
         TimerText = GameObject.Find("TimerText")?.GetComponent<TextMeshProUGUI>();
         BagsRemainingText = GameObject.Find("BagsRemainingText")?.GetComponent<TextMeshProUGUI>();
 
+        if (ShopInfo.Instance != null)
+        {
+            if (ShopInfo.Instance.Overtime_Active)
+                maxTimerValue = upgradedMaxTimerValue;
+            else
+                maxTimerValue = 120f;
+        }
+
         // If we're back in the gameplay scene, restart the timer
         if (scene.name == "SinglePlayerMode")
         {
-            TimerValue = 120f;
+            gameEnded = false;
+            TimerValue = maxTimerValue;
             TimerisRunning = true;
             BagsRemaining = 6;
         }
@@ -55,12 +71,13 @@ public class SinglePlayerModeManager : MonoBehaviour
     void Start()
     {
         TimerisRunning = true;
-        TimerValue = 120;
+        TimerValue = maxTimerValue;
     }
 
     void Update()
     {
-        
+        if (gameEnded)
+            return;
 
         if (TimerisRunning)
         {
@@ -69,7 +86,7 @@ public class SinglePlayerModeManager : MonoBehaviour
         }
         
         if (TimerisRunning == false) {
-            TimerValue = 120;
+            TimerValue = maxTimerValue;
         }
 
         UpdateTimerUI();
@@ -118,7 +135,7 @@ public class SinglePlayerModeManager : MonoBehaviour
             DisplayResults();
         }
 
-
+        
 
 
         //Show results UI
@@ -134,6 +151,10 @@ public class SinglePlayerModeManager : MonoBehaviour
     {
         // Show Results UI
         Debug.Log("END DA GAME");
+
+        gameEnded = true;
+
+        PlayerMoney += SinglePlayerScore + (Mathf.RoundToInt(TimerValue) * 10);
 
         StartCoroutine(GotoShop());
     }

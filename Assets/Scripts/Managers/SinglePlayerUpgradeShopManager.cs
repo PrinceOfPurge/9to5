@@ -7,7 +7,7 @@ using TMPro;
 public class SinglePlayerUpgradeShopManager : MonoBehaviour
 {
     // Singleton, stays with Player to Remeber Upgrades
-    public static SinglePlayerUpgradeShopManager Instance;
+    /*public static SinglePlayerUpgradeShopManager Instance;
 
     void Awake()
     {
@@ -22,7 +22,7 @@ public class SinglePlayerUpgradeShopManager : MonoBehaviour
 
         //SceneManager.sceneLoaded += OnSceneLoaded;
     }
-
+    */
     //-----------------------------------------------------------------
 
     public GameObject overtimeDisabled;
@@ -31,14 +31,14 @@ public class SinglePlayerUpgradeShopManager : MonoBehaviour
             public Button But_OvertimeYes;
             public Button But_OvertimeNo;
 
-    public GameObject rushhourUpgrade;
+    //public GameObject rushhourUpgrade;
     public GameObject rushhourDisabled;
         public Image rushhourUpgradeIcon;
         public Image rushhourUpgradeIconCover;
             public Button But_RushhourYes;
             public Button But_RushhourNo;
 
-    public GameObject promotionUpgrade;
+    //public GameObject promotionUpgrade;
     public GameObject promotionDisabled;
         public Image promotionUpgradeIcon;
         public Image promotionUpgradeIconCover;
@@ -47,7 +47,7 @@ public class SinglePlayerUpgradeShopManager : MonoBehaviour
 
     
 
-    public GameObject coffeebreakUpgrade;
+    //public GameObject coffeebreakUpgrade;
     public GameObject coffeebreakDisabled;
         public Image coffeebreakUpgradeIcon;
         public Image coffeebreakUpgradeIconCover;
@@ -57,34 +57,30 @@ public class SinglePlayerUpgradeShopManager : MonoBehaviour
     // Overtime
     public Button Overtime_Button;
     public int Overtime_Cost;
-    public bool Overtime_Purchased;
-    public bool Overtime_Active;
 
     // RushHour
+    public Button RushHour_Button;
     public int RushHour_Cost;
-    public bool RushHour_Purchased;
-    public bool RushHour_Active;
 
     // JumpBoost
+    public Button JumpBoost_Button;
     public int JumpBoost_Cost;
-    public bool JumpBoost_Purchased;
-    public bool JumpBoost_Active;
 
     // StamBoost
+    public Button StamBoost_Button;
     public int StamBoost_Cost;
-    public bool StamBoost_Purchased;
-    public bool StamBoost_Active;
 
     public MenuTweener menuTweener;
 
     //Player Money
     [SerializeField] private TMP_Text moneyText;
-    int PlayerMoney = SinglePlayerStats.Instance.money;
+    int PlayerMoney = SinglePlayerModeManager.Instance.PlayerMoney;
 
     
     // Start is called before the first frame update
     void Start()
     {
+        UpdateShop();
         menuTweener.SlideUpgradeSlotsIn();
         UpdateUpgradeSlots();
         UpdateMoneyUI();
@@ -110,7 +106,43 @@ public class SinglePlayerUpgradeShopManager : MonoBehaviour
    
         
     }
-    
+
+    void UpdateShop()
+    {
+        if (ShopInfo.Instance.Overtime_Active == true)
+        {
+            ActivateOvetimeUpgrade();
+        }
+        else
+        {
+            DeActivateOvertimeUpgrade();
+        }
+        if (ShopInfo.Instance.JumpBoost_Active == true)
+        {
+            ActivateJumpBoostUpgrade();
+        }
+        else
+        {
+            DeActivateJumpBoostUpgrade();
+        }
+        if (ShopInfo.Instance.RushHour_Active == true)
+        {
+            ActivateRushhourUpgrade();
+        }
+        else
+        {
+            DeActivateRushhourUpgrade();
+        }
+        if (ShopInfo.Instance.StamBoost_Active == true)
+        {
+            ActivateStamBoostUpgrade();
+        }
+        else
+        {
+            DeActivateStamBoostUpgrade();
+        }
+    }
+
     void MoneyCheatCode()
     {
         //Cheat Key for Money
@@ -128,33 +160,53 @@ public class SinglePlayerUpgradeShopManager : MonoBehaviour
 
     void UpdateUpgradeSlots()
     {
-        if (Overtime_Purchased == true)
+        if (ShopInfo.Instance.Overtime_Purchased == true)
         {
             Overtime_Button.interactable = false;
 
             //Disable EquipOn
             overtimeUpgradeIconCover.gameObject.SetActive(false);
-
-
-
-
         }
-        if (Overtime_Purchased == false)
+        else
         {
             Overtime_Button.interactable = true;
-
-
             overtimeUpgradeIconCover.gameObject.SetActive(true);
         }
 
-        if (JumpBoost_Purchased == true)
+        if (ShopInfo.Instance.RushHour_Purchased == true)
         {
+            RushHour_Button.interactable = false;
+            //Disable EquipOn
+            rushhourUpgradeIconCover.gameObject.SetActive(false);
+        }
+        else
+        {
+            RushHour_Button.interactable = true;
+            rushhourUpgradeIconCover.gameObject.SetActive(true);
+        }
+
+        if (ShopInfo.Instance.JumpBoost_Purchased == true)
+        {
+            JumpBoost_Button.interactable = false;
             //Disable EquipOn
             promotionUpgradeIconCover.gameObject.SetActive(false);
         }
-        if (JumpBoost_Purchased == false)
+        if (ShopInfo.Instance.JumpBoost_Purchased == false)
         {
+            JumpBoost_Button.interactable = true;
             promotionUpgradeIconCover.gameObject.SetActive(true);
+        }
+
+        if (ShopInfo.Instance.StamBoost_Purchased == true)
+        {
+            StamBoost_Button.interactable = false;
+            //Disable EquipOn
+            coffeebreakUpgradeIconCover.gameObject.SetActive(false);
+        }
+        else
+        {
+            StamBoost_Button.interactable = true;
+            coffeebreakUpgradeIconCover.gameObject.SetActive(true);
         }
 
     }
@@ -212,26 +264,36 @@ public class SinglePlayerUpgradeShopManager : MonoBehaviour
 
     public void PurchaceOvetimeUpgrade()
     {
-        Overtime_Purchased = true;
+        PlayerMoney -= Overtime_Cost;
+        ShopInfo.Instance.Overtime_Purchased = true;
         menuTweener.DeclineBuySlot1();
+        ActivateOvetimeUpgrade();
     }
     public void PurchaceRushhourUpgrade()
     {
-        RushHour_Active = true;
+        PlayerMoney -= RushHour_Cost;
+        ShopInfo.Instance.RushHour_Purchased = true;
+        menuTweener.DeclineBuySlot2();
+        ActivateRushhourUpgrade();
     }
     public void PurchaceJumpBoostUpgrade()
     {
-        JumpBoost_Purchased = true;
+        PlayerMoney -= JumpBoost_Cost;
+        ShopInfo.Instance.JumpBoost_Purchased = true;
         menuTweener.DeclineBuySlot3();
+        ActivateJumpBoostUpgrade();
     }
     public void PurchaceStamBoostUpgrade()
     {
-        StamBoost_Active = true;
+        PlayerMoney -= StamBoost_Cost;
+        ShopInfo.Instance.StamBoost_Purchased = true;
+        menuTweener.DeclineBuySlot4();
+        ActivateStamBoostUpgrade();
     }
 
     public void ActivateOvetimeUpgrade()
     {
-        Overtime_Active = true;
+        ShopInfo.Instance.Overtime_Active = true;
         // Actual Function of Overtime
 
         // Change color of Nametag
@@ -243,7 +305,7 @@ public class SinglePlayerUpgradeShopManager : MonoBehaviour
     }
     public void DeActivateOvertimeUpgrade()
     {
-        Overtime_Active = false;
+        ShopInfo.Instance.Overtime_Active = false;
         // Reverse Function of Overtime
 
         // Change color of Nametag
@@ -257,17 +319,16 @@ public class SinglePlayerUpgradeShopManager : MonoBehaviour
 
     public void ActivateJumpBoostUpgrade()
     {
-        JumpBoost_Active = true;
+        ShopInfo.Instance.JumpBoost_Active = true;
         // Change color of Nametag
         promotionUpgradeIcon.color = Color.green;
         // Disable activation button
         But_PromotionYes.interactable = false;
         But_PromotionNo.interactable = true;
     }
-
     public void DeActivateJumpBoostUpgrade()
     {
-        JumpBoost_Active = false;
+        ShopInfo.Instance.JumpBoost_Active = false;
         // Change color of Nametag
         promotionUpgradeIcon.color = Color.red;
         // Disable activation button
@@ -275,17 +336,42 @@ public class SinglePlayerUpgradeShopManager : MonoBehaviour
         But_PromotionYes.interactable = true;
     }
 
-
-
-
-
     public void ActivateRushhourUpgrade()
     {
-        RushHour_Active = true;
+        ShopInfo.Instance.RushHour_Active = true;
+        // Change color of Nametag
+        rushhourUpgradeIcon.color = Color.green;
+        // Disable activation button
+        But_RushhourYes.interactable = false;
+        But_RushhourNo.interactable = true;
     }
+    public void DeActivateRushhourUpgrade()
+    {
+        ShopInfo.Instance.RushHour_Active = false;
+        // Change color of Nametag
+        rushhourUpgradeIcon.color = Color.red;
+        // Disable activation button
+        But_RushhourNo.interactable = false;
+        But_RushhourYes.interactable = true;
+    }
+
     public void ActivateStamBoostUpgrade()
     {
-        StamBoost_Active = true;
+        ShopInfo.Instance.StamBoost_Active = true;
+        // Change color of Nametag
+        coffeebreakUpgradeIcon.color = Color.green;
+        // Disable activation button
+        But_CoffeebreakYes.interactable = false;
+        But_CoffeebreakNo.interactable = true;
+    }
+    public void DeActivateStamBoostUpgrade()
+    {
+        ShopInfo.Instance.StamBoost_Active = false;
+        // Change color of Nametag
+        coffeebreakUpgradeIcon.color = Color.red;
+        // Disable activation button
+        But_CoffeebreakNo.interactable = false;
+        But_CoffeebreakYes.interactable = true;
     }
 
 

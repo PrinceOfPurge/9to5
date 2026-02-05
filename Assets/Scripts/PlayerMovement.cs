@@ -1,10 +1,11 @@
+using FMOD.Studio;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Unity.Netcode;
-using UnityEngine.UI;
-using FMOD.Studio;
+using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : NetworkBehaviour
@@ -34,6 +35,11 @@ public class PlayerMovement : NetworkBehaviour
     public float moveSpeed;
     public Camera playerCamera;
 
+    [Header("Upgrades")]
+    public float jumpBoostUpgradeForce;
+    public float staminaBoostUpgradeMax;
+    public float rushHourUpgradeSpeedMultiplyer;
+
     [Header("Sensitivity Settings")]
     public float mouseSensitivity = 100f;
     private Vector2 lookInput;
@@ -44,6 +50,7 @@ public class PlayerMovement : NetworkBehaviour
     public float walkBobAmount = 0.05f;
     public float sprintBobSpeed = 18f;
     public float sprintBobAmount = 0.09f;
+
 
     private float bobTimer;
     private Vector3 cameraDefaultLocalPos;
@@ -70,9 +77,25 @@ public class PlayerMovement : NetworkBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
+        
+
+        if (ShopInfo.Instance != null)
+        {
+            if (ShopInfo.Instance.JumpBoost_Active)
+                jumpForce = jumpBoostUpgradeForce;
+            if(ShopInfo.Instance.StamBoost_Active)
+                maxStamina = staminaBoostUpgradeMax;
+            if (ShopInfo.Instance.RushHour_Active)
+            {
+                sprintSpeed *= rushHourUpgradeSpeedMultiplyer;
+                walkSpeed *= rushHourUpgradeSpeedMultiplyer;
+            }
+        }
+
         readyToJump = true;
         moveSpeed = walkSpeed;
         stamina = maxStamina;
+
 
         playerFootsteps = AudioManager.instance.CreateInstance(FMODEvents.instance.playerFootsteps);
         StaminaUI.SetActive(false);
