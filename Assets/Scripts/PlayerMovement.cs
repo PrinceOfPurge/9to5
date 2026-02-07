@@ -51,7 +51,6 @@ public class PlayerMovement : NetworkBehaviour
     public float sprintBobSpeed = 18f;
     public float sprintBobAmount = 0.09f;
 
-
     private float bobTimer;
     private Vector3 cameraDefaultLocalPos;
 
@@ -77,13 +76,11 @@ public class PlayerMovement : NetworkBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
-        
-
         if (ShopInfo.Instance != null)
         {
             if (ShopInfo.Instance.JumpBoost_Active)
                 jumpForce = jumpBoostUpgradeForce;
-            if(ShopInfo.Instance.StamBoost_Active)
+            if (ShopInfo.Instance.StamBoost_Active)
                 maxStamina = staminaBoostUpgradeMax;
             if (ShopInfo.Instance.RushHour_Active)
             {
@@ -95,7 +92,6 @@ public class PlayerMovement : NetworkBehaviour
         readyToJump = true;
         moveSpeed = walkSpeed;
         stamina = maxStamina;
-
 
         playerFootsteps = AudioManager.instance.CreateInstance(FMODEvents.instance.playerFootsteps);
         StaminaUI.SetActive(false);
@@ -172,13 +168,10 @@ public class PlayerMovement : NetworkBehaviour
 
     private void MovePlayer()
     {
-        // ================= STAMINA (RESTORED) =================
         if (sprinting && moveDirection != Vector3.zero && grounded && !staminaExhausted)
         {
             if (stamina > 0)
-            {
                 stamina -= 30 * Time.deltaTime;
-            }
             else
             {
                 greenWheel.enabled = false;
@@ -190,9 +183,7 @@ public class PlayerMovement : NetworkBehaviour
         else
         {
             if (grounded && stamina < maxStamina)
-            {
                 stamina += 30 * Time.deltaTime;
-            }
             else
             {
                 greenWheel.enabled = true;
@@ -208,24 +199,16 @@ public class PlayerMovement : NetworkBehaviour
         }
 
         if (staminaExhausted)
-        {
             moveSpeed = walkSpeed;
-            playerAnimator.SetBool("IsRunning", false);
-        }
 
         greenWheel.fillAmount = stamina / maxStamina;
-        // ======================================================
 
         moveDirection = orientation.forward * inputDirection.y + orientation.right * inputDirection.x;
 
         if (grounded)
-        {
             rb.AddForce(moveDirection.normalized * (moveSpeed * 10f), ForceMode.Force);
-        }
         else
-        {
             rb.AddForce(moveDirection.normalized * (moveSpeed * 10f * airMultiplier), ForceMode.Force);
-        }
     }
 
     void FixedUpdate()
@@ -240,11 +223,26 @@ public class PlayerMovement : NetworkBehaviour
 
         HandleLook();
         HandleHeadBob();
+        UpdateMovementAnimation();
 
         grounded = Physics.Raycast(transform.position, Vector3.down,
             playerHeight * 0.5f + 0.2f, whatIsGround);
 
         rb.drag = grounded ? groundDrag : 0f;
+    }
+
+    // ✅ NEW: Drives Idle / Walk / Run blend tree
+    private void UpdateMovementAnimation()
+    {
+        if (!playerAnimator) return;
+
+        if (inputDirection.sqrMagnitude < 0.1f)
+        {
+            playerAnimator.SetFloat("Speed", 0f);
+            return;
+        }
+
+        playerAnimator.SetFloat("Speed", sprinting ? 1.5f : 0.5f);
     }
 
     private void Jump()
@@ -278,7 +276,6 @@ public class PlayerMovement : NetworkBehaviour
         transform.Rotate(Vector3.up * mouseX);
     }
 
-    // ================= HEAD BOB =================
     private void HandleHeadBob()
     {
         if (!grounded || inputDirection.sqrMagnitude < 0.1f)

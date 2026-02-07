@@ -8673,6 +8673,7 @@ MonoBehaviour:
   successColor: {r: 0, g: 1, b: 0, a: 1}
   failColor: {r: 1, g: 0, b: 0, a: 1}
   flashDuration: 0.15
+  playerAnimator: {fileID: 919132148109756057}
 --- !u!65 &296995174
 BoxCollider:
   m_ObjectHideFlags: 0
