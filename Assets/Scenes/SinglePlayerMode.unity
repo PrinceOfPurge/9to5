@@ -52240,7 +52240,7 @@ PrefabInstance:
     - target: {fileID: 8443004736555753296, guid: 192099d2c29199a4c85c18215e0fd3f8, type: 3}
       propertyPath: playerAnimator
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5657683294043500940}
     - target: {fileID: 8443004736555753296, guid: 192099d2c29199a4c85c18215e0fd3f8, type: 3}
       propertyPath: sprintBobSpeed
       value: 14
