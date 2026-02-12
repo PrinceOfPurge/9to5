@@ -28,6 +28,9 @@ public class DirtCleaner : MonoBehaviour
     public Color failColor = Color.red;
     public float flashDuration = 0.15f;
 
+    [Header("Mop")]
+    public GameObject NewMop;
+
     private SpriteRenderer sr;
     private bool playerInRange = false;
     private bool isHolding = false;
@@ -36,7 +39,6 @@ public class DirtCleaner : MonoBehaviour
     private float currentAlpha = 1f;
     private bool playerPressed = false;
 
-    // Player references
     private PlayerMovement playerMovement;
     public Animator playerAnimator;
     private Camera playerCam;
@@ -61,6 +63,9 @@ public class DirtCleaner : MonoBehaviour
 
         if (sweetSpotMarker != null)
             sweetSpotMarker.enabled = false;
+
+        if (NewMop != null)
+            NewMop.SetActive(false);
     }
 
     private void Update()
@@ -132,6 +137,9 @@ public class DirtCleaner : MonoBehaviour
 
         if (cursorUI != null && defaultCursorSprite != null)
             cursorUI.sprite = defaultCursorSprite;
+
+        if (NewMop != null)
+            NewMop.SetActive(true);
     }
 
     private void ReleaseHold()
@@ -158,7 +166,6 @@ public class DirtCleaner : MonoBehaviour
     {
         yield return StartCoroutine(FlashColor(fillImage, successColor));
 
-        // ✅ Trigger mop interaction animation
         if (playerAnimator != null)
             playerAnimator.SetBool("InteractionActive", true);
 
@@ -212,12 +219,14 @@ public class DirtCleaner : MonoBehaviour
     {
         miniGameActive = false;
 
-        // ✅ RESET ANIMATOR BEFORE DESTROY
         if (playerAnimator != null)
             playerAnimator.SetBool("InteractionActive", false);
 
         if (playerMovement != null)
             playerMovement.enabled = true;
+
+        if (NewMop != null)
+            NewMop.SetActive(false);
 
         if (doneVFX != null)
         {
