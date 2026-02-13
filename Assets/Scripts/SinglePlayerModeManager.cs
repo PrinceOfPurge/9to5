@@ -21,6 +21,12 @@ public class SinglePlayerModeManager : MonoBehaviour
     public int BagsRemaining;
     public int SinglePlayerScore;
 
+    //Level
+    [SerializeField] private int[] spawnCountsPerLevel;
+    private SpawnPointsHolder spawnPointsHolder;
+    public int CurrentLevel = 1;
+    
+
     private bool gameEnded = false;
 
     public int PlayerMoney;
@@ -62,6 +68,10 @@ public class SinglePlayerModeManager : MonoBehaviour
             gameEnded = false;
             TimerValue = maxTimerValue;
             TimerisRunning = true;
+
+            spawnPointsHolder = FindFirstObjectByType<SpawnPointsHolder>();
+            SpawnForCurrentLevel();
+
             BagsRemaining = 6;
         }
     }
@@ -95,7 +105,27 @@ public class SinglePlayerModeManager : MonoBehaviour
         EndTheGame();
         
     }
-    
+
+    //Level Based Spawn Counts
+    public void SpawnForCurrentLevel()
+    {
+        if (spawnPointsHolder == null)
+            return;
+
+        spawnPointsHolder.SpawnRandom(GetSpawnCountForLevel());
+    }
+
+    int GetSpawnCountForLevel()
+    {
+        int index = CurrentLevel - 1;
+        if (index < 0 || index >= spawnCountsPerLevel.Length)
+        {
+            return spawnCountsPerLevel[^1];
+        }
+        return spawnCountsPerLevel[index];
+    }
+
+
     //---------------------------------------------------------
 
     void UpdateTimerUI()
