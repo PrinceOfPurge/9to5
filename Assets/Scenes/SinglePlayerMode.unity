@@ -51111,7 +51111,7 @@ MonoBehaviour:
       Data2: 1127813028
       Data3: -1152623200
       Data4: -1903149686
-    Path: event:/AmbienceBirds
+    Path: event:/Ambience/Ambience
   <music>k__BackingField:
     Guid:
       Data1: 1914682498
@@ -51125,21 +51125,21 @@ MonoBehaviour:
       Data2: 1085913727
       Data3: 1228627361
       Data4: 676502900
-    Path: event:/Footsteps
+    Path: event:/SFX/Player/Footsteps
   <Scub>k__BackingField:
     Guid:
       Data1: 1191062496
       Data2: 1101852206
       Data3: 51330456
       Data4: 193090023
-    Path: event:/Scub
+    Path: event:/SFX/World/Scub
   <Splash>k__BackingField:
     Guid:
       Data1: -1784708592
       Data2: 1164781343
       Data3: 1087085959
       Data4: 1659617426
-    Path: event:/Splash
+    Path: event:/SFX/World/Splash
   <SprayBottle>k__BackingField:
     Guid:
       Data1: -305552945
@@ -51153,21 +51153,21 @@ MonoBehaviour:
       Data2: 1229062774
       Data3: -1199257975
       Data4: 2108407429
-    Path: event:/Done
+    Path: event:/SFX/World/Done
   <Swish>k__BackingField:
     Guid:
       Data1: -1784708592
       Data2: 1164781343
       Data3: 1087085959
       Data4: 1659617426
-    Path: event:/Splash
+    Path: event:/SFX/World/Splash
   <buttonClick>k__BackingField:
     Guid:
       Data1: -1784708592
       Data2: 1164781343
       Data3: 1087085959
       Data4: 1659617426
-    Path: event:/Splash
+    Path: event:/SFX/World/Splash
   <sliderMove>k__BackingField:
     Guid:
       Data1: 999481675
