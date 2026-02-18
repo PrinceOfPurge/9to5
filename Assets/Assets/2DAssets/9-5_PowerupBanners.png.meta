@@ -1,0 +1,323 @@
+fileFormatVersion: 2
+guid: c081371c8d73e66468dc5985b08ea0f0
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 9-5_PowerupBanners_0
+      rect:
+        serializedVersion: 2
+        x: 1106
+        y: 1375
+        width: 16
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b489cbb40834334981a331cfa7c1770
+      internalID: 323873211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_PowerupBanners_10
+      rect:
+        serializedVersion: 2
+        x: 983
+        y: 956
+        width: 823
+        height: 383
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1096ea413f0953b4e970ebb9ef1d7515
+      internalID: -1919348890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_PowerupBanners_23
+      rect:
+        serializedVersion: 2
+        x: 1166
+        y: 583
+        width: 442
+        height: 278
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38f56d8ee32d4694c90918cf62464aa6
+      internalID: 421466147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_PowerupBanners_32
+      rect:
+        serializedVersion: 2
+        x: 1037
+        y: 206
+        width: 696
+        height: 239
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58cf4135e79d27d449af531b08308891
+      internalID: 652494331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_PowerupBanners_1
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 831
+        width: 806
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb3ca73a0cd8c81478f58634b701ef01
+      internalID: 907919460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_PowerupBanners_2
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 459
+        width: 601
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5ba460b9f4da2a42832656e037bc566
+      internalID: 92385292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_PowerupBanners_3
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 94
+        width: 628
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83c0f32d015a77140b5c25eda0dd7868
+      internalID: 363176626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_PowerupBanners_4
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 1183
+        width: 672
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73ee152da29611a4a889fa382c4ce9f4
+      internalID: -1933923591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 258d4cc742cd1c1468806c1ccbeada9e
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      9-5_PowerupBanners_0: 323873211
+      9-5_PowerupBanners_1: 907919460
+      9-5_PowerupBanners_10: -1919348890
+      9-5_PowerupBanners_11: 319727598
+      9-5_PowerupBanners_12: -1218033166
+      9-5_PowerupBanners_13: -606671885
+      9-5_PowerupBanners_14: 772890928
+      9-5_PowerupBanners_15: 200582510
+      9-5_PowerupBanners_16: -680509384
+      9-5_PowerupBanners_17: 1948595729
+      9-5_PowerupBanners_18: 1049055738
+      9-5_PowerupBanners_19: -353684333
+      9-5_PowerupBanners_2: 92385292
+      9-5_PowerupBanners_20: -747166597
+      9-5_PowerupBanners_21: -155902124
+      9-5_PowerupBanners_22: 75697227
+      9-5_PowerupBanners_23: 421466147
+      9-5_PowerupBanners_24: -777292468
+      9-5_PowerupBanners_25: 1809401539
+      9-5_PowerupBanners_26: -1303790144
+      9-5_PowerupBanners_27: 1756467372
+      9-5_PowerupBanners_28: 967790454
+      9-5_PowerupBanners_29: -835588009
+      9-5_PowerupBanners_3: 363176626
+      9-5_PowerupBanners_30: 1306044203
+      9-5_PowerupBanners_31: -186861652
+      9-5_PowerupBanners_32: 652494331
+      9-5_PowerupBanners_33: -1713310027
+      9-5_PowerupBanners_34: -1600532911
+      9-5_PowerupBanners_35: -1481927734
+      9-5_PowerupBanners_36: 333685664
+      9-5_PowerupBanners_37: 130279370
+      9-5_PowerupBanners_38: 1051919644
+      9-5_PowerupBanners_39: -1598219669
+      9-5_PowerupBanners_4: -1933923591
+      9-5_PowerupBanners_40: 533432507
+      9-5_PowerupBanners_5: 1742126631
+      9-5_PowerupBanners_6: 501730307
+      9-5_PowerupBanners_7: -400619021
+      9-5_PowerupBanners_8: 430073942
+      9-5_PowerupBanners_9: 1408882702
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
