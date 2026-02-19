@@ -39,6 +39,7 @@ public class DirtCleaner : MonoBehaviour
     private float currentAlpha = 1f;
     private bool playerPressed = false;
 
+    // Player references
     private PlayerMovement playerMovement;
     public Animator playerAnimator;
     private Camera playerCam;
@@ -63,9 +64,6 @@ public class DirtCleaner : MonoBehaviour
 
         if (sweetSpotMarker != null)
             sweetSpotMarker.enabled = false;
-
-        if (NewMop != null)
-            NewMop.SetActive(false);
     }
 
     private void Update()
@@ -137,9 +135,6 @@ public class DirtCleaner : MonoBehaviour
 
         if (cursorUI != null && defaultCursorSprite != null)
             cursorUI.sprite = defaultCursorSprite;
-
-        if (NewMop != null)
-            NewMop.SetActive(true);
     }
 
     private void ReleaseHold()

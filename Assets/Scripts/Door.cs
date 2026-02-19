@@ -7,13 +7,16 @@ public class Door : MonoBehaviour
     public GameObject doorOpened;
     public GameObject IntIcon;
     public float openTime = 2f;
+    public static Door activeDoor;
+
 
     private bool playerInRange = false;
     private bool isOpen = false;
 
     void Update()
     {
-        if (playerInRange && !isOpen && Input.GetKeyDown(KeyCode.C))
+
+        if (playerInRange && activeDoor == this && !isOpen && Input.GetKeyDown(KeyCode.C))
         {
             OpenDoor();
         }
@@ -41,18 +44,20 @@ public class Door : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("MainCamera"))
+        if (!playerInRange)
         {
             playerInRange = true;
+            activeDoor = this;
             IntIcon.SetActive(true);
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("MainCamera"))
+        if (activeDoor == this)
         {
             playerInRange = false;
+            activeDoor = null;
             IntIcon.SetActive(false);
         }
     }
