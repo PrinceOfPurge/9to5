@@ -167,8 +167,11 @@ public class DirtCleaner : MonoBehaviour
         yield return StartCoroutine(FlashColor(fillImage, successColor));
 
         if (playerAnimator != null)
+        {
             playerAnimator.SetBool("InteractionActive", true);
-
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.Broom, transform.position);
+        }
+        
         float duration = 0.5f;
         Vector3 initialScale = miniGameUIParent.transform.localScale;
         Vector3 targetScale = Vector3.zero;
@@ -218,7 +221,7 @@ public class DirtCleaner : MonoBehaviour
     private void FinishMiniGame()
     {
         miniGameActive = false;
-
+        
         if (playerAnimator != null)
             playerAnimator.SetBool("InteractionActive", false);
 
@@ -227,7 +230,10 @@ public class DirtCleaner : MonoBehaviour
 
         if (NewMop != null)
             NewMop.SetActive(false);
-
+        
+        if (cursorUI != null && defaultCursorSprite != null)
+            cursorUI.sprite = defaultCursorSprite;
+        
         if (doneVFX != null)
         {
             GameObject vfx = Instantiate(doneVFX, transform.position, Quaternion.identity);

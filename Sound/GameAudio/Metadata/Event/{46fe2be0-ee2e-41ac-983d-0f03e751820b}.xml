@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{46fe2be0-ee2e-41ac-983d-0f03e751820b}">
 		<property name="name">
-			<value>Scub</value>
+			<value>Broom</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
@@ -84,7 +84,7 @@
 	</object>
 	<object class="MultiSound" id="{7379e398-7a66-43f7-a63e-e858bfc63675}">
 		<relationship name="sounds">
-			<destination>{4705e95c-504a-45dc-9d49-455195a8e86f}</destination>
+			<destination>{78d07d9b-6463-4ce9-be2b-333a1ffd7bc3}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{f73c27cd-152f-4a87-a343-468fdaa6c744}">
@@ -99,9 +99,9 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{4ec931d7-e945-4317-8e0b-347982725d51}" />
-	<object class="SingleSound" id="{4705e95c-504a-45dc-9d49-455195a8e86f}">
+	<object class="SingleSound" id="{78d07d9b-6463-4ce9-be2b-333a1ffd7bc3}">
 		<relationship name="audioFile">
-			<destination>{0ab7cec1-0126-4893-8c90-6720a9583365}</destination>
+			<destination>{9fb4e73f-2eaa-4c70-97c2-4f80fbabb5b7}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{18efd967-9f6b-440d-9fdf-a8f0432775d4}" />

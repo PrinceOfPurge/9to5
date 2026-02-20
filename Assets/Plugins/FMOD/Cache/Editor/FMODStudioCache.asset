@@ -1,5 +1,32 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9202985593517664804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/World/Broom
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/World/Broom
+  Guid:
+    Data1: 1191062496
+    Data2: 1101852206
+    Data3: 51330456
+    Data4: 193090023
+  Banks:
+  - {fileID: 420874186844364336}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-8124551285229881772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27,33 +54,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 56888
---- !u!114 &-6604554197517648635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/World/Scub
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/World/Scub
-  Guid:
-    Data1: 1191062496
-    Data2: 1101852206
-    Data3: 51330456
-    Data4: 193090023
-  Banks:
-  - {fileID: 420874186844364336}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
 --- !u!114 &-2756938002841102240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,7 +97,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639056567537332099
+  lastModified: 639071352353984867
   FileSizes:
   - Name: Desktop
     Value: 1486
@@ -154,15 +154,17 @@ MonoBehaviour:
   - {fileID: 3666032600028219273}
   - {fileID: 3775657337621036454}
   - {fileID: -1473435627692871961}
-  - {fileID: -6604554197517648635}
   - {fileID: 6452766314497674392}
   - {fileID: -2756938002841102240}
+  - {fileID: -9202985593517664804}
+  - {fileID: 2007001425536825943}
+  - {fileID: 5332833298898345975}
   EditorParameters: []
   MasterBanks:
   - {fileID: -1856225702813662801}
   StringsBanks:
   - {fileID: 624774501610172950}
-  cacheTime: 639069522493426965
+  cacheTime: 639071368159790850
   cacheVersion: 131620
 --- !u!114 &86615865890799009
 MonoBehaviour:
@@ -206,10 +208,10 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639069522493426965
+  lastModified: 639071368159790850
   FileSizes:
   - Name: Desktop
-    Value: 713952
+    Value: 1003776
   Exists: 1
 --- !u!114 &624774501610172950
 MonoBehaviour:
@@ -226,10 +228,10 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639056567537362098
+  lastModified: 639071352354004916
   FileSizes:
   - Name: Desktop
-    Value: 1410
+    Value: 1510
   Exists: 1
 --- !u!114 &1640576777819759634
 MonoBehaviour:
@@ -246,11 +248,38 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Ambience.bank
   Name: Ambience
   StudioPath: bank:/Ambience
-  lastModified: 639056567537301702
+  lastModified: 638997782452601142
   FileSizes:
   - Name: Desktop
     Value: 604192
   Exists: 1
+--- !u!114 &2007001425536825943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/NPCs/GymTeacherHit
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/NPCs/GymTeacherHit
+  Guid:
+    Data1: -1892791432
+    Data2: 1271637449
+    Data3: -1476380797
+    Data4: 639134444
+  Banks:
+  - {fileID: 420874186844364336}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 5980
 --- !u!114 &3666032600028219273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,7 +306,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 3768
+  Length: 750
 --- !u!114 &3775657337621036454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,6 +334,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 501
+--- !u!114 &5332833298898345975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/NPCs/GymTeacherGreet
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/NPCs/GymTeacherGreet
+  Guid:
+    Data1: -1255675727
+    Data2: 1143231981
+    Data3: 1705454780
+    Data4: 885073542
+  Banks:
+  - {fileID: 420874186844364336}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &6452766314497674392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,7 +403,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 639056567537981471
+  lastModified: 639071320110403919
   FileSizes:
   - Name: Desktop
     Value: 1369824
