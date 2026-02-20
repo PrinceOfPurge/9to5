@@ -60939,7 +60939,7 @@ PrefabInstance:
     - target: {fileID: -4912789079566593633, guid: 28736dde1cb7a084d969d76397706677, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: d767c9b2c90e3d946926c1a714d44e31, type: 2}
+      objectReference: {fileID: 2100000, guid: e450ce0e1acd9694d9357593a38665b4, type: 2}
     - target: {fileID: 919132149155446097, guid: 28736dde1cb7a084d969d76397706677, type: 3}
       propertyPath: m_Name
       value: FT_animations
@@ -60947,7 +60947,7 @@ PrefabInstance:
     - target: {fileID: 2560676015949912189, guid: 28736dde1cb7a084d969d76397706677, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 9db7cba904621314e8834f65330c37c6, type: 2}
+      objectReference: {fileID: 2100000, guid: fe169c6ecb6840340bee6278e868432c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
