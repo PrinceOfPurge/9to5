@@ -18,6 +18,9 @@ public class DirtCleaner : MonoBehaviour
     public Image fillImage;
     public Image sweetSpotMarker;
 
+    [Header("Mini Game Prompt")]
+    public GameObject miniGamePrompt;
+
     [Header("Cursor")]
     public Image cursorUI;
     public Sprite defaultCursorSprite;
@@ -28,8 +31,16 @@ public class DirtCleaner : MonoBehaviour
     public Color failColor = Color.red;
     public float flashDuration = 0.15f;
 
-    [Header("Mop")]
-    public GameObject NewMop;
+    [Header("World Mop (Pickup)")]
+    public GameObject worldMop;
+    public float mopRotationSpeed = 180f;
+    public float mopFloatHeight = 0.1f;
+    public float mopFloatSpeed = 2f;
+
+    [Header("Player Hand Mop")]
+    public GameObject playerHandMop;
+
+    private Vector3 mopStartPos;
 
     private SpriteRenderer sr;
     private bool playerInRange = false;
@@ -55,6 +66,9 @@ public class DirtCleaner : MonoBehaviour
         if (cleaningPrompt != null)
             cleaningPrompt.SetActive(false);
 
+        if (miniGamePrompt != null)
+            miniGamePrompt.SetActive(false);
+
         if (cursorUI != null && defaultCursorSprite != null)
             cursorUI.sprite = defaultCursorSprite;
 
@@ -64,16 +78,33 @@ public class DirtCleaner : MonoBehaviour
         if (sweetSpotMarker != null)
             sweetSpotMarker.enabled = false;
 
-        if (NewMop != null)
-            NewMop.SetActive(false);
+        if (worldMop != null)
+            mopStartPos = worldMop.transform.localPosition;
+
+        if (playerHandMop != null)
+            playerHandMop.SetActive(false);
     }
 
     private void Update()
     {
+        // Always spin & float world mop
+        if (worldMop != null && worldMop.activeSelf)
+        {
+            worldMop.transform.Rotate(Vector3.up * mopRotationSpeed * Time.deltaTime, Space.World);
+
+            float newY = mopStartPos.y + Mathf.Sin(Time.time * mopFloatSpeed) * mopFloatHeight;
+            Vector3 pos = worldMop.transform.localPosition;
+            pos.y = newY;
+            worldMop.transform.localPosition = pos;
+        }
+
         if (!playerInRange) return;
 
         if (!miniGameActive && Input.GetKeyDown(interactKey))
         {
+            if (worldMop != null)
+                worldMop.SetActive(false);
+
             StartMiniGame();
         }
 
@@ -119,6 +150,9 @@ public class DirtCleaner : MonoBehaviour
         if (miniGameUIParent != null)
             miniGameUIParent.SetActive(true);
 
+        if (miniGamePrompt != null)
+            miniGamePrompt.SetActive(true);
+
         if (fillImage != null)
             fillImage.fillAmount = 0f;
 
@@ -137,9 +171,6 @@ public class DirtCleaner : MonoBehaviour
 
         if (cursorUI != null && defaultCursorSprite != null)
             cursorUI.sprite = defaultCursorSprite;
-
-        if (NewMop != null)
-            NewMop.SetActive(true);
     }
 
     private void ReleaseHold()
@@ -157,6 +188,7 @@ public class DirtCleaner : MonoBehaviour
         {
             StartCoroutine(FlashColor(fillImage, failColor));
             holdTimer = 0f;
+
             if (fillImage != null)
                 fillImage.fillAmount = 0f;
         }
@@ -170,8 +202,11 @@ public class DirtCleaner : MonoBehaviour
         {
             playerAnimator.SetBool("InteractionActive", true);
             AudioManager.instance.PlayOneShot(FMODEvents.instance.Broom, transform.position);
+
+            if (playerHandMop != null)
+                playerHandMop.SetActive(true);
         }
-        
+
         float duration = 0.5f;
         Vector3 initialScale = miniGameUIParent.transform.localScale;
         Vector3 targetScale = Vector3.zero;
@@ -187,6 +222,9 @@ public class DirtCleaner : MonoBehaviour
 
         if (miniGameUIParent != null)
             miniGameUIParent.SetActive(false);
+
+        if (miniGamePrompt != null)
+            miniGamePrompt.SetActive(false);
 
         StartCoroutine(FadeDirt());
     }
@@ -221,19 +259,22 @@ public class DirtCleaner : MonoBehaviour
     private void FinishMiniGame()
     {
         miniGameActive = false;
-        
+
         if (playerAnimator != null)
             playerAnimator.SetBool("InteractionActive", false);
 
         if (playerMovement != null)
             playerMovement.enabled = true;
 
-        if (NewMop != null)
-            NewMop.SetActive(false);
-        
+        if (playerHandMop != null)
+            playerHandMop.SetActive(false);
+
+        if (miniGamePrompt != null)
+            miniGamePrompt.SetActive(false);
+
         if (cursorUI != null && defaultCursorSprite != null)
             cursorUI.sprite = defaultCursorSprite;
-        
+
         if (doneVFX != null)
         {
             GameObject vfx = Instantiate(doneVFX, transform.position, Quaternion.identity);
