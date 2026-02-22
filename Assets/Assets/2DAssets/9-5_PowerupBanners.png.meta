@@ -100,10 +100,10 @@ TextureImporter:
       name: 9-5_PowerupBanners_0
       rect:
         serializedVersion: 2
-        x: 1106
-        y: 1375
-        width: 16
-        height: 6
+        x: 122
+        y: 1196
+        width: 673
+        height: 104
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -111,8 +111,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9b489cbb40834334981a331cfa7c1770
-      internalID: 323873211
+      spriteID: 48722625ac1786d499c114ea3604c10c
+      internalID: 1035944976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_PowerupBanners_9
+      rect:
+        serializedVersion: 2
+        x: 1041
+        y: 934
+        width: 708
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8236b34d5f537854881b09a2d367fd53
+      internalID: -1223143648
       vertices: []
       indices: 
       edges: []
@@ -121,10 +142,10 @@ TextureImporter:
       name: 9-5_PowerupBanners_10
       rect:
         serializedVersion: 2
-        x: 983
-        y: 956
-        width: 823
-        height: 383
+        x: 250
+        y: 926
+        width: 73
+        height: 4
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,14 +153,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1096ea413f0953b4e970ebb9ef1d7515
-      internalID: -1919348890
+      spriteID: da9da7eb581e95c42a8856a14ac61131
+      internalID: 1399648578
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 9-5_PowerupBanners_23
+      name: 9-5_PowerupBanners_12
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 836
+        width: 806
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67025f363f6e9fc4ab72b435204fbdf7
+      internalID: -1650139403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_PowerupBanners_22
       rect:
         serializedVersion: 2
         x: 1166
@@ -153,14 +195,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 38f56d8ee32d4694c90918cf62464aa6
-      internalID: 421466147
+      spriteID: 388ba6cb5887d0a48a26d51c43c7ce3d
+      internalID: 401639006
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 9-5_PowerupBanners_32
+      name: 9-5_PowerupBanners_23
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 478
+        width: 590
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb0d6d779ba08d241ae6a8af842f58d8
+      internalID: 480595010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_PowerupBanners_31
       rect:
         serializedVersion: 2
         x: 1037
@@ -174,20 +237,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 58cf4135e79d27d449af531b08308891
-      internalID: 652494331
+      spriteID: 052eadb0ee7f83f4f8102e21ae0d0702
+      internalID: -1289118401
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 9-5_PowerupBanners_1
+      name: 9-5_PowerupBanners_32
       rect:
         serializedVersion: 2
-        x: 54
-        y: 831
-        width: 806
-        height: 121
+        x: 138
+        y: 119
+        width: 625
+        height: 104
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,71 +258,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cb3ca73a0cd8c81478f58634b701ef01
-      internalID: 907919460
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 9-5_PowerupBanners_2
-      rect:
-        serializedVersion: 2
-        x: 153
-        y: 459
-        width: 601
-        height: 120
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b5ba460b9f4da2a42832656e037bc566
-      internalID: 92385292
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 9-5_PowerupBanners_3
-      rect:
-        serializedVersion: 2
-        x: 139
-        y: 94
-        width: 628
-        height: 133
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 83c0f32d015a77140b5c25eda0dd7868
-      internalID: 363176626
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 9-5_PowerupBanners_4
-      rect:
-        serializedVersion: 2
-        x: 121
-        y: 1183
-        width: 672
-        height: 125
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 73ee152da29611a4a889fa382c4ce9f4
-      internalID: -1933923591
+      spriteID: e5dd016538c2b5f42b17fedbf227362e
+      internalID: -1521832008
       vertices: []
       indices: 
       edges: []
@@ -267,7 +267,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 258d4cc742cd1c1468806c1ccbeada9e
+    spriteID: a56e4e68fa5d08e4c8e6b812d67aabd7
     internalID: 0
     vertices: []
     indices: 
@@ -275,47 +275,46 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      9-5_PowerupBanners_0: 323873211
-      9-5_PowerupBanners_1: 907919460
-      9-5_PowerupBanners_10: -1919348890
-      9-5_PowerupBanners_11: 319727598
-      9-5_PowerupBanners_12: -1218033166
-      9-5_PowerupBanners_13: -606671885
-      9-5_PowerupBanners_14: 772890928
-      9-5_PowerupBanners_15: 200582510
-      9-5_PowerupBanners_16: -680509384
-      9-5_PowerupBanners_17: 1948595729
-      9-5_PowerupBanners_18: 1049055738
-      9-5_PowerupBanners_19: -353684333
-      9-5_PowerupBanners_2: 92385292
-      9-5_PowerupBanners_20: -747166597
-      9-5_PowerupBanners_21: -155902124
-      9-5_PowerupBanners_22: 75697227
-      9-5_PowerupBanners_23: 421466147
-      9-5_PowerupBanners_24: -777292468
-      9-5_PowerupBanners_25: 1809401539
-      9-5_PowerupBanners_26: -1303790144
-      9-5_PowerupBanners_27: 1756467372
-      9-5_PowerupBanners_28: 967790454
-      9-5_PowerupBanners_29: -835588009
-      9-5_PowerupBanners_3: 363176626
-      9-5_PowerupBanners_30: 1306044203
-      9-5_PowerupBanners_31: -186861652
-      9-5_PowerupBanners_32: 652494331
-      9-5_PowerupBanners_33: -1713310027
-      9-5_PowerupBanners_34: -1600532911
-      9-5_PowerupBanners_35: -1481927734
-      9-5_PowerupBanners_36: 333685664
-      9-5_PowerupBanners_37: 130279370
-      9-5_PowerupBanners_38: 1051919644
-      9-5_PowerupBanners_39: -1598219669
-      9-5_PowerupBanners_4: -1933923591
-      9-5_PowerupBanners_40: 533432507
-      9-5_PowerupBanners_5: 1742126631
-      9-5_PowerupBanners_6: 501730307
-      9-5_PowerupBanners_7: -400619021
-      9-5_PowerupBanners_8: 430073942
-      9-5_PowerupBanners_9: 1408882702
+      9-5_PowerupBanners_0: 1035944976
+      9-5_PowerupBanners_1: 2093348448
+      9-5_PowerupBanners_10: 1399648578
+      9-5_PowerupBanners_11: 1721153897
+      9-5_PowerupBanners_12: -1650139403
+      9-5_PowerupBanners_13: -763480824
+      9-5_PowerupBanners_14: -855520952
+      9-5_PowerupBanners_15: 1376192754
+      9-5_PowerupBanners_16: 433260111
+      9-5_PowerupBanners_17: 1533190507
+      9-5_PowerupBanners_18: 1434521502
+      9-5_PowerupBanners_19: 2136908397
+      9-5_PowerupBanners_2: -694830959
+      9-5_PowerupBanners_20: -1129265982
+      9-5_PowerupBanners_21: 1910808212
+      9-5_PowerupBanners_22: 401639006
+      9-5_PowerupBanners_23: 480595010
+      9-5_PowerupBanners_24: 1480889569
+      9-5_PowerupBanners_25: -458406064
+      9-5_PowerupBanners_26: 958957095
+      9-5_PowerupBanners_27: -1583176999
+      9-5_PowerupBanners_28: -54552056
+      9-5_PowerupBanners_29: 199815847
+      9-5_PowerupBanners_3: 686577381
+      9-5_PowerupBanners_30: -2007599295
+      9-5_PowerupBanners_31: -1289118401
+      9-5_PowerupBanners_32: -1521832008
+      9-5_PowerupBanners_33: -2066196434
+      9-5_PowerupBanners_34: -1070562020
+      9-5_PowerupBanners_35: -455945431
+      9-5_PowerupBanners_36: 1159808852
+      9-5_PowerupBanners_37: 694101118
+      9-5_PowerupBanners_38: -262293372
+      9-5_PowerupBanners_39: 844324038
+      9-5_PowerupBanners_4: -1641317912
+      9-5_PowerupBanners_5: -1803350062
+      9-5_PowerupBanners_6: 536652610
+      9-5_PowerupBanners_7: 570700054
+      9-5_PowerupBanners_8: -1451884148
+      9-5_PowerupBanners_9: -1223143648
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
