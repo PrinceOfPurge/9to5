@@ -1,59 +1,110 @@
 using System.Collections;
 using UnityEngine;
 
-public class Door : MonoBehaviour
+public class Door : MonoBehaviour, IInteractable
 {
+    [Header("Door Objects")]
     public GameObject doorClosed;
     public GameObject doorOpened;
-    public GameObject IntIcon;
-    public float openTime = 2f;
 
-    private bool playerInRange = false;
+    [Header("Prompts")]
+    public GameObject openPrompt;
+    public GameObject closePrompt;
+    
+    [Header("Crosshair UI")]
+    public GameObject crosshair1; 
+    public GameObject crosshair2; 
+
     private bool isOpen = false;
+    private bool isFocused = false;
 
-    void Update()
+    void Start()
     {
-        if (playerInRange && !isOpen && Input.GetKeyDown(KeyCode.C))
-        {
+        if (doorClosed) doorClosed.SetActive(true);
+        if (doorOpened) doorOpened.SetActive(false);
+        
+        if (openPrompt) openPrompt.SetActive(false);
+        if (closePrompt) closePrompt.SetActive(false);
+        
+    }
+
+    public void OnFocus()
+    {
+        isFocused = true;
+        if (crosshair1) crosshair1.SetActive(false);
+        if (crosshair2) crosshair2.SetActive(true);
+        UpdatePrompts();
+    }
+
+    public void OnLoseFocus()
+    {
+        isFocused = false;
+        if (crosshair1) crosshair1.SetActive(true);
+        if (crosshair2) crosshair2.SetActive(false);
+        UpdatePrompts();
+    }
+
+    public void OnInteract()
+    {
+        if (!isOpen) 
             OpenDoor();
-        }
+        else 
+            CloseDoor();
     }
 
     void OpenDoor()
     {
         isOpen = true;
-        IntIcon.SetActive(false);
+        if (doorClosed) doorClosed.SetActive(false);
+        if (doorOpened) doorOpened.SetActive(true);
+        
+        PlayDoorSound(true);
 
-        doorClosed.SetActive(false);
-        doorOpened.SetActive(true);
-
-        StartCoroutine(CloseDoor());
+        UpdatePrompts();
     }
 
-    IEnumerator CloseDoor()
+    void CloseDoor()
     {
-        yield return new WaitForSeconds(openTime);
-
-        doorOpened.SetActive(false);
-        doorClosed.SetActive(true);
         isOpen = false;
+        if (doorOpened) doorOpened.SetActive(false);
+        if (doorClosed) doorClosed.SetActive(true);
+        
+        PlayDoorSound(false);
+
+        UpdatePrompts();
     }
 
-    void OnTriggerEnter(Collider other)
+    private void PlayDoorSound(bool opening)
     {
-        if (other.CompareTag("MainCamera"))
+        // Check if Manager exists
+        if (AudioManager.instance == null)
         {
-            playerInRange = true;
-            IntIcon.SetActive(true);
+            //Debug.LogError("DEBUG: Cannot play sound. AudioManager.instance is null.");
+            return;
         }
+
+        // 2. Select Event and Check if Reference is assigned
+        FMODUnity.EventReference targetEvent = opening ? FMODEvents.instance.DoorOpen : FMODEvents.instance.DoorClose;
+
+        if (targetEvent.IsNull)
+        {
+            //Debug.LogError($"DEBUG: FMOD Event '{(opening ? "DoorOpen" : "DoorClose")}' is NOT assigned in FMODEvents inspector!");
+            return;
+        }
+
+        // 3. Try to play
+        //Debug.Log($"DEBUG: Attempting to play {(opening ? "Open" : "Close")} sound at {transform.position}");
+        AudioManager.instance.PlayOneShot(targetEvent, Camera.main.transform.position);
     }
 
-    void OnTriggerExit(Collider other)
+    void UpdatePrompts()
     {
-        if (other.CompareTag("MainCamera"))
-        {
-            playerInRange = false;
-            IntIcon.SetActive(false);
-        }
+        if (!gameObject.activeInHierarchy) return;
+
+        if (openPrompt)
+            openPrompt.SetActive(isFocused && !isOpen);
+
+        if (closePrompt)
+            closePrompt.SetActive(isFocused && isOpen);
     }
 }

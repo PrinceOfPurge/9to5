@@ -54,6 +54,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 56888
+--- !u!114 &-3221487109547617214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/World/DoorOpen
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/World/DoorOpen
+  Guid:
+    Data1: -2118322898
+    Data2: 1319040205
+    Data3: 832309944
+    Data4: -845578662
+  Banks:
+  - {fileID: 420874186844364336}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-2756938002841102240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,7 +124,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639056567537332099
+  lastModified: 639073579763531747
   FileSizes:
   - Name: Desktop
     Value: 1486
@@ -159,12 +186,14 @@ MonoBehaviour:
   - {fileID: -9202985593517664804}
   - {fileID: 2007001425536825943}
   - {fileID: 5332833298898345975}
+  - {fileID: 8013622180885864422}
+  - {fileID: -3221487109547617214}
   EditorParameters: []
   MasterBanks:
   - {fileID: -1856225702813662801}
   StringsBanks:
   - {fileID: 624774501610172950}
-  cacheTime: 639071907359029901
+  cacheTime: 639073579765029989
   cacheVersion: 131620
 --- !u!114 &86615865890799009
 MonoBehaviour:
@@ -208,10 +237,10 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639071907359029901
+  lastModified: 639073579765029989
   FileSizes:
   - Name: Desktop
-    Value: 1003776
+    Value: 1027232
   Exists: 1
 --- !u!114 &624774501610172950
 MonoBehaviour:
@@ -228,10 +257,10 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639071907358969172
+  lastModified: 639073579763541765
   FileSizes:
   - Name: Desktop
-    Value: 1510
+    Value: 1606
   Exists: 1
 --- !u!114 &1640576777819759634
 MonoBehaviour:
@@ -248,7 +277,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Ambience.bank
   Name: Ambience
   StudioPath: bank:/Ambience
-  lastModified: 639056567537301702
+  lastModified: 638997782452601142
   FileSizes:
   - Name: Desktop
     Value: 604192
@@ -388,6 +417,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &8013622180885864422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/World/DoorClose
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/World/DoorClose
+  Guid:
+    Data1: 1623309614
+    Data2: 1302504267
+    Data3: -2054346576
+    Data4: -2111411207
+  Banks:
+  - {fileID: 420874186844364336}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &8295219476953184853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,7 +459,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 639071907359004520
+  lastModified: 639071320110403919
   FileSizes:
   - Name: Desktop
     Value: 1369824

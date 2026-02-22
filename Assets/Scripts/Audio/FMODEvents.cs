@@ -13,15 +13,19 @@ public class FMODEvents : MonoBehaviour
     
     [field: Header("Player SFX")]
     [field: SerializeField] public EventReference playerFootsteps { get; private set; }
-    [field: SerializeField] public EventReference Broom { get; private set; } 
-    [field: SerializeField] public EventReference Splash { get; private set; } 
-    [field: SerializeField] public EventReference SprayBottle { get; private set; } 
     [field: SerializeField] public EventReference Done { get; private set; } 
     [field: SerializeField] public EventReference Swish { get; private set; } 
     
     [field: Header("NPC SFX")]
     [field: SerializeField] public EventReference GymTeacherGreet { get; private set; }
     [field: SerializeField] public EventReference GymTeacherHit { get; private set; }
+    
+    [field: Header("Object SFX")]
+    [field: SerializeField] public EventReference Broom { get; private set; } 
+    [field: SerializeField] public EventReference Splash { get; private set; } 
+    [field: SerializeField] public EventReference SprayBottle { get; private set; } 
+    [field: SerializeField] public EventReference DoorOpen { get; private set; } 
+    [field: SerializeField] public EventReference DoorClose { get; private set; } 
     
     [field: Header("UI Sounds")]
     [field: SerializeField] public EventReference buttonClick { get; private set; }

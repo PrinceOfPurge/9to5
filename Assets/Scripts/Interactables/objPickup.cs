@@ -2,14 +2,11 @@ using System.Collections;
 using UnityEngine;
 using FMODUnity;
 
-
-public class objPickup : MonoBehaviour
+public class objPickup : MonoBehaviour, IInteractable
 {
     [Header("UI Elements")]
     public GameObject crosshair1, crosshair2;
-    public GameObject TutPrompt;
-    public GameObject worldPrompt;
-    public GameObject throwPrompt;
+    public GameObject TutPrompt, worldPrompt, throwPrompt;
 
     [Header("References")]
     public Transform objTransform;
@@ -18,93 +15,94 @@ public class objPickup : MonoBehaviour
     public Collider playerCollider;
 
     [Header("Settings")]
-    public float throwAmount = 2000f;
+    public float throwAmount = 25f; // Adjusted for velocity calculation
     public float promptCooldown = 1.0f;
-    public float holdSmoothness = 1000f;
-    public float holdDistance = 8f;
+    public float holdSmoothness = 15f; 
+    public float holdDistance = 2.0f;
+
+    [Header("View Offsets")]
+    [Tooltip("Moves object down from center")]
+    public float heightOffset = -0.6f;
+    [Tooltip("Moves object to the right to clear your view")]
+    public float sideOffset = 0.4f;
+    public Vector3 rotationOffset = new Vector3(90f, 0f, 0f);
 
     [Header("Trajectory Prediction")]
     public LineRenderer trajectoryRenderer;
     public int predictionSteps = 40;
     public float timestep = 0.04f;
     public LayerMask trajectoryCollisionMask;
+    public float predictionSmooth = 20f;
+    public Vector3 trajectoryVisualOffset = new Vector3(0.25f, -0.35f, 0f);
+    
     private Vector3 smoothedStartPos;
     private Vector3 smoothedStartVel;
-    public float predictionSmooth = 20f;
-    private bool hasLastHit;
-    private Vector3 lastHitPoint;
-    public Vector3 trajectoryVisualOffset = new Vector3(0.25f, -0.35f, 0f);
     private Vector3[] splineBuffer = new Vector3[128];
     public int splineResolution = 10;
 
-    [Header("Rotation Offset")]
-    public Vector3 rotationOffset = new Vector3(90f, 0f, 0f);
-
-    [Header("Position Offset")]
-    public float heightOffset = -1.5f;
-
-    [Header("GarbageCan Hit (optional)")]
+    [Header("GarbageCan Hit")]
     public GameObject successEffect;
-    public int scoreValue = 1;
 
-    private bool interactable;
-    public bool pickedup;
+    [HideInInspector] public bool pickedup;
     private bool canShowPrompt = true;
-    private Collider objCollider;
+    private bool isFocused;
+    private Collider[] allColliders;
 
     void Start()
     {
+        // Get all colliders on this object and its children (like the interaction child)
+        allColliders = GetComponentsInChildren<Collider>();
+        
         if (worldPrompt) worldPrompt.SetActive(false);
         if (throwPrompt) throwPrompt.SetActive(false);
         if (TutPrompt) TutPrompt.SetActive(true);
         
-
-        objCollider = GetComponent<Collider>();
         objRigidbody.interpolation = RigidbodyInterpolation.Interpolate;
     }
 
-    void OnTriggerStay(Collider other)
+    // --- INTERFACE METHODS ---
+    public void OnFocus()
     {
-        if (other.CompareTag("MainCamera"))
-        {
-            crosshair1.SetActive(false);
-            crosshair2.SetActive(true);
-            interactable = true;
+        if (pickedup) return;
+        
+        isFocused = true;
+        if(crosshair1) crosshair1.SetActive(false);
+        if(crosshair2) crosshair2.SetActive(true);
 
-            if (!pickedup && worldPrompt && canShowPrompt)
-                worldPrompt.SetActive(true);
-        }
+        if (worldPrompt && canShowPrompt)
+            worldPrompt.SetActive(true);
     }
 
-    void OnTriggerExit(Collider other)
+    public void OnLoseFocus()
     {
-        if (other.CompareTag("MainCamera"))
-        {
-            crosshair1.SetActive(true);
-            crosshair2.SetActive(false);
-            interactable = false;
+        isFocused = false;
+        if(crosshair1) crosshair1.SetActive(true);
+        if(crosshair2) crosshair2.SetActive(false);
 
-            if (!pickedup && worldPrompt)
-                worldPrompt.SetActive(false);
-        }
+        if (worldPrompt) worldPrompt.SetActive(false);
+    }
+
+    public void OnInteract()
+    {
+        if (!pickedup)
+            PickUpObject();
     }
 
     void Update()
     {
-        if (interactable)
-        {
-            if (Input.GetKeyDown(KeyCode.F) && !pickedup)
-                PickUpObject();
-
-            if (pickedup && Input.GetMouseButtonDown(0))
-                ThrowObject();
-        }
-
         if (pickedup)
         {
-            Vector3 targetPos = cameraTrans.position
-                                + cameraTrans.forward * holdDistance
-                                + cameraTrans.up * heightOffset;
+            if (Input.GetMouseButtonDown(0))
+            {
+                ThrowObject();
+                return;
+            }
+
+            // Calculate the "Pocket" position (Right and Down from center camera)
+            Vector3 targetPos = cameraTrans.position + 
+                               (cameraTrans.forward * holdDistance) + 
+                               (cameraTrans.up * heightOffset) +
+                               (cameraTrans.right * sideOffset);
 
             objTransform.position = Vector3.Lerp(objTransform.position, targetPos, Time.deltaTime * holdSmoothness);
 
@@ -115,20 +113,22 @@ public class objPickup : MonoBehaviour
         }
         else
         {
-            trajectoryRenderer.positionCount = 0;
+            if(trajectoryRenderer) trajectoryRenderer.positionCount = 0;
         }
     }
 
     void PickUpObject()
     {
-        objRigidbody.useGravity = false;
-        objRigidbody.velocity = Vector3.zero;
-        objRigidbody.angularVelocity = Vector3.zero;
-        objTransform.parent = cameraTrans;
         pickedup = true;
+        objRigidbody.useGravity = false;
+        objRigidbody.isKinematic = true; // IMPORTANT: Prevents pushing the player
+        objTransform.parent = cameraTrans;
 
-        if (playerCollider && objCollider)
-            Physics.IgnoreCollision(objCollider, playerCollider, true);
+        // Disable all colliders so it doesn't trigger things or block vision
+        foreach (Collider col in allColliders)
+        {
+            col.enabled = false;
+        }
 
         if (worldPrompt) worldPrompt.SetActive(false);
         if (TutPrompt) TutPrompt.SetActive(false);
@@ -137,13 +137,18 @@ public class objPickup : MonoBehaviour
 
     void ThrowObject()
     {
+        pickedup = false;
         objTransform.parent = null;
         objRigidbody.useGravity = true;
-        objRigidbody.velocity = cameraTrans.forward * throwAmount;
-        pickedup = false;
+        objRigidbody.isKinematic = false;
 
-        if (playerCollider && objCollider)
-            Physics.IgnoreCollision(objCollider, playerCollider, false);
+        // Re-enable colliders so it can hit the garbage can
+        foreach (Collider col in allColliders)
+        {
+            col.enabled = true;
+        }
+        
+        objRigidbody.velocity = cameraTrans.forward * throwAmount;
 
         if (throwPrompt) throwPrompt.SetActive(false);
         StartCoroutine(PromptCooldownRoutine());
@@ -152,8 +157,7 @@ public class objPickup : MonoBehaviour
     IEnumerator ShowThrowPromptAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        if (throwPrompt && pickedup)
-            throwPrompt.SetActive(true);
+        if (throwPrompt && pickedup) throwPrompt.SetActive(true);
     }
 
     IEnumerator PromptCooldownRoutine()
@@ -166,8 +170,7 @@ public class objPickup : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (pickedup)
-            return;
+        if (pickedup) return;
 
         if (collision.gameObject.CompareTag("GarbageCan"))
         {
@@ -177,35 +180,21 @@ public class objPickup : MonoBehaviour
 
     void HandleGarbageCanCollision(Collision collision)
     {
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.Done, transform.position);
+        if(AudioManager.instance && FMODEvents.instance)
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.Done, transform.position);
 
         if (successEffect != null)
         {
             GameObject vfxObj = Instantiate(successEffect, transform.position, Quaternion.identity);
-            ParticleSystem vfx = vfxObj.GetComponent<ParticleSystem>();
-
-            if (vfx != null)
-            {
-                vfx.Play();
-                Destroy(vfxObj, vfx.main.duration + vfx.main.startLifetime.constantMax);
-            }
-            else
-            {
-                Destroy(vfxObj, 2f);
-            }
+            Destroy(vfxObj, 2f);
         }
 
         Destroy(gameObject);
-        /*Causing game to crash at the moment since Mode manager isnt being used
-        SinglePlayerModeManager.Instance.BagsRemaining -=1;
-        SinglePlayerStats.Instance.money += 500;
-        */
-        
     }
 
     void ShowTrajectory()
     {
-        hasLastHit = false;
+        if (trajectoryRenderer == null) return;
 
         Vector3 rawStartPos = objTransform.position + cameraTrans.TransformVector(trajectoryVisualOffset);
         Vector3 rawStartVel = cameraTrans.forward * throwAmount;
@@ -241,10 +230,9 @@ public class objPickup : MonoBehaviour
         }
 
         int outCount = (count - 1) * splineResolution;
-        trajectoryRenderer.positionCount = outCount;
+        trajectoryRenderer.positionCount = Mathf.Max(0, outCount);
 
         int idx = 0;
-
         for (int i = 0; i < count - 1; i++)
         {
             Vector3 p0 = i == 0 ? splineBuffer[i] : splineBuffer[i - 1];

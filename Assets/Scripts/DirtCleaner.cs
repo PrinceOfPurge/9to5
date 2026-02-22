@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(SpriteRenderer), typeof(BoxCollider))]
-public class DirtCleaner : MonoBehaviour
+public class DirtCleaner : MonoBehaviour, IInteractable
 {
     [Header("Interaction")]
     public GameObject cleaningPrompt;
@@ -85,6 +85,47 @@ public class DirtCleaner : MonoBehaviour
             playerHandMop.SetActive(false);
     }
 
+    // --- NEW INTERACTION SYSTEM METHODS ---
+
+    public void OnFocus()
+    {
+        if (miniGameActive) return;
+
+        playerInRange = true;
+
+        if (cleaningPrompt != null)
+            cleaningPrompt.SetActive(true);
+
+        if (cursorUI != null && interactCursorSprite != null)
+            cursorUI.sprite = interactCursorSprite;
+    }
+
+    public void OnLoseFocus()
+    {
+        if (miniGameActive) return;
+
+        playerInRange = false;
+
+        if (cleaningPrompt != null)
+            cleaningPrompt.SetActive(false);
+
+        if (cursorUI != null && defaultCursorSprite != null)
+            cursorUI.sprite = defaultCursorSprite;
+    }
+
+    public void OnInteract()
+    {
+        if (!miniGameActive && playerInRange)
+        {
+            if (worldMop != null)
+                worldMop.SetActive(false);
+
+            StartMiniGame();
+        }
+    }
+
+    // --- END NEW INTERACTION SYSTEM METHODS ---
+
     private void Update()
     {
         // Always spin & float world mop
@@ -100,18 +141,15 @@ public class DirtCleaner : MonoBehaviour
 
         if (!playerInRange) return;
 
-        if (!miniGameActive && Input.GetKeyDown(interactKey))
-        {
-            if (worldMop != null)
-                worldMop.SetActive(false);
-
-            StartMiniGame();
-        }
-
+        // Note: The actual minigame loop now uses the interactKey (E) inside Update
         if (miniGameActive)
         {
             isHolding = Input.GetKey(interactKey);
-            holdTimer += Time.deltaTime;
+            
+            if (isHolding)
+            {
+                holdTimer += Time.deltaTime;
+            }
 
             if (fillImage != null)
                 fillImage.fillAmount = Mathf.Clamp01(holdTimer / holdTime);
@@ -124,19 +162,21 @@ public class DirtCleaner : MonoBehaviour
                 sweetSpotMarker.rectTransform.anchoredPosition = new Vector2(markerPos, 0f);
             }
 
-            if (holdTimer >= holdTime && !playerPressed)
+            if (holdTimer >= (holdTime + perfectWindow) && !playerPressed)
             {
                 playerPressed = true;
                 StartCoroutine(FlashColor(fillImage, failColor));
                 holdTimer = 0f;
                 fillImage.fillAmount = 0f;
+                // Allow player to try again without restarting minigame
+                playerPressed = false; 
             }
-        }
 
-        if (miniGameActive && Input.GetKeyUp(interactKey))
-        {
-            playerPressed = true;
-            ReleaseHold();
+            if (Input.GetKeyUp(interactKey))
+            {
+                playerPressed = true;
+                ReleaseHold();
+            }
         }
     }
 
@@ -191,6 +231,8 @@ public class DirtCleaner : MonoBehaviour
 
             if (fillImage != null)
                 fillImage.fillAmount = 0f;
+            
+            playerPressed = false; // Reset so they can try again
         }
     }
 
@@ -282,32 +324,5 @@ public class DirtCleaner : MonoBehaviour
         }
 
         Destroy(gameObject);
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (!other.CompareTag("MainCamera")) return;
-
-        playerInRange = true;
-
-        if (!miniGameActive && cleaningPrompt != null)
-            cleaningPrompt.SetActive(true);
-
-        if (cursorUI != null && interactCursorSprite != null)
-            cursorUI.sprite = interactCursorSprite;
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (!other.CompareTag("MainCamera")) return;
-        if (miniGameActive) return;
-
-        playerInRange = false;
-
-        if (cleaningPrompt != null)
-            cleaningPrompt.SetActive(false);
-
-        if (cursorUI != null && defaultCursorSprite != null)
-            cursorUI.sprite = defaultCursorSprite;
     }
 }
