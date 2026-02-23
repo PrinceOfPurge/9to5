@@ -4,19 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using FMODUnity;
 
-public class Banana : MonoBehaviour
+public class Banana : MonoBehaviour, IInteractable
 {
-    // Global flag (optional, useful if other systems need it)
     public static bool isMinigameActive = false;
 
     [Header("Interaction")]
     public GameObject garbagePrompt;
     public KeyCode interactKey = KeyCode.E;
 
-    [Header("UI Cursor")]
-    public Image cursorUI;
-    public Sprite defaultCursorSprite;
-    public Sprite interactCursorSprite;
+    [Header("UI Crosshair (Standard System)")]
+    public GameObject crosshair1; 
+    public GameObject crosshair2;
 
     [Header("Minigame UI")]
     public Image upArrowUI;
@@ -39,7 +37,6 @@ public class Banana : MonoBehaviour
     public Image timerBarUI;
     public GameObject timerUI;
 
-    // Internal state
     private bool playerInRange;
     private bool isPlaying;
     private bool isCleaned;
@@ -50,26 +47,17 @@ public class Banana : MonoBehaviour
     private bool ignoreInputThisFrame;
 
     private Dictionary<Image, Color> originalColors = new Dictionary<Image, Color>();
-
-    // 🔑 Player movement reference
     private PlayerMovement playerMovement;
 
-    // WASD key pool
     private KeyCode[] keyPool = new KeyCode[]
     {
-        KeyCode.W,
-        KeyCode.A,
-        KeyCode.S,
-        KeyCode.D
+        KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D
     };
 
     private void Awake()
     {
         garbagePrompt?.SetActive(false);
         HideAllArrows();
-
-        if (cursorUI != null)
-            cursorUI.sprite = defaultCursorSprite;
 
         if (upArrowUI != null) originalColors[upArrowUI] = upArrowUI.color;
         if (downArrowUI != null) originalColors[downArrowUI] = downArrowUI.color;
@@ -82,18 +70,47 @@ public class Banana : MonoBehaviour
             timerUI.SetActive(false);
     }
 
-    private void Update()
-    {
-        if (isCleaned) return;
+    // --- INTERFACE METHODS ---
 
-        // Start minigame
-        if (playerInRange && !isPlaying && Input.GetKeyDown(interactKey))
+    public void OnFocus()
+    {
+        if (isCleaned || isPlaying) return;
+
+        playerInRange = true;
+
+        // Visual feedback for "Looking At"
+        if (crosshair1) crosshair1.SetActive(false);
+        if (crosshair2) crosshair2.SetActive(true);
+        if (garbagePrompt) garbagePrompt.SetActive(true);
+    }
+
+    public void OnLoseFocus()
+    {
+        playerInRange = false;
+
+        // If player looks away while playing, cancel minigame
+        if (isPlaying)
+            EndMinigame(false);
+
+        // Reset visual feedback
+        if (crosshair1) crosshair1.SetActive(true);
+        if (crosshair2) crosshair2.SetActive(false);
+        if (garbagePrompt) garbagePrompt.SetActive(false);
+    }
+
+    public void OnInteract()
+    {
+        if (playerInRange && !isPlaying && !isCleaned)
         {
             StartMinigame();
-            return;
         }
+    }
 
-        if (!isPlaying) return;
+    // --- LOGIC ---
+
+    private void Update()
+    {
+        if (isCleaned || !isPlaying) return;
 
         if (ignoreInputThisFrame)
         {
@@ -118,47 +135,12 @@ public class Banana : MonoBehaviour
         }
         else if (Input.anyKeyDown)
         {
-            if (Input.GetKeyDown(KeyCode.W) ||
-                Input.GetKeyDown(KeyCode.A) ||
-                Input.GetKeyDown(KeyCode.S) ||
-                Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) ||
+                Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
             {
                 StartCoroutine(HandleWrong());
             }
         }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (isCleaned) return;
-        if (!other.CompareTag("MainCamera")) return;
-
-        playerInRange = true;
-
-        // Cache PlayerMovement once
-        if (playerMovement == null)
-            playerMovement = other.GetComponentInParent<PlayerMovement>();
-
-        if (!isPlaying)
-            garbagePrompt?.SetActive(true);
-
-        if (cursorUI != null && interactCursorSprite != null)
-            cursorUI.sprite = interactCursorSprite;
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (!other.CompareTag("MainCamera")) return;
-
-        playerInRange = false;
-
-        if (isPlaying)
-            EndMinigame(false);
-
-        garbagePrompt?.SetActive(false);
-
-        if (cursorUI != null && defaultCursorSprite != null)
-            cursorUI.sprite = defaultCursorSprite;
     }
 
     void StartMinigame()
@@ -166,23 +148,18 @@ public class Banana : MonoBehaviour
         isPlaying = true;
         isMinigameActive = true;
 
+        playerMovement = GameObject.FindObjectOfType<PlayerMovement>();
         if (playerMovement != null)
-            playerMovement.enabled = false; // 🚫 disable movement
+            playerMovement.enabled = false; 
 
         remainingKeys = totalKeysNeeded;
-        garbagePrompt?.SetActive(false);
-
-        if (cursorUI != null && defaultCursorSprite != null)
-            cursorUI.sprite = defaultCursorSprite;
+        if (garbagePrompt) garbagePrompt.SetActive(false);
 
         ignoreInputThisFrame = true;
         timer = maxTime;
 
         if (timerUI != null)
             timerUI.SetActive(true);
-
-        if (timerBarUI != null)
-            timerBarUI.fillAmount = 1f;
 
         ShowRandomKey();
     }
@@ -193,38 +170,33 @@ public class Banana : MonoBehaviour
         isMinigameActive = false;
 
         if (playerMovement != null)
-            playerMovement.enabled = true; // ✅ re-enable movement
+            playerMovement.enabled = true; 
 
         if (timerUI != null)
             timerUI.SetActive(false);
 
         HideAllArrows();
-        garbagePrompt?.SetActive(false);
-
-        if (cursorUI != null && defaultCursorSprite != null)
-            cursorUI.sprite = defaultCursorSprite;
+        
+        // Final cleanup of UI
+        if (garbagePrompt) garbagePrompt.SetActive(false);
+        if (crosshair1) crosshair1.SetActive(true);
+        if (crosshair2) crosshair2.SetActive(false);
 
         if (completed)
         {
             isCleaned = true;
-
-            if (mainColor != null)
-                mainColor.material.color = Color.green;
-
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.Done, transform.position);
+            if (mainColor != null) mainColor.material.color = Color.green;
+            if (AudioManager.instance) AudioManager.instance.PlayOneShot(FMODEvents.instance.Done, transform.position);
 
             if (doneVFX != null)
-            {
-                GameObject vfxObj = Instantiate(doneVFX, transform.position, Quaternion.identity);
-                Destroy(vfxObj, 2f);
-            }
+                Destroy(Instantiate(doneVFX, transform.position, Quaternion.identity), 2f);
 
-            Destroy(Bananas);
+            if (Bananas != null) Destroy(Bananas);
+            Destroy(this); // Optional: removes script so you can't interact again
         }
         else
         {
             RestoreAllArrowColorsToOriginal();
-            if (timerBarUI != null) timerBarUI.fillAmount = 1f;
         }
     }
 
@@ -240,12 +212,9 @@ public class Banana : MonoBehaviour
     {
         HideAllArrows();
         RestoreAllArrowColorsToOriginal();
-
         currentKey = keyPool[Random.Range(0, keyPool.Length)];
         Image img = GetArrowImage(currentKey);
-
-        if (img != null)
-            img.gameObject.SetActive(true);
+        if (img != null) img.gameObject.SetActive(true);
     }
 
     Image GetArrowImage(KeyCode k)
@@ -264,8 +233,7 @@ public class Banana : MonoBehaviour
     {
         foreach (var kv in originalColors)
         {
-            if (kv.Key != null)
-                kv.Key.color = kv.Value;
+            if (kv.Key != null) kv.Key.color = kv.Value;
         }
     }
 
@@ -281,14 +249,8 @@ public class Banana : MonoBehaviour
         }
 
         remainingKeys--;
-
-        if (remainingKeys <= 0)
-        {
-            EndMinigame(true);
-            yield break;
-        }
-
-        ShowRandomKey();
+        if (remainingKeys <= 0) EndMinigame(true);
+        else ShowRandomKey();
     }
 
     private IEnumerator HandleWrong()
@@ -304,11 +266,6 @@ public class Banana : MonoBehaviour
 
         remainingKeys = totalKeysNeeded;
         timer = maxTime;
-
-        if (timerBarUI != null)
-            timerBarUI.fillAmount = 1f;
-
-        yield return null;
         ShowRandomKey();
     }
 }

@@ -1,66 +1,61 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInteractions : MonoBehaviour
 {
-    // Current interactable the player is touching
-    private InteractableBase currentInteractable;
+    [Header("Settings")]
+    [SerializeField] private float interactRange = 5f;
+    [SerializeField] private LayerMask interactableLayer;
 
-    // Cursor textures
-    public Texture2D normalCursor;
-    public Texture2D interactCursor;
-
-    void Start()
-    {
-        // Set default cursor
-        Cursor.SetCursor(normalCursor, Vector2.zero, CursorMode.Auto);
-    }
+    private IInteractable currentTarget;
 
     void Update()
     {
-        // Press F to interact
-        if (Input.GetKeyDown(KeyCode.F) && currentInteractable != null)
+        PerformRaycast();
+
+        if (Input.GetKeyDown(KeyCode.E) && currentTarget != null)
         {
-            currentInteractable.Interact(this);
+            currentTarget.OnInteract();
         }
     }
 
-
-    void OnTriggerEnter(Collider other)
+    private void PerformRaycast()
     {
-        InteractableBase interact = other.GetComponent<InteractableBase>();
+        Ray ray = new Ray(transform.position, transform.forward);
+        RaycastHit hit;
 
-        if (interact != null)
+        if (Physics.Raycast(ray, out hit, interactRange, interactableLayer))
         {
-            currentInteractable = interact;
+            IInteractable interactable = hit.collider.GetComponentInParent<IInteractable>();
 
-            // Show UI prompt
-            currentInteractable.ShowPrompt(true);
-
-            // Change cursor
-            Cursor.SetCursor(interactCursor, Vector2.zero, CursorMode.Auto);
+            if (interactable != null)
+            {
+                if (interactable != currentTarget)
+                {
+                    // Looked at a new interactable
+                    if (currentTarget != null) currentTarget.OnLoseFocus();
+                    currentTarget = interactable;
+                    currentTarget.OnFocus();
+                }
+            }
+            else
+            {
+                // Hit something on the layer that isn't interactable
+                ClearTarget();
+            }
+        }
+        else
+        {
+            // Hit nothing
+            ClearTarget();
         }
     }
 
-
-    void OnTriggerExit(Collider other)
+    private void ClearTarget()
     {
-        InteractableBase interactable = other.GetComponent<InteractableBase>();
-
-        if (interactable != null && interactable == currentInteractable)
+        if (currentTarget != null)
         {
-            // Hide UI prompt
-            currentInteractable.ShowPrompt(false);
-
-            // Reset reference
-            currentInteractable = null;
-
-            // Reset cursor
-            Cursor.SetCursor(normalCursor, Vector2.zero, CursorMode.Auto);
+            currentTarget.OnLoseFocus();
+            currentTarget = null;
         }
     }
 }
-
-
-

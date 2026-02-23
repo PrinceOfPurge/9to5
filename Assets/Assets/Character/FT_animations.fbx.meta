@@ -3,47 +3,7 @@ guid: 28736dde1cb7a084d969d76397706677
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: FemaleTeacherHair_Diffuse
-    second: {fileID: 2800000, guid: d26801dfafe849246a5e763f969cafc0, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: FemaleTeacherHair_Normal
-    second: {fileID: 2800000, guid: 2d0821078bdcfbe4bbea911664dca9e7, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: FemaleTeacherLow_FemaleTeacherTextures_Albedo
-    second: {fileID: 2800000, guid: 35693523b4413794ca4921daf3f97406, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: FemaleTeacherLow_FemaleTeacherTextures_Metallic
-    second: {fileID: 2800000, guid: 6d5eba73c9696de40be5a5227458423b, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: FemaleTeacherLow_FemaleTeacherTextures_Normal
-    second: {fileID: 2800000, guid: 9f4399b4656530241b46342685d20f87, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: FemaleTeacherLow_SkirtTextures_Albedo
-    second: {fileID: 2800000, guid: 8dd5c2b03f79d424dbda8fb368aac0d3, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: FemaleTeacherLow_SkirtTextures_Metallic
-    second: {fileID: 2800000, guid: 880b96e3eeb26914eae038990307277e, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: FemaleTeacherLow_SkirtTextures_Normal
-    second: {fileID: 2800000, guid: a874a6be222d61742917627634b969bb, type: 3}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

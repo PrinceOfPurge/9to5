@@ -3,20 +3,23 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(SpriteRenderer), typeof(BoxCollider))]
-public class DirtCleaner : MonoBehaviour
+public class DirtCleaner : MonoBehaviour, IInteractable
 {
     [Header("Interaction")]
     public GameObject cleaningPrompt;
     public KeyCode interactKey = KeyCode.E;
-    public float holdTime = 2f; // Time to reach perfect release
-    public float fadeSpeed = 1f; // How fast the dirt fades after perfect release
-    public float perfectWindow = 0.3f; // +/- seconds for perfect timing
+    public float holdTime = 2f;
+    public float fadeSpeed = 1f;
+    public float perfectWindow = 0.3f;
     public GameObject doneVFX;
 
     [Header("UI")]
-    public GameObject miniGameUIParent; // Parent containing background, foreground, fill
-    public Image fillImage;             // Only this will animate
-    public Image sweetSpotMarker;       // Optional: marker showing perfect release zone
+    public GameObject miniGameUIParent;
+    public Image fillImage;
+    public Image sweetSpotMarker;
+
+    [Header("Mini Game Prompt")]
+    public GameObject miniGamePrompt;
 
     [Header("Cursor")]
     public Image cursorUI;
@@ -28,7 +31,17 @@ public class DirtCleaner : MonoBehaviour
     public Color failColor = Color.red;
     public float flashDuration = 0.15f;
 
-    // Internal state
+    [Header("World Mop (Pickup)")]
+    public GameObject worldMop;
+    public float mopRotationSpeed = 180f;
+    public float mopFloatHeight = 0.1f;
+    public float mopFloatSpeed = 2f;
+
+    [Header("Player Hand Mop")]
+    public GameObject playerHandMop;
+
+    private Vector3 mopStartPos;
+
     private SpriteRenderer sr;
     private bool playerInRange = false;
     private bool isHolding = false;
@@ -37,8 +50,8 @@ public class DirtCleaner : MonoBehaviour
     private float currentAlpha = 1f;
     private bool playerPressed = false;
 
-    // Player movement lock
     private PlayerMovement playerMovement;
+    public Animator playerAnimator;
     private Camera playerCam;
 
     private void Start()
@@ -47,12 +60,14 @@ public class DirtCleaner : MonoBehaviour
         currentAlpha = sr.color.a;
         playerCam = Camera.main;
 
-        // Disable UI initially
         if (miniGameUIParent != null)
             miniGameUIParent.SetActive(false);
 
         if (cleaningPrompt != null)
             cleaningPrompt.SetActive(false);
+
+        if (miniGamePrompt != null)
+            miniGamePrompt.SetActive(false);
 
         if (cursorUI != null && defaultCursorSprite != null)
             cursorUI.sprite = defaultCursorSprite;
@@ -62,33 +77,83 @@ public class DirtCleaner : MonoBehaviour
 
         if (sweetSpotMarker != null)
             sweetSpotMarker.enabled = false;
+
+        if (worldMop != null)
+            mopStartPos = worldMop.transform.localPosition;
+
+        if (playerHandMop != null)
+            playerHandMop.SetActive(false);
     }
+
+    // --- NEW INTERACTION SYSTEM METHODS ---
+
+    public void OnFocus()
+    {
+        if (miniGameActive) return;
+
+        playerInRange = true;
+
+        if (cleaningPrompt != null)
+            cleaningPrompt.SetActive(true);
+
+        if (cursorUI != null && interactCursorSprite != null)
+            cursorUI.sprite = interactCursorSprite;
+    }
+
+    public void OnLoseFocus()
+    {
+        if (miniGameActive) return;
+
+        playerInRange = false;
+
+        if (cleaningPrompt != null)
+            cleaningPrompt.SetActive(false);
+
+        if (cursorUI != null && defaultCursorSprite != null)
+            cursorUI.sprite = defaultCursorSprite;
+    }
+
+    public void OnInteract()
+    {
+        if (!miniGameActive && playerInRange)
+        {
+            if (worldMop != null)
+                worldMop.SetActive(false);
+
+            StartMiniGame();
+        }
+    }
+
+    // --- END NEW INTERACTION SYSTEM METHODS ---
 
     private void Update()
     {
-        if (!playerInRange) return;
-
-        // Start holding mini-game
-        if (!miniGameActive && Input.GetKeyDown(interactKey))
+        // Always spin & float world mop
+        if (worldMop != null && worldMop.activeSelf)
         {
-            StartMiniGame();
+            worldMop.transform.Rotate(Vector3.up * mopRotationSpeed * Time.deltaTime, Space.World);
+
+            float newY = mopStartPos.y + Mathf.Sin(Time.time * mopFloatSpeed) * mopFloatHeight;
+            Vector3 pos = worldMop.transform.localPosition;
+            pos.y = newY;
+            worldMop.transform.localPosition = pos;
         }
 
+        if (!playerInRange) return;
+
+        // Note: The actual minigame loop now uses the interactKey (E) inside Update
         if (miniGameActive)
         {
-            // Track if player is holding
-            if (Input.GetKey(interactKey))
-                isHolding = true;
-            else
-                isHolding = false;
-
-            // Animate fill image automatically
-            holdTimer += Time.deltaTime;
+            isHolding = Input.GetKey(interactKey);
+            
+            if (isHolding)
+            {
+                holdTimer += Time.deltaTime;
+            }
 
             if (fillImage != null)
                 fillImage.fillAmount = Mathf.Clamp01(holdTimer / holdTime);
 
-            // Sweet spot marker
             if (sweetSpotMarker != null)
             {
                 sweetSpotMarker.enabled = true;
@@ -97,21 +162,21 @@ public class DirtCleaner : MonoBehaviour
                 sweetSpotMarker.rectTransform.anchoredPosition = new Vector2(markerPos, 0f);
             }
 
-            // Automatic bar full
-            if (holdTimer >= holdTime && !playerPressed)
+            if (holdTimer >= (holdTime + perfectWindow) && !playerPressed)
             {
                 playerPressed = true;
                 StartCoroutine(FlashColor(fillImage, failColor));
                 holdTimer = 0f;
                 fillImage.fillAmount = 0f;
+                // Allow player to try again without restarting minigame
+                playerPressed = false; 
             }
-        }
 
-        // Release
-        if (miniGameActive && Input.GetKeyUp(interactKey))
-        {
-            playerPressed = true;
-            ReleaseHold();
+            if (Input.GetKeyUp(interactKey))
+            {
+                playerPressed = true;
+                ReleaseHold();
+            }
         }
     }
 
@@ -122,22 +187,25 @@ public class DirtCleaner : MonoBehaviour
         holdTimer = 0f;
         playerPressed = false;
 
-        // Enable UI
         if (miniGameUIParent != null)
             miniGameUIParent.SetActive(true);
+
+        if (miniGamePrompt != null)
+            miniGamePrompt.SetActive(true);
 
         if (fillImage != null)
             fillImage.fillAmount = 0f;
 
-        // Lock player movement
         if (playerCam != null)
         {
             playerMovement = playerCam.GetComponentInParent<PlayerMovement>();
             if (playerMovement != null)
+            {
                 playerMovement.enabled = false;
+                playerAnimator = playerMovement.GetComponentInChildren<Animator>();
+            }
         }
 
-        // Hide prompt
         if (cleaningPrompt != null)
             cleaningPrompt.SetActive(false);
 
@@ -149,31 +217,38 @@ public class DirtCleaner : MonoBehaviour
     {
         isHolding = false;
 
-        // Check timing
         float perfectStart = holdTime - perfectWindow;
         float perfectEnd = holdTime + perfectWindow;
 
         if (holdTimer >= perfectStart && holdTimer <= perfectEnd)
         {
-            // Perfect! Shrink UI and fade dirt
             StartCoroutine(SuccessSequence());
         }
         else
         {
-            // Failed attempt, flash red and reset
             StartCoroutine(FlashColor(fillImage, failColor));
             holdTimer = 0f;
+
             if (fillImage != null)
                 fillImage.fillAmount = 0f;
+            
+            playerPressed = false; // Reset so they can try again
         }
     }
 
     private IEnumerator SuccessSequence()
     {
-        // Flash green on success
         yield return StartCoroutine(FlashColor(fillImage, successColor));
 
-        // Smoothly shrink UI parent to zero
+        if (playerAnimator != null)
+        {
+            playerAnimator.SetBool("InteractionActive", true);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.Broom, transform.position);
+
+            if (playerHandMop != null)
+                playerHandMop.SetActive(true);
+        }
+
         float duration = 0.5f;
         Vector3 initialScale = miniGameUIParent.transform.localScale;
         Vector3 targetScale = Vector3.zero;
@@ -182,15 +257,17 @@ public class DirtCleaner : MonoBehaviour
         while (t < duration)
         {
             t += Time.deltaTime;
-            float lerp = t / duration;
-            miniGameUIParent.transform.localScale = Vector3.Lerp(initialScale, targetScale, lerp);
+            miniGameUIParent.transform.localScale =
+                Vector3.Lerp(initialScale, targetScale, t / duration);
             yield return null;
         }
 
         if (miniGameUIParent != null)
             miniGameUIParent.SetActive(false);
 
-        // Fade dirt sprite
+        if (miniGamePrompt != null)
+            miniGamePrompt.SetActive(false);
+
         StartCoroutine(FadeDirt());
     }
 
@@ -225,11 +302,21 @@ public class DirtCleaner : MonoBehaviour
     {
         miniGameActive = false;
 
-        // Restore player movement
+        if (playerAnimator != null)
+            playerAnimator.SetBool("InteractionActive", false);
+
         if (playerMovement != null)
             playerMovement.enabled = true;
 
-        // Play done VFX
+        if (playerHandMop != null)
+            playerHandMop.SetActive(false);
+
+        if (miniGamePrompt != null)
+            miniGamePrompt.SetActive(false);
+
+        if (cursorUI != null && defaultCursorSprite != null)
+            cursorUI.sprite = defaultCursorSprite;
+
         if (doneVFX != null)
         {
             GameObject vfx = Instantiate(doneVFX, transform.position, Quaternion.identity);
@@ -237,33 +324,5 @@ public class DirtCleaner : MonoBehaviour
         }
 
         Destroy(gameObject);
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (!other.CompareTag("MainCamera")) return;
-
-        playerInRange = true;
-
-        if (!miniGameActive && cleaningPrompt != null)
-            cleaningPrompt.SetActive(true);
-
-        if (cursorUI != null && interactCursorSprite != null)
-            cursorUI.sprite = interactCursorSprite;
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (!other.CompareTag("MainCamera")) return;
-
-        if (miniGameActive) return; // lock player in
-
-        playerInRange = false;
-
-        if (cleaningPrompt != null)
-            cleaningPrompt.SetActive(false);
-
-        if (cursorUI != null && defaultCursorSprite != null)
-            cursorUI.sprite = defaultCursorSprite;
     }
 }
