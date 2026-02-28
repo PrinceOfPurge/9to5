@@ -1,0 +1,518 @@
+fileFormatVersion: 2
+guid: 1418fd6d5adb0fa4abb17b898b1dabfb
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 9-5_MiniMap2_0
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 1288
+        width: 305
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6ef1e72536f50442a434a887c2dff1b
+      internalID: -907546522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_MiniMap2_2
+      rect:
+        serializedVersion: 2
+        x: 532
+        y: 1288
+        width: 305
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fed984ccd950b3147a87106cce40b942
+      internalID: -1132168479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_MiniMap2_4
+      rect:
+        serializedVersion: 2
+        x: 1093
+        y: 1109
+        width: 262
+        height: 263
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a31d471eff7f9b48a4befd499f408d9
+      internalID: 1135998090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_MiniMap2_5
+      rect:
+        serializedVersion: 2
+        x: 1507
+        y: 1109
+        width: 262
+        height: 263
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e1ba4377e4dfaf4f9f3c4394ca14525
+      internalID: 1333966007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_MiniMap2_6
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 1148
+        width: 306
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 301e8da6927bfc445adffa1ff022329f
+      internalID: -732877576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_MiniMap2_8
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 1148
+        width: 308
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 501607920ad63c74485ab7f2eb3d2634
+      internalID: -1419731733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_MiniMap2_10
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 1008
+        width: 306
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72047f7009aab0041aa95e781eceb35c
+      internalID: -1620499561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_MiniMap2_12
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 1008
+        width: 303
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48c64db7136585b498d80e790b45fe63
+      internalID: 1183313816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_MiniMap2_14
+      rect:
+        serializedVersion: 2
+        x: 1043
+        y: 689
+        width: 355
+        height: 344
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 104eb9f959039a34d9370176b383b187
+      internalID: 1328302298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_MiniMap2_15
+      rect:
+        serializedVersion: 2
+        x: 1511
+        y: 701
+        width: 255
+        height: 322
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dff327827e887e948ad68732f4fc4b40
+      internalID: 1666607865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_MiniMap2_16
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 775
+        width: 275
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 643af6b7fbec2a04f8fb5654d26ff4e8
+      internalID: 1175091687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_MiniMap2_17
+      rect:
+        serializedVersion: 2
+        x: 485
+        y: 824
+        width: 391
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 249cccf01563384498f302d6dc96e0e0
+      internalID: 2080217347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_MiniMap2_19
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 577
+        width: 246
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e890a897fcf38bc40b4b07d56ce09a4f
+      internalID: 200158679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_MiniMap2_20
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 636
+        width: 139
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b93df01dbb1bcdf4aab30113d3e839d2
+      internalID: 884464155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_MiniMap2_22
+      rect:
+        serializedVersion: 2
+        x: 1480
+        y: 112
+        width: 316
+        height: 485
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55a34354d845ffa47bb58a0a1773514c
+      internalID: 649510574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_MiniMap2_23
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 433
+        width: 283
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d35bb49a1b01320448a89a8534683e5c
+      internalID: -1496187297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_MiniMap2_24
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 134
+        width: 331
+        height: 441
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7db9ba89950a514b9c39f92d191109c
+      internalID: 1889909461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 9-5_MiniMap2_25
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 51
+        width: 226
+        height: 266
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 577efe59589f4e548b2999d588237eb0
+      internalID: -957244252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: ff52d5551518fd748b1c7ac792545684
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      9-5_MiniMap2_0: -907546522
+      9-5_MiniMap2_1: 482251229
+      9-5_MiniMap2_10: -1620499561
+      9-5_MiniMap2_11: 2068487805
+      9-5_MiniMap2_12: 1183313816
+      9-5_MiniMap2_13: 486368644
+      9-5_MiniMap2_14: 1328302298
+      9-5_MiniMap2_15: 1666607865
+      9-5_MiniMap2_16: 1175091687
+      9-5_MiniMap2_17: 2080217347
+      9-5_MiniMap2_18: -1271194423
+      9-5_MiniMap2_19: 200158679
+      9-5_MiniMap2_2: -1132168479
+      9-5_MiniMap2_20: 884464155
+      9-5_MiniMap2_21: 1335165192
+      9-5_MiniMap2_22: 649510574
+      9-5_MiniMap2_23: -1496187297
+      9-5_MiniMap2_24: 1889909461
+      9-5_MiniMap2_25: -957244252
+      9-5_MiniMap2_3: 1444447926
+      9-5_MiniMap2_4: 1135998090
+      9-5_MiniMap2_5: 1333966007
+      9-5_MiniMap2_6: -732877576
+      9-5_MiniMap2_7: -2058810040
+      9-5_MiniMap2_8: -1419731733
+      9-5_MiniMap2_9: -1794425357
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
