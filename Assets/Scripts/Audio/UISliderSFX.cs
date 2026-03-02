@@ -5,42 +5,27 @@ using UnityEngine;
 using UnityEngine.UI;
 using FMODUnity;
 
+
 public class UISliderSFX : MonoBehaviour
 {
     private Slider slider;
     private EventInstance sliderInstance;
     private bool isDragging = false;
-    private float dragTimeout = 0.2f; 
+    private float dragTimeout = 0.2f; // how long after moving to consider dragging stopped
     private float lastValueChangeTime;
 
     private void Start()
     {
-        // CHANGED: Look in children since script is on the Canvas parent
-        slider = GetComponentInChildren<Slider>();
+        slider = GetComponent<Slider>();
+        slider.onValueChanged.AddListener(OnSliderChanged);
 
-        if (slider != null)
-        {
-            slider.onValueChanged.AddListener(OnSliderChanged);
-        }
-        else
-        {
-            Debug.LogError("UISliderSFX: No Slider found in children of " + gameObject.name);
-            return;
-        }
-
-        // CHANGED: Added safety check to prevent NullReferenceException on line 20
-        if (AudioManager.instance != null && FMODEvents.instance != null)
-        {
-            sliderInstance = AudioManager.instance.CreateInstance(FMODEvents.instance.sliderMove);
-        }
-        else
-        {
-            Debug.LogWarning("UISliderSFX: AudioManager or FMODEvents instance is null. Audio won't play.");
-        }
+        // Create one persistent instance of the FMOD event
+        sliderInstance = AudioManager.instance.CreateInstance(FMODEvents.instance.sliderMove);
     }
 
     private void Update()
     {
+        // Detect if dragging has stopped
         if (isDragging && Time.time - lastValueChangeTime > dragTimeout)
         {
             sliderInstance.setPaused(true);
@@ -52,9 +37,9 @@ public class UISliderSFX : MonoBehaviour
     {
         lastValueChangeTime = Time.time;
 
-        // Added check to ensure sliderInstance was actually created
-        if (!isDragging && sliderInstance.isValid())
+        if (!isDragging)
         {
+            // Start or resume the audio when dragging begins
             sliderInstance.start();
             sliderInstance.setPaused(false);
             isDragging = true;
@@ -63,10 +48,7 @@ public class UISliderSFX : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (sliderInstance.isValid())
-        {
-            sliderInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-            sliderInstance.release();
-        }
+        sliderInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        sliderInstance.release();
     }
 }
