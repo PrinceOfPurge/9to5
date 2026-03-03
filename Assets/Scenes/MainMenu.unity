@@ -6619,6 +6619,67 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.07909528, y: 0.0047097136, z: 0.044723637}
   m_Center: {x: 0.000000014901161, y: 0.000000032247044, z: -9.313226e-10}
+--- !u!1001 &287704479
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 6a958df76be52e5458e487b23f5e6ec7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 210.72
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6a958df76be52e5458e487b23f5e6ec7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 12.98
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6a958df76be52e5458e487b23f5e6ec7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -60.3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6a958df76be52e5458e487b23f5e6ec7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6a958df76be52e5458e487b23f5e6ec7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6a958df76be52e5458e487b23f5e6ec7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6a958df76be52e5458e487b23f5e6ec7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6a958df76be52e5458e487b23f5e6ec7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6a958df76be52e5458e487b23f5e6ec7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6a958df76be52e5458e487b23f5e6ec7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 6a958df76be52e5458e487b23f5e6ec7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f30c7b1bcf9ab840b2410df03c76483, type: 2}
+    - target: {fileID: 919132149155446097, guid: 6a958df76be52e5458e487b23f5e6ec7, type: 3}
+      propertyPath: m_Name
+      value: NewLogo
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6a958df76be52e5458e487b23f5e6ec7, type: 3}
 --- !u!1 &296919642
 GameObject:
   m_ObjectHideFlags: 0
@@ -37663,13 +37724,41 @@ MonoBehaviour:
       Data3: 1228627361
       Data4: 676502900
     Path: event:/SFX/Player/Footsteps
-  <Scub>k__BackingField:
+  <Done>k__BackingField:
     Guid:
-      Data1: 1191062496
-      Data2: 1101852206
-      Data3: 51330456
-      Data4: 193090023
-    Path: event:/SFX/World/Broom
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <Swish>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <GymTeacherGreet>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <GymTeacherHit>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <Broom>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   <Splash>k__BackingField:
     Guid:
       Data1: -1784708592
@@ -37684,14 +37773,14 @@ MonoBehaviour:
       Data3: 1400421554
       Data4: -667775747
     Path: event:/SFX/World/SprayBottle
-  <Done>k__BackingField:
+  <DoorOpen>k__BackingField:
     Guid:
       Data1: 0
       Data2: 0
       Data3: 0
       Data4: 0
     Path: 
-  <Swish>k__BackingField:
+  <DoorClose>k__BackingField:
     Guid:
       Data1: 0
       Data2: 0
@@ -56147,3 +56236,4 @@ SceneRoots:
   - {fileID: 112892976}
   - {fileID: 1778084168}
   - {fileID: 190496836}
+  - {fileID: 287704479}
