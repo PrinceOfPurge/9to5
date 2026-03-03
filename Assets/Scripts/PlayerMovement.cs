@@ -1,49 +1,51 @@
 using FMOD.Studio;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Netcode;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerMovement : NetworkBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [Header("UI Elements")]
     [SerializeField] Image greenWheel;
     [SerializeField] Image redWheel;
     [SerializeField] GameObject StaminaUI;
-    private Animator staminaAnimator;
+
+    [Header("Stamina Pulse Settings")]
+    public float pulseSpeed = 10f; 
+    public float minPulseOpacity = 0.1f;
+    public float maxPulseOpacity = 0.8f;
+    private Color originalRedWheelColor;
 
     [Header("Movement")]
-    public float walkSpeed;
-    public float sprintSpeed;
-    public float groundDrag;
-    public float jumpForce;
-    public float jumpCooldown;
-    public float airMultiplier;
-    bool readyToJump;
-    public float playerHeight;
+    public float walkSpeed = 5f;
+    public float sprintSpeed = 8f;
+    public float jumpHeight = 2f;
+    public float gravity = -30f; 
+    [Range(0, 1)] public float airMultiplier = 0.6f;
+    
+    [Header("Stamina Logic")]
+    public float maxStamina = 100f;
+    public float staminaDepletionRate = 30f;
+    public float staminaRegenRate = 20f;
+    public float jumpStaminaCost = 15f; 
+    [Range(0, 1)] public float recoveryThreshold = 0.3f; 
+    public float criticalStaminaLevel = 20f; 
+    
+    [Header("Detection")]
     public LayerMask whatIsGround;
-    bool grounded;
-    public Transform orientation;
-    bool sprinting;
-    float stamina;
-    bool staminaExhausted;
-    public float maxStamina;
-    public float moveSpeed;
+    public Transform orientation; 
     public Camera playerCamera;
 
     [Header("Upgrades")]
-    public float jumpBoostUpgradeForce;
+    public float jumpBoostUpgradeHeight;
     public float staminaBoostUpgradeMax;
-    public float rushHourUpgradeSpeedMultiplyer;
+    public float rushHourUpgradeSpeedMultiplier;
 
-    [Header("Sensitivity Settings")]
-    public float mouseSensitivity = 100f;
-    private Vector2 lookInput;
-    private float xRotation;
+    [Header("Sensitivity")]
+    public float mouseSensitivity = 7f;
 
     [Header("Head Bob")]
     public float walkBobSpeed = 14f;
@@ -51,229 +53,172 @@ public class PlayerMovement : NetworkBehaviour
     public float sprintBobSpeed = 18f;
     public float sprintBobAmount = 0.09f;
 
-    private float bobTimer;
-    private Vector3 cameraDefaultLocalPos;
-
     [SerializeField] Animator playerAnimator;
 
-    private bool offlineMode;
-
-    Vector3 moveDirection;
-    Vector2 inputDirection;
-
-    Rigidbody rb;
-
+    private CharacterController controller;
     private EventInstance playerFootsteps;
-
-    void Awake()
-    {
-        offlineMode = NetworkManager.Singleton == null ||
-                      !NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer;
-    }
+    private Vector2 inputDirection;
+    private Vector2 lookInput;
+    private Vector3 verticalVelocity;
+    private float xRotation;
+    private float stamina;
+    private bool staminaExhausted;
+    private bool sprinting;
+    private bool grounded;
+    private bool readyToJump = true;
+    private Vector3 cameraDefaultLocalPos;
+    private float bobTimer;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true;
+        controller = GetComponent<CharacterController>();
+        stamina = maxStamina;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        if (StaminaUI != null)
+        {
+            StaminaUI.SetActive(true);
+            if (greenWheel == null) greenWheel = StaminaUI.transform.Find("Green Wheel")?.GetComponent<Image>();
+            if (redWheel == null) redWheel = StaminaUI.transform.Find("Red Wheel")?.GetComponent<Image>();
+        }
+
+        if (redWheel != null) originalRedWheelColor = redWheel.color;
+        cameraDefaultLocalPos = playerCamera.transform.localPosition;
+        playerFootsteps = AudioManager.instance.CreateInstance(FMODEvents.instance.playerFootsteps);
 
         if (ShopInfo.Instance != null)
         {
-            if (ShopInfo.Instance.JumpBoost_Active)
-                jumpForce = jumpBoostUpgradeForce;
-            if (ShopInfo.Instance.StamBoost_Active)
-                maxStamina = staminaBoostUpgradeMax;
+            if (ShopInfo.Instance.JumpBoost_Active) jumpHeight = jumpBoostUpgradeHeight;
+            if (ShopInfo.Instance.StamBoost_Active) maxStamina = staminaBoostUpgradeMax;
             if (ShopInfo.Instance.RushHour_Active)
             {
-                sprintSpeed *= rushHourUpgradeSpeedMultiplyer;
-                walkSpeed *= rushHourUpgradeSpeedMultiplyer;
+                sprintSpeed *= rushHourUpgradeSpeedMultiplier;
+                walkSpeed *= rushHourUpgradeSpeedMultiplier;
             }
         }
-
-        readyToJump = true;
-        moveSpeed = walkSpeed;
-        stamina = maxStamina;
-
-        playerFootsteps = AudioManager.instance.CreateInstance(FMODEvents.instance.playerFootsteps);
-        StaminaUI.SetActive(false);
-
-        cameraDefaultLocalPos = playerCamera.transform.localPosition;
-
-        if (mouseSensitivity <= 0f) mouseSensitivity = 100f;
-
-        if (offlineMode)
-            SetupLocalPlayer();
-    }
-
-    public override void OnNetworkSpawn()
-    {
-        if (IsOwner)
-        {
-            playerCamera.gameObject.SetActive(true);
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-
-            StaminaUI = GameObject.Find("StaminaUI");
-            if (StaminaUI != null)
-            {
-                greenWheel = StaminaUI.transform.Find("Green Wheel").GetComponent<Image>();
-                redWheel = StaminaUI.transform.Find("Red Wheel").GetComponent<Image>();
-                staminaAnimator = StaminaUI.GetComponent<Animator>();
-                StaminaUI.SetActive(false);
-            }
-
-            Camera sceneMainCam = Camera.main;
-            if (sceneMainCam != null && sceneMainCam != playerCamera)
-                sceneMainCam.enabled = false;
-        }
-        else
-        {
-            playerCamera.gameObject.SetActive(false);
-        }
-    }
-
-    private void SetupLocalPlayer()
-    {
-        playerCamera.gameObject.SetActive(true);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     public void OnMove(InputValue value) => inputDirection = value.Get<Vector2>();
     public void OnLook(InputValue value) => lookInput = value.Get<Vector2>();
-
-    public void OnJump(InputValue value)
-    {
-        if (readyToJump && grounded)
-        {
-            readyToJump = false;
-            Jump();
-            Invoke(nameof(Resetjump), jumpCooldown);
-        }
+    
+    // FIX 1: Prevent jumping if exhausted
+    public void OnJump(InputValue value) 
+    { 
+        if (readyToJump && grounded && !staminaExhausted && stamina >= jumpStaminaCost) 
+            Jump(); 
     }
-
-    public void OnSprint(InputValue value)
-    {
-        if (sprinting)
-        {
-            moveSpeed = walkSpeed;
-            sprinting = false;
-        }
-        else
-        {
-            moveSpeed = sprintSpeed;
-            sprinting = true;
-            StaminaUI.SetActive(true);
-        }
-    }
-
-    private void MovePlayer()
-    {
-        if (sprinting && moveDirection != Vector3.zero && grounded && !staminaExhausted)
-        {
-            if (stamina > 0)
-                stamina -= 30 * Time.deltaTime;
-            else
-            {
-                greenWheel.enabled = false;
-                staminaExhausted = true;
-            }
-
-            redWheel.fillAmount = (stamina / maxStamina + 0.07f);
-        }
-        else
-        {
-            if (grounded && stamina < maxStamina)
-                stamina += 30 * Time.deltaTime;
-            else
-            {
-                greenWheel.enabled = true;
-                staminaExhausted = false;
-                if (sprinting)
-                    moveSpeed = sprintSpeed;
-            }
-
-            if (stamina >= maxStamina && !sprinting && StaminaUI.activeSelf)
-                StartCoroutine(PlayExitAnimation());
-
-            redWheel.fillAmount = stamina / maxStamina;
-        }
-
-        if (staminaExhausted)
-            moveSpeed = walkSpeed;
-
-        greenWheel.fillAmount = stamina / maxStamina;
-
-        moveDirection = orientation.forward * inputDirection.y + orientation.right * inputDirection.x;
-
-        if (grounded)
-            rb.AddForce(moveDirection.normalized * (moveSpeed * 10f), ForceMode.Force);
-        else
-            rb.AddForce(moveDirection.normalized * (moveSpeed * 10f * airMultiplier), ForceMode.Force);
-    }
-
-    void FixedUpdate()
-    {
-        MovePlayer();
-        UpdateSound();
-    }
+    
+    public void OnSprint(InputValue value) => sprinting = value.isPressed;
 
     void Update()
     {
-        if (!IsOwner && !offlineMode) return;
+        float rayLength = controller.bounds.extents.y + 0.15f; 
+        grounded = Physics.Raycast(controller.bounds.center, Vector3.down, rayLength, whatIsGround);
 
-        HandleLook();
-        HandleHeadBob();
-        UpdateMovementAnimation();
-
-        grounded = Physics.Raycast(transform.position, Vector3.down,
-            playerHeight * 0.5f + 0.2f, whatIsGround);
-
-        rb.drag = grounded ? groundDrag : 0f;
-    }
-
-    // ✅ NEW: Drives Idle / Walk / Run blend tree
-    private void UpdateMovementAnimation()
-    {
-        if (!playerAnimator) return;
-
-        if (inputDirection.sqrMagnitude < 0.1f)
+        if (grounded && verticalVelocity.y < 0)
         {
-            playerAnimator.SetFloat("Speed", 0f);
-            return;
+            verticalVelocity.y = -2f; 
         }
 
-        playerAnimator.SetFloat("Speed", sprinting ? 1.5f : 0.5f);
+        HandleLook();
+        HandleStamina();
+        ApplyMovement();
+        HandleHeadBob();
+        UpdateAnimations();
+        UpdateSound();
+    }
+
+    private void HandleStamina()
+    {
+        bool isMoving = inputDirection.sqrMagnitude > 0.1f;
+
+        // FIX 2: Removed "grounded" check from depletion. 
+        // If you're sprinting in the air, you're still working hard!
+        if (sprinting && isMoving && !staminaExhausted)
+        {
+            stamina -= staminaDepletionRate * Time.deltaTime;
+            if (stamina <= 0)
+            {
+                stamina = 0;
+                staminaExhausted = true;
+                if (greenWheel) greenWheel.enabled = false;
+            }
+        }
+        else
+        {
+            if (stamina < maxStamina)
+            {
+                stamina += staminaRegenRate * Time.deltaTime;
+                if (staminaExhausted && stamina >= (maxStamina * recoveryThreshold))
+                {
+                    staminaExhausted = false;
+                    if (greenWheel) greenWheel.enabled = true;
+                }
+            }
+        }
+
+        stamina = Mathf.Clamp(stamina, 0, maxStamina);
+
+        bool shouldPulse = staminaExhausted || (stamina < criticalStaminaLevel);
+        if (shouldPulse && redWheel != null)
+        {
+            float lerp = (Mathf.Sin(Time.time * pulseSpeed) + 1f) / 2f; 
+            float alpha = Mathf.Lerp(minPulseOpacity, maxPulseOpacity, lerp);
+            redWheel.color = new Color(originalRedWheelColor.r, originalRedWheelColor.g, originalRedWheelColor.b, alpha);
+        }
+        else if (redWheel != null)
+        {
+            redWheel.color = originalRedWheelColor;
+        }
+
+        if (greenWheel) greenWheel.fillAmount = stamina / maxStamina;
+        if (redWheel) redWheel.fillAmount = 1f; 
+    }
+
+    private void ApplyMovement()
+    {
+        Transform moveRef = orientation != null ? orientation : playerCamera.transform;
+        Vector3 forward = moveRef.forward;
+        Vector3 right = moveRef.right;
+        forward.y = 0; right.y = 0; 
+
+        Vector3 moveDir = (forward.normalized * inputDirection.y + right.normalized * inputDirection.x).normalized;
+
+        // FIX 3: Speed check happens every frame. 
+        // If stamina hits 0 mid-air, targetSpeed becomes walkSpeed instantly.
+        float targetSpeed = (sprinting && !staminaExhausted) ? sprintSpeed : walkSpeed;
+        float speed = grounded ? targetSpeed : targetSpeed * airMultiplier;
+        
+        Vector3 horizontalMove = moveDir * speed;
+
+        verticalVelocity.y += gravity * Time.deltaTime;
+        if (verticalVelocity.y < -50f) verticalVelocity.y = -50f; 
+
+        Vector3 finalVelocity = horizontalMove + verticalVelocity;
+        controller.Move(finalVelocity * Time.deltaTime);
     }
 
     private void Jump()
     {
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-
-        stamina -= 15f;
-        stamina = Mathf.Clamp(stamina, 0f, maxStamina);
-
-        redWheel.fillAmount = stamina / maxStamina + 0.07f;
-
-        if (stamina <= 0)
-        {
-            greenWheel.enabled = false;
-            staminaExhausted = true;
-        }
+        readyToJump = false;
+        verticalVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        
+        // FIX 4: Jump cost is now explicitly subtracted
+        stamina -= jumpStaminaCost;
+        if (stamina < 0) stamina = 0;
+        
+        Invoke(nameof(ResetJump), 0.2f);
     }
 
-    private void Resetjump() => readyToJump = true;
+    private void ResetJump() => readyToJump = true;
 
     private void HandleLook()
     {
-        float mouseX = lookInput.x * mouseSensitivity;
-        float mouseY = lookInput.y * mouseSensitivity;
-
-        xRotation -= mouseY;
+        xRotation -= lookInput.y * mouseSensitivity * 1f; 
         xRotation = Mathf.Clamp(xRotation, -80f, 80f);
-
         playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        transform.Rotate(Vector3.up * mouseX);
+        transform.Rotate(Vector3.up * (lookInput.x * mouseSensitivity * 1f));
     }
 
     private void HandleHeadBob()
@@ -281,47 +226,31 @@ public class PlayerMovement : NetworkBehaviour
         if (!grounded || inputDirection.sqrMagnitude < 0.1f)
         {
             bobTimer = 0f;
-            playerCamera.transform.localPosition = Vector3.Lerp(
-                playerCamera.transform.localPosition,
-                cameraDefaultLocalPos,
-                Time.deltaTime * 8f
-            );
+            playerCamera.transform.localPosition = Vector3.Lerp(playerCamera.transform.localPosition, cameraDefaultLocalPos, Time.deltaTime * 8f);
             return;
         }
-
-        float speed = sprinting ? sprintBobSpeed : walkBobSpeed;
-        float amount = sprinting ? sprintBobAmount : walkBobAmount;
-
+        float speed = (sprinting && !staminaExhausted) ? sprintBobSpeed : walkBobSpeed;
+        float amount = (sprinting && !staminaExhausted) ? sprintBobAmount : walkBobAmount;
         bobTimer += Time.deltaTime * speed;
-        float bobOffset = Mathf.Sin(bobTimer) * amount;
-
-        playerCamera.transform.localPosition =
-            cameraDefaultLocalPos + Vector3.up * bobOffset;
+        playerCamera.transform.localPosition = cameraDefaultLocalPos + Vector3.up * (Mathf.Sin(bobTimer) * amount);
     }
 
-    private IEnumerator PlayExitAnimation()
+    private void UpdateAnimations()
     {
-        staminaAnimator?.Play("StaminaExit");
-        yield return new WaitForSeconds(0.5f);
-        StaminaUI.SetActive(false);
+        if (!playerAnimator) return;
+        float animSpeed = (inputDirection.sqrMagnitude < 0.1f) ? 0f : ((sprinting && !staminaExhausted) ? 1.5f : 0.5f);
+        playerAnimator.SetFloat("Speed", animSpeed);
     }
 
     private void UpdateSound()
     {
-        if (rb.velocity.magnitude > 0.1f && grounded)
+        if (controller.velocity.magnitude > 0.5f && grounded)
         {
             playerFootsteps.getPlaybackState(out PLAYBACK_STATE state);
-            if (state == PLAYBACK_STATE.STOPPED)
-                playerFootsteps.start();
+            if (state == PLAYBACK_STATE.STOPPED) playerFootsteps.start();
         }
-        else
-        {
-            playerFootsteps.stop(STOP_MODE.ALLOWFADEOUT);
-        }
+        else playerFootsteps.stop(STOP_MODE.ALLOWFADEOUT);
     }
 
-    public void SetMouseSensitivity(float newSensitivity)
-    {
-        mouseSensitivity = newSensitivity;
-    }
+    public void SetMouseSensitivity(float newSensitivity) => mouseSensitivity = newSensitivity;
 }
