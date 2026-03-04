@@ -251,6 +251,12 @@ public class PlayerMovement : MonoBehaviour
         }
         else playerFootsteps.stop(STOP_MODE.ALLOWFADEOUT);
     }
+    
+    public void SyncRotation(float newXRotation)
+    {
+        if (newXRotation > 180) newXRotation -= 360;
+        xRotation = newXRotation;
+    }
 
     public void SetMouseSensitivity(float newSensitivity) => mouseSensitivity = newSensitivity;
 }
