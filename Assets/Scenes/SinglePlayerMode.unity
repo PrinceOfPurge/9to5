@@ -10244,9 +10244,9 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 8.010101, z: 1}
   m_Center: {x: 0, y: 2.272145, z: -3.216047e-14}
@@ -13864,50 +13864,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 561348448}
   m_CullTransparentMesh: 1
---- !u!1 &563318429
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 563318431}
-  - component: {fileID: 563318432}
-  m_Layer: 0
-  m_Name: Highlightable
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &563318431
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 563318429}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -349.51553, y: -25.351305, z: -10.088443}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &563318432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 563318429}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3acabfa4f7b0bb84da1708d89311be8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &569922515
 GameObject:
   m_ObjectHideFlags: 0
@@ -20616,7 +20572,7 @@ PrefabInstance:
     - target: {fileID: 2461311996554687863, guid: a002213bdf31cf99485de742c22a252d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 1bd4b2c7bb178454b9fc319ef2e76c07, type: 2}
+      objectReference: {fileID: 2100000, guid: 0417d80ce24ccc44f9e4dfaddaae8985, type: 2}
     - target: {fileID: 3247821066685528644, guid: a002213bdf31cf99485de742c22a252d, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -20800,9 +20756,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3291312055460527492, guid: a002213bdf31cf99485de742c22a252d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 956143793}
-    - targetCorrespondingSourceObject: {fileID: 3291312055460527492, guid: a002213bdf31cf99485de742c22a252d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 956143797}
   m_SourcePrefab: {fileID: 100100000, guid: a002213bdf31cf99485de742c22a252d, type: 3}
 --- !u!1 &956143792 stripped
 GameObject:
@@ -20830,29 +20783,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!136 &956143797
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 956143792}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.032122783
-  m_Height: 0.07191161
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0.006802347}
 --- !u!4 &960589121 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 96753c8689e70c546a550ad3f0903c76, type: 3}
@@ -40110,7 +40040,7 @@ PrefabInstance:
       objectReference: {fileID: 1534647487}
     - target: {fileID: 8443004736555753296, guid: 192099d2c29199a4c85c18215e0fd3f8, type: 3}
       propertyPath: walkSpeed
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8443004736555753296, guid: 192099d2c29199a4c85c18215e0fd3f8, type: 3}
       propertyPath: greenWheel
@@ -70622,5 +70552,4 @@ SceneRoots:
   - {fileID: 5706594669489745244}
   - {fileID: 7605542731650739151}
   - {fileID: 944248044}
-  - {fileID: 563318431}
   - {fileID: 1466657786}
