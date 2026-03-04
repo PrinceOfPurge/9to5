@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SkinColourChanger
+  m_Name: DARKoutline
   m_Shader: {fileID: 4800000, guid: 3854cad053a34d1438fff46b93846e76, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 3d4a1e62dcea65e4a9db8e1661fb9ef8, type: 3}
+        m_Texture: {fileID: 2800000, guid: f8aa4f6a413a889458713b627793f4a8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
