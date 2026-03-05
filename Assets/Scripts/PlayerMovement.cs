@@ -53,6 +53,12 @@ public class PlayerMovement : MonoBehaviour
     public float sprintBobSpeed = 18f;
     public float sprintBobAmount = 0.09f;
 
+    [Header("Camera Following (New)")]
+    [Tooltip("Drag the 'CameraAnchor' child of your Head Bone here.")]
+    public Transform cameraAnchor; 
+    public float cameraFollowSpeed = 20f;
+    [HideInInspector] public bool isMiniGameActive = false; // Set this to true from your Toilet script
+
     [SerializeField] Animator playerAnimator;
 
     private CharacterController controller;
@@ -84,7 +90,10 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (redWheel != null) originalRedWheelColor = redWheel.color;
+        
+        // This is the starting relative position of the camera
         cameraDefaultLocalPos = playerCamera.transform.localPosition;
+        
         playerFootsteps = AudioManager.instance.CreateInstance(FMODEvents.instance.playerFootsteps);
 
         if (ShopInfo.Instance != null)
@@ -102,7 +111,6 @@ public class PlayerMovement : MonoBehaviour
     public void OnMove(InputValue value) => inputDirection = value.Get<Vector2>();
     public void OnLook(InputValue value) => lookInput = value.Get<Vector2>();
     
-    // FIX 1: Prevent jumping if exhausted
     public void OnJump(InputValue value) 
     { 
         if (readyToJump && grounded && !staminaExhausted && stamina >= jumpStaminaCost) 
@@ -124,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
         HandleLook();
         HandleStamina();
         ApplyMovement();
-        HandleHeadBob();
+        HandleHeadBob(); // Updated with Hybrid logic
         UpdateAnimations();
         UpdateSound();
     }
@@ -133,8 +141,6 @@ public class PlayerMovement : MonoBehaviour
     {
         bool isMoving = inputDirection.sqrMagnitude > 0.1f;
 
-        // FIX 2: Removed "grounded" check from depletion. 
-        // If you're sprinting in the air, you're still working hard!
         if (sprinting && isMoving && !staminaExhausted)
         {
             stamina -= staminaDepletionRate * Time.deltaTime;
@@ -178,6 +184,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void ApplyMovement()
     {
+        if (isMiniGameActive) 
+        {
+            verticalVelocity.y += gravity * Time.deltaTime;
+            if (grounded && verticalVelocity.y < 0) verticalVelocity.y = -2f;
+            controller.Move(verticalVelocity * Time.deltaTime);
+            return;
+        }
+
         Transform moveRef = orientation != null ? orientation : playerCamera.transform;
         Vector3 forward = moveRef.forward;
         Vector3 right = moveRef.right;
@@ -185,8 +199,6 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 moveDir = (forward.normalized * inputDirection.y + right.normalized * inputDirection.x).normalized;
 
-        // FIX 3: Speed check happens every frame. 
-        // If stamina hits 0 mid-air, targetSpeed becomes walkSpeed instantly.
         float targetSpeed = (sprinting && !staminaExhausted) ? sprintSpeed : walkSpeed;
         float speed = grounded ? targetSpeed : targetSpeed * airMultiplier;
         
@@ -204,7 +216,11 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = false;
         verticalVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         
-        // FIX 4: Jump cost is now explicitly subtracted
+        if (playerAnimator != null)
+        {
+            playerAnimator.SetTrigger("Jump");
+        }
+
         stamina -= jumpStaminaCost;
         if (stamina < 0) stamina = 0;
         
@@ -215,31 +231,48 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleLook()
     {
-        xRotation -= lookInput.y * mouseSensitivity * 1f; 
+        xRotation -= lookInput.y * mouseSensitivity; 
         xRotation = Mathf.Clamp(xRotation, -80f, 80f);
         playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        transform.Rotate(Vector3.up * (lookInput.x * mouseSensitivity * 1f));
+        transform.Rotate(Vector3.up * (lookInput.x * mouseSensitivity));
     }
 
     private void HandleHeadBob()
     {
-        if (!grounded || inputDirection.sqrMagnitude < 0.1f)
+        // HYBRID LOGIC:
+        // If we are airborne (Jumping) or in the Plunger Mini-game (Kneeling)
+        // follow the BONE ANCHOR directly.
+        if ((!grounded || isMiniGameActive) && cameraAnchor != null)
+        {
+            playerCamera.transform.position = Vector3.Lerp(playerCamera.transform.position, cameraAnchor.position, Time.deltaTime * cameraFollowSpeed);
+            return;
+        }
+
+        // WALKING/IDLE LOGIC:
+        // Return to your original math for a smooth ground feel.
+        if (inputDirection.sqrMagnitude < 0.1f)
         {
             bobTimer = 0f;
             playerCamera.transform.localPosition = Vector3.Lerp(playerCamera.transform.localPosition, cameraDefaultLocalPos, Time.deltaTime * 8f);
             return;
         }
+
         float speed = (sprinting && !staminaExhausted) ? sprintBobSpeed : walkBobSpeed;
         float amount = (sprinting && !staminaExhausted) ? sprintBobAmount : walkBobAmount;
         bobTimer += Time.deltaTime * speed;
+        
+        // This is your original code - kept exactly the same for walking.
         playerCamera.transform.localPosition = cameraDefaultLocalPos + Vector3.up * (Mathf.Sin(bobTimer) * amount);
     }
 
     private void UpdateAnimations()
     {
         if (!playerAnimator) return;
+        
         float animSpeed = (inputDirection.sqrMagnitude < 0.1f) ? 0f : ((sprinting && !staminaExhausted) ? 1.5f : 0.5f);
         playerAnimator.SetFloat("Speed", animSpeed);
+        playerAnimator.SetBool("isGrounded", grounded);
+        playerAnimator.SetFloat("VerticalVelocity", verticalVelocity.y);
     }
 
     private void UpdateSound()
@@ -250,6 +283,19 @@ public class PlayerMovement : MonoBehaviour
             if (state == PLAYBACK_STATE.STOPPED) playerFootsteps.start();
         }
         else playerFootsteps.stop(STOP_MODE.ALLOWFADEOUT);
+    }
+    
+    public IEnumerator FadePlungerLayer(int index, float target, float duration)
+    {
+        float startWeight = playerAnimator.GetLayerWeight(index);
+        float time = 0;
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            playerAnimator.SetLayerWeight(index, Mathf.Lerp(startWeight, target, time / duration));
+            yield return null;
+        }
+        playerAnimator.SetLayerWeight(index, target);
     }
     
     public void SyncRotation(float newXRotation)
