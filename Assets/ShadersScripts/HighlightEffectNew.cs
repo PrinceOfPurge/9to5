@@ -5,6 +5,7 @@ using UnityEngine;
 public class HighlightEffectNew : MonoBehaviour
 {
     [SerializeField] private Material outlineShader;
+    [SerializeField] private GameObject ToiletGameObject;
     public Color normalColor = Color.black;
     public Color hoverColor = Color.magenta;
     // Start is called before the first frame update
@@ -19,5 +20,9 @@ public class HighlightEffectNew : MonoBehaviour
     private void OnMouseExit()
     {
         outlineShader.SetColor("_OutlineColor", normalColor);
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        Destroy (ToiletGameObject);
     }
 }

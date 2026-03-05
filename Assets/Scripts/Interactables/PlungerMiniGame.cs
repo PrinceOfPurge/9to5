@@ -34,9 +34,9 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
     public float transitionDuration = 0.8f;
 
     [Header("Resistance Gameplay Settings")]
-    public float sensitivity = 1.5f;     
-    public float upwardPressure = 0.4f; 
-    public float winHoldTime = 2.0f;    
+    public float sensitivity = 2.0f;     
+    public float upwardPressure = 0.1f; 
+    public float winHoldTime = 0.3f;    
     
     [Header("Poop Settings")]
     public float minPoopHeight = 0.1f;
