@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HighlightEffectNew : MonoBehaviour
+public class HighlightEffectToilet : MonoBehaviour
 {
     [SerializeField] private Material outlineShader;
     [SerializeField] private GameObject ToiletGameObject;
+    private bool canSeeHighlight = false;
     public Color normalColor = Color.black;
     public Color hoverColor = Color.magenta;
     // Start is called before the first frame update
@@ -15,7 +16,7 @@ public class HighlightEffectNew : MonoBehaviour
     }
     private void OnMouseEnter()
     {
-        outlineShader.SetColor("_OutlineColor", hoverColor);
+        if (canSeeHighlight) { outlineShader.SetColor("_OutlineColor", hoverColor); }
     }
     private void OnMouseExit()
     {
@@ -23,6 +24,11 @@ public class HighlightEffectNew : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Destroy (ToiletGameObject);
+        canSeeHighlight = true;
+       Destroy (ToiletGameObject,20);
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        canSeeHighlight = false;
     }
 }
