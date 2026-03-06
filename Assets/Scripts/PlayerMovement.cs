@@ -241,11 +241,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleHeadBob()
     {
-
         if ((!grounded || isMiniGameActive) && cameraAnchor != null)
         {
+
             playerCamera.transform.position = Vector3.Lerp(playerCamera.transform.position, cameraAnchor.position, Time.deltaTime * cameraFollowSpeed);
-            playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+            playerCamera.transform.rotation = Quaternion.Euler(xRotation, transform.eulerAngles.y, 0f);
             return;
         }
         
@@ -259,8 +259,7 @@ public class PlayerMovement : MonoBehaviour
         float speed = (sprinting && !staminaExhausted) ? sprintBobSpeed : walkBobSpeed;
         float amount = (sprinting && !staminaExhausted) ? sprintBobAmount : walkBobAmount;
         bobTimer += Time.deltaTime * speed;
-        
-        // This is your original code - kept exactly the same for walking.
+    
         playerCamera.transform.localPosition = cameraDefaultLocalPos + Vector3.up * (Mathf.Sin(bobTimer) * amount);
     }
 

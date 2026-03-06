@@ -1,12 +1,11 @@
 using System.Collections;
 using UnityEngine;
-using FMODUnity;
 
 public class objPickup : MonoBehaviour, IInteractable
 {
     [Header("UI Elements")]
     public GameObject crosshair1, crosshair2;
-    public GameObject TutPrompt, worldPrompt, throwPrompt;
+    public GameObject worldPrompt, throwPrompt;
 
     [Header("Highlighting")]
     public HighlightEffectBananaAndGarbage highlightScript;
@@ -16,6 +15,11 @@ public class objPickup : MonoBehaviour, IInteractable
     public Transform cameraTrans;
     public Rigidbody objRigidbody;
     public Collider playerCollider;
+    public Animator playerAnimator; 
+
+    [Header("Animations")]
+    public string pickupTrigger = "PickUp";
+    public string throwTrigger = "Throw";
 
     [Header("Settings")]
     public float throwAmount = 25f;
@@ -51,11 +55,8 @@ public class objPickup : MonoBehaviour, IInteractable
     void Start()
     {
         allColliders = GetComponentsInChildren<Collider>();
-        
         if (worldPrompt) worldPrompt.SetActive(false);
         if (throwPrompt) throwPrompt.SetActive(false);
-        if (TutPrompt) TutPrompt.SetActive(true);
-        
         objRigidbody.interpolation = RigidbodyInterpolation.Interpolate;
     }
     
@@ -68,24 +69,25 @@ public class objPickup : MonoBehaviour, IInteractable
         if(crosshair1) crosshair1.SetActive(false);
         if(crosshair2) crosshair2.SetActive(true);
 
-        if (worldPrompt)
-            worldPrompt.SetActive(true);
+        if (worldPrompt) worldPrompt.SetActive(true);
     }
 
     public void OnLoseFocus()
     {
         if (highlightScript != null) highlightScript.ToggleHighlight(false);
-
-        if(crosshair1) crosshair1.SetActive(true);
-        if(crosshair2) crosshair2.SetActive(false);
+        
+        if (!pickedup)
+        {
+            if(crosshair1) crosshair1.SetActive(true);
+            if(crosshair2) crosshair2.SetActive(false);
+        }
 
         if (worldPrompt) worldPrompt.SetActive(false);
     }
 
     public void OnInteract()
     {
-        if (!pickedup)
-            PickUpObject();
+        if (!pickedup) PickUpObject();
     }
 
     void Update()
@@ -104,7 +106,6 @@ public class objPickup : MonoBehaviour, IInteractable
                                (cameraTrans.right * sideOffset);
 
             objTransform.position = Vector3.Lerp(objTransform.position, targetPos, Time.deltaTime * holdSmoothness);
-
             Quaternion targetRot = cameraTrans.rotation * Quaternion.Euler(rotationOffset);
             objTransform.rotation = Quaternion.Lerp(objTransform.rotation, targetRot, Time.deltaTime * holdSmoothness);
 
@@ -119,36 +120,45 @@ public class objPickup : MonoBehaviour, IInteractable
     void PickUpObject()
     {
         pickedup = true;
+        
+        if (playerAnimator != null) 
+        {
+            playerAnimator.SetTrigger(pickupTrigger);
+        }
+        
+        if (crosshair1) crosshair1.SetActive(false);
+        if (crosshair2) crosshair2.SetActive(false);
 
-        // --- ADDED: Ensure highlight is OFF when in hand ---
         if (highlightScript != null) highlightScript.ToggleHighlight(false);
 
         objRigidbody.useGravity = false;
         objRigidbody.isKinematic = true; 
         objTransform.parent = cameraTrans;
 
-        foreach (Collider col in allColliders)
-        {
-            col.enabled = false;
-        }
+        foreach (Collider col in allColliders) col.enabled = false;
 
         if (worldPrompt) worldPrompt.SetActive(false);
-        if (TutPrompt) TutPrompt.SetActive(false);
         StartCoroutine(ShowThrowPromptAfterDelay(0.4f));
     }
 
     void ThrowObject()
     {
         pickedup = false;
+        
+        if (playerAnimator != null) 
+        {
+            playerAnimator.SetTrigger(throwTrigger);
+        }
+        
+        if (crosshair1) crosshair1.SetActive(true);
+        if (crosshair2) crosshair2.SetActive(false);
+        
         if (highlightScript != null) highlightScript.ToggleHighlight(false);
         objTransform.parent = null;
         objRigidbody.useGravity = true;
         objRigidbody.isKinematic = false;
 
-        foreach (Collider col in allColliders)
-        {
-            col.enabled = true;
-        }
+        foreach (Collider col in allColliders) col.enabled = true;
         
         objRigidbody.velocity = cameraTrans.forward * throwAmount;
 
@@ -173,11 +183,7 @@ public class objPickup : MonoBehaviour, IInteractable
     void OnCollisionEnter(Collision collision)
     {
         if (pickedup) return;
-
-        if (collision.gameObject.CompareTag("GarbageCan"))
-        {
-            HandleGarbageCanCollision(collision);
-        }
+        if (collision.gameObject.CompareTag("GarbageCan")) HandleGarbageCanCollision(collision);
     }
 
     void HandleGarbageCanCollision(Collision collision)
@@ -190,7 +196,6 @@ public class objPickup : MonoBehaviour, IInteractable
             GameObject vfxObj = Instantiate(successEffect, transform.position, Quaternion.identity);
             Destroy(vfxObj, 2f);
         }
-
         Destroy(gameObject);
     }
 
@@ -208,12 +213,9 @@ public class objPickup : MonoBehaviour, IInteractable
         Vector3 vel = smoothedStartVel;
 
         int count = 0;
-
         for (int i = 0; i < predictionSteps; i++)
         {
-            if (count < splineBuffer.Length)
-                splineBuffer[count] = pos;
-
+            if (count < splineBuffer.Length) splineBuffer[count] = pos;
             count++;
 
             vel += Physics.gravity * timestep;
@@ -221,13 +223,10 @@ public class objPickup : MonoBehaviour, IInteractable
 
             if (Physics.Raycast(pos, newPos - pos, out RaycastHit hit, (newPos - pos).magnitude, trajectoryCollisionMask))
             {
-                if (count < splineBuffer.Length)
-                    splineBuffer[count] = hit.point;
-
+                if (count < splineBuffer.Length) splineBuffer[count] = hit.point;
                 count++;
                 break;
             }
-
             pos = newPos;
         }
 
@@ -249,12 +248,9 @@ public class objPickup : MonoBehaviour, IInteractable
                 Vector3 b = p2 - p0;
                 Vector3 c = 2f * p0 - 5f * p1 + 4f * p2 - p3;
                 Vector3 d = -p0 + 3f * p1 - 3f * p2 + p3;
-
                 Vector3 p = 0.5f * (a + (b * t) + (c * t * t) + (d * t * t * t));
 
-                if (idx < outCount)
-                    trajectoryRenderer.SetPosition(idx, p);
-
+                if (idx < outCount) trajectoryRenderer.SetPosition(idx, p);
                 idx++;
             }
         }

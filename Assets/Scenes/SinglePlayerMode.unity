@@ -9179,7 +9179,7 @@ MonoBehaviour:
   interactKey: 101
   holdTime: 1
   fadeSpeed: 0.5
-  perfectWindow: 0.1
+  perfectWindow: 0.05
   doneVFX: {fileID: 0}
   highlightScript: {fileID: 354342150}
   interactionDistance: 10
@@ -20142,7 +20142,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crosshair1: {fileID: 109628774}
   crosshair2: {fileID: 1903551587}
-  TutPrompt: {fileID: 0}
   worldPrompt: {fileID: 316012923}
   throwPrompt: {fileID: 1995845381}
   highlightScript: {fileID: 893158850}
@@ -20150,6 +20149,9 @@ MonoBehaviour:
   cameraTrans: {fileID: 871029803}
   objRigidbody: {fileID: 893158835}
   playerCollider: {fileID: 893158844}
+  playerAnimator: {fileID: 8743795465577597541}
+  pickupTrigger: PickUp
+  throwTrigger: Throw
   throwAmount: 30
   promptCooldown: 1
   holdSmoothness: 1000
@@ -20162,7 +20164,7 @@ MonoBehaviour:
   timestep: 0.04
   trajectoryCollisionMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 4294967295
   predictionSmooth: 20
   trajectoryVisualOffset: {x: 0.25, y: -0.35, z: 0}
   splineResolution: 10
@@ -21840,6 +21842,10 @@ PrefabInstance:
       propertyPath: miniGameUIParent
       value: 
       objectReference: {fileID: 2137232150}
+    - target: {fileID: 5160298734622279616, guid: a002213bdf31cf99485de742c22a252d, type: 3}
+      propertyPath: interactionDistance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5879398960599764516, guid: a002213bdf31cf99485de742c22a252d, type: 3}
       propertyPath: m_Layer
       value: 8

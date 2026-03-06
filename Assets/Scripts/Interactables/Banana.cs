@@ -11,6 +11,11 @@ public class Banana : MonoBehaviour, IInteractable
     public GameObject garbagePrompt;
     public KeyCode interactKey = KeyCode.E;
 
+    [Header("Positioning")]
+    [Tooltip("Ideal distance for the player to stand from the banana")]
+    public float interactionDistance = 1.5f; 
+    public float positioningSpeed = 5f;
+
     [Header("UI Crosshair (Standard System)")]
     public GameObject crosshair1; 
     public GameObject crosshair2;
@@ -61,6 +66,7 @@ public class Banana : MonoBehaviour, IInteractable
     private PlayerMovement playerMovement;
     private Camera playerCam;
     private Coroutine cameraLockCoroutine;
+    private Coroutine positioningCoroutine; // Added
 
     private KeyCode[] keyPool = new KeyCode[] { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D };
 
@@ -92,12 +98,8 @@ public class Banana : MonoBehaviour, IInteractable
     public void OnLoseFocus()
     {
         playerInRange = false;
-    
-        // Toggle Highlight OFF
         if (highlightScript) highlightScript.ToggleHighlight(false);
-
         if (isPlaying) EndMinigame(false);
-    
         if (crosshair1) crosshair1.SetActive(true);
         if (crosshair2) crosshair2.SetActive(false);
         if (garbagePrompt) garbagePrompt.SetActive(false);
@@ -110,20 +112,15 @@ public class Banana : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        // 1. SELF-EXIT ON PAUSE
-        // If the game is paused while playing, force the minigame to end.
         if (isPlaying && Time.timeScale == 0)
         {
             EndMinigame(false);
             return;
         }
 
-        // Standard safety checks
         if (isCleaned || !isPlaying || isProcessingAnimation) return;
-
         if (ignoreInputThisFrame) { ignoreInputThisFrame = false; return; }
 
-        // 2. MANUAL EXIT (Right-Click or Escape)
         if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
         {
             EndMinigame(false);
@@ -135,7 +132,6 @@ public class Banana : MonoBehaviour, IInteractable
 
         if (timer <= 0f) { StartCoroutine(HandleWrong()); return; }
 
-        // 3. GAMEPLAY INPUT
         if (Input.GetKeyDown(currentKey))
         {
             StartCoroutine(HandleCorrect());
@@ -157,8 +153,6 @@ public class Banana : MonoBehaviour, IInteractable
         
         if (highlightScript) highlightScript.ToggleHighlight(false);
         if (garbagePrompt != null) garbagePrompt.SetActive(false);
-
-        // HIDE BOTH CROSSHAIRS for the minigame
         if (crosshair1) crosshair1.SetActive(false);
         if (crosshair2) crosshair2.SetActive(false);
 
@@ -166,8 +160,14 @@ public class Banana : MonoBehaviour, IInteractable
         if (playerMovement != null)
         {
             playerMovement.enabled = false;
+            
+            // 1. Lock Camera
             if (cameraLockCoroutine != null) StopCoroutine(cameraLockCoroutine);
             cameraLockCoroutine = StartCoroutine(LockCameraToUI());
+
+            // 2. Smoothly Move Player to the ideal distance (NEW)
+            if (positioningCoroutine != null) StopCoroutine(positioningCoroutine);
+            positioningCoroutine = StartCoroutine(MovePlayerToInteractPoint());
         }
 
         remainingKeys = totalKeysNeeded;
@@ -176,14 +176,34 @@ public class Banana : MonoBehaviour, IInteractable
         ShowRandomKey();
     }
 
+    // NEW: Moves player to the correct interaction distance
+    private IEnumerator MovePlayerToInteractPoint()
+    {
+        while (isPlaying)
+        {
+            Vector3 targetPos = transform.position;
+            Vector3 playerPos = playerMovement.transform.position;
+            
+            Vector3 dirToPlayer = (playerPos - targetPos).normalized;
+            dirToPlayer.y = 0; 
+
+            Vector3 finalTarget = targetPos + (dirToPlayer * interactionDistance);
+            Vector3 moveDiff = finalTarget - playerMovement.transform.position;
+            
+            if (moveDiff.magnitude > 0.05f)
+            {
+                CharacterController cc = playerMovement.GetComponent<CharacterController>();
+                if(cc != null) cc.Move(moveDiff * Time.deltaTime * positioningSpeed);
+            }
+            yield return null;
+        }
+    }
+
     private IEnumerator LockCameraToUI()
     {
         Transform target = uiLocation != null ? uiLocation : transform;
-    
-        // We use isPlaying as the master switch
         while (isPlaying)
         {
-            // FIX: If the game pauses during the minigame, don't jerk the camera
             if (Time.timeScale > 0)
             {
                 Vector3 targetPos = target.position + lookOffset;
@@ -191,20 +211,10 @@ public class Banana : MonoBehaviour, IInteractable
                 if (direction != Vector3.zero)
                 {
                     Quaternion lookRotation = Quaternion.LookRotation(direction);
-                
-                    // Rotate body
-                    playerMovement.transform.rotation = Quaternion.Slerp(
-                        playerMovement.transform.rotation, 
-                        Quaternion.Euler(0, lookRotation.eulerAngles.y, 0), 
-                        Time.deltaTime * cameraLockSpeed);
-                
-                    // Rotate camera head
+                    playerMovement.transform.rotation = Quaternion.Slerp(playerMovement.transform.rotation, Quaternion.Euler(0, lookRotation.eulerAngles.y, 0), Time.deltaTime * cameraLockSpeed);
                     float targetX = lookRotation.eulerAngles.x;
                     if (targetX > 180) targetX -= 360;
-                    playerCam.transform.localRotation = Quaternion.Slerp(
-                        playerCam.transform.localRotation, 
-                        Quaternion.Euler(targetX, 0, 0), 
-                        Time.deltaTime * cameraLockSpeed);
+                    playerCam.transform.localRotation = Quaternion.Slerp(playerCam.transform.localRotation, Quaternion.Euler(targetX, 0, 0), Time.deltaTime * cameraLockSpeed);
                 }
             }
             yield return null;
@@ -216,6 +226,9 @@ public class Banana : MonoBehaviour, IInteractable
         isPlaying = false;
         isMinigameActive = false;
 
+        // Stop positioning coroutine
+        if (positioningCoroutine != null) StopCoroutine(positioningCoroutine);
+
         if (playerMovement != null)
         {
             playerMovement.SyncRotation(playerCam.transform.localRotation.eulerAngles.x);
@@ -224,8 +237,6 @@ public class Banana : MonoBehaviour, IInteractable
 
         if (timerUI != null) timerUI.SetActive(false);
         HideAllArrows();
-
-        // RESTORE THE DEFAULT CROSSHAIR
         if (crosshair1) crosshair1.SetActive(true);
         if (crosshair2) crosshair2.SetActive(false);
 
