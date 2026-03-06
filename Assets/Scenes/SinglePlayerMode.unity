@@ -9177,10 +9177,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cleaningPrompt: {fileID: 1312748711}
   interactKey: 101
-  holdTime: 2
+  holdTime: 1
   fadeSpeed: 0.5
   perfectWindow: 0.1
   doneVFX: {fileID: 0}
+  highlightScript: {fileID: 354342150}
   interactionDistance: 10
   positioningSpeed: 5
   miniGameUIParent: {fileID: 288961984}
@@ -10410,18 +10411,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1cc027af50b7173499f9fabd7ecc18cf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 354342150}
-    - targetCorrespondingSourceObject: {fileID: -3055839641353496963, guid: 1cc027af50b7173499f9fabd7ecc18cf, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1213462695}
-    - targetCorrespondingSourceObject: {fileID: -3055839641353496963, guid: 1cc027af50b7173499f9fabd7ecc18cf, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1213462696}
-    - targetCorrespondingSourceObject: {fileID: 5619302609615435187, guid: 1cc027af50b7173499f9fabd7ecc18cf, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1959387690}
-    - targetCorrespondingSourceObject: {fileID: 5619302609615435187, guid: 1cc027af50b7173499f9fabd7ecc18cf, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1959387689}
   m_SourcePrefab: {fileID: 100100000, guid: 1cc027af50b7173499f9fabd7ecc18cf, type: 3}
 --- !u!4 &354342148 stripped
 Transform:
@@ -10433,27 +10422,25 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1cc027af50b7173499f9fabd7ecc18cf, type: 3}
   m_PrefabInstance: {fileID: 354342147}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &354342150
-BoxCollider:
+--- !u!114 &354342150
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 354342149}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 1, y: 8.010101, z: 1}
-  m_Center: {x: 0, y: 2.272145, z: -3.216047e-14}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 466eaacfc27681f4e8dcc38fe0604c3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectRenderers:
+  - {fileID: 1959387692}
+  - {fileID: 1213462698}
+  colorParam: _OutlineColor
+  widthParam: _Outline
+  outlineThickness: 0.001
+  hoverOverColor: {r: 1, g: 0, b: 1, a: 1}
 --- !u!1 &359130088
 GameObject:
   m_ObjectHideFlags: 0
@@ -17636,7 +17623,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &753342777
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17654,7 +17641,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1327.43, y: -533.43}
+  m_AnchoredPosition: {x: -1331.03, y: -533.43}
   m_SizeDelta: {x: 483.34, y: 151}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &753342778
@@ -20158,6 +20145,7 @@ MonoBehaviour:
   TutPrompt: {fileID: 0}
   worldPrompt: {fileID: 316012923}
   throwPrompt: {fileID: 1995845381}
+  highlightScript: {fileID: 893158850}
   objTransform: {fileID: 893158833}
   cameraTrans: {fileID: 871029803}
   objRigidbody: {fileID: 893158835}
@@ -20344,7 +20332,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a30e94c1370b1ce47be851a00df3ff34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineShaderPink: {fileID: 2100000, guid: 94b065491f88e3c4ca7f31416eca2170, type: 2}
+  objectRenderer: {fileID: 893158852}
+  colorParam: _OutlineColor
+  widthParam: _Outline
+  outlineThickness: 0.0001
   regularColor: {r: 0, g: 0, b: 0, a: 1}
   hoverOverColor: {r: 1, g: 0, b: 1, a: 1}
 --- !u!135 &893158851
@@ -20354,7 +20345,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 893158832}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 770f976a2e336c04681532580ddd753c, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -20366,8 +20357,13 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.028613877
-  m_Center: {x: 0.00008796565, y: -0.00011056672, z: 0.0037683882}
+  m_Radius: 0.006501788
+  m_Center: {x: 0.000062705476, y: -0.00011056672, z: 0.0037683882}
+--- !u!23 &893158852 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4252479164331002399, guid: 0bf9712199f8b2a68a3d3d99d2835343, type: 3}
+  m_PrefabInstance: {fileID: 1798530360}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &894357434 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 603434589145702634, guid: ff7934a9b14bcd442b37041d76c89478, type: 3}
@@ -21837,6 +21833,10 @@ PrefabInstance:
       value: 101
       objectReference: {fileID: 0}
     - target: {fileID: 5160298734622279616, guid: a002213bdf31cf99485de742c22a252d, type: 3}
+      propertyPath: highlightScript
+      value: 
+      objectReference: {fileID: 956143802}
+    - target: {fileID: 5160298734622279616, guid: a002213bdf31cf99485de742c22a252d, type: 3}
       propertyPath: miniGameUIParent
       value: 
       objectReference: {fileID: 2137232150}
@@ -21949,9 +21949,6 @@ PrefabInstance:
       addedObject: {fileID: 956143793}
     - targetCorrespondingSourceObject: {fileID: 3291312055460527492, guid: a002213bdf31cf99485de742c22a252d, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 956143798}
-    - targetCorrespondingSourceObject: {fileID: 3291312055460527492, guid: a002213bdf31cf99485de742c22a252d, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 956143802}
     - targetCorrespondingSourceObject: {fileID: 4989864700522137103, guid: a002213bdf31cf99485de742c22a252d, type: 3}
       insertIndex: -1
@@ -21983,29 +21980,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!136 &956143798
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 956143792}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.103197224
-  m_Height: 0.7105678
-  m_Direction: 1
-  m_Center: {x: 0.003920049, y: -0.009680254, z: 0.0068023494}
 --- !u!114 &956143802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22018,9 +21992,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a30e94c1370b1ce47be851a00df3ff34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineShaderPink: {fileID: 2100000, guid: 0417d80ce24ccc44f9e4dfaddaae8985, type: 2}
+  objectRenderer: {fileID: 956143803}
+  colorParam: _OutlineColor
+  widthParam: _Outline
+  outlineThickness: 0.001
   regularColor: {r: 0, g: 0, b: 0, a: 1}
   hoverOverColor: {r: 1, g: 0, b: 1, a: 1}
+--- !u!23 &956143803 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2461311996554687863, guid: a002213bdf31cf99485de742c22a252d, type: 3}
+  m_PrefabInstance: {fileID: 956143791}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &960589121 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 96753c8689e70c546a550ad3f0903c76, type: 3}
@@ -25378,9 +25360,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8cf7453a2dd1d3418ccd55e5c6662c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineShader: {fileID: 2100000, guid: 79a6344900c6930418c6081b58d4dd7e, type: 2}
-  ToiletGameObject: {fileID: 0}
-  normalColor: {r: 0, g: 0, b: 0, a: 1}
+  toiletRenderer: {fileID: 0}
+  colorParam: _OutlineColor
+  widthParam: _Outline
+  outlineThickness: 0.1
   hoverColor: {r: 1, g: 0, b: 0.71395254, a: 1}
 --- !u!1 &1135135396
 GameObject:
@@ -26578,48 +26561,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1203096038}
   m_Mesh: {fileID: -2174075825041580530, guid: 809564e99ed713a48a8579728ee8f424, type: 3}
---- !u!1 &1213462691 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -3055839641353496963, guid: 1cc027af50b7173499f9fabd7ecc18cf, type: 3}
+--- !u!23 &1213462698 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -2200196692030703254, guid: 1cc027af50b7173499f9fabd7ecc18cf, type: 3}
   m_PrefabInstance: {fileID: 354342147}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1213462695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1213462691}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8cf7453a2dd1d3418ccd55e5c6662c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineShader: {fileID: 2100000, guid: 675821c599bcac249b497b11bd9754f0, type: 2}
-  ToiletGameObject: {fileID: 0}
-  normalColor: {r: 0, g: 0, b: 0, a: 1}
-  hoverColor: {r: 1, g: 0, b: 1, a: 1}
---- !u!65 &1213462696
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1213462691}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.018046524, y: 0.009295381, z: 0.07119954}
-  m_Center: {x: 9.313226e-10, y: -7.792879e-16, z: 0.027418774}
 --- !u!1 &1220730209
 GameObject:
   m_ObjectHideFlags: 0
@@ -32463,9 +32409,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8cf7453a2dd1d3418ccd55e5c6662c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineShader: {fileID: 2100000, guid: 0417d80ce24ccc44f9e4dfaddaae8985, type: 2}
-  ToiletGameObject: {fileID: 0}
-  normalColor: {r: 0, g: 0, b: 0, a: 1}
+  toiletRenderer: {fileID: 956143803}
+  colorParam: _OutlineColor
+  widthParam: _Outline
+  outlineThickness: 0.1
   hoverColor: {r: 1, g: 0, b: 1, a: 1}
 --- !u!4 &1589636929 stripped
 Transform:
@@ -40741,6 +40688,7 @@ PrefabInstance:
     - {fileID: 3594297388636089441, guid: 0bf9712199f8b2a68a3d3d99d2835343, type: 3}
     m_RemovedGameObjects:
     - {fileID: 5439848235519285794, guid: 0bf9712199f8b2a68a3d3d99d2835343, type: 3}
+    - {fileID: 3324924652578090034, guid: 0bf9712199f8b2a68a3d3d99d2835343, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4870070646804272542, guid: 0bf9712199f8b2a68a3d3d99d2835343, type: 3}
       insertIndex: -1
@@ -44027,48 +43975,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1958347895}
   m_Mesh: {fileID: -9125870302325516989, guid: 809564e99ed713a48a8579728ee8f424, type: 3}
---- !u!1 &1959387685 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5619302609615435187, guid: 1cc027af50b7173499f9fabd7ecc18cf, type: 3}
+--- !u!23 &1959387692 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2334830646326187502, guid: 1cc027af50b7173499f9fabd7ecc18cf, type: 3}
   m_PrefabInstance: {fileID: 354342147}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1959387689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1959387685}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8cf7453a2dd1d3418ccd55e5c6662c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineShader: {fileID: 2100000, guid: 5a6297c9d0fe0f448bf434a0478c6a42, type: 2}
-  ToiletGameObject: {fileID: 0}
-  normalColor: {r: 0, g: 0, b: 0, a: 1}
-  hoverColor: {r: 1, g: 0, b: 1, a: 1}
---- !u!65 &1959387690
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1959387685}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.016976947, y: 0.008108851, z: 0.011208147}
-  m_Center: {x: -0.0000000018626451, y: 0.00005114755, z: -0.012209295}
 --- !u!1 &1965528643
 GameObject:
   m_ObjectHideFlags: 0
@@ -45952,7 +45863,6 @@ GameObject:
   - component: {fileID: 2098512937}
   - component: {fileID: 2098512941}
   - component: {fileID: 2098512940}
-  - component: {fileID: 2098512939}
   - component: {fileID: 2098512938}
   m_Layer: 8
   m_Name: ToiletOutLine
@@ -45988,31 +45898,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8cf7453a2dd1d3418ccd55e5c6662c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineShader: {fileID: 2100000, guid: 087613eea368d1944b195e332f494716, type: 2}
-  ToiletGameObject: {fileID: 2098512936}
-  normalColor: {r: 0, g: 0, b: 0, a: 1}
+  toiletRenderer: {fileID: 475984736143251622}
+  colorParam: _OutlineColor
+  widthParam: _Outline
+  outlineThickness: 0.001
   hoverColor: {r: 1, g: 0, b: 1, a: 1}
---- !u!65 &2098512939
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2098512936}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.039613657, y: 0.21834138, z: 0.075327}
-  m_Center: {x: 0.00048740295, y: -0.077332295, z: 0.02471703}
 --- !u!23 &2098512940
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -70608,11 +70498,12 @@ MonoBehaviour:
   plungerPrompt: {fileID: 753342776}
   crosshairDefault: {fileID: 109628774}
   crosshairInteract: {fileID: 1903551587}
+  highlightScript: {fileID: 2098512938}
   barParent: {fileID: 886797154}
   barFill: {fileID: 600476887}
   startColor: {r: 1, g: 0, b: 0, a: 1}
   dangerColor: {r: 0, g: 0.6981132, b: 0.122524135, a: 1}
-  shakeAmount: 5
+  shakeAmount: 7
   mouseTutorialObject: {fileID: 2135227666}
   tutorialDelay: 2.5
   initialVisibilityTime: 2
@@ -70624,9 +70515,11 @@ MonoBehaviour:
   targetMountPoint: {fileID: 1371412030}
   miniGameCamTarget: {fileID: 2011600929}
   transitionDuration: 0.8
+  exitBackoffDistance: 3
   sensitivity: 2
   upwardPressure: 0.6
   winHoldTime: 3
+  idlePoopHeight: 0
   minPoopHeight: 0
   maxPoopHeight: 0.14
 --- !u!65 &8241509027386555840

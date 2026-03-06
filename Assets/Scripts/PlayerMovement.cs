@@ -231,25 +231,24 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleLook()
     {
-        xRotation -= lookInput.y * mouseSensitivity; 
-        xRotation = Mathf.Clamp(xRotation, -80f, 80f);
-        playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        transform.Rotate(Vector3.up * (lookInput.x * mouseSensitivity));
+        {
+            xRotation -= lookInput.y * mouseSensitivity;
+            xRotation = Mathf.Clamp(xRotation, -80f, 80f);
+            transform.Rotate(Vector3.up * (lookInput.x * mouseSensitivity));
+            playerCamera.transform.rotation = Quaternion.Euler(xRotation, transform.eulerAngles.y, 0f);
+        }
     }
 
     private void HandleHeadBob()
     {
-        // HYBRID LOGIC:
-        // If we are airborne (Jumping) or in the Plunger Mini-game (Kneeling)
-        // follow the BONE ANCHOR directly.
+
         if ((!grounded || isMiniGameActive) && cameraAnchor != null)
         {
             playerCamera.transform.position = Vector3.Lerp(playerCamera.transform.position, cameraAnchor.position, Time.deltaTime * cameraFollowSpeed);
+            playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
             return;
         }
-
-        // WALKING/IDLE LOGIC:
-        // Return to your original math for a smooth ground feel.
+        
         if (inputDirection.sqrMagnitude < 0.1f)
         {
             bobTimer = 0f;

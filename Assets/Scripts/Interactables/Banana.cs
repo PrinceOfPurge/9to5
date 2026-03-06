@@ -40,6 +40,7 @@ public class Banana : MonoBehaviour, IInteractable
     [Header("Effects")]
     public GameObject doneVFX;
     public GameObject Bananas;
+    public HighlightEffectBananaAndGarbage highlightScript;
 
     [Header("Timer")]
     public float maxTime = 10f;
@@ -81,8 +82,8 @@ public class Banana : MonoBehaviour, IInteractable
     {
         if (isCleaned || isPlaying) return;
         playerInRange = true;
-        
-        // When looking at the banana: Swap to the interact crosshair
+
+        if (highlightScript) highlightScript.ToggleHighlight(true);
         if (crosshair1) crosshair1.SetActive(false);
         if (crosshair2) crosshair2.SetActive(true);
         if (garbagePrompt) garbagePrompt.SetActive(true);
@@ -91,9 +92,12 @@ public class Banana : MonoBehaviour, IInteractable
     public void OnLoseFocus()
     {
         playerInRange = false;
+    
+        // Toggle Highlight OFF
+        if (highlightScript) highlightScript.ToggleHighlight(false);
+
         if (isPlaying) EndMinigame(false);
-        
-        // When looking away: Back to default dot
+    
         if (crosshair1) crosshair1.SetActive(true);
         if (crosshair2) crosshair2.SetActive(false);
         if (garbagePrompt) garbagePrompt.SetActive(false);
@@ -106,15 +110,32 @@ public class Banana : MonoBehaviour, IInteractable
 
     private void Update()
     {
+        // 1. SELF-EXIT ON PAUSE
+        // If the game is paused while playing, force the minigame to end.
+        if (isPlaying && Time.timeScale == 0)
+        {
+            EndMinigame(false);
+            return;
+        }
+
+        // Standard safety checks
         if (isCleaned || !isPlaying || isProcessingAnimation) return;
 
         if (ignoreInputThisFrame) { ignoreInputThisFrame = false; return; }
+
+        // 2. MANUAL EXIT (Right-Click or Escape)
+        if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
+        {
+            EndMinigame(false);
+            return;
+        }
 
         timer -= Time.deltaTime;
         if (timerBarUI != null) timerBarUI.fillAmount = timer / maxTime;
 
         if (timer <= 0f) { StartCoroutine(HandleWrong()); return; }
 
+        // 3. GAMEPLAY INPUT
         if (Input.GetKeyDown(currentKey))
         {
             StartCoroutine(HandleCorrect());
@@ -133,7 +154,8 @@ public class Banana : MonoBehaviour, IInteractable
     {
         isPlaying = true;
         isMinigameActive = true;
-
+        
+        if (highlightScript) highlightScript.ToggleHighlight(false);
         if (garbagePrompt != null) garbagePrompt.SetActive(false);
 
         // HIDE BOTH CROSSHAIRS for the minigame
@@ -157,18 +179,33 @@ public class Banana : MonoBehaviour, IInteractable
     private IEnumerator LockCameraToUI()
     {
         Transform target = uiLocation != null ? uiLocation : transform;
+    
+        // We use isPlaying as the master switch
         while (isPlaying)
         {
-            Vector3 targetPos = target.position + lookOffset;
-            Vector3 direction = (targetPos - playerCam.transform.position).normalized;
-            if (direction != Vector3.zero)
+            // FIX: If the game pauses during the minigame, don't jerk the camera
+            if (Time.timeScale > 0)
             {
-                Quaternion lookRotation = Quaternion.LookRotation(direction);
-                playerMovement.transform.rotation = Quaternion.Slerp(playerMovement.transform.rotation, Quaternion.Euler(0, lookRotation.eulerAngles.y, 0), Time.deltaTime * cameraLockSpeed);
+                Vector3 targetPos = target.position + lookOffset;
+                Vector3 direction = (targetPos - playerCam.transform.position).normalized;
+                if (direction != Vector3.zero)
+                {
+                    Quaternion lookRotation = Quaternion.LookRotation(direction);
                 
-                float targetX = lookRotation.eulerAngles.x;
-                if (targetX > 180) targetX -= 360;
-                playerCam.transform.localRotation = Quaternion.Slerp(playerCam.transform.localRotation, Quaternion.Euler(targetX, 0, 0), Time.deltaTime * cameraLockSpeed);
+                    // Rotate body
+                    playerMovement.transform.rotation = Quaternion.Slerp(
+                        playerMovement.transform.rotation, 
+                        Quaternion.Euler(0, lookRotation.eulerAngles.y, 0), 
+                        Time.deltaTime * cameraLockSpeed);
+                
+                    // Rotate camera head
+                    float targetX = lookRotation.eulerAngles.x;
+                    if (targetX > 180) targetX -= 360;
+                    playerCam.transform.localRotation = Quaternion.Slerp(
+                        playerCam.transform.localRotation, 
+                        Quaternion.Euler(targetX, 0, 0), 
+                        Time.deltaTime * cameraLockSpeed);
+                }
             }
             yield return null;
         }

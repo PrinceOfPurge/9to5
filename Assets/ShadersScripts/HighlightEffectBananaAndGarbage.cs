@@ -1,33 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HighlightEffectBananaAndGarbage : MonoBehaviour
 {
-    [SerializeField] private Material outlineShaderPink;
-    private bool cannotSeeHighlight = true;
+    [SerializeField] private Renderer objectRenderer;
+    [SerializeField] private string colorParam = "_OutlineColor"; 
+    [SerializeField] private string widthParam = "_Outline"; // Adjust based on your shader
+
+    public float outlineThickness = 0.1f;
     public Color regularColor = Color.black;
     public Color hoverOverColor = Color.magenta;
-    // Start is called before the first frame update
-    void Start()
-    {
-        outlineShaderPink.SetColor("_OutlineColor", regularColor);
-    }
-    private void OnMouseEnter()
-    {
-        if (!cannotSeeHighlight) { outlineShaderPink.SetColor("_OutlineColor", hoverOverColor); }
-    }
-    private void OnMouseExit()
-    {
-        outlineShaderPink.SetColor("_OutlineColor", regularColor);
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        cannotSeeHighlight = false;
 
-    }
-    private void OnTriggerExit(Collider other)
+    private Material mat;
+
+    void Awake()
     {
-        cannotSeeHighlight = true;
+        if (objectRenderer != null)
+        {
+            // .material creates a local instance just for this object
+            mat = objectRenderer.material;
+            mat.SetColor(colorParam, regularColor);
+            mat.SetFloat(widthParam, 0f); // Start invisible
+        }
+    }
+
+    public void ToggleHighlight(bool isOn)
+    {
+        if (mat == null) return;
+
+        if (isOn)
+        {
+            mat.SetColor(colorParam, hoverOverColor);
+            mat.SetFloat(widthParam, outlineThickness);
+        }
+        else
+        {
+            mat.SetFloat(widthParam, 0f);
+        }
     }
 }

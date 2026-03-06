@@ -13,6 +13,9 @@ public class DirtCleaner : MonoBehaviour, IInteractable
     public float perfectWindow = 0.3f;
     public GameObject doneVFX;
 
+    [Header("Highlighting")]
+    public HighlightEffectMultiMesh highlightScript; 
+
     [Header("Positioning")]
     [Tooltip("How far the player should stand from the mess during the game")]
     public float interactionDistance = 1.8f; 
@@ -96,6 +99,10 @@ public class DirtCleaner : MonoBehaviour, IInteractable
     {
         if (miniGameActive) return;
         playerInRange = true;
+
+        // Toggle Highlight ON
+        if (highlightScript != null) highlightScript.ToggleHighlight(true);
+
         if (cleaningPrompt != null) cleaningPrompt.SetActive(true);
         if (cursorUI != null && interactCursorSprite != null) cursorUI.sprite = interactCursorSprite;
     }
@@ -104,6 +111,10 @@ public class DirtCleaner : MonoBehaviour, IInteractable
     {
         if (miniGameActive) return;
         playerInRange = false;
+
+        // Toggle Highlight OFF
+        if (highlightScript != null) highlightScript.ToggleHighlight(false);
+
         if (cleaningPrompt != null) cleaningPrompt.SetActive(false);
         if (cursorUI != null && defaultCursorSprite != null) cursorUI.sprite = defaultCursorSprite;
     }
@@ -119,6 +130,13 @@ public class DirtCleaner : MonoBehaviour, IInteractable
 
     private void Update()
     {
+        // 1. Pause Safety Check: Ends game if paused
+        if (miniGameActive && Time.timeScale == 0)
+        {
+            CancelMiniGame();
+            return;
+        }
+
         if (worldMop != null && worldMop.activeSelf)
         {
             worldMop.transform.Rotate(Vector3.up * mopRotationSpeed * Time.deltaTime, Space.World);
@@ -127,6 +145,13 @@ public class DirtCleaner : MonoBehaviour, IInteractable
         }
 
         if (!miniGameActive || isProcessingResult) return;
+
+        // Right-Click to cancel
+        if (Input.GetMouseButtonDown(1))
+        {
+            CancelMiniGame();
+            return;
+        }
 
         if (Input.GetKey(interactKey)) holdTimer += Time.deltaTime;
 
@@ -152,6 +177,9 @@ public class DirtCleaner : MonoBehaviour, IInteractable
         isProcessingResult = false;
         holdTimer = 0f;
 
+        // Turn off highlight while playing
+        if (highlightScript != null) highlightScript.ToggleHighlight(false);
+
         if (miniGameUIParent != null)
         {
             miniGameUIParent.SetActive(true);
@@ -170,40 +198,46 @@ public class DirtCleaner : MonoBehaviour, IInteractable
                 playerMovement.enabled = false;
                 playerAnimator = playerMovement.GetComponentInChildren<Animator>();
                 
-                // 1. Lock Camera
                 if (cameraLockCoroutine != null) StopCoroutine(cameraLockCoroutine);
                 cameraLockCoroutine = StartCoroutine(LockCameraToTarget());
 
-                // 2. Smoothly Move Player to the ideal distance
                 if (positioningCoroutine != null) StopCoroutine(positioningCoroutine);
                 positioningCoroutine = StartCoroutine(MovePlayerToInteractPoint());
             }
         }
     }
 
+    private void CancelMiniGame()
+    {
+        miniGameActive = false;
+        if (playerMovement != null)
+        {
+            playerMovement.SyncRotation(playerCam.transform.localRotation.eulerAngles.x);
+            playerMovement.enabled = true;
+        }
+        if (miniGameUIParent != null) miniGameUIParent.SetActive(false);
+        if (miniGamePrompt != null) miniGamePrompt.SetActive(false);
+        if (playerHandMop != null) playerHandMop.SetActive(false);
+        if (worldMop != null) worldMop.SetActive(true);
+    }
+
     private IEnumerator MovePlayerToInteractPoint()
     {
         while (miniGameActive)
         {
-            // Calculate a point on the ground at the correct distance
             Vector3 messPos = transform.position;
             Vector3 playerPos = playerMovement.transform.position;
-            
-            // Get direction from mess to player (so we move away from mess to the circle)
             Vector3 dirToPlayer = (playerPos - messPos).normalized;
-            dirToPlayer.y = 0; // Keep movement on the horizontal plane
+            dirToPlayer.y = 0; 
 
             Vector3 targetPosition = messPos + (dirToPlayer * interactionDistance);
-            
-            // Move the CharacterController smoothly
             Vector3 moveDiff = targetPosition - playerMovement.transform.position;
+            
             if (moveDiff.magnitude > 0.01f)
             {
-                // We use SimpleMove or Move to respect collisions while glidding
                 CharacterController cc = playerMovement.GetComponent<CharacterController>();
                 cc.Move(moveDiff * Time.deltaTime * positioningSpeed);
             }
-
             yield return null;
         }
     }
@@ -278,15 +312,18 @@ public class DirtCleaner : MonoBehaviour, IInteractable
     {
         while (miniGameActive)
         {
-            Vector3 targetPos = transform.position + lookOffset;
-            Vector3 direction = (targetPos - playerCam.transform.position).normalized;
-            if (direction != Vector3.zero)
+            if (Time.timeScale > 0) // Camera only locks when not paused
             {
-                Quaternion lookRotation = Quaternion.LookRotation(direction);
-                playerMovement.transform.rotation = Quaternion.Slerp(playerMovement.transform.rotation, Quaternion.Euler(0, lookRotation.eulerAngles.y, 0), Time.deltaTime * cameraLockSpeed);
-                float targetX = lookRotation.eulerAngles.x;
-                if (targetX > 180) targetX -= 360;
-                playerCam.transform.localRotation = Quaternion.Slerp(playerCam.transform.localRotation, Quaternion.Euler(targetX, 0, 0), Time.deltaTime * cameraLockSpeed);
+                Vector3 targetPos = transform.position + lookOffset;
+                Vector3 direction = (targetPos - playerCam.transform.position).normalized;
+                if (direction != Vector3.zero)
+                {
+                    Quaternion lookRotation = Quaternion.LookRotation(direction);
+                    playerMovement.transform.rotation = Quaternion.Slerp(playerMovement.transform.rotation, Quaternion.Euler(0, lookRotation.eulerAngles.y, 0), Time.deltaTime * cameraLockSpeed);
+                    float targetX = lookRotation.eulerAngles.x;
+                    if (targetX > 180) targetX -= 360;
+                    playerCam.transform.localRotation = Quaternion.Slerp(playerCam.transform.localRotation, Quaternion.Euler(targetX, 0, 0), Time.deltaTime * cameraLockSpeed);
+                }
             }
             yield return null;
         }

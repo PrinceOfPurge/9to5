@@ -8,6 +8,9 @@ public class objPickup : MonoBehaviour, IInteractable
     public GameObject crosshair1, crosshair2;
     public GameObject TutPrompt, worldPrompt, throwPrompt;
 
+    [Header("Highlighting")]
+    public HighlightEffectBananaAndGarbage highlightScript;
+
     [Header("References")]
     public Transform objTransform;
     public Transform cameraTrans;
@@ -15,15 +18,13 @@ public class objPickup : MonoBehaviour, IInteractable
     public Collider playerCollider;
 
     [Header("Settings")]
-    public float throwAmount = 25f; // Adjusted for velocity calculation
+    public float throwAmount = 25f;
     public float promptCooldown = 1.0f;
     public float holdSmoothness = 15f; 
     public float holdDistance = 2.0f;
 
     [Header("View Offsets")]
-    [Tooltip("Moves object down from center")]
     public float heightOffset = -0.6f;
-    [Tooltip("Moves object to the right to clear your view")]
     public float sideOffset = 0.4f;
     public Vector3 rotationOffset = new Vector3(90f, 0f, 0f);
 
@@ -45,12 +46,10 @@ public class objPickup : MonoBehaviour, IInteractable
 
     [HideInInspector] public bool pickedup;
     private bool canShowPrompt = true;
-    private bool isFocused;
     private Collider[] allColliders;
 
     void Start()
     {
-        // Get all colliders on this object and its children (like the interaction child)
         allColliders = GetComponentsInChildren<Collider>();
         
         if (worldPrompt) worldPrompt.SetActive(false);
@@ -59,23 +58,24 @@ public class objPickup : MonoBehaviour, IInteractable
         
         objRigidbody.interpolation = RigidbodyInterpolation.Interpolate;
     }
-
-    // --- INTERFACE METHODS ---
+    
     public void OnFocus()
     {
-        if (pickedup) return;
+        if (pickedup || !canShowPrompt) return;
         
-        isFocused = true;
+        if (highlightScript != null) highlightScript.ToggleHighlight(true);
+
         if(crosshair1) crosshair1.SetActive(false);
         if(crosshair2) crosshair2.SetActive(true);
 
-        if (worldPrompt && canShowPrompt)
+        if (worldPrompt)
             worldPrompt.SetActive(true);
     }
 
     public void OnLoseFocus()
     {
-        isFocused = false;
+        if (highlightScript != null) highlightScript.ToggleHighlight(false);
+
         if(crosshair1) crosshair1.SetActive(true);
         if(crosshair2) crosshair2.SetActive(false);
 
@@ -98,7 +98,6 @@ public class objPickup : MonoBehaviour, IInteractable
                 return;
             }
 
-            // Calculate the "Pocket" position (Right and Down from center camera)
             Vector3 targetPos = cameraTrans.position + 
                                (cameraTrans.forward * holdDistance) + 
                                (cameraTrans.up * heightOffset) +
@@ -120,11 +119,14 @@ public class objPickup : MonoBehaviour, IInteractable
     void PickUpObject()
     {
         pickedup = true;
+
+        // --- ADDED: Ensure highlight is OFF when in hand ---
+        if (highlightScript != null) highlightScript.ToggleHighlight(false);
+
         objRigidbody.useGravity = false;
-        objRigidbody.isKinematic = true; // IMPORTANT: Prevents pushing the player
+        objRigidbody.isKinematic = true; 
         objTransform.parent = cameraTrans;
 
-        // Disable all colliders so it doesn't trigger things or block vision
         foreach (Collider col in allColliders)
         {
             col.enabled = false;
@@ -138,11 +140,11 @@ public class objPickup : MonoBehaviour, IInteractable
     void ThrowObject()
     {
         pickedup = false;
+        if (highlightScript != null) highlightScript.ToggleHighlight(false);
         objTransform.parent = null;
         objRigidbody.useGravity = true;
         objRigidbody.isKinematic = false;
 
-        // Re-enable colliders so it can hit the garbage can
         foreach (Collider col in allColliders)
         {
             col.enabled = true;

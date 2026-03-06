@@ -1,34 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HighlightEffectToilet : MonoBehaviour
 {
-    [SerializeField] private Material outlineShader;
-    [SerializeField] private GameObject ToiletGameObject;
-    private bool canSeeHighlight = false;
-    public Color normalColor = Color.black;
+    [SerializeField] private Renderer toiletRenderer;
+    [Header("Shader Property Names")]
+    [SerializeField] private string colorParam = "_OutlineColor"; 
+    [SerializeField] private string widthParam = "_Outline"; // Often "_OutlineWidth" or "_Thickness"
+    
+    [Header("Settings")]
+    public float outlineThickness = 0.1f; // Adjust this for "Bigger" outline
     public Color hoverColor = Color.magenta;
-    // Start is called before the first frame update
-    void Start()
+
+    private Material mat;
+
+    void Awake()
     {
-        outlineShader.SetColor("_OutlineColor",normalColor);
+        if (toiletRenderer != null)
+        {
+            mat = toiletRenderer.material;
+            // Start invisible
+            mat.SetFloat(widthParam, 0f);
+        }
     }
-    private void OnMouseEnter()
+
+    public void ToggleHighlight(bool isOn)
     {
-        if (canSeeHighlight) { outlineShader.SetColor("_OutlineColor", hoverColor); }
-    }
-    private void OnMouseExit()
-    {
-        outlineShader.SetColor("_OutlineColor", normalColor);
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        canSeeHighlight = true;
-       Destroy (ToiletGameObject,20);
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        canSeeHighlight = false;
+        if (mat == null) return;
+
+        if (isOn)
+        {
+            mat.SetColor(colorParam, hoverColor);
+            mat.SetFloat(widthParam, outlineThickness);
+        }
+        else
+        {
+            mat.SetFloat(widthParam, 0f);
+        }
     }
 }

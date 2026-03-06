@@ -8,6 +8,7 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
     public GameObject plungerPrompt; 
     public GameObject crosshairDefault; 
     public GameObject crosshairInteract; 
+    public HighlightEffectToilet highlightScript;
 
     [Header("Mini-Game UI Bar")]
     public GameObject barParent;    
@@ -32,6 +33,7 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
     public Transform targetMountPoint; 
     public Transform miniGameCamTarget;
     public float transitionDuration = 0.8f;
+    public float exitBackoffDistance = 1.2f; 
 
     [Header("Resistance Gameplay Settings")]
     public float sensitivity = 2.0f;     
@@ -39,6 +41,7 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
     public float winHoldTime = 0.3f;    
     
     [Header("Poop Settings")]
+    public float idlePoopHeight = 0.01f; // The height when just looking at the toilet
     public float minPoopHeight = 0.1f;
     public float maxPoopHeight = 1.0f;
     
@@ -69,7 +72,12 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
         
         if (mouseTutorialObject) mouseTutorialObject.SetActive(false);
 
-        if (poopCylinder) originalPoopScale = poopCylinder.localScale;
+        if (poopCylinder)
+        {
+            originalPoopScale = poopCylinder.localScale;
+            // Set poop to idle height immediately
+            poopCylinder.localScale = new Vector3(originalPoopScale.x, idlePoopHeight, originalPoopScale.z);
+        }
     }
 
     private void Start()
@@ -81,17 +89,19 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
     public void OnFocus()
     {
         if (isPlaying || isWon) return;
+        if (highlightScript) highlightScript.ToggleHighlight(true);
+        if (plungerPrompt) plungerPrompt.SetActive(true);
         if (crosshairDefault) crosshairDefault.SetActive(false);
         if (crosshairInteract) crosshairInteract.SetActive(true);
-        if (plungerPrompt) plungerPrompt.SetActive(true);
     }
 
     public void OnLoseFocus()
     {
+        if (highlightScript) highlightScript.ToggleHighlight(false);
         if (isPlaying) return;
+        if (plungerPrompt) plungerPrompt.SetActive(false);
         if (crosshairDefault) crosshairDefault.SetActive(true);
         if (crosshairInteract) crosshairInteract.SetActive(false);
-        if (plungerPrompt) plungerPrompt.SetActive(false);
     }
 
     public void OnInteract()
@@ -110,6 +120,8 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
         plungeProgress = Mathf.Clamp01(plungeProgress + inputStrength - resistance);
 
         playerAnim.SetFloat("PlungeDepth", plungeProgress);
+        
+        // Gameplay scaling logic
         if (poopCylinder)
         {
             float currentHeight = Mathf.Lerp(maxPoopHeight, minPoopHeight, plungeProgress);
@@ -187,7 +199,10 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
 
     private IEnumerator MountAndStartSequence()
     {
+        if (highlightScript) highlightScript.ToggleHighlight(false);
+        
         isPlaying = true;
+        plungeProgress = 0f; // Reset game state
 
         if (barParent) barParent.SetActive(true);
         if (plungerPrompt) plungerPrompt.SetActive(false);
@@ -214,6 +229,13 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
             playerMove.playerCamera.transform.position = Vector3.Lerp(startCamWorldPos, miniGameCamTarget.position, t);
             playerMove.playerCamera.transform.rotation = Quaternion.Slerp(startCamWorldRot, miniGameCamTarget.rotation, t);
             
+            // SMOOTH POOP RISE: From idle height to game-start height
+            if (poopCylinder)
+            {
+                float h = Mathf.Lerp(idlePoopHeight, maxPoopHeight, t);
+                poopCylinder.localScale = new Vector3(originalPoopScale.x, h, originalPoopScale.z);
+            }
+
             yield return null;
         }
 
@@ -240,17 +262,33 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
         float elapsed = 0;
         Vector3 currentCamPos = playerMove.playerCamera.transform.position;
         Quaternion currentCamRot = playerMove.playerCamera.transform.rotation;
+        
+        Vector3 startPlayerPos = playerMove.transform.position;
+        Vector3 targetExitPos = startPlayerPos - (playerMove.transform.forward * exitBackoffDistance);
+
+        // Capture current poop height for the reset lerp
+        float currentPoopH = poopCylinder != null ? poopCylinder.localScale.y : 0f;
 
         while (elapsed < transitionDuration)
         {
             elapsed += Time.deltaTime;
             float t = elapsed / transitionDuration;
 
+            playerMove.transform.position = Vector3.Lerp(startPlayerPos, targetExitPos, t);
+
             Vector3 worldReturnPos = playerMove.transform.TransformPoint(camSavedLocalPos);
             Quaternion worldReturnRot = playerMove.transform.rotation * camSavedLocalRot;
 
             playerMove.playerCamera.transform.position = Vector3.Lerp(currentCamPos, worldReturnPos, t);
             playerMove.playerCamera.transform.rotation = Quaternion.Slerp(currentCamRot, worldReturnRot, t);
+
+            // SMOOTH POOP RESET: If we quit/exit, grow poop back to full height
+            if (poopCylinder && !isWon)
+            {
+                float h = Mathf.Lerp(currentPoopH, maxPoopHeight, t);
+                poopCylinder.localScale = new Vector3(originalPoopScale.x, h, originalPoopScale.z);
+            }
+
             yield return null;
         }
 
