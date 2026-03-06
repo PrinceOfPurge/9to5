@@ -42235,6 +42235,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4040751864825385226, guid: 192099d2c29199a4c85c18215e0fd3f8, type: 3}
+      propertyPath: field of view
+      value: 83
+      objectReference: {fileID: 0}
     - target: {fileID: 4148871962025928707, guid: 192099d2c29199a4c85c18215e0fd3f8, type: 3}
       propertyPath: m_Enabled
       value: 1
