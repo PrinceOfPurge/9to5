@@ -124,7 +124,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639056567537332099
+  lastModified: 639071971415375177
   FileSizes:
   - Name: Desktop
     Value: 1486
@@ -193,7 +193,7 @@ MonoBehaviour:
   - {fileID: -1856225702813662801}
   StringsBanks:
   - {fileID: 624774501610172950}
-  cacheTime: 639073878459904219
+  cacheTime: 639074800092633211
   cacheVersion: 131620
 --- !u!114 &86615865890799009
 MonoBehaviour:
@@ -237,7 +237,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639073878459904219
+  lastModified: 639074800092633211
   FileSizes:
   - Name: Desktop
     Value: 1027232
@@ -257,7 +257,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639073878459651754
+  lastModified: 639074800092562213
   FileSizes:
   - Name: Desktop
     Value: 1606
@@ -277,7 +277,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Ambience.bank
   Name: Ambience
   StudioPath: bank:/Ambience
-  lastModified: 639056567537301702
+  lastModified: 639071971415375177
   FileSizes:
   - Name: Desktop
     Value: 604192
@@ -459,7 +459,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 639071907359004520
+  lastModified: 639072004701272423
   FileSizes:
   - Name: Desktop
     Value: 1369824
