@@ -9681,7 +9681,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!1 &313126714
 GameObject:
@@ -48958,8 +48958,8 @@ MonoBehaviour:
   throwForce: 40
   targetOverride: {fileID: 1571946811}
   lookAtTarget: 1
-  minDelay: 2
-  maxDelay: 5
+  minDelay: 8
+  maxDelay: 15
 --- !u!114 &2046078274 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8401331442793691335, guid: 59966a36bc3446240a3665b5b2853bd9, type: 3}
@@ -50380,7 +50380,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f98e094a2c6c402439ca77ff33f7c7c4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f165eb199ce67824e8dfa53815e9087f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
