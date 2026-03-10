@@ -5,13 +5,17 @@ public class PooledThrower : MonoBehaviour
     public Transform handTransform;
     public float throwForce = 15f;
 
-    [Header("Randomization")]
-    public float maxRotationAngle = 30f; 
+    [Header("Targeting")]
+    public Transform targetOverride; 
+    public bool lookAtTarget = true;
+
+    [Header("Chaos Timing")]
     public float minDelay = 2f;    
     public float maxDelay = 5f;
 
     private Quaternion _initialRotation;
     private Animator _anim;
+    private bool _isStopped = false; // NEW: Local flag to kill the loop
 
     void Awake()
     {
@@ -21,41 +25,62 @@ public class PooledThrower : MonoBehaviour
 
     void Start()
     {
-        // Start the loop
-        Invoke("StartThrowCycle", Random.Range(1f, 2f));
+        // Start throwing immediately when the scene loads
+        Invoke("StartThrowCycle", Random.Range(0.5f, 2f));
     }
 
     void StartThrowCycle()
     {
-        // 1. Rotate to a new target
-        float randomY = Random.Range(-maxRotationAngle, maxRotationAngle);
-        transform.rotation = _initialRotation * Quaternion.Euler(0, randomY, 0);
+        if (_isStopped) return; // Stop forever if the player won
 
-        // 2. Play animation
-        _anim.SetTrigger("tThrow");
+        float nextDelay = Random.Range(minDelay, maxDelay);
 
-        // 3. Repeat
-        Invoke("StartThrowCycle", Random.Range(minDelay, maxDelay));
+        if (targetOverride != null)
+        {
+            Vector3 targetDir = targetOverride.position - transform.position;
+            targetDir.y = 0; 
+            if (lookAtTarget) transform.rotation = Quaternion.LookRotation(targetDir);
+        }
+        else
+        {
+            float randomY = Random.Range(-30f, 30f);
+            transform.rotation = _initialRotation * Quaternion.Euler(0, randomY, 0);
+        }
+
+        if (_anim != null) _anim.SetTrigger("tThrow");
+
+        Invoke("StartThrowCycle", nextDelay);
     }
 
-    // THIS IS YOUR ANIMATION EVENT
-    // Place this event at the "release" frame of your animation
     public void LaunchFood()
     {
-        // 1. Get food from pool
-        int randomType = Random.Range(0, 4); 
-        PooledFood food = FoodPooler.Instance.GetFood(randomType);
-        
-        // 2. Position it at the hand
+        if (_isStopped) return; // Double check in case win happened mid-animation
+
+        PooledFood food = FoodPooler.Instance.GetFood(Random.Range(0, 4));
+        if (food == null) return;
+
         food.transform.position = handTransform.position;
         food.transform.rotation = handTransform.rotation;
 
-        // 3. Launch it using the NPC's forward direction
         Rigidbody rb = food.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            Vector3 direction = transform.forward + (Vector3.up * 0.2f);
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+
+            Vector3 direction = (targetOverride != null) 
+                ? (targetOverride.position + Vector3.up * 1.2f - handTransform.position).normalized 
+                : (transform.forward + (Vector3.up * 0.2f));
+
             rb.AddForce(direction * throwForce, ForceMode.Impulse);
         }
+    }
+
+    // This is called by the Principal when the player wins
+    public void StopThrowingPermanently()
+    {
+        _isStopped = true;
+        CancelInvoke("StartThrowCycle");
+        if (_anim != null) _anim.Play("Act_StudentIdleAnim"); 
     }
 }

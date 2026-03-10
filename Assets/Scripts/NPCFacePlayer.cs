@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class NPCFacePlayer : MonoBehaviour
@@ -17,10 +15,12 @@ public class NPCFacePlayer : MonoBehaviour
     {
         if (player == null) return;
 
-        // Make the UI look at the player
-        transform.LookAt(player);
+        // 1. Get the direction to the player
+        Vector3 targetPostition = new Vector3(player.position.x, 
+            this.transform.position.y, 
+            player.position.z);
 
-        // Rotate 180° around the Y axis so it's not flipped
-       //not applicable here; transform.Rotate(0f, 180f, 0f);
+        // 2. Look at that flattened position
+        this.transform.LookAt(targetPostition);
     }
 }

@@ -73,9 +73,21 @@ public class Banana : MonoBehaviour, IInteractable
     private void Awake()
     {
         playerCam = Camera.main;
+
+        // FIND THE CURSORS AUTOMATICALLY
+        // We look for the Principal script because it usually holds the cursor references
+        PrincipalMinigame principal = FindObjectOfType<PrincipalMinigame>();
+        if (principal != null)
+        {
+            // Assign the scene cursors to this specific banana clone
+            crosshair1 = principal.defaultCursorObj;
+            crosshair2 = principal.interactCursorObj;
+        }
+
         if (garbagePrompt != null) garbagePrompt.SetActive(false);
         HideAllArrows();
 
+        // Store original colors
         if (upArrowUI != null) originalColors[upArrowUI] = upArrowUI.color;
         if (downArrowUI != null) originalColors[downArrowUI] = downArrowUI.color;
         if (leftArrowUI != null) originalColors[leftArrowUI] = leftArrowUI.color;
@@ -90,8 +102,10 @@ public class Banana : MonoBehaviour, IInteractable
         playerInRange = true;
 
         if (highlightScript) highlightScript.ToggleHighlight(true);
+        
         if (crosshair1) crosshair1.SetActive(false);
         if (crosshair2) crosshair2.SetActive(true);
+    
         if (garbagePrompt) garbagePrompt.SetActive(true);
     }
 
@@ -99,9 +113,14 @@ public class Banana : MonoBehaviour, IInteractable
     {
         playerInRange = false;
         if (highlightScript) highlightScript.ToggleHighlight(false);
-        if (isPlaying) EndMinigame(false);
-        if (crosshair1) crosshair1.SetActive(true);
-        if (crosshair2) crosshair2.SetActive(false);
+    
+        // Only reactivate crosshairs if the minigame ISN'T running
+        if (!isPlaying)
+        {
+            if (crosshair1) crosshair1.SetActive(true);
+            if (crosshair2) crosshair2.SetActive(false);
+        }
+
         if (garbagePrompt) garbagePrompt.SetActive(false);
     }
 
@@ -226,7 +245,6 @@ public class Banana : MonoBehaviour, IInteractable
         isPlaying = false;
         isMinigameActive = false;
 
-        // Stop positioning coroutine
         if (positioningCoroutine != null) StopCoroutine(positioningCoroutine);
 
         if (playerMovement != null)
@@ -243,10 +261,19 @@ public class Banana : MonoBehaviour, IInteractable
         if (completed)
         {
             isCleaned = true;
+
+            // Look for the Principal only in this scene
+            PrincipalMinigame principal = FindObjectOfType<PrincipalMinigame>();
+            if (principal != null)
+            {
+                principal.NotifyMessCleaned();
+            }
+
+            // Normal cleanup logic
             if (AudioManager.instance) AudioManager.instance.PlayOneShot(FMODEvents.instance.Done, transform.position);
             if (doneVFX != null) Destroy(Instantiate(doneVFX, transform.position, Quaternion.identity), 2f);
             if (Bananas != null) Destroy(Bananas);
-            Destroy(this);
+            Destroy(gameObject); 
         }
         else
         {

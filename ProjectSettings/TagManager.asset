@@ -9,6 +9,9 @@ TagManager:
   - GarbageCan
   - Net
   - Highlightable
+  - Food
+  - Floor
+  - Principal
   layers:
   - Default
   - TransparentFX

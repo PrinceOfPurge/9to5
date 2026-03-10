@@ -125,7 +125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7fc0ab6c73e6d5488acb9dbaeee941f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  splatterPrefab: {fileID: 0}
+  spawnYOffset: 1
+  messPrefab: {fileID: 4954247994398432387, guid: bcbda6ade3c2d0f43b4aef2aa5ef24a8, type: 3}
+  spawnChance: 1
 --- !u!135 &2122828934799936477
 SphereCollider:
   m_ObjectHideFlags: 0

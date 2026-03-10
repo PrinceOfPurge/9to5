@@ -243,7 +243,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if ((!grounded || isMiniGameActive) && cameraAnchor != null)
         {
-
             playerCamera.transform.position = Vector3.Lerp(playerCamera.transform.position, cameraAnchor.position, Time.deltaTime * cameraFollowSpeed);
             playerCamera.transform.rotation = Quaternion.Euler(xRotation, transform.eulerAngles.y, 0f);
             return;
@@ -255,12 +254,13 @@ public class PlayerMovement : MonoBehaviour
             playerCamera.transform.localPosition = Vector3.Lerp(playerCamera.transform.localPosition, cameraDefaultLocalPos, Time.deltaTime * 8f);
             return;
         }
-
+        
         float speed = (sprinting && !staminaExhausted) ? sprintBobSpeed : walkBobSpeed;
         float amount = (sprinting && !staminaExhausted) ? sprintBobAmount : walkBobAmount;
         bobTimer += Time.deltaTime * speed;
-    
-        playerCamera.transform.localPosition = cameraDefaultLocalPos + Vector3.up * (Mathf.Sin(bobTimer) * amount);
+        
+        Vector3 targetBobPos = new Vector3(cameraDefaultLocalPos.x, cameraDefaultLocalPos.y + (Mathf.Sin(bobTimer) * amount), cameraDefaultLocalPos.z);
+        playerCamera.transform.localPosition = targetBobPos;
     }
 
     private void UpdateAnimations()
