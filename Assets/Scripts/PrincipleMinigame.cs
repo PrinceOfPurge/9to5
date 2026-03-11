@@ -6,20 +6,13 @@ using System.Collections.Generic;
 public class PrincipalMinigame : MonoBehaviour, IInteractable
 {
     [Header("UI Elements")]
-    public GameObject promptUI;        
-    public GameObject externalGarbageUI; 
+    public GameObject minigameHUD;   
+    public GameObject promptUI;      
+    public Image patienceFill;       
 
-    [Header("World Space HUD")]
-    public GameObject worldMessCountUI; 
-    public GameObject worldTimerBar;    
-    public Image patienceFill;          
+    [Header("Success UI")]
+    public GameObject successUIPanel; 
     public TextMeshProUGUI remainingText; 
-
-    [Header("Screen Space HUD")]
-    public GameObject screenMessCountUI; 
-    public GameObject screenTimerBar;    
-    public Image screenPatienceFill;     
-    public TextMeshProUGUI screenRemainingText;
 
     [Header("Dual Cursor System")]
     public GameObject defaultCursorObj;   
@@ -30,10 +23,11 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     public float hitPenalty = 25f;        
     public float messNearPenalty = 15f;   
     public float detectionRadius = 8f; 
-    public int maxAllowedMesses = 6; 
+    public int maxAllowedMesses = 6; // Total limit for dynamic spawns
     private bool hasWon = false;
 
     [Header("Pre-placed Initial Messes")]
+    [Tooltip("Drag the Banana Mess objects already in your scene here (should be disabled by default)")]
     public List<GameObject> startingMesses = new List<GameObject>();
 
     [Header("Animations")]
@@ -43,19 +37,19 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     private float currentPatience;
     private bool isGameActive;
     private List<GameObject> activeMesses = new List<GameObject>(); 
-    private Camera mainCam;
+    private Vector3 originalHUDPos; 
 
     void Start()
     {
-        mainCam = Camera.main;
         currentPatience = maxPatience;
-
-        if (worldMessCountUI) worldMessCountUI.SetActive(false);
-        if (worldTimerBar) worldTimerBar.SetActive(false);
-        if (screenMessCountUI) screenMessCountUI.SetActive(false);
-        if (screenTimerBar) screenTimerBar.SetActive(false);
+        if (minigameHUD != null) {
+            originalHUDPos = minigameHUD.GetComponent<RectTransform>().anchoredPosition;
+            minigameHUD.SetActive(false);
+        }
+        if (successUIPanel) successUIPanel.SetActive(false);
         if (promptUI) promptUI.SetActive(false);
         
+        // Ensure starting messes are hidden at the very beginning
         foreach(GameObject m in startingMesses) if(m != null) m.SetActive(false);
         
         ResetCursors();
@@ -71,6 +65,8 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
 
     public void OnLoseFocus() { 
         if (promptUI) promptUI.SetActive(false); 
+        // Only reset cursors if we aren't in the game; 
+        // otherwise, Banana.cs handles it.
         if (!isGameActive) ResetCursors(); 
     }
 
@@ -82,14 +78,15 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     public void StartMiniGame() 
     {
         isGameActive = true;
-        hasWon = false; // Reset win state so we can play again
         currentPatience = maxPatience;
         activeMesses.Clear();
 
         if (promptUI) promptUI.SetActive(false);
-        if (externalGarbageUI) externalGarbageUI.SetActive(false); 
+        if (minigameHUD) minigameHUD.SetActive(true);
     
+        // 1. Enable and register the hand-placed messes
         ActivateInitialMesses();
+
         UpdateSuccessUI();
         ResetCursors();
     }
@@ -97,31 +94,18 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     void Update() {
         if (!isGameActive) return;
 
+        // Cleanup any cleaned/destroyed bananas from the list
         activeMesses.RemoveAll(item => item == null);
 
+        // Patience drain based on total active messes
         if (activeMesses.Count > 0) {
             currentPatience -= Time.deltaTime * messNearPenalty * activeMesses.Count;
         }
 
-        HandleHUDVisibility();
         UpdateUIFeedback();
         UpdateSuccessUI(); 
 
         if (currentPatience <= 0) EndGame();
-    }
-
-    private void HandleHUDVisibility()
-    {
-        if (mainCam == null) mainCam = Camera.main;
-        if (mainCam == null) return;
-
-        Vector3 screenPoint = mainCam.WorldToViewportPoint(transform.position + Vector3.up * 1.5f);
-        bool onScreen = screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
-
-        if (worldMessCountUI) worldMessCountUI.SetActive(onScreen);
-        if (worldTimerBar) worldTimerBar.SetActive(onScreen);
-        if (screenMessCountUI) screenMessCountUI.SetActive(!onScreen);
-        if (screenTimerBar) screenTimerBar.SetActive(!onScreen);
     }
 
     private void ActivateInitialMesses()
@@ -148,10 +132,12 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
 
     public void UpdateSuccessUI() 
     {
-        string count = activeMesses.Count.ToString();
-        if (remainingText) remainingText.text = count;
-        if (screenRemainingText) screenRemainingText.text = count;
+        if (successUIPanel == null || remainingText == null) return;
+    
+        successUIPanel.SetActive(isGameActive);
+        remainingText.text = activeMesses.Count.ToString();
 
+        // WIN CONDITION: If game is active and we hit 0 messes
         if (isGameActive && activeMesses.Count == 0)
         {
             WinGame();
@@ -159,9 +145,17 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     }
 
     void UpdateUIFeedback() {
-        float ratio = 1f - (currentPatience / maxPatience);
-        if (patienceFill) patienceFill.fillAmount = ratio;
-        if (screenPatienceFill) screenPatienceFill.fillAmount = ratio;
+        if (patienceFill == null) return;
+        float ratio = currentPatience / maxPatience;
+        patienceFill.fillAmount = ratio;
+
+        RectTransform hudRect = minigameHUD.GetComponent<RectTransform>();
+        if (ratio < 0.35f) {
+            float intensity = Mathf.Lerp(12f, 2f, ratio / 0.35f); 
+            hudRect.anchoredPosition = originalHUDPos + new Vector3(Random.Range(-intensity, intensity), Random.Range(-intensity, intensity), 0);
+        } else {
+            hudRect.anchoredPosition = originalHUDPos;
+        }
     }
 
     public void GetHit() {
@@ -173,12 +167,23 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     public bool IsGameActive() => isGameActive;
     
     public bool CanSpawnMessAt(Vector3 position) {
-        if (!isGameActive || activeMesses.Count >= maxAllowedMesses) return false;
-        if (Vector3.Distance(transform.position, position) > detectionRadius) return false;
+        if (!isGameActive) return false;
+        if (activeMesses.Count >= maxAllowedMesses) return false;
+    
+        // 1. Check distance to Principal
+        float distToPrincipal = Vector3.Distance(transform.position, position);
+        if (distToPrincipal > detectionRadius) return false;
 
+        // 2. Prevent stacking: Check distance to existing messes
         foreach (GameObject mess in activeMesses)
         {
-            if (mess != null && Vector3.Distance(mess.transform.position, position) < 1.2f) return false; 
+            if (mess != null)
+            {
+                if (Vector3.Distance(mess.transform.position, position) < 1.2f) 
+                {
+                    return false; 
+                }
+            }
         }
         return true;
     }
@@ -186,34 +191,48 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     private void WinGame()
     {
         hasWon = true; 
+        Debug.Log("Cleaned all messes! Students are stopping.");
+    
+        // Stop all students
         PooledThrower[] students = FindObjectsOfType<PooledThrower>();
-        foreach (PooledThrower s in students) s.StopThrowingPermanently();
+        foreach (PooledThrower s in students)
+        {
+            s.StopThrowingPermanently();
+        }
+
         EndGame(); 
+    }
+    
+    private void StopAllStudents()
+    {
+        // Find every student thrower in the scene
+        PooledThrower[] students = FindObjectsOfType<PooledThrower>();
+    
+        foreach (PooledThrower s in students)
+        {
+            // Cancel the next scheduled throw
+            s.CancelInvoke("StartThrowCycle");
+        
+            // Optional: Force them into an idle state immediately
+            Animator a = s.GetComponent<Animator>();
+            if (a != null) a.Play("Idle"); // Use your actual Idle state name
+        }
     }
 
     void EndGame() {
         isGameActive = false;
     
-        // 1. FORCE SHUTDOWN of the cleaning minigame
-        // We look for any object with the Banana script and call its end method
-        Banana[] activeBananas = FindObjectsOfType<Banana>();
-        foreach(Banana b in activeBananas)
+        // Force-close any open banana minigame
+        Banana activeBanana = FindObjectOfType<Banana>();
+        if (activeBanana != null)
         {
-            // Assuming your Banana script has a method like 'FailMinigame' or 'EndMinigame'
-            // Using SendMessage as a backup, but direct calling is better if possible
-            b.SendMessage("EndMinigame", false, SendMessageOptions.DontRequireReceiver);
+            activeBanana.SendMessage("EndMinigame", false, SendMessageOptions.DontRequireReceiver);
         }
 
-        // 2. Hide all Minigame UI
-        if (worldMessCountUI) worldMessCountUI.SetActive(false);
-        if (worldTimerBar) worldTimerBar.SetActive(false);
-        if (screenMessCountUI) screenMessCountUI.SetActive(false);
-        if (screenTimerBar) screenTimerBar.SetActive(false);
-        
-        // 3. Restore Gameplay UI
-        if (externalGarbageUI) externalGarbageUI.SetActive(true);
+        if (minigameHUD) minigameHUD.SetActive(false);
+        if (successUIPanel) successUIPanel.SetActive(false);
 
-        // 4. Cleanup Messes
+        // Final cleanup: Destroy student clones and deactivate starting messes
         foreach (GameObject m in activeMesses)
         {
             if (m != null) 
@@ -223,8 +242,7 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
             }
         }
         activeMesses.Clear();
-
-        // 5. Restore Player Controls
+    
         PlayerMovement pm = FindObjectOfType<PlayerMovement>();
         if (pm != null) pm.enabled = true;
 
