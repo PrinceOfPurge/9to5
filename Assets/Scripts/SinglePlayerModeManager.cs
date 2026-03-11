@@ -21,6 +21,8 @@ public class SinglePlayerModeManager : MonoBehaviour
     public int BagsRemaining;
     public int SinglePlayerScore;
 
+    public int level = 1;
+
     private bool gameEnded = false;
 
     public int PlayerMoney;
@@ -62,7 +64,8 @@ public class SinglePlayerModeManager : MonoBehaviour
             gameEnded = false;
             TimerValue = maxTimerValue;
             TimerisRunning = true;
-            BagsRemaining = 6;
+            BagsRemaining = 0;
+            SinglePlayerScore = 0;
         }
     }
 
@@ -153,6 +156,7 @@ public class SinglePlayerModeManager : MonoBehaviour
         Debug.Log("END DA GAME");
 
         gameEnded = true;
+        level++;
 
         PlayerMoney += SinglePlayerScore + (Mathf.RoundToInt(TimerValue) * 10);
 

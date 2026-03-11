@@ -10,6 +10,7 @@ public class Banana : MonoBehaviour, IInteractable
     [Header("Interaction")]
     public GameObject garbagePrompt;
     public KeyCode interactKey = KeyCode.E;
+    public int points = 100;
 
     [Header("Positioning")]
     [Tooltip("Ideal distance for the player to stand from the banana")]
@@ -268,6 +269,7 @@ public class Banana : MonoBehaviour, IInteractable
             {
                 principal.NotifyMessCleaned();
             }
+            SinglePlayerModeManager.Instance.SinglePlayerScore += points;
 
             // Normal cleanup logic
             if (AudioManager.instance) AudioManager.instance.PlayOneShot(FMODEvents.instance.Done, transform.position);

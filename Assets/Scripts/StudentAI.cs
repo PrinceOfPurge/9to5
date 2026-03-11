@@ -88,6 +88,7 @@ public class StudentAI : MonoBehaviour
         messesRemainingToSpawn--;
 
         Instantiate(messPrefab, currentSpawn.transform.position, Quaternion.identity);
+        SinglePlayerModeManager.Instance.BagsRemaining++;
 
         Debug.Log("Student made a mess!");
 
