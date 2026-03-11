@@ -22,7 +22,11 @@ Material:
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
+    m_TexEnvs:
+    - _MainTexture:
+        m_Texture: {fileID: 2800000, guid: 5871a586a005faf4aac3d51341de2427, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _BUILTIN_QueueControl: 0
@@ -31,10 +35,12 @@ Material:
     - _MaskScale: 0.05
     - _RefractionOpacity: 0.118
     - _RefractionStrength: 0.05
-    - _Speed: -0.5
+    - _Speed: 2
     - _alpha: 1
     m_Colors:
     - _Color: {r: 0.40161717, g: 0.16219828, b: 0.03409952, a: 0}
+    - _MainTexOff: {r: 0, g: -3, b: 0, a: 0}
+    - _MainTexTil: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &838371447682140394
 MonoBehaviour:
