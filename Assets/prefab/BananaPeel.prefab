@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnYOffset: 1
-  spawnChance: 3
+  spawnChance: 6
   messPrefab: {fileID: 4954247994398432387, guid: bcbda6ade3c2d0f43b4aef2aa5ef24a8, type: 3}
 --- !u!135 &2122828934799936477
 SphereCollider:

@@ -33,8 +33,9 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     public int maxAllowedMesses = 6; 
     private bool hasWon = false;
 
-    [Header("Pre-placed Initial Messes")]
-    public List<GameObject> startingMesses = new List<GameObject>();
+    [Header("Spawn System")]
+    public GameObject messPrefab; // Drag your Food Prefab here (the one with objPickup)
+    private Transform[] spawnPoints;
 
     [Header("Animations")]
     public Animator principalAnim;
@@ -49,14 +50,21 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     {
         mainCam = Camera.main;
         currentPatience = maxPatience;
-
+        
+        GameObject[] spawnObjects = GameObject.FindGameObjectsWithTag("MessSpawn");
+        spawnPoints = new Transform[spawnObjects.Length];
+        for (int i = 0; i < spawnObjects.Length; i++)
+        {
+            spawnPoints[i] = spawnObjects[i].transform;
+        }
         if (worldMessCountUI) worldMessCountUI.SetActive(false);
         if (worldTimerBar) worldTimerBar.SetActive(false);
         if (screenMessCountUI) screenMessCountUI.SetActive(false);
         if (screenTimerBar) screenTimerBar.SetActive(false);
         if (promptUI) promptUI.SetActive(false);
         
-        foreach(GameObject m in startingMesses) if(m != null) m.SetActive(false);
+        
+        if (worldMessCountUI) worldMessCountUI.SetActive(false);
         
         ResetCursors();
     }
@@ -126,12 +134,14 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
 
     private void ActivateInitialMesses()
     {
-        foreach (GameObject mess in startingMesses)
+        if (spawnPoints == null || messPrefab == null) return;
+
+        foreach (Transform point in spawnPoints)
         {
-            if (mess != null)
+            if (point != null)
             {
-                mess.SetActive(true);
-                RegisterMess(mess);
+                GameObject newMess = Instantiate(messPrefab, point.position, point.rotation);
+                RegisterMess(newMess);
             }
         }
     }
@@ -216,11 +226,7 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
         // 4. Cleanup Messes
         foreach (GameObject m in activeMesses)
         {
-            if (m != null) 
-            {
-                if(startingMesses.Contains(m)) m.SetActive(false);
-                else Destroy(m);
-            }
+            if (m != null) Destroy(m);
         }
         activeMesses.Clear();
 
