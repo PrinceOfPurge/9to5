@@ -12,6 +12,7 @@ TagManager:
   - Food
   - Floor
   - Principal
+  - MessSpawn
   layers:
   - Default
   - TransparentFX

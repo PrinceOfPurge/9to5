@@ -54,6 +54,12 @@ public class objPickup : MonoBehaviour, IInteractable
 
     void Start()
     {
+        if (UIManager.Instance != null)
+        {
+            crosshair1 = UIManager.Instance.crosshair1;
+            crosshair2 = UIManager.Instance.crosshair2;
+        }
+        
         allColliders = GetComponentsInChildren<Collider>();
         if (worldPrompt) worldPrompt.SetActive(false);
         if (throwPrompt) throwPrompt.SetActive(false);
@@ -116,7 +122,16 @@ public class objPickup : MonoBehaviour, IInteractable
             if(trajectoryRenderer) trajectoryRenderer.positionCount = 0;
         }
     }
-
+    void Awake()
+    {
+        // 2. The usual auto-finds for non-UI stuff
+        if (cameraTrans == null && Camera.main != null) 
+            cameraTrans = Camera.main.transform;
+        
+        if (objRigidbody == null) 
+            objRigidbody = GetComponent<Rigidbody>();
+    }
+    
     void PickUpObject()
     {
         pickedup = true;
