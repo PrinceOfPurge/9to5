@@ -72,6 +72,7 @@ public class PlayerMovement : MonoBehaviour
     private bool sprinting;
     private bool grounded;
     private bool readyToJump = true;
+    private bool wasGrounded;
     private Vector3 cameraDefaultLocalPos;
     private float bobTimer;
 
@@ -124,10 +125,12 @@ public class PlayerMovement : MonoBehaviour
         float rayLength = controller.bounds.extents.y + 0.15f; 
         grounded = Physics.Raycast(controller.bounds.center, Vector3.down, rayLength, whatIsGround);
 
-        if (grounded && verticalVelocity.y < 0)
+        // NEW: Landing Detection
+        if (grounded && !wasGrounded && verticalVelocity.y < -5f) // -5f check prevents sound on tiny slopes
         {
-            verticalVelocity.y = -2f; 
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.Land, transform.position);
         }
+        wasGrounded = grounded; //
 
         HandleLook();
         HandleStamina();
@@ -216,14 +219,13 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = false;
         verticalVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         
-        if (playerAnimator != null)
-        {
-            playerAnimator.SetTrigger("Jump");
-        }
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.Jump, transform.position);
+
+        if (playerAnimator != null) playerAnimator.SetTrigger("Jump");
 
         stamina -= jumpStaminaCost;
         if (stamina < 0) stamina = 0;
-        
+    
         Invoke(nameof(ResetJump), 0.2f);
     }
 

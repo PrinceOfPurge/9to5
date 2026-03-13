@@ -54,6 +54,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 56888
+--- !u!114 &-5720681888525070945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Player/Land
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Player/Land
+  Guid:
+    Data1: -1456267198
+    Data2: 1241111516
+    Data3: -431728220
+    Data4: -2115141244
+  Banks:
+  - {fileID: 420874186844364336}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-3221487109547617214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,11 +131,38 @@ MonoBehaviour:
   - {fileID: 420874186844364336}
   IsStream: 1
   Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 35160
+--- !u!114 &-2505429010514799410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Player/Jump
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Player/Jump
+  Guid:
+    Data1: -1377954965
+    Data2: 1197124941
+    Data3: 893462206
+    Data4: 1695684446
+  Banks:
+  - {fileID: 420874186844364336}
+  IsStream: 0
+  Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 52944
+  Length: 216
 --- !u!114 &-1856225702813662801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,7 +178,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639073579763531747
+  lastModified: 639089597511222198
   FileSizes:
   - Name: Desktop
     Value: 1486
@@ -188,12 +242,15 @@ MonoBehaviour:
   - {fileID: 5332833298898345975}
   - {fileID: 8013622180885864422}
   - {fileID: -3221487109547617214}
+  - {fileID: -5720681888525070945}
+  - {fileID: -2505429010514799410}
+  - {fileID: 3527943882983750867}
   EditorParameters: []
   MasterBanks:
   - {fileID: -1856225702813662801}
   StringsBanks:
   - {fileID: 624774501610172950}
-  cacheTime: 639074559236462638
+  cacheTime: 639089620008216231
   cacheVersion: 131620
 --- !u!114 &86615865890799009
 MonoBehaviour:
@@ -237,10 +294,10 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639074559236462638
+  lastModified: 639089620008216231
   FileSizes:
   - Name: Desktop
-    Value: 1027232
+    Value: 797472
   Exists: 1
 --- !u!114 &624774501610172950
 MonoBehaviour:
@@ -257,10 +314,10 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639074559236332461
+  lastModified: 639089597511247285
   FileSizes:
   - Name: Desktop
-    Value: 1606
+    Value: 1724
   Exists: 1
 --- !u!114 &1640576777819759634
 MonoBehaviour:
@@ -277,10 +334,10 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Ambience.bank
   Name: Ambience
   StudioPath: bank:/Ambience
-  lastModified: 638997782452601142
+  lastModified: 639089620007908991
   FileSizes:
   - Name: Desktop
-    Value: 604192
+    Value: 1661632
   Exists: 1
 --- !u!114 &2007001425536825943
 MonoBehaviour:
@@ -309,6 +366,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 5980
+--- !u!114 &3527943882983750867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/World/Kids
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/World/Kids
+  Guid:
+    Data1: -1245322231
+    Data2: 1147426741
+    Data3: 1013287599
+    Data4: 319991147
+  Banks:
+  - {fileID: 1640576777819759634}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 122400
 --- !u!114 &3666032600028219273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,7 +543,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 639074559236397515
+  lastModified: 639089575392906612
   FileSizes:
   - Name: Desktop
     Value: 1369824
