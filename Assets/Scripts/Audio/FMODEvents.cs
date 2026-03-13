@@ -7,6 +7,7 @@ public class FMODEvents : MonoBehaviour
 {
     [field: Header("Ambience")]
     [field: SerializeField] public EventReference ambience { get; private set; }
+    [field: SerializeField] public EventReference KidsPlaying { get; private set; }
     
     [field: Header("Music")]
     [field: SerializeField] public EventReference music { get; private set; }
@@ -15,6 +16,8 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference playerFootsteps { get; private set; }
     [field: SerializeField] public EventReference Done { get; private set; } 
     [field: SerializeField] public EventReference Swish { get; private set; } 
+    [field: SerializeField] public EventReference Jump { get; private set; } 
+    [field: SerializeField] public EventReference Land { get; private set; } 
     
     [field: Header("NPC SFX")]
     [field: SerializeField] public EventReference GymTeacherGreet { get; private set; }

@@ -16,6 +16,7 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
     public Color startColor = Color.white;
     public Color dangerColor = Color.red;
     public float shakeAmount = 5f;
+    public GameObject holdDownPrompt;
 
     [Header("Instructional UI")]
     public GameObject mouseTutorialObject; 
@@ -53,6 +54,7 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
     private Vector3 originalPoopScale;
     private Vector2 barOriginalPos;
     private Coroutine tutorialRoutine;
+    public GameObject splashParticles; // Drag your Particle System GameObject here
 
     private Vector3 camSavedLocalPos;
     private Quaternion camSavedLocalRot;
@@ -62,6 +64,7 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
         if (playerAnim != null) layerIndex = playerAnim.GetLayerIndex("PlungerLayer");
         
         if (plungerPrompt) plungerPrompt.SetActive(false);
+        if (holdDownPrompt) holdDownPrompt.SetActive(false);
         if (plungerObject) plungerObject.SetActive(false);
         if (cleanWaterObject) cleanWaterObject.SetActive(false);
         
@@ -116,26 +119,52 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
         float mouseInputY = -Input.GetAxis("Mouse Y");
         float inputStrength = mouseInputY * sensitivity * Time.deltaTime;
         float resistance = upwardPressure * Time.deltaTime;
-        
+    
         plungeProgress = Mathf.Clamp01(plungeProgress + inputStrength - resistance);
 
         playerAnim.SetFloat("PlungeDepth", plungeProgress);
         
-        // Gameplay scaling logic
         if (poopCylinder)
         {
             float currentHeight = Mathf.Lerp(maxPoopHeight, minPoopHeight, plungeProgress);
             poopCylinder.localScale = new Vector3(originalPoopScale.x, currentHeight, originalPoopScale.z);
         }
+        
+        if (splashParticles != null)
+        {
+            bool isInStruggleZone = plungeProgress > 0.05f && plungeProgress < 0.95f;
+
+            if (isInStruggleZone) 
+            {
+                if (!splashParticles.activeSelf) splashParticles.SetActive(true);
+            }
+            else 
+            {
+                if (splashParticles.activeSelf) splashParticles.SetActive(false);
+            }
+        }
 
         UpdateUIFeedback();
-
+        
         if (plungeProgress >= 0.96f)
         {
             victoryTimer += Time.deltaTime;
-            if (victoryTimer >= winHoldTime) WinGame();
+
+            if (victoryTimer < winHoldTime)
+            {
+                if (holdDownPrompt && !holdDownPrompt.activeSelf) holdDownPrompt.SetActive(true);
+            }
+            else 
+            {
+                if (holdDownPrompt) holdDownPrompt.SetActive(false);
+                WinGame();
+            }
         }
-        else victoryTimer = 0f;
+        else 
+        {
+            victoryTimer = 0f;
+            if (holdDownPrompt && holdDownPrompt.activeSelf) holdDownPrompt.SetActive(false);
+        }
 
         if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
             StartCoroutine(EndMiniGameSequence());
@@ -251,6 +280,8 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
     {
         isPlaying = false;
         
+        if (splashParticles) splashParticles.SetActive(false); 
+        if (holdDownPrompt) holdDownPrompt.SetActive(false);
         if (tutorialRoutine != null) StopCoroutine(tutorialRoutine);
         if (mouseTutorialObject) mouseTutorialObject.SetActive(false);
         if (plungerObject) plungerObject.SetActive(false);
