@@ -62,6 +62,11 @@ public class StudentAI : MonoBehaviour
                 makingMess = true;
                 MakeMess();
             }
+            if (currentSpawn == null)
+            {
+                ReturnHome();
+                return;
+            }
         }
     }
 
@@ -94,7 +99,6 @@ public class StudentAI : MonoBehaviour
 
         visitedSpawns.Add(currentSpawn);
 
-        currentSpawn.isSpawned = false;
         currentSpawn = null;
 
         MoveToNextSpawn();
