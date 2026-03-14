@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{900372df-1683-480a-9312-6415921629ad}">
+		<property name="name">
+			<value>PlungeSpeed</value>
+		</property>
+		<relationship name="folder">
+			<destination>{b796f778-fb01-4731-a367-663460a3098a}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{ed5165c3-6f61-4681-8554-ded7db6130f3}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{ed5165c3-6f61-4681-8554-ded7db6130f3}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

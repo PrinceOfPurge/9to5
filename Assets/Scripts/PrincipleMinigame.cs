@@ -31,7 +31,8 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     public float messNearPenalty = 15f;   
     public float detectionRadius = 8f; 
     public int maxAllowedMesses = 6; 
-    private bool hasWon = false;
+    public bool hasWon { get; private set; } = false;
+    public static PrincipalMinigame instance;
 
     [Header("Spawn System")]
     public GameObject messPrefab; // Drag your Food Prefab here (the one with objPickup)
@@ -48,6 +49,7 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
 
     void Start()
     {
+        instance = this;
         mainCam = Camera.main;
         currentPatience = maxPatience;
         

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{4382779c-7826-4a87-b1a7-0b99996780e2}">
+		<property name="assetPath">
+			<value>SlowBubbles.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>6.896326530612245</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{2c9eddcb-8ffc-421f-ac12-17c198863c50}</destination>
+		</relationship>
+	</object>
+</objects>
