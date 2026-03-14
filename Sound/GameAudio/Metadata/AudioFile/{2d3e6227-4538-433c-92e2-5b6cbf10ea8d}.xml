@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{2d3e6227-4538-433c-92e2-5b6cbf10ea8d}">
+		<property name="assetPath">
+			<value>SeeIKnew.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>4.0489795918367344</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{2c9eddcb-8ffc-421f-ac12-17c198863c50}</destination>
+		</relationship>
+	</object>
+</objects>

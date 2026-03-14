@@ -24,6 +24,7 @@ public class FMODEvents : MonoBehaviour
     [field: Header("NPC SFX")]
     [field: SerializeField] public EventReference GymTeacherGreet { get; private set; }
     [field: SerializeField] public EventReference GymTeacherHit { get; private set; }
+    [field: SerializeField] public EventReference Principal { get; private set; }
     
     [field: Header("Object SFX")]
     [field: SerializeField] public EventReference Broom { get; private set; } 

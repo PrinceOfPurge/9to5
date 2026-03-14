@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+using FMOD.Studio; 
 
 public class PrincipalMinigame : MonoBehaviour, IInteractable
 {
@@ -35,7 +36,7 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     public static PrincipalMinigame instance;
 
     [Header("Spawn System")]
-    public GameObject messPrefab; // Drag your Food Prefab here (the one with objPickup)
+    public GameObject messPrefab; 
     private Transform[] spawnPoints;
 
     [Header("Animations")]
@@ -47,12 +48,23 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     private List<GameObject> activeMesses = new List<GameObject>(); 
     private Camera mainCam;
 
+    // Audio shtuff
+    private float idleTimer;
+    private float nextIdleTime = 10f;
+    private EventInstance voiceInstance;
+    private bool hasGreeted = false; // Track the initial greeting
+    private Transform playerTransform;
+
     void Start()
     {
         instance = this;
         mainCam = Camera.main;
         currentPatience = maxPatience;
         
+        // Find player for distance-based greeting
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj) playerTransform = playerObj.transform;
+
         GameObject[] spawnObjects = GameObject.FindGameObjectsWithTag("MessSpawn");
         spawnPoints = new Transform[spawnObjects.Length];
         for (int i = 0; i < spawnObjects.Length; i++)
@@ -64,7 +76,6 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
         if (screenMessCountUI) screenMessCountUI.SetActive(false);
         if (screenTimerBar) screenTimerBar.SetActive(false);
         if (promptUI) promptUI.SetActive(false);
-        
         
         if (worldMessCountUI) worldMessCountUI.SetActive(false);
         
@@ -92,19 +103,44 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     public void StartMiniGame() 
     {
         isGameActive = true;
-        hasWon = false; // Reset win state so we can play again
+        hasWon = false; 
         currentPatience = maxPatience;
         activeMesses.Clear();
 
         if (promptUI) promptUI.SetActive(false);
         if (externalGarbageUI) externalGarbageUI.SetActive(false); 
-    
+        
+        PlayVoice(1, true); // Force start line
+
         ActivateInitialMesses();
         UpdateSuccessUI();
         ResetCursors();
     }
 
     void Update() {
+        
+        if (!isGameActive && !hasWon && playerTransform != null)
+        {
+            float dist = Vector3.Distance(transform.position, playerTransform.position);
+
+            // 100% Greet when player first enters detection range
+            if (!hasGreeted && dist <= detectionRadius)
+            {
+                PlayVoice(0, true);
+                hasGreeted = true;
+                idleTimer = 0f;
+            }
+
+            // Random idles only if already greeted and still in range
+            idleTimer += Time.deltaTime;
+            if (idleTimer >= nextIdleTime && dist <= detectionRadius)
+            {
+                PlayVoice(0, false); // Don't interrupt if already talking
+                idleTimer = 0;
+                nextIdleTime = Random.Range(15f, 25f);
+            }
+        }
+
         if (!isGameActive) return;
 
         activeMesses.RemoveAll(item => item == null);
@@ -178,6 +214,10 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
 
     public void GetHit() {
         if (principalAnim != null) principalAnim.Play(hitStateName, 0, 0f); 
+        
+        // Hits always interrupt whatever else he's saying
+        PlayVoice(2, true);
+
         if (!isGameActive) return;
         currentPatience -= hitPenalty;
     }
@@ -198,6 +238,9 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     private void WinGame()
     {
         hasWon = true; 
+        
+        PlayVoice(3, true); // Force victory line
+
         PooledThrower[] students = FindObjectsOfType<PooledThrower>();
         foreach (PooledThrower s in students) s.StopThrowingPermanently();
         EndGame(); 
@@ -206,33 +249,25 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     void EndGame() {
         isGameActive = false;
     
-        // 1. FORCE SHUTDOWN of the cleaning minigame
-        // We look for any object with the Banana script and call its end method
         Banana[] activeBananas = FindObjectsOfType<Banana>();
         foreach(Banana b in activeBananas)
         {
-            // Assuming your Banana script has a method like 'FailMinigame' or 'EndMinigame'
-            // Using SendMessage as a backup, but direct calling is better if possible
             b.SendMessage("EndMinigame", false, SendMessageOptions.DontRequireReceiver);
         }
 
-        // 2. Hide all Minigame UI
         if (worldMessCountUI) worldMessCountUI.SetActive(false);
         if (worldTimerBar) worldTimerBar.SetActive(false);
         if (screenMessCountUI) screenMessCountUI.SetActive(false);
         if (screenTimerBar) screenTimerBar.SetActive(false);
         
-        // 3. Restore Gameplay UI
         if (externalGarbageUI) externalGarbageUI.SetActive(true);
 
-        // 4. Cleanup Messes
         foreach (GameObject m in activeMesses)
         {
             if (m != null) Destroy(m);
         }
         activeMesses.Clear();
 
-        // 5. Restore Player Controls
         PlayerMovement pm = FindObjectOfType<PlayerMovement>();
         if (pm != null) pm.enabled = true;
 
@@ -242,6 +277,28 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     private void ResetCursors() {
         if (defaultCursorObj) defaultCursorObj.SetActive(true);
         if (interactCursorObj) interactCursorObj.SetActive(false);
+    }
+    
+    private void PlayVoice(int state, bool forceInterrupt = false)
+    {
+        if (voiceInstance.isValid())
+        {
+            PLAYBACK_STATE pbState;
+            voiceInstance.getPlaybackState(out pbState);
+
+            // If already playing and we aren't forcing an interrupt (like a Hit), just exit
+            if (pbState == PLAYBACK_STATE.PLAYING && !forceInterrupt) return;
+
+            voiceInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            voiceInstance.release();
+        }
+
+        voiceInstance = AudioManager.instance.CreateInstance(FMODEvents.instance.Principal);
+        voiceInstance.setParameterByName("PrincipalState", (float)state);
+        voiceInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+    
+        voiceInstance.start();
+        voiceInstance.release(); 
     }
 
     private void OnDrawGizmosSelected() {
