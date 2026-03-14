@@ -4900,7 +4900,7 @@ GameObject:
   - component: {fileID: 1639670828682213872}
   - component: {fileID: 8876416519458952116}
   m_Layer: 0
-  m_Name: AppleEffectPSDroplet
+  m_Name: ParticleSystemAppleVarient
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
