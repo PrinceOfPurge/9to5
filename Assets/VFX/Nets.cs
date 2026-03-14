@@ -33,8 +33,9 @@ public class Nets : MonoBehaviour
             
             AudioManager.instance.PlayOneShot(FMODEvents.instance.Swish, transform.position);
             
-            // Optional: Tell the PA system to re-check completion immediately
-            if(PASystem.instance != null) PASystem.instance.CheckForInstantUpdate();
+            // Fixed line: We find the PASystem manually since we removed the Instance
+            PASystem pa = FindFirstObjectByType<PASystem>();
+            if(pa != null) pa.CheckForInstantUpdate();
         }
     }
 }

@@ -165,6 +165,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 3500
+--- !u!114 &-2880925378183193017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/NPCs/Kids
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/NPCs/Kids
+  Guid:
+    Data1: -1245322231
+    Data2: 1147426741
+    Data3: 1013287599
+    Data4: 319991147
+  Banks:
+  - {fileID: 1640576777819759634}
+  - {fileID: 420874186844364336}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 122400
 --- !u!114 &-2756938002841102240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,7 +263,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639090345553090429
+  lastModified: 639090431819714072
   FileSizes:
   - Name: Desktop
     Value: 1486
@@ -325,17 +353,18 @@ MonoBehaviour:
   - {fileID: -3221487109547617214}
   - {fileID: -5720681888525070945}
   - {fileID: -2505429010514799410}
-  - {fileID: 3527943882983750867}
   - {fileID: 2102805555718483454}
   - {fileID: 1586390637041817182}
   - {fileID: -2935537476932391207}
   - {fileID: 7441675435868488790}
+  - {fileID: -2880925378183193017}
+  - {fileID: 6362177086245676444}
   EditorParameters: []
   MasterBanks:
   - {fileID: -1856225702813662801}
   StringsBanks:
   - {fileID: 624774501610172950}
-  cacheTime: 639090370491807870
+  cacheTime: 639090437804588995
   cacheVersion: 131620
 --- !u!114 &86615865890799009
 MonoBehaviour:
@@ -379,10 +408,10 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639090370491807870
+  lastModified: 639090437804588995
   FileSizes:
   - Name: Desktop
-    Value: 2374624
+    Value: 4447936
   Exists: 1
 --- !u!114 &624774501610172950
 MonoBehaviour:
@@ -399,10 +428,10 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639090345553115513
+  lastModified: 639090431819729128
   FileSizes:
   - Name: Desktop
-    Value: 2016
+    Value: 2124
   Exists: 1
 --- !u!114 &1586390637041817182
 MonoBehaviour:
@@ -446,7 +475,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Ambience.bank
   Name: Ambience
   StudioPath: bank:/Ambience
-  lastModified: 639090217707196110
+  lastModified: 639090431819659419
   FileSizes:
   - Name: Desktop
     Value: 1661632
@@ -506,7 +535,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &3527943882983750867
+--- !u!114 &3648652568934698118
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -515,24 +544,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/World/Kids
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Principal/PrincipalState
   m_EditorClassIdentifier: 
-  Path: event:/SFX/World/Kids
-  Guid:
-    Data1: -1245322231
-    Data2: 1147426741
-    Data3: 1013287599
-    Data4: 319991147
-  Banks:
-  - {fileID: 1640576777819759634}
-  IsStream: 1
-  Is3D: 1
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 122400
+  Name: PrincipalState
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 3666084450
+    data2: 1097235135
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Idle
+  - Progress
+  - Hit
+  - Success
+  Exists: 1
 --- !u!114 &3666032600028219273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -611,6 +641,34 @@ MonoBehaviour:
   Is3D: 1
   IsOneShot: 1
   Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &6362177086245676444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/NPCs/Principal
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/NPCs/Principal
+  Guid:
+    Data1: -1198282673
+    Data2: 1285413206
+    Data3: -616919155
+    Data4: 1449512162
+  Banks:
+  - {fileID: 420874186844364336}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 3648652568934698118}
   MinDistance: 1
   MaxDistance: 20
   Length: 0

@@ -14,22 +14,24 @@ public class PASystem : MonoBehaviour
         AllComplete = 4
     }
 
-    public static PASystem instance { get; private set; }
-
     [Header("Loop Settings")]
     public float delayBetweenAnnouncements = 15f; 
     private bool allTasksDone = false;
 
-    private void Awake()
-    {
-        if (instance == null) instance = this;
-        else Destroy(gameObject);
-    }
+    private List<EventInstance> activeInstances = new List<EventInstance>();
 
     private void Start()
     {
         StartCoroutine(AnnouncementLoop());
     }
+
+    // --- THIS IS THE FIXED METHOD ---
+    public void CheckForInstantUpdate()
+    {
+        StopAllCoroutines();
+        StartCoroutine(AnnouncementLoop());
+    }
+    // --------------------------------
 
     private IEnumerator AnnouncementLoop()
     {
@@ -37,33 +39,28 @@ public class PASystem : MonoBehaviour
         {
             List<AnnouncementType> activeTasks = new List<AnnouncementType>();
 
-            // 1. Check PlungerMiniGame
             if (PlungerMiniGame.instance != null && !PlungerMiniGame.instance.isWon)
                 activeTasks.Add(AnnouncementType.CloggedToilet);
 
-            // 2. Check PrincipalMinigame
             if (PrincipalMinigame.instance != null && !PrincipalMinigame.instance.hasWon)
                 activeTasks.Add(AnnouncementType.FoodFight);
 
-            // 3. Check GymMinigame
             if (Nets.instance != null && !Nets.instance.isWon)
                 activeTasks.Add(AnnouncementType.MopGym);
 
-            // Play
             if (activeTasks.Count > 0)
             {
                 foreach (AnnouncementType task in activeTasks)
                 {
                     if (IsTaskStillActive(task))
                     {
-                        yield return StartCoroutine(PlayVoiceLine(task));
+                        yield return StartCoroutine(PlayBroadcast(task));
                         yield return new WaitForSeconds(delayBetweenAnnouncements);
                     }
                 }
             }
             else
             {
-                // Check if everything is finished
                 bool plungerDone = PlungerMiniGame.instance == null || PlungerMiniGame.instance.isWon;
                 bool principalDone = PrincipalMinigame.instance == null || PrincipalMinigame.instance.hasWon;
                 bool gymDone = Nets.instance == null || Nets.instance.isWon;
@@ -71,18 +68,11 @@ public class PASystem : MonoBehaviour
                 if (plungerDone && principalDone && gymDone)
                 {
                     allTasksDone = true;
-                    yield return StartCoroutine(PlayVoiceLine(AnnouncementType.AllComplete));
+                    yield return StartCoroutine(PlayBroadcast(AnnouncementType.AllComplete));
                 }
             }
             yield return new WaitForSeconds(2f);
         }
-    }
-
-    // This allows a game script to check if it's done immediately
-    public void CheckForInstantUpdate()
-    {
-        StopAllCoroutines();
-        StartCoroutine(AnnouncementLoop());
     }
 
     private bool IsTaskStillActive(AnnouncementType type)
@@ -100,21 +90,36 @@ public class PASystem : MonoBehaviour
         }
     }
 
-    private IEnumerator PlayVoiceLine(AnnouncementType type)
+    private IEnumerator PlayBroadcast(AnnouncementType type)
     {
-        EventInstance paInstance = AudioManager.instance.CreateInstance(FMODEvents.instance.PAannouncement);
-        paInstance.setParameterByName("AnouncementType", (float)type);
-        paInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
-        
-        paInstance.start();
+        PASpeakerLocation[] speakers = FindObjectsOfType<PASpeakerLocation>();
+        activeInstances.Clear();
 
-        PLAYBACK_STATE state;
-        paInstance.getPlaybackState(out state);
-        while (state != PLAYBACK_STATE.STOPPED)
+        if (speakers.Length == 0) yield break;
+
+        foreach (PASpeakerLocation speaker in speakers)
         {
-            paInstance.getPlaybackState(out state);
-            yield return null;
+            EventInstance inst = AudioManager.instance.CreateInstance(FMODEvents.instance.PAannouncement);
+            inst.setParameterByName("AnouncementType", (float)type);
+            inst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(speaker.gameObject));
+            inst.start();
+            activeInstances.Add(inst);
         }
-        paInstance.release();
+
+        if (activeInstances.Count > 0)
+        {
+            PLAYBACK_STATE state;
+            activeInstances[0].getPlaybackState(out state);
+            while (state != PLAYBACK_STATE.STOPPED)
+            {
+                activeInstances[0].getPlaybackState(out state);
+                yield return null;
+            }
+        }
+
+        foreach (EventInstance inst in activeInstances)
+        {
+            inst.release();
+        }
     }
 }
