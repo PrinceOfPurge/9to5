@@ -54,6 +54,36 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 56888
+--- !u!114 &-7601374020524398847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/PAannouncement/AnouncementType
+  m_EditorClassIdentifier: 
+  Name: AnouncementType
+  StudioPath: 
+  Min: 0
+  Max: 5
+  Default: 5
+  ID:
+    data1: 27841251
+    data2: 911451493
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Student
+  - FoodFight
+  - MopGym
+  - CloggedToilet
+  - AllComplete
+  - Value A
+  Exists: 1
 --- !u!114 &-5720681888525070945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,6 +138,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-2935537476932391207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Player/PlayerToilet
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Player/PlayerToilet
+  Guid:
+    Data1: 116771310
+    Data2: 1180072633
+    Data3: -1245335903
+    Data4: -359365019
+  Banks:
+  - {fileID: 420874186844364336}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 3500
 --- !u!114 &-2756938002841102240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,7 +235,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639058780484786066
+  lastModified: 639090345553090429
   FileSizes:
   - Name: Desktop
     Value: 1486
@@ -210,6 +267,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-101589945391517452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/ToiletStruggle/PlungeSpeed
+  m_EditorClassIdentifier: 
+  Name: PlungeSpeed
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3223126208
+    data2: 399429030
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,12 +326,16 @@ MonoBehaviour:
   - {fileID: -5720681888525070945}
   - {fileID: -2505429010514799410}
   - {fileID: 3527943882983750867}
+  - {fileID: 2102805555718483454}
+  - {fileID: 1586390637041817182}
+  - {fileID: -2935537476932391207}
+  - {fileID: 7441675435868488790}
   EditorParameters: []
   MasterBanks:
   - {fileID: -1856225702813662801}
   StringsBanks:
   - {fileID: 624774501610172950}
-  cacheTime: 639090022723928642
+  cacheTime: 639090370491807870
   cacheVersion: 131620
 --- !u!114 &86615865890799009
 MonoBehaviour:
@@ -294,10 +379,10 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639090022723928642
+  lastModified: 639090370491807870
   FileSizes:
   - Name: Desktop
-    Value: 797472
+    Value: 2374624
   Exists: 1
 --- !u!114 &624774501610172950
 MonoBehaviour:
@@ -314,11 +399,38 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639090022723863300
+  lastModified: 639090345553115513
   FileSizes:
   - Name: Desktop
-    Value: 1724
+    Value: 2016
   Exists: 1
+--- !u!114 &1586390637041817182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/World/Plunge
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/World/Plunge
+  Guid:
+    Data1: 1912668865
+    Data2: 1148581946
+    Data3: 749120176
+    Data4: -1269900495
+  Banks:
+  - {fileID: 420874186844364336}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1306
 --- !u!114 &1640576777819759634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,7 +446,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Ambience.bank
   Name: Ambience
   StudioPath: bank:/Ambience
-  lastModified: 639090022723856786
+  lastModified: 639090217707196110
   FileSizes:
   - Name: Desktop
     Value: 1661632
@@ -366,6 +478,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 5980
+--- !u!114 &2102805555718483454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/World/ToiletStruggle
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/World/ToiletStruggle
+  Guid:
+    Data1: 1527698548
+    Data2: 1327555163
+    Data3: 566496661
+    Data4: 880264683
+  Banks:
+  - {fileID: 420874186844364336}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -101589945391517452}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &3527943882983750867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -501,6 +641,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &7441675435868488790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/World/PAannouncement
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/World/PAannouncement
+  Guid:
+    Data1: -210275519
+    Data2: 1131408591
+    Data3: -1904747391
+    Data4: 183374116
+  Banks:
+  - {fileID: 420874186844364336}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -7601374020524398847}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &8013622180885864422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -543,7 +711,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 639074581101679179
+  lastModified: 639089575392906612
   FileSizes:
   - Name: Desktop
     Value: 1369824

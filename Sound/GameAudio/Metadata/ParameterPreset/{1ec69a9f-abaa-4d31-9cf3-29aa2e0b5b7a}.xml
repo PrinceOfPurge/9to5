@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{1ec69a9f-abaa-4d31-9cf3-29aa2e0b5b7a}">
+		<property name="name">
+			<value>AnouncementType</value>
+		</property>
+		<relationship name="folder">
+			<destination>{b796f778-fb01-4731-a367-663460a3098a}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{ee89e8f5-3fe6-4b64-891b-337d0684d900}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{ee89e8f5-3fe6-4b64-891b-337d0684d900}">
+		<property name="parameterType">
+			<value>2</value>
+		</property>
+		<property name="maximum">
+			<value>6</value>
+		</property>
+		<property name="enumerationLabels">
+			<value>Student</value>
+			<value>FoodFight</value>
+			<value>MopGym</value>
+			<value>CloggedToilet</value>
+			<value>AllComplete</value>
+			<value>Value A</value>
+		</property>
+		<property name="initialValue">
+			<value>5</value>
+		</property>
+	</object>
+</objects>

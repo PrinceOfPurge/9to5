@@ -58168,6 +58168,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 32dd4abf404870642a590f395feaea02, type: 3}
   m_PrefabInstance: {fileID: 1499114620}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1417502283 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 593040d86d11c4c418e00b8d53a99ceb, type: 3}
+  m_PrefabInstance: {fileID: 1928787541}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1417502287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417502283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0403c26e86040584f9ea680ee74000fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delayBetweenAnnouncements: 5
 --- !u!1 &1417533526
 GameObject:
   m_ObjectHideFlags: 0
@@ -79372,7 +79390,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 593040d86d11c4c418e00b8d53a99ceb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1417502287}
   m_SourcePrefab: {fileID: 100100000, guid: 593040d86d11c4c418e00b8d53a99ceb, type: 3}
 --- !u!1001 &1930855689
 PrefabInstance:
@@ -84084,6 +84105,86 @@ PrefabInstance:
     - target: {fileID: 2833743790919050014, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <Plunge>k__BackingField.Path
+      value: event:/SFX/World/Plunge
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <PlayerToilet>k__BackingField.Path
+      value: event:/SFX/Player/PlayerToilet
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <Plunge>k__BackingField.Guid.Data1
+      value: 1912668865
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <Plunge>k__BackingField.Guid.Data2
+      value: 1148581946
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <Plunge>k__BackingField.Guid.Data3
+      value: 749120176
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <Plunge>k__BackingField.Guid.Data4
+      value: -1269900495
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <PAannouncement>k__BackingField.Path
+      value: event:/SFX/World/PAannouncement
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <ToiletStruggle>k__BackingField.Path
+      value: event:/SFX/World/ToiletStruggle
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <PlayerToilet>k__BackingField.Guid.Data1
+      value: 116771310
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <PlayerToilet>k__BackingField.Guid.Data2
+      value: 1180072633
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <PlayerToilet>k__BackingField.Guid.Data3
+      value: -1245335903
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <PlayerToilet>k__BackingField.Guid.Data4
+      value: -359365019
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <PAannouncement>k__BackingField.Guid.Data1
+      value: -210275519
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <PAannouncement>k__BackingField.Guid.Data2
+      value: 1131408591
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <PAannouncement>k__BackingField.Guid.Data3
+      value: -1904747391
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <PAannouncement>k__BackingField.Guid.Data4
+      value: 183374116
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <ToiletStruggle>k__BackingField.Guid.Data1
+      value: 1527698548
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <ToiletStruggle>k__BackingField.Guid.Data2
+      value: 1327555163
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <ToiletStruggle>k__BackingField.Guid.Data3
+      value: 566496661
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <ToiletStruggle>k__BackingField.Guid.Data4
+      value: 880264683
       objectReference: {fileID: 0}
     - target: {fileID: 8093717414090421701, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
       propertyPath: m_Name
@@ -104970,9 +105071,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1049189484}
     - target: {fileID: 1725127191602543299, guid: 6299044d98d00c049b5002a912e0fa38, type: 3}
+      propertyPath: sensitivity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1725127191602543299, guid: 6299044d98d00c049b5002a912e0fa38, type: 3}
       propertyPath: plungerObject
       value: 
       objectReference: {fileID: 2460905461178157488}
+    - target: {fileID: 1725127191602543299, guid: 6299044d98d00c049b5002a912e0fa38, type: 3}
+      propertyPath: upwardPressure
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1725127191602543299, guid: 6299044d98d00c049b5002a912e0fa38, type: 3}
       propertyPath: splashParticles
       value: 
