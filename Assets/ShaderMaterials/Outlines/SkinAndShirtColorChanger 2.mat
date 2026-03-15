@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CautionSignOutline 1
-  m_Shader: {fileID: 4800000, guid: 49d065513426275469e84eb4c25a8d20, type: 3}
+  m_Name: SkinAndShirtColorChanger 2
+  m_Shader: {fileID: 4800000, guid: 9975c598cb0b0af4db6750b679d119db, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -23,6 +23,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: 22c0d2cdd6b18954080828ab8faaf920, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -44,7 +48,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: d56c2bc90ad4ef641853e269ded03d62, type: 3}
+        m_Texture: {fileID: 2800000, guid: 22c0d2cdd6b18954080828ab8faaf920, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -59,6 +63,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _ShirtMask:
+        m_Texture: {fileID: 2800000, guid: 84690447bd7d46b429dac278c3f43461, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SkinMask:
+        m_Texture: {fileID: 2800000, guid: 3424a9bb8dd962d4bbc148e4b69f8deb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _BumpScale: 1
@@ -71,7 +83,7 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _Outline: 0.031
+    - _Outline: 0.011
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -82,4 +94,6 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ShirtColor: {r: 1, g: 0, b: 0.033144474, a: 1}
+    - _SkinColor: {r: 0.7412399, g: 0.5469171, b: 0.31068137, a: 1}
   m_BuildTextureStacks: []

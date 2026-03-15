@@ -188,11 +188,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -200,15 +212,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (46)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -361,11 +381,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -373,15 +405,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (53)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -537,11 +577,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -549,15 +601,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (25)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1026,11 +1086,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -1038,15 +1110,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (31)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1119,11 +1199,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -1131,15 +1223,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (44)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1566,11 +1666,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -1578,15 +1690,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1742,11 +1862,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -1754,15 +1886,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1835,11 +1975,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -1847,15 +1999,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2542,11 +2702,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -2554,15 +2726,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2635,11 +2815,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -2647,15 +2839,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9007,11 +9207,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -9019,15 +9231,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9881,11 +10101,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -9893,15 +10125,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10661,11 +10901,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -10673,15 +10925,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (50)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10693,6 +10953,71 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4865890911699957371, guid: ddaadbb46f782a548a2028d965bc5ba9, type: 3}
   m_PrefabInstance: {fileID: 405817402468969193}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &594878399
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 594878401}
+  - component: {fileID: 594878400}
+  m_Layer: 0
+  m_Name: Reflection Probe
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!215 &594878400
+ReflectionProbe:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594878399}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Type: 0
+  m_Mode: 0
+  m_RefreshMode: 0
+  m_TimeSlicingMode: 0
+  m_Resolution: 128
+  m_UpdateFrequency: 0
+  m_BoxSize: {x: 124.38, y: 42.7, z: 224.24}
+  m_BoxOffset: {x: 0, y: 0, z: 0}
+  m_NearClip: 0.3
+  m_FarClip: 1000
+  m_ShadowDistance: 100
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IntensityMultiplier: 1
+  m_BlendDistance: 1
+  m_HDR: 1
+  m_BoxProjection: 0
+  m_RenderDynamicObjects: 0
+  m_UseOcclusionCulling: 1
+  m_Importance: 1
+  m_CustomBakedTexture: {fileID: 0}
+--- !u!4 &594878401
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594878399}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -215.19441, y: 8.897627, z: 8.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &599382219
 GameObject:
   m_ObjectHideFlags: 0
@@ -10842,11 +11167,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -10854,15 +11191,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10935,11 +11280,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -10947,15 +11304,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (42)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11275,11 +11640,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -11287,15 +11664,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (35)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11659,11 +12044,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -11671,15 +12068,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (54)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12638,11 +13043,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -12650,15 +13067,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (22)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12694,18 +13119,18 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 695412611}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 10
-  m_Type: 1
+  m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
-  m_Range: 10
+  m_Intensity: 0
+  m_Range: 0.7
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -12738,7 +13163,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -12830,11 +13255,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -12842,15 +13279,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (21)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13191,11 +13636,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -13203,15 +13660,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (39)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13284,11 +13749,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -13296,15 +13773,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (37)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13542,11 +14027,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -13554,15 +14051,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13673,11 +14178,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -13685,15 +14202,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (48)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13766,11 +14291,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -13778,15 +14315,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (49)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14602,11 +15147,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -14614,15 +15171,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (52)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14877,11 +15442,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -14889,15 +15466,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15497,11 +16082,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -15509,15 +16106,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15590,11 +16195,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -15602,15 +16219,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (38)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16352,11 +16977,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -16364,15 +17001,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16476,11 +17121,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -16488,15 +17145,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (36)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16569,11 +17234,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -16581,15 +17258,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17577,11 +18262,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -17589,15 +18286,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (18)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17979,11 +18684,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -17991,15 +18708,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (51)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -18018,6 +18743,9 @@ GameObject:
   - component: {fileID: 1094480231}
   - component: {fileID: 1094480230}
   - component: {fileID: 1094480233}
+  - component: {fileID: 1094480236}
+  - component: {fileID: 1094480235}
+  - component: {fileID: 1094480234}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -18073,7 +18801,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -18120,6 +18848,125 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1094480234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094480229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a879e317c20b0d41a9a56f1a97f4cf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ApplyMethod: 1
+  SampleCount: 1
+  PerPixelNormals: 2
+  Intensity: 1
+  Tint: {r: 0, g: 0, b: 0, a: 1}
+  Radius: 2
+  PowerExponent: 1.8
+  Bias: 0.05
+  Thickness: 1
+  Downsample: 1
+  CacheAware: 1
+  FadeEnabled: 0
+  FadeStart: 100
+  FadeLength: 50
+  FadeToIntensity: 0
+  FadeToTint: {r: 0, g: 0, b: 0, a: 1}
+  FadeToRadius: 2
+  FadeToPowerExponent: 1
+  FadeToThickness: 1
+  BlurEnabled: 1
+  BlurRadius: 3
+  BlurPasses: 1
+  BlurSharpness: 15
+  FilterEnabled: 1
+  FilterDownsample: 1
+  FilterBlending: 0.8
+  FilterResponse: 0.5
+  m_occlusionShader: {fileID: 4800000, guid: ca3c44b6d4f2d4d1095e1e783d9684ba, type: 3}
+  m_blurShader: {fileID: 4800000, guid: 721d4727a93c1e548a5c6160a6229427, type: 3}
+  m_applyShader: {fileID: 4800000, guid: 537ee96eb0f0e5348bead799d732fa65, type: 3}
+--- !u!114 &1094480235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094480229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: 3cc5c8d10cdd7b546bf642b8b8d0e801, type: 2}
+  isGlobal: 0
+  blendDistance: 0
+  weight: 1
+  priority: 0
+--- !u!114 &1094480236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094480229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 1094480232}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  stopNaNPropagation: 1
+  finalBlitToCameraTarget: 0
+  antialiasingMode: 1
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 0
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
 --- !u!4 &1100632298 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 32dd4abf404870642a590f395feaea02, type: 3}
@@ -18196,11 +19043,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -18208,15 +19067,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -18417,11 +19284,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -18429,15 +19308,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (41)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -18961,11 +19848,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -18973,15 +19872,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19402,11 +20309,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -19414,15 +20333,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (33)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19616,11 +20543,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -19628,15 +20567,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (45)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19724,11 +20671,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -19736,15 +20695,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19956,6 +20923,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a5de8c4e2eaeffa4dac776f1595ea28e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f30c7b1bcf9ab840b2410df03c76483, type: 2}
     - target: {fileID: 919132149155446097, guid: a5de8c4e2eaeffa4dac776f1595ea28e, type: 3}
       propertyPath: m_Name
       value: MainMenuLogo
@@ -20923,11 +21894,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -20935,15 +21918,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (43)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -21016,11 +22007,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -21028,15 +22031,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -21277,11 +22288,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -21289,15 +22312,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -21458,11 +22489,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -21470,15 +22513,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (30)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -21551,11 +22602,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -21563,15 +22626,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (40)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -22243,11 +23314,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -22255,15 +23338,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (27)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -22536,11 +23627,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -22548,15 +23651,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (32)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -23020,11 +24131,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -23032,15 +24155,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (47)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -23336,11 +24467,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -23348,15 +24491,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -29046,11 +30197,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -29058,15 +30221,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (26)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -31749,11 +32920,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -31761,15 +32944,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (23)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -31842,11 +33033,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -31854,15 +33057,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (24)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -31987,11 +33198,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -31999,15 +33222,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (34)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -32080,11 +33311,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -32092,15 +33335,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (29)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -32613,11 +33864,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -32625,15 +33888,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (28)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -32851,11 +34122,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Range
-      value: 108
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Intensity
@@ -32863,15 +34146,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_SpotAngle
-      value: 143
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Lightmapping
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5076484507258936684, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32dd4abf404870642a590f395feaea02, type: 3}
       propertyPath: m_Name
       value: 9-5_Lights (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392398322951045289, guid: 32dd4abf404870642a590f395feaea02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -55724,3 +57015,4 @@ SceneRoots:
   - {fileID: 4202013978945027693}
   - {fileID: 1185617021621039661}
   - {fileID: 6400170152421052334}
+  - {fileID: 594878401}
