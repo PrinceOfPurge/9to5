@@ -3,7 +3,37 @@ guid: 5ed36f9ff4d478d489de9bb847703ed1
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GymTeacherCap+Whistle_Cap+Whistle_Albedo
+    second: {fileID: 2800000, guid: 2b86ea30358c18c4f93d4389d58e5568, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GymTeacherCap+Whistle_Cap+Whistle_Metallic
+    second: {fileID: 2800000, guid: fea35ae836d39c041935c28940364656, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GymTeacherCap+Whistle_Cap+Whistle_Normal
+    second: {fileID: 2800000, guid: 79db68f1f7f594749ae73017fa6e35d6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GymTeacherLow_GymTeacherTexture_Albedo
+    second: {fileID: 2800000, guid: 56633b68fe884614f98318331aee9ffb, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GymTeacherLow_GymTeacherTexture_Metallic
+    second: {fileID: 2800000, guid: e791be8fc0323944fa2077df16645288, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: GymTeacherLow_GymTeacherTexture_Normal
+    second: {fileID: 2800000, guid: cc6e7532b9592aa45a64b8a8665ca655, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
