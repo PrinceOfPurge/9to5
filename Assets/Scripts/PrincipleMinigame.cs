@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
-using FMOD.Studio; 
+using FMOD.Studio;
+using Random = UnityEngine.Random;
 
 public class PrincipalMinigame : MonoBehaviour, IInteractable
 {
@@ -57,7 +59,6 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
 
     void Start()
     {
-        instance = this;
         mainCam = Camera.main;
         currentPatience = maxPatience;
         
@@ -80,6 +81,11 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
         if (worldMessCountUI) worldMessCountUI.SetActive(false);
         
         ResetCursors();
+    }
+
+    private void Awake()
+    {
+        instance = this;
     }
 
     public void OnFocus() 

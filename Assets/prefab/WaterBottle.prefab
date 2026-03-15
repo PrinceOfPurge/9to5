@@ -128,6 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnYOffset: 1
   spawnChance: 1
+  hitParticlePrefab: {fileID: 4226050603385676801, guid: 02070298627dfa649a08ed39c775e8f0, type: 3}
   messPrefab: {fileID: 1396639289295030309, guid: 1b85ac84c89828a4bacbffcf84583788, type: 3}
 --- !u!135 &1998370610052476522
 SphereCollider:
