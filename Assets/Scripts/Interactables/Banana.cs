@@ -270,6 +270,7 @@ public class Banana : MonoBehaviour, IInteractable
                 principal.NotifyMessCleaned();
             }
             SinglePlayerModeManager.Instance.SinglePlayerScore += points;
+            SinglePlayerModeManager.Instance.BagsRemaining--;
 
             // Normal cleanup logic
             if (AudioManager.instance) AudioManager.instance.PlayOneShot(FMODEvents.instance.Done, transform.position);

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class StudentSpawner : MonoBehaviour
 {
@@ -44,7 +45,16 @@ public class StudentSpawner : MonoBehaviour
 
             Transform spawnPoint = availableSpawns[index];
 
-            Instantiate(studentPrefab, spawnPoint.position, spawnPoint.rotation);
+            NavMeshHit hit;
+
+            if (NavMesh.SamplePosition(spawnPoint.position, out hit, 5f, NavMesh.AllAreas))
+            {
+                Instantiate(studentPrefab, hit.position, spawnPoint.rotation);
+            }
+            else
+            {
+                Debug.LogWarning("No NavMesh near spawn point!");
+            }
 
             availableSpawns.RemoveAt(index);
         }

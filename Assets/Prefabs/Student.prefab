@@ -102,10 +102,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 13
-  maxWaitTime: 25
-  minMessessToSpawn: 1
-  maxMessessToSpawn: 5
-  messPrefab: {fileID: 1927695967311332938, guid: 75782b16332cda24abcfb54cba074272, type: 3}
+  maxWaitTime: 10
+  minMessessToSpawn: 2
+  maxMessessToSpawn: 4
+  messPrefab: {fileID: 7200020984388850725, guid: 21cd291d32b092740bb619987ba0e535, type: 3}
 --- !u!1001 &7236051158509541789
 PrefabInstance:
   m_ObjectHideFlags: 0

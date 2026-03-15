@@ -49,7 +49,7 @@ public class StudentAI : MonoBehaviour
 
     private void Update()
     {
-        if (!agent.pathPending && agent.remainingDistance < 1f && !makingMess)
+        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && !makingMess)
         {
             if (returningHome)
             {
@@ -61,11 +61,6 @@ public class StudentAI : MonoBehaviour
             {
                 makingMess = true;
                 MakeMess();
-            }
-            if (currentSpawn == null)
-            {
-                ReturnHome();
-                return;
             }
         }
     }

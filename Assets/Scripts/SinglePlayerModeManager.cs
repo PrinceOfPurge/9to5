@@ -64,7 +64,7 @@ public class SinglePlayerModeManager : MonoBehaviour
             gameEnded = false;
             TimerValue = maxTimerValue;
             TimerisRunning = true;
-            BagsRemaining = 0;
+            BagsRemaining = 1;
             SinglePlayerScore = 0;
         }
     }
