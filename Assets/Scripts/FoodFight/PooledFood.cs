@@ -8,8 +8,12 @@ public class PooledFood : MonoBehaviour
     private bool _hasHit;
 
     [Header("Spawning Settings")]
-    public float spawnYOffset = 1f; 
+    public float spawnYOffset = 0.5f; 
     [Range(1, 10)] public int spawnChance = 6; 
+
+    [Header("Visual Effects")]
+    // Drag your specific splat particle prefab here in the Inspector
+    public GameObject hitParticlePrefab; 
 
     [Header("Mess Feature")] 
     public GameObject messPrefab; 
@@ -33,10 +37,19 @@ public class PooledFood : MonoBehaviour
         if (_hasHit) return;
         _hasHit = true;
 
+        // 1. Play Particles
+        if (hitParticlePrefab != null)
+        {
+            ContactPoint contact = collision.contacts[0];
+            // Spawn at hit point, rotated to face out from the surface
+            GameObject effect = Instantiate(hitParticlePrefab, contact.point, Quaternion.LookRotation(contact.normal));
+            Destroy(effect, 2f); 
+        }
+
+        // 2. Handle Logic
         if (collision.gameObject.CompareTag("Principal")) 
         {
-            PrincipalMinigame principal = collision.gameObject.GetComponent<PrincipalMinigame>();
-            if (principal != null) principal.GetHit();
+            if (PrincipalMinigame.instance != null) PrincipalMinigame.instance.GetHit();
         }
         else if (collision.gameObject.CompareTag("Floor")) 
         {
@@ -46,32 +59,26 @@ public class PooledFood : MonoBehaviour
             }
         }
 
+        // 3. Return to Pool
         if (_pool != null) _pool.Release(this);
     }
 
     public void SpawnMess(Vector3 hitPosition)
     {
-        PrincipalMinigame principal = FindObjectOfType<PrincipalMinigame>();
-        
-        // If no principal exists or game isn't running, don't spawn anything
-        if (principal == null || !principal.IsGameActive()) return;
+        // Faster check using the static instance
+        if (PrincipalMinigame.instance == null || !PrincipalMinigame.instance.IsGameActive()) return;
 
-        // Check if the spot is within range and we haven't hit the max limit
-        if (principal.CanSpawnMessAt(hitPosition))
+        if (PrincipalMinigame.instance.CanSpawnMessAt(hitPosition))
         {
             if (messPrefab != null)
             {
                 Vector3 spawnPos = hitPosition + (Vector3.up * spawnYOffset);
-                Quaternion fixedRotation = Quaternion.Euler(-90, 0, 0);
-        
-                GameObject newMess = Instantiate(messPrefab, spawnPos, fixedRotation);
-        
-                // Set the layer so the Player's Raycast can detect it
+                GameObject newMess = Instantiate(messPrefab, spawnPos, Quaternion.Euler(-90, 0, 0));
+                
                 int layerIndex = LayerMask.NameToLayer("Interactions");
                 if (layerIndex != -1) newMess.layer = layerIndex;
         
-                // Register with the Principal so the UI counter updates
-                principal.RegisterMess(newMess);
+                PrincipalMinigame.instance.RegisterMess(newMess);
             }
         }
     }
