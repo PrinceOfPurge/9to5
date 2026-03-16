@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 37f5713b56fb3d44d88ce6f306ff1403
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/UI/ModeSelect.unity
     guid: 5a99dddcaaeada2448a54ef1f030c075
   - enabled: 1
@@ -17,13 +17,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SinglePlayerUpgradeShop.unity
     guid: 40af35471e1cd439f801854cb2c5dfdc
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MultiPlayerMode.unity
     guid: 3981026e5ea4e19418ae495ef8a65619
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MultiplayerTest.unity
     guid: 483f0e1c670df2a43b12e0f33c3b783b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Tutorial.unity
     guid: d3180341e4536be49bdd2f2f95babcf3
   - enabled: 1

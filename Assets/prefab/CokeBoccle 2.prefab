@@ -777,7 +777,7 @@ MonoBehaviour:
   objectRenderer: {fileID: 7458487685232969274}
   colorParam: _OutlineColor
   widthParam: _Outline
-  outlineThickness: 1
+  outlineThickness: 0.001
   regularColor: {r: 0, g: 0, b: 0, a: 1}
   hoverOverColor: {r: 1, g: 0, b: 1, a: 1}
 --- !u!1 &8973219524886313372
