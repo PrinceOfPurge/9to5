@@ -49,7 +49,7 @@ MonoBehaviour:
   - {fileID: 8295219476953184853}
   IsStream: 1
   Is3D: 0
-  IsOneShot: 1
+  IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
@@ -263,7 +263,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639090459759662388
+  lastModified: 639094659479075987
   FileSizes:
   - Name: Desktop
     Value: 1486
@@ -364,7 +364,7 @@ MonoBehaviour:
   - {fileID: -1856225702813662801}
   StringsBanks:
   - {fileID: 624774501610172950}
-  cacheTime: 639090459759932378
+  cacheTime: 639094679679345393
   cacheVersion: 131620
 --- !u!114 &86615865890799009
 MonoBehaviour:
@@ -408,10 +408,10 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639090459759932378
+  lastModified: 639094679679345393
   FileSizes:
   - Name: Desktop
-    Value: 4447936
+    Value: 4448192
   Exists: 1
 --- !u!114 &624774501610172950
 MonoBehaviour:
@@ -428,7 +428,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639090459759662388
+  lastModified: 639094659479091067
   FileSizes:
   - Name: Desktop
     Value: 2124
@@ -475,10 +475,10 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Ambience.bank
   Name: Ambience
   StudioPath: bank:/Ambience
-  lastModified: 639090459759652368
+  lastModified: 639094679678849303
   FileSizes:
   - Name: Desktop
-    Value: 1661632
+    Value: 1661888
   Exists: 1
 --- !u!114 &2007001425536825943
 MonoBehaviour:
@@ -769,10 +769,10 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 639089575392906612
+  lastModified: 639094679283018907
   FileSizes:
   - Name: Desktop
-    Value: 1369824
+    Value: 1239136
   Exists: 1
 --- !u!114 &8829321649719133776
 MonoBehaviour:
@@ -796,8 +796,8 @@ MonoBehaviour:
   - {fileID: 8295219476953184853}
   IsStream: 1
   Is3D: 0
-  IsOneShot: 1
+  IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 60048
+  Length: 43558

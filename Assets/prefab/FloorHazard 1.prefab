@@ -670,6 +670,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   garbagePrompt: {fileID: 7108052406428017781}
   interactKey: 101
+  points: 100
   interactionDistance: 10
   positioningSpeed: 5
   crosshair1: {fileID: 0}
@@ -688,7 +689,7 @@ MonoBehaviour:
   correctFlashTime: 0.15
   wrongFlashTime: 0.15
   totalKeysNeeded: 6
-  doneVFX: {fileID: 0}
+  doneVFX: {fileID: 7055030368541889061, guid: 009a42eb401859242ba34b567d709b6e, type: 3}
   Bananas: {fileID: 4954247994398432387}
   highlightScript: {fileID: 138191030046102775}
   maxTime: 5

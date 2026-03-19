@@ -176,6 +176,11 @@ public class DirtCleaner : MonoBehaviour, IInteractable
         miniGameActive = true;
         isProcessingResult = false;
         holdTimer = 0f;
+        
+        //cursor logic
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        if (cursorUI != null) cursorUI.enabled = false; 
 
         // Turn off highlight while playing
         if (highlightScript != null) highlightScript.ToggleHighlight(false);
@@ -210,6 +215,8 @@ public class DirtCleaner : MonoBehaviour, IInteractable
     private void CancelMiniGame()
     {
         miniGameActive = false;
+        ResetCursorState();
+        
         if (playerMovement != null)
         {
             playerMovement.SyncRotation(playerCam.transform.localRotation.eulerAngles.x);
@@ -310,19 +317,38 @@ public class DirtCleaner : MonoBehaviour, IInteractable
 
     private IEnumerator LockCameraToTarget()
     {
+        Vector3 targetPos = transform.position + lookOffset;
+    
         while (miniGameActive)
         {
-            if (Time.timeScale > 0) // Camera only locks when not paused
+            if (Time.timeScale > 0) 
             {
-                Vector3 targetPos = transform.position + lookOffset;
-                Vector3 direction = (targetPos - playerCam.transform.position).normalized;
+                // Recalculate target position just in case
+                Vector3 currentTarget = transform.position + lookOffset;
+                Vector3 direction = (currentTarget - playerCam.transform.position).normalized;
+
                 if (direction != Vector3.zero)
                 {
                     Quaternion lookRotation = Quaternion.LookRotation(direction);
-                    playerMovement.transform.rotation = Quaternion.Slerp(playerMovement.transform.rotation, Quaternion.Euler(0, lookRotation.eulerAngles.y, 0), Time.deltaTime * cameraLockSpeed);
+
+                    // 3. Rotation (Y-Axis)
+                    Quaternion bodyTarget = Quaternion.Euler(0, lookRotation.eulerAngles.y, 0);
+                    playerMovement.transform.rotation = Quaternion.Slerp(
+                        playerMovement.transform.rotation, 
+                        bodyTarget, 
+                        Time.deltaTime * cameraLockSpeed
+                    );
+
+                    // 4. Rotation/camerapitch (X-Axis)
                     float targetX = lookRotation.eulerAngles.x;
                     if (targetX > 180) targetX -= 360;
-                    playerCam.transform.localRotation = Quaternion.Slerp(playerCam.transform.localRotation, Quaternion.Euler(targetX, 0, 0), Time.deltaTime * cameraLockSpeed);
+                    
+                    Quaternion camTarget = Quaternion.Euler(targetX, 0, 0);
+                    playerCam.transform.localRotation = Quaternion.Slerp(
+                        playerCam.transform.localRotation, 
+                        camTarget, 
+                        Time.deltaTime * cameraLockSpeed
+                    );
                 }
             }
             yield return null;
@@ -332,6 +358,7 @@ public class DirtCleaner : MonoBehaviour, IInteractable
     private void FinishMiniGame()
     {
         miniGameActive = false;
+        ResetCursorState();
         if (playerMovement != null)
         {
             playerMovement.SyncRotation(playerCam.transform.localRotation.eulerAngles.x);
@@ -342,5 +369,19 @@ public class DirtCleaner : MonoBehaviour, IInteractable
         if (miniGamePrompt != null) miniGamePrompt.SetActive(false);
         if (doneVFX != null) Destroy(Instantiate(doneVFX, transform.position, Quaternion.identity), 2f);
         Destroy(gameObject);
+    }
+    
+    private void ResetCursorState()
+    {
+        // Keep hardware mouse hidden (standard for FPS games)
+        Cursor.visible = false; 
+        Cursor.lockState = CursorLockMode.Locked;
+
+        // Reactivate your custom crosshair image
+        if (cursorUI != null)
+        {
+            cursorUI.enabled = true;
+            cursorUI.sprite = defaultCursorSprite;
+        }
     }
 }

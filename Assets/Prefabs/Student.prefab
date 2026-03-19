@@ -105,7 +105,7 @@ MonoBehaviour:
   maxWaitTime: 10
   minMessessToSpawn: 2
   maxMessessToSpawn: 4
-  messPrefab: {fileID: 7200020984388850725, guid: 21cd291d32b092740bb619987ba0e535, type: 3}
+  messPrefab: {fileID: 3641249080217316756, guid: dc4bea226faa26642a05b7f2f63d894e, type: 3}
 --- !u!1001 &7236051158509541789
 PrefabInstance:
   m_ObjectHideFlags: 0
