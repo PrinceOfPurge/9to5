@@ -67,7 +67,7 @@ public class Banana : MonoBehaviour, IInteractable
     private PlayerMovement playerMovement;
     private Camera playerCam;
     private Coroutine cameraLockCoroutine;
-    private Coroutine positioningCoroutine; // Added
+    private Coroutine positioningCoroutine; 
 
     private KeyCode[] keyPool = new KeyCode[] { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D };
 
@@ -75,12 +75,9 @@ public class Banana : MonoBehaviour, IInteractable
     {
         playerCam = Camera.main;
 
-        // FIND THE CURSORS AUTOMATICALLY
-        // We look for the Principal script because it usually holds the cursor references
         PrincipalMinigame principal = FindObjectOfType<PrincipalMinigame>();
         if (principal != null)
         {
-            // Assign the scene cursors to this specific banana clone
             crosshair1 = principal.defaultCursorObj;
             crosshair2 = principal.interactCursorObj;
         }
@@ -88,7 +85,6 @@ public class Banana : MonoBehaviour, IInteractable
         if (garbagePrompt != null) garbagePrompt.SetActive(false);
         HideAllArrows();
 
-        // Store original colors
         if (upArrowUI != null) originalColors[upArrowUI] = upArrowUI.color;
         if (downArrowUI != null) originalColors[downArrowUI] = downArrowUI.color;
         if (leftArrowUI != null) originalColors[leftArrowUI] = leftArrowUI.color;
@@ -115,7 +111,6 @@ public class Banana : MonoBehaviour, IInteractable
         playerInRange = false;
         if (highlightScript) highlightScript.ToggleHighlight(false);
     
-        // Only reactivate crosshairs if the minigame ISN'T running
         if (!isPlaying)
         {
             if (crosshair1) crosshair1.SetActive(true);
@@ -181,11 +176,9 @@ public class Banana : MonoBehaviour, IInteractable
         {
             playerMovement.enabled = false;
             
-            // 1. Lock Camera
             if (cameraLockCoroutine != null) StopCoroutine(cameraLockCoroutine);
             cameraLockCoroutine = StartCoroutine(LockCameraToUI());
 
-            // 2. Smoothly Move Player to the ideal distance (NEW)
             if (positioningCoroutine != null) StopCoroutine(positioningCoroutine);
             positioningCoroutine = StartCoroutine(MovePlayerToInteractPoint());
         }
@@ -196,48 +189,74 @@ public class Banana : MonoBehaviour, IInteractable
         ShowRandomKey();
     }
 
-    // NEW: Moves player to the correct interaction distance
+    // BULLETPROOF FIX 1: Keeps movement in physics sync, but perfectly flat
     private IEnumerator MovePlayerToInteractPoint()
     {
+        CharacterController cc = playerMovement.GetComponent<CharacterController>();
+        
         while (isPlaying)
         {
+            yield return new WaitForFixedUpdate();
+
             Vector3 targetPos = transform.position;
             Vector3 playerPos = playerMovement.transform.position;
             
             Vector3 dirToPlayer = (playerPos - targetPos).normalized;
-            dirToPlayer.y = 0; 
+            dirToPlayer.y = 0; // Flat plane only
+            
+            // Failsafe so the player doesn't disappear if perfectly centered
+            if (dirToPlayer == Vector3.zero) dirToPlayer = playerMovement.transform.forward; 
 
             Vector3 finalTarget = targetPos + (dirToPlayer * interactionDistance);
             Vector3 moveDiff = finalTarget - playerMovement.transform.position;
+            moveDiff.y = 0; // Prevent pushing the player through the floor
             
-            if (moveDiff.magnitude > 0.05f)
+            if (moveDiff.sqrMagnitude > 0.001f)
             {
-                CharacterController cc = playerMovement.GetComponent<CharacterController>();
-                if(cc != null) cc.Move(moveDiff * Time.deltaTime * positioningSpeed);
+                if(cc != null) cc.Move(moveDiff * Time.fixedDeltaTime * positioningSpeed);
             }
-            yield return null;
         }
     }
 
+    // BULLETPROOF FIX 2: Separates Y rotation (Body) from X rotation (Camera) using stable math
     private IEnumerator LockCameraToUI()
     {
         Transform target = uiLocation != null ? uiLocation : transform;
         while (isPlaying)
         {
-            if (Time.timeScale > 0)
+            // Camera rotation MUST be in standard Update (yield return null) 
+            // to match monitor refresh rate and prevent visual stutter.
+            yield return null;
+
+            if (Time.timeScale > 0 && playerCam != null && playerMovement != null)
             {
                 Vector3 targetPos = target.position + lookOffset;
-                Vector3 direction = (targetPos - playerCam.transform.position).normalized;
-                if (direction != Vector3.zero)
+                
+                // 1. ROTATE BODY (Y Axis Only - Perfectly Flat)
+                Vector3 bodyLookDir = targetPos - playerMovement.transform.position;
+                bodyLookDir.y = 0; // Flatten it to prevent the Euler flipping bug!
+                
+                if (bodyLookDir.sqrMagnitude > 0.001f)
                 {
-                    Quaternion lookRotation = Quaternion.LookRotation(direction);
-                    playerMovement.transform.rotation = Quaternion.Slerp(playerMovement.transform.rotation, Quaternion.Euler(0, lookRotation.eulerAngles.y, 0), Time.deltaTime * cameraLockSpeed);
-                    float targetX = lookRotation.eulerAngles.x;
-                    if (targetX > 180) targetX -= 360;
-                    playerCam.transform.localRotation = Quaternion.Slerp(playerCam.transform.localRotation, Quaternion.Euler(targetX, 0, 0), Time.deltaTime * cameraLockSpeed);
+                    Quaternion targetBodyRot = Quaternion.LookRotation(bodyLookDir);
+                    playerMovement.transform.rotation = Quaternion.Slerp(playerMovement.transform.rotation, targetBodyRot, Time.deltaTime * cameraLockSpeed);
+                }
+
+                // 2. ROTATE CAMERA (X Axis Pitch Only)
+                // We use local space to safely calculate the pitch without risking Gimbal Lock
+                Vector3 localTargetPos = playerMovement.transform.InverseTransformPoint(targetPos);
+                Vector3 localCamDir = localTargetPos - playerCam.transform.localPosition;
+                
+                if (localCamDir.sqrMagnitude > 0.001f)
+                {
+                    Quaternion localLook = Quaternion.LookRotation(localCamDir);
+                    float pitch = localLook.eulerAngles.x;
+                    if (pitch > 180) pitch -= 360; // Keep it between -180 and 180
+                    
+                    Quaternion targetCamRot = Quaternion.Euler(pitch, 0, 0);
+                    playerCam.transform.localRotation = Quaternion.Slerp(playerCam.transform.localRotation, targetCamRot, Time.deltaTime * cameraLockSpeed);
                 }
             }
-            yield return null;
         }
     }
 
@@ -247,6 +266,7 @@ public class Banana : MonoBehaviour, IInteractable
         isMinigameActive = false;
 
         if (positioningCoroutine != null) StopCoroutine(positioningCoroutine);
+        if (cameraLockCoroutine != null) StopCoroutine(cameraLockCoroutine);
 
         if (playerMovement != null)
         {
@@ -263,7 +283,6 @@ public class Banana : MonoBehaviour, IInteractable
         {
             isCleaned = true;
 
-            // Look for the Principal only in this scene
             PrincipalMinigame principal = FindObjectOfType<PrincipalMinigame>();
             if (principal != null)
             {
@@ -272,7 +291,6 @@ public class Banana : MonoBehaviour, IInteractable
             SinglePlayerModeManager.Instance.SinglePlayerScore += points;
             SinglePlayerModeManager.Instance.BagsRemaining--;
 
-            // Normal cleanup logic
             if (AudioManager.instance) AudioManager.instance.PlayOneShot(FMODEvents.instance.Done, transform.position);
             if (doneVFX != null) Destroy(Instantiate(doneVFX, transform.position, Quaternion.identity), 2f);
             if (Bananas != null) Destroy(Bananas);
@@ -284,7 +302,6 @@ public class Banana : MonoBehaviour, IInteractable
         }
     }
 
-    // --- UTILITIES ---
     private IEnumerator HandleCorrect()
     {
         isProcessingAnimation = true;

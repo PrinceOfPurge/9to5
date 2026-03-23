@@ -10341,20 +10341,18 @@ MonoBehaviour:
   fadeSpeed: 0.5
   perfectWindow: 0.05
   doneVFX: {fileID: 0}
+  interactionLayerIndex: 1
   highlightScript: {fileID: 354342150}
   interactionDistance: 10
-  positioningSpeed: 5
+  lookOffset: {x: -1.66, y: -0.5, z: 0}
   miniGameUIParent: {fileID: 288961984}
   fillImage: {fileID: 952865403}
-  sweetSpotMarker: {fileID: 0}
-  lookOffset: {x: -1.66, y: -0.5, z: 0}
   miniGamePrompt: {fileID: 1673720159}
   cursorUI: {fileID: 109628776}
   defaultCursorSprite: {fileID: 21300000, guid: a6204814fee7d8d44a3042a6a2c44ce4, type: 3}
   interactCursorSprite: {fileID: 21300000, guid: f426d6a276223ca4abdf892fafba7d30, type: 3}
   successColor: {r: 0, g: 1, b: 0, a: 1}
   failColor: {r: 1, g: 0, b: 0, a: 1}
-  flashDuration: 0.15
   rewindSpeed: 2.5
   successPulseAmount: 1.2
   worldMop: {fileID: 354342149}
@@ -10362,7 +10360,6 @@ MonoBehaviour:
   mopFloatHeight: 0.1
   mopFloatSpeed: 2
   playerHandMop: {fileID: 4676747926752269982}
-  cameraLockSpeed: 5
 --- !u!65 &296995174
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -55113,7 +55110,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2063211243}
-  - component: {fileID: 2063211242}
+  - component: {fileID: 2063211244}
   m_Layer: 0
   m_Name: InteractManager
   m_TagString: Untagged
@@ -55121,23 +55118,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2063211242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2063211241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f8bfecf48c23184aa41624f94fa2bff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MainColor: {fileID: 0}
-  upArrowUI: {fileID: 0}
-  downArrowUI: {fileID: 0}
-  leftArrowUI: {fileID: 0}
-  rightArrowUI: {fileID: 0}
 --- !u!4 &2063211243
 Transform:
   m_ObjectHideFlags: 0
@@ -55153,6 +55133,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2063211244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2063211241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b644e824cb4a134883d8ec92ddf9970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionSpeed: 5
 --- !u!4 &2067906724 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 32dd4abf404870642a590f395feaea02, type: 3}

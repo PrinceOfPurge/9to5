@@ -22,11 +22,11 @@ MonoBehaviour:
   - {fileID: 420874186844364336}
   IsStream: 0
   Is3D: 0
-  IsOneShot: 1
+  IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
+  Length: 552
 --- !u!114 &-8124551285229881772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -364,7 +364,7 @@ MonoBehaviour:
   - {fileID: -1856225702813662801}
   StringsBanks:
   - {fileID: 624774501610172950}
-  cacheTime: 639094679679345393
+  cacheTime: 639098588730460125
   cacheVersion: 131620
 --- !u!114 &86615865890799009
 MonoBehaviour:
@@ -408,10 +408,10 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639094679679345393
+  lastModified: 639098588730460125
   FileSizes:
   - Name: Desktop
-    Value: 4448192
+    Value: 4448512
   Exists: 1
 --- !u!114 &624774501610172950
 MonoBehaviour:
@@ -475,7 +475,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Ambience.bank
   Name: Ambience
   StudioPath: bank:/Ambience
-  lastModified: 639094679678849303
+  lastModified: 639098588723989154
   FileSizes:
   - Name: Desktop
     Value: 1661888
@@ -769,7 +769,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 639094679283018907
+  lastModified: 639098588729594908
   FileSizes:
   - Name: Desktop
     Value: 1239136
