@@ -20,6 +20,8 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference Jump { get; private set; } 
     [field: SerializeField] public EventReference Land { get; private set; } 
     [field: SerializeField] public EventReference PlayerToilet { get; private set; } 
+    [field: SerializeField] public EventReference Throw { get; private set; } 
+    [field: SerializeField] public EventReference Pickup { get; private set; } 
     
     [field: Header("NPC SFX")]
     [field: SerializeField] public EventReference GymTeacherGreet { get; private set; }
@@ -38,6 +40,8 @@ public class FMODEvents : MonoBehaviour
     [field: Header("UI Sounds")]
     [field: SerializeField] public EventReference buttonClick { get; private set; }
     [field: SerializeField] public EventReference sliderMove { get; private set; } 
+    [field: SerializeField] public EventReference Fail { get; private set; } 
+    [field: SerializeField] public EventReference Success { get; private set; } 
     
     public static FMODEvents instance { get; private set; }
 

@@ -22,11 +22,11 @@ MonoBehaviour:
   - {fileID: 420874186844364336}
   IsStream: 0
   Is3D: 0
-  IsOneShot: 1
+  IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
+  Length: 552
 --- !u!114 &-8124551285229881772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,6 +102,33 @@ MonoBehaviour:
     Data2: 1241111516
     Data3: -431728220
     Data4: -2115141244
+  Banks:
+  - {fileID: 420874186844364336}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4935910042710630480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Player/Pickup
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Player/Pickup
+  Guid:
+    Data1: -1841820774
+    Data2: 1207514740
+    Data3: -627319371
+    Data4: 1041808566
   Banks:
   - {fileID: 420874186844364336}
   IsStream: 0
@@ -263,7 +290,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639090808528867775
+  lastModified: 639099099459303396
   FileSizes:
   - Name: Desktop
     Value: 1486
@@ -319,6 +346,33 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-2434309314298255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Player/Throw
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Player/Throw
+  Guid:
+    Data1: -274555875
+    Data2: 1126818259
+    Data3: 588178048
+    Data4: 1182305465
+  Banks:
+  - {fileID: 420874186844364336}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,12 +413,16 @@ MonoBehaviour:
   - {fileID: 7441675435868488790}
   - {fileID: -2880925378183193017}
   - {fileID: 6362177086245676444}
+  - {fileID: 3715456037594167720}
+  - {fileID: -5807541426577573137}
+  - {fileID: -2434309314298255}
+  - {fileID: -4935910042710630480}
   EditorParameters: []
   MasterBanks:
   - {fileID: -1856225702813662801}
   StringsBanks:
   - {fileID: 624774501610172950}
-  cacheTime: 639095055987037663
+  cacheTime: 639099102557642928
   cacheVersion: 131620
 --- !u!114 &86615865890799009
 MonoBehaviour:
@@ -408,10 +466,10 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639095055987037663
+  lastModified: 639099102557642928
   FileSizes:
   - Name: Desktop
-    Value: 4448192
+    Value: 4523392
   Exists: 1
 --- !u!114 &624774501610172950
 MonoBehaviour:
@@ -428,7 +486,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639090808528867775
+  lastModified: 639099099459313639
   FileSizes:
   - Name: Desktop
     Value: 2124
@@ -475,7 +533,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Ambience.bank
   Name: Ambience
   StudioPath: bank:/Ambience
-  lastModified: 639095055986842380
+  lastModified: 639099072226342494
   FileSizes:
   - Name: Desktop
     Value: 1661888
@@ -769,7 +827,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 639095055986901742
+  lastModified: 639098588729594908
   FileSizes:
   - Name: Desktop
     Value: 1239136
