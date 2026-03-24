@@ -7,11 +7,19 @@ public class MinigameFocusManager : MonoBehaviour
 
     [Header("Settings")]
     public float transitionSpeed = 5f;
-    
+    public float exitDuration = 0.4f; 
+    public float entryDuration = 0.25f;
+
     private Coroutine movementRoutine;
     private Coroutine cameraRoutine;
+    private Coroutine exitRoutine;
+    private Coroutine alignmentRoutine; 
+    
     private PlayerMovement player;
     private Camera playerCam;
+
+    private Quaternion originalBodyRot;
+    private Quaternion originalCamRot;
 
     void Awake() 
     { 
@@ -27,14 +35,21 @@ public class MinigameFocusManager : MonoBehaviour
         if (player != null)
         {
             player.isMiniGameActive = true;
-            // Stop any existing momentum
+            
+            originalBodyRot = player.transform.rotation;
+            originalCamRot = playerCam.transform.localRotation;
+
             CharacterController cc = player.GetComponent<CharacterController>();
             if (cc != null) cc.Move(Vector3.zero);
         }
         
-        StopFocus(); // Clear any existing routines just in case
+        if (movementRoutine != null) StopCoroutine(movementRoutine);
+        if (cameraRoutine != null) StopCoroutine(cameraRoutine);
+        if (exitRoutine != null) StopCoroutine(exitRoutine);
+        if (alignmentRoutine != null) StopCoroutine(alignmentRoutine);
         
-        movementRoutine = StartCoroutine(MovementRoutine(target, distance));
+        // --- NEW: Start the slide, and start rotating the camera immediately ---
+        alignmentRoutine = StartCoroutine(EntryAlignmentRoutine(target, distance));
         cameraRoutine = StartCoroutine(CameraRoutine(target, offset));
     }
 
@@ -42,16 +57,79 @@ public class MinigameFocusManager : MonoBehaviour
     {
         if (movementRoutine != null) StopCoroutine(movementRoutine);
         if (cameraRoutine != null) StopCoroutine(cameraRoutine);
+        if (alignmentRoutine != null) StopCoroutine(alignmentRoutine);
         
-        if (player != null)
-        {
-            // Sync the player's look rotation so the mouse doesn't snap back
-            player.SyncRotation(playerCam.transform.localEulerAngles.x);
-            player.isMiniGameActive = false;
-        }
+        exitRoutine = StartCoroutine(SmoothExitRoutine());
     }
 
-    // BULLETPROOF FIX 1: Physics-synced movement on a flat plane
+    // --- NEW: The centralized smooth slide logic ---
+    private IEnumerator EntryAlignmentRoutine(Transform target, float distance)
+    {
+        Vector3 startPos = player.transform.position;
+        
+        // Calculate the direction from target to player
+        Vector3 dirFromTarget = startPos - target.position;
+        dirFromTarget.y = 0;
+        dirFromTarget.Normalize();
+        
+        // Failsafe if they are standing in the exact same mathematical spot
+        if (dirFromTarget == Vector3.zero) dirFromTarget = player.transform.forward;
+
+        Vector3 targetPos = target.position + dirFromTarget * distance;
+        targetPos.y = startPos.y; // Keep feet on the floor
+
+        // Disable CharacterController temporarily so we can hard-override position safely
+        CharacterController cc = player.GetComponent<CharacterController>();
+        bool ccWasEnabled = cc != null && cc.enabled;
+        if (ccWasEnabled) cc.enabled = false;
+
+        float elapsed = 0f;
+        while (elapsed < entryDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = 1f - Mathf.Pow(1f - (elapsed / entryDuration), 3f); // Smooth ease-out
+            
+            player.transform.position = Vector3.Lerp(startPos, targetPos, t);
+            yield return null;
+        }
+
+        player.transform.position = targetPos;
+        if (ccWasEnabled) cc.enabled = true;
+
+        // Once the slide is done, hand off to the continuous movement lock to keep them there
+        movementRoutine = StartCoroutine(MovementRoutine(target, distance));
+    }
+
+    private IEnumerator SmoothExitRoutine()
+    {
+        if (player == null || playerCam == null) yield break;
+
+        float elapsed = 0f;
+        Quaternion currentBodyRot = player.transform.rotation;
+        Quaternion currentCamRot = playerCam.transform.localRotation;
+
+        while (elapsed < exitDuration)
+        {
+            player.enabled = false;
+            player.isMiniGameActive = true;
+
+            elapsed += Time.deltaTime;
+            float t = Mathf.SmoothStep(0f, 1f, elapsed / exitDuration);
+
+            player.transform.rotation = Quaternion.Slerp(currentBodyRot, originalBodyRot, t);
+            playerCam.transform.localRotation = Quaternion.Slerp(currentCamRot, originalCamRot, t);
+
+            yield return null;
+        }
+
+        player.transform.rotation = originalBodyRot;
+        playerCam.transform.localRotation = originalCamRot;
+
+        player.SyncRotation(playerCam.transform.localEulerAngles.x);
+        player.isMiniGameActive = false;
+        player.enabled = true;
+    }
+
     private IEnumerator MovementRoutine(Transform target, float distance)
     {
         CharacterController cc = player.GetComponent<CharacterController>();
@@ -64,14 +142,13 @@ public class MinigameFocusManager : MonoBehaviour
             Vector3 targetObjPos = target.position;
             
             Vector3 dirToPlayer = (playerPos - targetObjPos).normalized;
-            dirToPlayer.y = 0; // Keep movement on the flat plane
+            dirToPlayer.y = 0; 
             
-            // Failsafe so the player doesn't disappear if perfectly centered
             if (dirToPlayer == Vector3.zero) dirToPlayer = player.transform.forward;
 
             Vector3 finalPoint = targetObjPos + (dirToPlayer * distance);
             Vector3 moveDiff = finalPoint - player.transform.position;
-            moveDiff.y = 0; // Prevent pushing the player through the floor
+            moveDiff.y = 0; 
             
             if (moveDiff.sqrMagnitude > 0.0001f)
             {
@@ -80,22 +157,18 @@ public class MinigameFocusManager : MonoBehaviour
         }
     }
 
-    // BULLETPROOF FIX 2: Separates Body (Y) and Camera (X) rotation to stop flipping
     private IEnumerator CameraRoutine(Transform target, Vector3 offset)
     {
         while (player.isMiniGameActive)
         {
-            // Camera rotation MUST be in standard Update (yield return null) 
-            // to match monitor refresh rate and prevent visual stutter.
             yield return null;
 
             if (Time.timeScale > 0 && playerCam != null && player != null)
             {
                 Vector3 targetPos = target.position + offset;
                 
-                // 1. ROTATE BODY (Y Axis Only - Perfectly Flat)
                 Vector3 bodyLookDir = targetPos - player.transform.position;
-                bodyLookDir.y = 0; // Flatten it to prevent the Euler flipping bug
+                bodyLookDir.y = 0; 
                 
                 if (bodyLookDir.sqrMagnitude > 0.001f)
                 {
@@ -103,8 +176,6 @@ public class MinigameFocusManager : MonoBehaviour
                     player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetBodyRot, Time.deltaTime * transitionSpeed);
                 }
 
-                // 2. ROTATE CAMERA (X Axis Pitch Only)
-                // Use local space to calculate pitch safely
                 Vector3 localTargetPos = player.transform.InverseTransformPoint(targetPos);
                 Vector3 localCamDir = localTargetPos - playerCam.transform.localPosition;
                 

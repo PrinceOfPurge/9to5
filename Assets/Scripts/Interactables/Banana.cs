@@ -15,7 +15,7 @@ public class Banana : MonoBehaviour, IInteractable
     [Header("Positioning")]
     [Tooltip("Ideal distance for the player to stand from the banana")]
     public float interactionDistance = 1.5f; 
-    public float positioningSpeed = 5f;
+    public Vector3 lookOffset = new Vector3(0, 0, 0);
 
     [Header("UI Crosshair (Standard System)")]
     public GameObject crosshair1; 
@@ -33,10 +33,6 @@ public class Banana : MonoBehaviour, IInteractable
     public float pulseScale = 1.3f;
     public float pulseSpeed = 10f;
     public float shakeIntensity = 0.05f;
-
-    [Header("Camera Lock Settings")]
-    public float cameraLockSpeed = 5f;
-    public Vector3 lookOffset = new Vector3(0, 0, 0);
 
     [Header("Feedback")]
     public float correctFlashTime = 0.15f;
@@ -66,8 +62,6 @@ public class Banana : MonoBehaviour, IInteractable
     private Dictionary<Image, Color> originalColors = new Dictionary<Image, Color>();
     private PlayerMovement playerMovement;
     private Camera playerCam;
-    private Coroutine cameraLockCoroutine;
-    private Coroutine positioningCoroutine; 
 
     private KeyCode[] keyPool = new KeyCode[] { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D };
 
@@ -171,16 +165,22 @@ public class Banana : MonoBehaviour, IInteractable
         if (crosshair1) crosshair1.SetActive(false);
         if (crosshair2) crosshair2.SetActive(false);
 
+        if (miniGameUIParent != null) miniGameUIParent.SetActive(true);
+
         playerMovement = FindObjectOfType<PlayerMovement>();
         if (playerMovement != null)
         {
+            Animator anim = playerMovement.GetComponentInChildren<Animator>();
+            if (anim != null)
+            {
+                anim.SetFloat("Speed", 0f); 
+            }
+
             playerMovement.enabled = false;
             
-            if (cameraLockCoroutine != null) StopCoroutine(cameraLockCoroutine);
-            cameraLockCoroutine = StartCoroutine(LockCameraToUI());
-
-            if (positioningCoroutine != null) StopCoroutine(positioningCoroutine);
-            positioningCoroutine = StartCoroutine(MovePlayerToInteractPoint());
+            // Hand off to the Focus Manager
+            Transform targetTransform = uiLocation != null ? uiLocation : transform;
+            MinigameFocusManager.Instance.StartFocus(targetTransform, lookOffset, interactionDistance);
         }
 
         remainingKeys = totalKeysNeeded;
@@ -189,90 +189,17 @@ public class Banana : MonoBehaviour, IInteractable
         ShowRandomKey();
     }
 
-    // BULLETPROOF FIX 1: Keeps movement in physics sync, but perfectly flat
-    private IEnumerator MovePlayerToInteractPoint()
-    {
-        CharacterController cc = playerMovement.GetComponent<CharacterController>();
-        
-        while (isPlaying)
-        {
-            yield return new WaitForFixedUpdate();
-
-            Vector3 targetPos = transform.position;
-            Vector3 playerPos = playerMovement.transform.position;
-            
-            Vector3 dirToPlayer = (playerPos - targetPos).normalized;
-            dirToPlayer.y = 0; // Flat plane only
-            
-            // Failsafe so the player doesn't disappear if perfectly centered
-            if (dirToPlayer == Vector3.zero) dirToPlayer = playerMovement.transform.forward; 
-
-            Vector3 finalTarget = targetPos + (dirToPlayer * interactionDistance);
-            Vector3 moveDiff = finalTarget - playerMovement.transform.position;
-            moveDiff.y = 0; // Prevent pushing the player through the floor
-            
-            if (moveDiff.sqrMagnitude > 0.001f)
-            {
-                if(cc != null) cc.Move(moveDiff * Time.fixedDeltaTime * positioningSpeed);
-            }
-        }
-    }
-
-    // BULLETPROOF FIX 2: Separates Y rotation (Body) from X rotation (Camera) using stable math
-    private IEnumerator LockCameraToUI()
-    {
-        Transform target = uiLocation != null ? uiLocation : transform;
-        while (isPlaying)
-        {
-            // Camera rotation MUST be in standard Update (yield return null) 
-            // to match monitor refresh rate and prevent visual stutter.
-            yield return null;
-
-            if (Time.timeScale > 0 && playerCam != null && playerMovement != null)
-            {
-                Vector3 targetPos = target.position + lookOffset;
-                
-                // 1. ROTATE BODY (Y Axis Only - Perfectly Flat)
-                Vector3 bodyLookDir = targetPos - playerMovement.transform.position;
-                bodyLookDir.y = 0; // Flatten it to prevent the Euler flipping bug!
-                
-                if (bodyLookDir.sqrMagnitude > 0.001f)
-                {
-                    Quaternion targetBodyRot = Quaternion.LookRotation(bodyLookDir);
-                    playerMovement.transform.rotation = Quaternion.Slerp(playerMovement.transform.rotation, targetBodyRot, Time.deltaTime * cameraLockSpeed);
-                }
-
-                // 2. ROTATE CAMERA (X Axis Pitch Only)
-                // We use local space to safely calculate the pitch without risking Gimbal Lock
-                Vector3 localTargetPos = playerMovement.transform.InverseTransformPoint(targetPos);
-                Vector3 localCamDir = localTargetPos - playerCam.transform.localPosition;
-                
-                if (localCamDir.sqrMagnitude > 0.001f)
-                {
-                    Quaternion localLook = Quaternion.LookRotation(localCamDir);
-                    float pitch = localLook.eulerAngles.x;
-                    if (pitch > 180) pitch -= 360; // Keep it between -180 and 180
-                    
-                    Quaternion targetCamRot = Quaternion.Euler(pitch, 0, 0);
-                    playerCam.transform.localRotation = Quaternion.Slerp(playerCam.transform.localRotation, targetCamRot, Time.deltaTime * cameraLockSpeed);
-                }
-            }
-        }
-    }
-
     void EndMinigame(bool completed)
     {
         isPlaying = false;
         isMinigameActive = false;
 
-        if (positioningCoroutine != null) StopCoroutine(positioningCoroutine);
-        if (cameraLockCoroutine != null) StopCoroutine(cameraLockCoroutine);
+        // Trigger the smooth exit in the Focus Manager
+        MinigameFocusManager.Instance.StopFocus();
 
-        if (playerMovement != null)
-        {
-            playerMovement.SyncRotation(playerCam.transform.localRotation.eulerAngles.x);
-            playerMovement.enabled = true;
-        }
+        if (miniGameUIParent != null) miniGameUIParent.SetActive(false);
+
+        // --- REMOVED: playerMovement.enabled = true; ---
 
         if (timerUI != null) timerUI.SetActive(false);
         HideAllArrows();
@@ -305,6 +232,9 @@ public class Banana : MonoBehaviour, IInteractable
     private IEnumerator HandleCorrect()
     {
         isProcessingAnimation = true;
+        
+        if (AudioManager.instance) AudioManager.instance.PlayOneShot(FMODEvents.instance.Success, transform.position);
+
         Image img = GetArrowImage(currentKey);
         
         if (img != null)
@@ -332,6 +262,9 @@ public class Banana : MonoBehaviour, IInteractable
     private IEnumerator HandleWrong()
     {
         isProcessingAnimation = true;
+
+        if (AudioManager.instance) AudioManager.instance.PlayOneShot(FMODEvents.instance.Fail, transform.position);
+
         Image img = GetArrowImage(currentKey);
         Vector3 originalPos = miniGameUIParent != null ? miniGameUIParent.transform.localPosition : Vector3.zero;
 

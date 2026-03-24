@@ -128,7 +128,7 @@ MonoBehaviour:
   spawnYOffset: 1
   spawnChance: 6
   hitParticlePrefab: {fileID: 7055030368541889061, guid: 009a42eb401859242ba34b567d709b6e, type: 3}
-  messPrefab: {fileID: 4954247994398432387, guid: bcbda6ade3c2d0f43b4aef2aa5ef24a8, type: 3}
+  messPrefab: {fileID: 0}
 --- !u!135 &2122828934799936477
 SphereCollider:
   m_ObjectHideFlags: 0

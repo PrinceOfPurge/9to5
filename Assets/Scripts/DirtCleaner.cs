@@ -18,7 +18,7 @@ public class DirtCleaner : MonoBehaviour, IInteractable
     [Header("Highlighting")]
     public HighlightEffectMultiMesh highlightScript; 
 
-    [Header("Positioning")]
+    [Header("Positioning & Alignment")]
     public float interactionDistance = 1.8f; 
     public Vector3 lookOffset = new Vector3(0, -0.5f, 0); 
 
@@ -172,10 +172,16 @@ public class DirtCleaner : MonoBehaviour, IInteractable
         playerMovement = FindObjectOfType<PlayerMovement>();
         if (playerMovement != null)
         {
-            // NEW: Disable the player movement script to stop it from fighting the camera lock
+            playerAnimator = playerMovement.GetComponentInChildren<Animator>();
+            
+            if (playerAnimator != null)
+            {
+                playerAnimator.SetFloat("Speed", 0f);
+            }
+
             playerMovement.enabled = false; 
             
-            playerAnimator = playerMovement.GetComponentInChildren<Animator>();
+            // The MinigameFocusManager now handles the distance alignment!
             MinigameFocusManager.Instance.StartFocus(transform, lookOffset, interactionDistance);
         }
     }
@@ -185,8 +191,7 @@ public class DirtCleaner : MonoBehaviour, IInteractable
         miniGameActive = false;
         MinigameFocusManager.Instance.StopFocus();
         
-        // NEW: Turn the player movement back on
-        if (playerMovement != null) playerMovement.enabled = true;
+        // --- REMOVED: playerMovement.enabled = true; ---
         
         StopMopSound();
         ResetUIStates();
@@ -269,8 +274,7 @@ public class DirtCleaner : MonoBehaviour, IInteractable
         miniGameActive = false;
         MinigameFocusManager.Instance.StopFocus();
         
-        // NEW: Turn the player movement back on
-        if (playerMovement != null) playerMovement.enabled = true;
+        // --- REMOVED: playerMovement.enabled = true; ---
         
         StopMopSound();
         
