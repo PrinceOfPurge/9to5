@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using FMOD.Studio;
 
 [RequireComponent(typeof(SpriteRenderer), typeof(BoxCollider))]
 public class DirtCleaner : MonoBehaviour, IInteractable
@@ -12,22 +13,18 @@ public class DirtCleaner : MonoBehaviour, IInteractable
     public float fadeSpeed = 1f;
     public float perfectWindow = 0.3f;
     public GameObject doneVFX;
+    public int interactionLayerIndex = 1;
 
     [Header("Highlighting")]
     public HighlightEffectMultiMesh highlightScript; 
 
-    [Header("Positioning")]
-    [Tooltip("How far the player should stand from the mess during the game")]
+    [Header("Positioning & Alignment")]
     public float interactionDistance = 1.8f; 
-    public float positioningSpeed = 5f;
+    public Vector3 lookOffset = new Vector3(0, -0.5f, 0); 
 
     [Header("UI (World Space)")]
     public GameObject miniGameUIParent;
     public Image fillImage;
-    public Image sweetSpotMarker;
-    public Vector3 lookOffset = new Vector3(0, -0.5f, 0); 
-
-    [Header("Mini Game Prompt")]
     public GameObject miniGamePrompt;
 
     [Header("Cursor")]
@@ -38,11 +35,10 @@ public class DirtCleaner : MonoBehaviour, IInteractable
     [Header("Flash & Feedback")]
     public Color successColor = Color.green;
     public Color failColor = Color.red;
-    public float flashDuration = 0.15f;
     public float rewindSpeed = 2.5f;
     public float successPulseAmount = 1.2f;
 
-    [Header("World Mop (Pickup)")]
+    [Header("World Mop")]
     public GameObject worldMop;
     public float mopRotationSpeed = 180f;
     public float mopFloatHeight = 0.1f;
@@ -50,9 +46,6 @@ public class DirtCleaner : MonoBehaviour, IInteractable
 
     [Header("Player Hand Mop")]
     public GameObject playerHandMop;
-
-    [Header("Camera Lock")]
-    public float cameraLockSpeed = 5f;
 
     private Vector3 mopStartPos;
     private SpriteRenderer sr;
@@ -66,15 +59,12 @@ public class DirtCleaner : MonoBehaviour, IInteractable
     private Color originalFillColor;
     private PlayerMovement playerMovement;
     private Animator playerAnimator;
-    private Camera playerCam;
-    private Coroutine cameraLockCoroutine;
-    private Coroutine positioningCoroutine;
+    private EventInstance mopSoundInstance;
 
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
         currentAlpha = sr.color.a;
-        playerCam = Camera.main;
 
         if (fillImage != null) originalFillColor = fillImage.color;
 
@@ -87,7 +77,6 @@ public class DirtCleaner : MonoBehaviour, IInteractable
         if (cleaningPrompt != null) cleaningPrompt.SetActive(false);
         if (miniGamePrompt != null) miniGamePrompt.SetActive(false);
         if (playerHandMop != null) playerHandMop.SetActive(false);
-        if (sweetSpotMarker != null) sweetSpotMarker.enabled = false;
 
         if (cursorUI != null && defaultCursorSprite != null)
             cursorUI.sprite = defaultCursorSprite;
@@ -99,10 +88,7 @@ public class DirtCleaner : MonoBehaviour, IInteractable
     {
         if (miniGameActive) return;
         playerInRange = true;
-
-        // Toggle Highlight ON
         if (highlightScript != null) highlightScript.ToggleHighlight(true);
-
         if (cleaningPrompt != null) cleaningPrompt.SetActive(true);
         if (cursorUI != null && interactCursorSprite != null) cursorUI.sprite = interactCursorSprite;
     }
@@ -111,26 +97,18 @@ public class DirtCleaner : MonoBehaviour, IInteractable
     {
         if (miniGameActive) return;
         playerInRange = false;
-
-        // Toggle Highlight OFF
         if (highlightScript != null) highlightScript.ToggleHighlight(false);
-
         if (cleaningPrompt != null) cleaningPrompt.SetActive(false);
         if (cursorUI != null && defaultCursorSprite != null) cursorUI.sprite = defaultCursorSprite;
     }
 
     public void OnInteract()
     {
-        if (!miniGameActive && playerInRange)
-        {
-            if (worldMop != null) worldMop.SetActive(false);
-            StartMiniGame();
-        }
+        if (!miniGameActive && playerInRange) StartMiniGame();
     }
 
     private void Update()
     {
-        // 1. Pause Safety Check: Ends game if paused
         if (miniGameActive && Time.timeScale == 0)
         {
             CancelMiniGame();
@@ -146,7 +124,6 @@ public class DirtCleaner : MonoBehaviour, IInteractable
 
         if (!miniGameActive || isProcessingResult) return;
 
-        // Right-Click to cancel
         if (Input.GetMouseButtonDown(1))
         {
             CancelMiniGame();
@@ -154,7 +131,6 @@ public class DirtCleaner : MonoBehaviour, IInteractable
         }
 
         if (Input.GetKey(interactKey)) holdTimer += Time.deltaTime;
-
         if (fillImage != null) fillImage.fillAmount = Mathf.Clamp01(holdTimer / holdTime);
 
         if (holdTimer >= (holdTime + perfectWindow)) StartCoroutine(FailSequence());
@@ -177,12 +153,10 @@ public class DirtCleaner : MonoBehaviour, IInteractable
         isProcessingResult = false;
         holdTimer = 0f;
         
-        //cursor logic
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         if (cursorUI != null) cursorUI.enabled = false; 
 
-        // Turn off highlight while playing
         if (highlightScript != null) highlightScript.ToggleHighlight(false);
 
         if (miniGameUIParent != null)
@@ -193,60 +167,35 @@ public class DirtCleaner : MonoBehaviour, IInteractable
 
         if (miniGamePrompt != null) miniGamePrompt.SetActive(true);
         if (cleaningPrompt != null) cleaningPrompt.SetActive(false);
-        if (cursorUI != null) cursorUI.sprite = defaultCursorSprite;
+        if (worldMop != null) worldMop.SetActive(false);
 
-        if (playerCam != null)
+        playerMovement = FindObjectOfType<PlayerMovement>();
+        if (playerMovement != null)
         {
-            playerMovement = playerCam.GetComponentInParent<PlayerMovement>();
-            if (playerMovement != null)
+            playerAnimator = playerMovement.GetComponentInChildren<Animator>();
+            
+            if (playerAnimator != null)
             {
-                playerMovement.enabled = false;
-                playerAnimator = playerMovement.GetComponentInChildren<Animator>();
-                
-                if (cameraLockCoroutine != null) StopCoroutine(cameraLockCoroutine);
-                cameraLockCoroutine = StartCoroutine(LockCameraToTarget());
-
-                if (positioningCoroutine != null) StopCoroutine(positioningCoroutine);
-                positioningCoroutine = StartCoroutine(MovePlayerToInteractPoint());
+                playerAnimator.SetFloat("Speed", 0f);
             }
+
+            playerMovement.enabled = false; 
+            
+            // The MinigameFocusManager now handles the distance alignment!
+            MinigameFocusManager.Instance.StartFocus(transform, lookOffset, interactionDistance);
         }
     }
 
     private void CancelMiniGame()
     {
         miniGameActive = false;
-        ResetCursorState();
+        MinigameFocusManager.Instance.StopFocus();
         
-        if (playerMovement != null)
-        {
-            playerMovement.SyncRotation(playerCam.transform.localRotation.eulerAngles.x);
-            playerMovement.enabled = true;
-        }
-        if (miniGameUIParent != null) miniGameUIParent.SetActive(false);
-        if (miniGamePrompt != null) miniGamePrompt.SetActive(false);
-        if (playerHandMop != null) playerHandMop.SetActive(false);
+        // --- REMOVED: playerMovement.enabled = true; ---
+        
+        StopMopSound();
+        ResetUIStates();
         if (worldMop != null) worldMop.SetActive(true);
-    }
-
-    private IEnumerator MovePlayerToInteractPoint()
-    {
-        while (miniGameActive)
-        {
-            Vector3 messPos = transform.position;
-            Vector3 playerPos = playerMovement.transform.position;
-            Vector3 dirToPlayer = (playerPos - messPos).normalized;
-            dirToPlayer.y = 0; 
-
-            Vector3 targetPosition = messPos + (dirToPlayer * interactionDistance);
-            Vector3 moveDiff = targetPosition - playerMovement.transform.position;
-            
-            if (moveDiff.magnitude > 0.01f)
-            {
-                CharacterController cc = playerMovement.GetComponent<CharacterController>();
-                cc.Move(moveDiff * Time.deltaTime * positioningSpeed);
-            }
-            yield return null;
-        }
     }
 
     private IEnumerator SuccessSequence()
@@ -258,7 +207,12 @@ public class DirtCleaner : MonoBehaviour, IInteractable
         if (playerAnimator != null)
         {
             playerAnimator.SetBool("InteractionActive", true);
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.Broom, transform.position);
+            StartCoroutine(FadeLayerWeight(interactionLayerIndex, 1f, 0.2f));
+            
+            mopSoundInstance = AudioManager.instance.CreateInstance(FMODEvents.instance.Broom);
+            mopSoundInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
+            mopSoundInstance.start();
+
             if (playerHandMop != null) playerHandMop.SetActive(true);
         }
 
@@ -315,73 +269,62 @@ public class DirtCleaner : MonoBehaviour, IInteractable
         FinishMiniGame();
     }
 
-    private IEnumerator LockCameraToTarget()
-    {
-        Vector3 targetPos = transform.position + lookOffset;
-    
-        while (miniGameActive)
-        {
-            if (Time.timeScale > 0) 
-            {
-                // Recalculate target position just in case
-                Vector3 currentTarget = transform.position + lookOffset;
-                Vector3 direction = (currentTarget - playerCam.transform.position).normalized;
-
-                if (direction != Vector3.zero)
-                {
-                    Quaternion lookRotation = Quaternion.LookRotation(direction);
-
-                    // 3. Rotation (Y-Axis)
-                    Quaternion bodyTarget = Quaternion.Euler(0, lookRotation.eulerAngles.y, 0);
-                    playerMovement.transform.rotation = Quaternion.Slerp(
-                        playerMovement.transform.rotation, 
-                        bodyTarget, 
-                        Time.deltaTime * cameraLockSpeed
-                    );
-
-                    // 4. Rotation/camerapitch (X-Axis)
-                    float targetX = lookRotation.eulerAngles.x;
-                    if (targetX > 180) targetX -= 360;
-                    
-                    Quaternion camTarget = Quaternion.Euler(targetX, 0, 0);
-                    playerCam.transform.localRotation = Quaternion.Slerp(
-                        playerCam.transform.localRotation, 
-                        camTarget, 
-                        Time.deltaTime * cameraLockSpeed
-                    );
-                }
-            }
-            yield return null;
-        }
-    }
-
     private void FinishMiniGame()
     {
         miniGameActive = false;
-        ResetCursorState();
-        if (playerMovement != null)
+        MinigameFocusManager.Instance.StopFocus();
+        
+        // --- REMOVED: playerMovement.enabled = true; ---
+        
+        StopMopSound();
+        
+        if (playerAnimator != null)
         {
-            playerMovement.SyncRotation(playerCam.transform.localRotation.eulerAngles.x);
-            playerMovement.enabled = true;
+            playerAnimator.SetBool("InteractionActive", false);
+            StartCoroutine(FadeLayerWeight(interactionLayerIndex, 0f, 0.3f));
         }
-        if (playerAnimator != null) playerAnimator.SetBool("InteractionActive", false);
+        
         if (playerHandMop != null) playerHandMop.SetActive(false);
-        if (miniGamePrompt != null) miniGamePrompt.SetActive(false);
+        ResetUIStates();
+        
         if (doneVFX != null) Destroy(Instantiate(doneVFX, transform.position, Quaternion.identity), 2f);
         Destroy(gameObject);
     }
-    
-    private void ResetCursorState()
+
+    private void StopMopSound()
     {
-        // Keep hardware mouse hidden (standard for FPS games)
+        mopSoundInstance.getPlaybackState(out PLAYBACK_STATE state);
+        if (state != PLAYBACK_STATE.STOPPED)
+        {
+            mopSoundInstance.stop(STOP_MODE.ALLOWFADEOUT);
+            mopSoundInstance.release();
+        }
+    }
+    
+    private IEnumerator FadeLayerWeight(int index, float target, float duration)
+    {
+        if (playerAnimator == null) yield break;
+        float start = playerAnimator.GetLayerWeight(index);
+        float elapsed = 0;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            playerAnimator.SetLayerWeight(index, Mathf.Lerp(start, target, elapsed / duration));
+            yield return null;
+        }
+        playerAnimator.SetLayerWeight(index, target);
+    }
+
+    private void ResetUIStates()
+    {
         Cursor.visible = false; 
         Cursor.lockState = CursorLockMode.Locked;
-
-        // Reactivate your custom crosshair image
         if (cursorUI != null)
         {
             cursorUI.enabled = true;
             cursorUI.sprite = defaultCursorSprite;
         }
+        if (miniGameUIParent != null) miniGameUIParent.SetActive(false);
+        if (miniGamePrompt != null) miniGamePrompt.SetActive(false);
     }
 }
