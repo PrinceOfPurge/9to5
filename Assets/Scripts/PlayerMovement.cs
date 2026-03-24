@@ -233,12 +233,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleLook()
     {
-        if (isMiniGameActive) return;
-        
+        {
             xRotation -= lookInput.y * mouseSensitivity;
             xRotation = Mathf.Clamp(xRotation, -80f, 80f);
             transform.Rotate(Vector3.up * (lookInput.x * mouseSensitivity));
             playerCamera.transform.rotation = Quaternion.Euler(xRotation, transform.eulerAngles.y, 0f);
+        }
     }
 
     private void HandleHeadBob()
@@ -246,10 +246,7 @@ public class PlayerMovement : MonoBehaviour
         if ((!grounded || isMiniGameActive) && cameraAnchor != null)
         {
             playerCamera.transform.position = Vector3.Lerp(playerCamera.transform.position, cameraAnchor.position, Time.deltaTime * cameraFollowSpeed);
-            if (!isMiniGameActive)
-            {
-                playerCamera.transform.rotation = Quaternion.Euler(xRotation, transform.eulerAngles.y, 0f);
-            }
+            playerCamera.transform.rotation = Quaternion.Euler(xRotation, transform.eulerAngles.y, 0f);
             return;
         }
         

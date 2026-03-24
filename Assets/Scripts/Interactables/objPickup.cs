@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class objPickup : MonoBehaviour, IInteractable
 {
-    public static bool isPlayerHoldingSomething = false;
-
     [Header("UI Elements")]
     public GameObject crosshair1, crosshair2;
     public GameObject worldPrompt, throwPrompt;
@@ -54,31 +52,6 @@ public class objPickup : MonoBehaviour, IInteractable
     private bool canShowPrompt = true;
     private Collider[] allColliders;
 
-    void Awake()
-    {
-        if (objTransform == null) 
-            objTransform = transform;
-
-        if (objRigidbody == null) 
-            objRigidbody = GetComponent<Rigidbody>();
-
-        // --- THE REAL FIX: Only find the camera if it's missing (Prefabs). 
-        // Leave the scene objects alone! ---
-        if (cameraTrans == null)
-        {
-            // Use your custom PlayerMovement script to find the absolute correct camera
-            PlayerMovement pm = FindObjectOfType<PlayerMovement>();
-            if (pm != null && pm.playerCamera != null)
-            {
-                cameraTrans = pm.playerCamera.transform;
-            }
-            else if (Camera.main != null) 
-            {
-                cameraTrans = Camera.main.transform; // Fallback
-            }
-        }
-    }
-
     void Start()
     {
         if (UIManager.Instance != null)
@@ -88,26 +61,6 @@ public class objPickup : MonoBehaviour, IInteractable
         }
         
         allColliders = GetComponentsInChildren<Collider>();
-
-        // Auto-find the player references if they are missing (for spawned prefabs)
-        if (playerCollider == null || playerAnimator == null)
-        {
-            PlayerMovement pm = FindObjectOfType<PlayerMovement>();
-            if (pm != null)
-            {
-                if (playerCollider == null) playerCollider = pm.GetComponent<Collider>();
-                if (playerAnimator == null) playerAnimator = pm.GetComponentInChildren<Animator>();
-            }
-        }
-
-        if (playerCollider != null)
-        {
-            foreach (Collider col in allColliders)
-            {
-                Physics.IgnoreCollision(col, playerCollider, true);
-            }
-        }
-
         if (worldPrompt) worldPrompt.SetActive(false);
         if (throwPrompt) throwPrompt.SetActive(false);
         objRigidbody.interpolation = RigidbodyInterpolation.Interpolate;
@@ -115,7 +68,7 @@ public class objPickup : MonoBehaviour, IInteractable
     
     public void OnFocus()
     {
-        if (pickedup || !canShowPrompt || (isPlayerHoldingSomething && !pickedup)) return;
+        if (pickedup || !canShowPrompt) return;
         
         if (highlightScript != null) highlightScript.ToggleHighlight(true);
 
@@ -140,7 +93,7 @@ public class objPickup : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
-        if (!pickedup && !isPlayerHoldingSomething) PickUpObject();
+        if (!pickedup) PickUpObject();
     }
 
     void Update()
@@ -169,15 +122,24 @@ public class objPickup : MonoBehaviour, IInteractable
             if(trajectoryRenderer) trajectoryRenderer.positionCount = 0;
         }
     }
+    void Awake()
+    {
+        // 2. The usual auto-finds for non-UI stuff
+        if (cameraTrans == null && Camera.main != null) 
+            cameraTrans = Camera.main.transform;
+        
+        if (objRigidbody == null) 
+            objRigidbody = GetComponent<Rigidbody>();
+    }
     
     void PickUpObject()
     {
         pickedup = true;
-        isPlayerHoldingSomething = true; 
-
-        if (AudioManager.instance) AudioManager.instance.PlayOneShot(FMODEvents.instance.Pickup, transform.position);
         
-        if (playerAnimator != null) playerAnimator.SetTrigger(pickupTrigger);
+        if (playerAnimator != null) 
+        {
+            playerAnimator.SetTrigger(pickupTrigger);
+        }
         
         if (crosshair1) crosshair1.SetActive(false);
         if (crosshair2) crosshair2.SetActive(false);
@@ -197,11 +159,11 @@ public class objPickup : MonoBehaviour, IInteractable
     void ThrowObject()
     {
         pickedup = false;
-        isPlayerHoldingSomething = false; 
-
-        if (AudioManager.instance) AudioManager.instance.PlayOneShot(FMODEvents.instance.Throw, transform.position);
         
-        if (playerAnimator != null) playerAnimator.SetTrigger(throwTrigger);
+        if (playerAnimator != null) 
+        {
+            playerAnimator.SetTrigger(throwTrigger);
+        }
         
         if (crosshair1) crosshair1.SetActive(true);
         if (crosshair2) crosshair2.SetActive(false);
@@ -249,12 +211,7 @@ public class objPickup : MonoBehaviour, IInteractable
             GameObject vfxObj = Instantiate(successEffect, transform.position, Quaternion.identity);
             Destroy(vfxObj, 2f);
         }
-        
-        if (PrincipalMinigame.instance != null)
-        {
-            PrincipalMinigame.instance.NotifyMessCleaned();
-        }
-        Destroy(gameObject); 
+        Destroy(gameObject);
     }
 
     void ShowTrajectory()
@@ -311,14 +268,6 @@ public class objPickup : MonoBehaviour, IInteractable
                 if (idx < outCount) trajectoryRenderer.SetPosition(idx, p);
                 idx++;
             }
-        }
-    }
-
-    private void OnDestroy()
-    {
-        if (pickedup)
-        {
-            isPlayerHoldingSomething = false;
         }
     }
 }

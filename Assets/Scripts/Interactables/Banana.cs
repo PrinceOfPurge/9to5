@@ -15,7 +15,7 @@ public class Banana : MonoBehaviour, IInteractable
     [Header("Positioning")]
     [Tooltip("Ideal distance for the player to stand from the banana")]
     public float interactionDistance = 1.5f; 
-    public Vector3 lookOffset = new Vector3(0, 0, 0);
+    public float positioningSpeed = 5f;
 
     [Header("UI Crosshair (Standard System)")]
     public GameObject crosshair1; 
@@ -33,6 +33,10 @@ public class Banana : MonoBehaviour, IInteractable
     public float pulseScale = 1.3f;
     public float pulseSpeed = 10f;
     public float shakeIntensity = 0.05f;
+
+    [Header("Camera Lock Settings")]
+    public float cameraLockSpeed = 5f;
+    public Vector3 lookOffset = new Vector3(0, 0, 0);
 
     [Header("Feedback")]
     public float correctFlashTime = 0.15f;
@@ -62,6 +66,8 @@ public class Banana : MonoBehaviour, IInteractable
     private Dictionary<Image, Color> originalColors = new Dictionary<Image, Color>();
     private PlayerMovement playerMovement;
     private Camera playerCam;
+    private Coroutine cameraLockCoroutine;
+    private Coroutine positioningCoroutine; // Added
 
     private KeyCode[] keyPool = new KeyCode[] { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D };
 
@@ -69,9 +75,12 @@ public class Banana : MonoBehaviour, IInteractable
     {
         playerCam = Camera.main;
 
+        // FIND THE CURSORS AUTOMATICALLY
+        // We look for the Principal script because it usually holds the cursor references
         PrincipalMinigame principal = FindObjectOfType<PrincipalMinigame>();
         if (principal != null)
         {
+            // Assign the scene cursors to this specific banana clone
             crosshair1 = principal.defaultCursorObj;
             crosshair2 = principal.interactCursorObj;
         }
@@ -79,6 +88,7 @@ public class Banana : MonoBehaviour, IInteractable
         if (garbagePrompt != null) garbagePrompt.SetActive(false);
         HideAllArrows();
 
+        // Store original colors
         if (upArrowUI != null) originalColors[upArrowUI] = upArrowUI.color;
         if (downArrowUI != null) originalColors[downArrowUI] = downArrowUI.color;
         if (leftArrowUI != null) originalColors[leftArrowUI] = leftArrowUI.color;
@@ -105,6 +115,7 @@ public class Banana : MonoBehaviour, IInteractable
         playerInRange = false;
         if (highlightScript) highlightScript.ToggleHighlight(false);
     
+        // Only reactivate crosshairs if the minigame ISN'T running
         if (!isPlaying)
         {
             if (crosshair1) crosshair1.SetActive(true);
@@ -165,22 +176,18 @@ public class Banana : MonoBehaviour, IInteractable
         if (crosshair1) crosshair1.SetActive(false);
         if (crosshair2) crosshair2.SetActive(false);
 
-        if (miniGameUIParent != null) miniGameUIParent.SetActive(true);
-
         playerMovement = FindObjectOfType<PlayerMovement>();
         if (playerMovement != null)
         {
-            Animator anim = playerMovement.GetComponentInChildren<Animator>();
-            if (anim != null)
-            {
-                anim.SetFloat("Speed", 0f); 
-            }
-
             playerMovement.enabled = false;
             
-            // Hand off to the Focus Manager
-            Transform targetTransform = uiLocation != null ? uiLocation : transform;
-            MinigameFocusManager.Instance.StartFocus(targetTransform, lookOffset, interactionDistance);
+            // 1. Lock Camera
+            if (cameraLockCoroutine != null) StopCoroutine(cameraLockCoroutine);
+            cameraLockCoroutine = StartCoroutine(LockCameraToUI());
+
+            // 2. Smoothly Move Player to the ideal distance (NEW)
+            if (positioningCoroutine != null) StopCoroutine(positioningCoroutine);
+            positioningCoroutine = StartCoroutine(MovePlayerToInteractPoint());
         }
 
         remainingKeys = totalKeysNeeded;
@@ -189,17 +196,63 @@ public class Banana : MonoBehaviour, IInteractable
         ShowRandomKey();
     }
 
+    // NEW: Moves player to the correct interaction distance
+    private IEnumerator MovePlayerToInteractPoint()
+    {
+        while (isPlaying)
+        {
+            Vector3 targetPos = transform.position;
+            Vector3 playerPos = playerMovement.transform.position;
+            
+            Vector3 dirToPlayer = (playerPos - targetPos).normalized;
+            dirToPlayer.y = 0; 
+
+            Vector3 finalTarget = targetPos + (dirToPlayer * interactionDistance);
+            Vector3 moveDiff = finalTarget - playerMovement.transform.position;
+            
+            if (moveDiff.magnitude > 0.05f)
+            {
+                CharacterController cc = playerMovement.GetComponent<CharacterController>();
+                if(cc != null) cc.Move(moveDiff * Time.deltaTime * positioningSpeed);
+            }
+            yield return null;
+        }
+    }
+
+    private IEnumerator LockCameraToUI()
+    {
+        Transform target = uiLocation != null ? uiLocation : transform;
+        while (isPlaying)
+        {
+            if (Time.timeScale > 0)
+            {
+                Vector3 targetPos = target.position + lookOffset;
+                Vector3 direction = (targetPos - playerCam.transform.position).normalized;
+                if (direction != Vector3.zero)
+                {
+                    Quaternion lookRotation = Quaternion.LookRotation(direction);
+                    playerMovement.transform.rotation = Quaternion.Slerp(playerMovement.transform.rotation, Quaternion.Euler(0, lookRotation.eulerAngles.y, 0), Time.deltaTime * cameraLockSpeed);
+                    float targetX = lookRotation.eulerAngles.x;
+                    if (targetX > 180) targetX -= 360;
+                    playerCam.transform.localRotation = Quaternion.Slerp(playerCam.transform.localRotation, Quaternion.Euler(targetX, 0, 0), Time.deltaTime * cameraLockSpeed);
+                }
+            }
+            yield return null;
+        }
+    }
+
     void EndMinigame(bool completed)
     {
         isPlaying = false;
         isMinigameActive = false;
 
-        // Trigger the smooth exit in the Focus Manager
-        MinigameFocusManager.Instance.StopFocus();
+        if (positioningCoroutine != null) StopCoroutine(positioningCoroutine);
 
-        if (miniGameUIParent != null) miniGameUIParent.SetActive(false);
-
-        // --- REMOVED: playerMovement.enabled = true; ---
+        if (playerMovement != null)
+        {
+            playerMovement.SyncRotation(playerCam.transform.localRotation.eulerAngles.x);
+            playerMovement.enabled = true;
+        }
 
         if (timerUI != null) timerUI.SetActive(false);
         HideAllArrows();
@@ -210,6 +263,7 @@ public class Banana : MonoBehaviour, IInteractable
         {
             isCleaned = true;
 
+            // Look for the Principal only in this scene
             PrincipalMinigame principal = FindObjectOfType<PrincipalMinigame>();
             if (principal != null)
             {
@@ -218,6 +272,7 @@ public class Banana : MonoBehaviour, IInteractable
             SinglePlayerModeManager.Instance.SinglePlayerScore += points;
             SinglePlayerModeManager.Instance.BagsRemaining--;
 
+            // Normal cleanup logic
             if (AudioManager.instance) AudioManager.instance.PlayOneShot(FMODEvents.instance.Done, transform.position);
             if (doneVFX != null) Destroy(Instantiate(doneVFX, transform.position, Quaternion.identity), 2f);
             if (Bananas != null) Destroy(Bananas);
@@ -229,12 +284,10 @@ public class Banana : MonoBehaviour, IInteractable
         }
     }
 
+    // --- UTILITIES ---
     private IEnumerator HandleCorrect()
     {
         isProcessingAnimation = true;
-        
-        if (AudioManager.instance) AudioManager.instance.PlayOneShot(FMODEvents.instance.Success, transform.position);
-
         Image img = GetArrowImage(currentKey);
         
         if (img != null)
@@ -262,9 +315,6 @@ public class Banana : MonoBehaviour, IInteractable
     private IEnumerator HandleWrong()
     {
         isProcessingAnimation = true;
-
-        if (AudioManager.instance) AudioManager.instance.PlayOneShot(FMODEvents.instance.Fail, transform.position);
-
         Image img = GetArrowImage(currentKey);
         Vector3 originalPos = miniGameUIParent != null ? miniGameUIParent.transform.localPosition : Vector3.zero;
 

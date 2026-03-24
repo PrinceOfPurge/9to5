@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
-	<object class="AudioFile" id="{ca7b6821-f154-4935-8e73-3992f95403f4}">
+	<object class="AudioFile" id="{d90efe08-94e1-4f7e-a3e6-a0175b038519}">
 		<property name="assetPath">
-			<value>fail4.mp3</value>
+			<value>NEWSINGLEPLAYER2.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>
@@ -11,7 +14,7 @@
 			<value>2</value>
 		</property>
 		<property name="length">
-			<value>0.36571428571428571</value>
+			<value>43.558027210884354</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{2c9eddcb-8ffc-421f-ac12-17c198863c50}</destination>

@@ -109,7 +109,9 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
         if (isPlaying) return;
         if (plungerPrompt) plungerPrompt.SetActive(false);
         
+        // --- FIX: This line was turning off the crosshair instead of turning it on ---
         if (crosshairDefault) crosshairDefault.SetActive(true); 
+        // ----------------------------------------------------------------------------
         
         if (crosshairInteract) crosshairInteract.SetActive(false);
     }
@@ -239,12 +241,6 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
         if (plungerPrompt) plungerPrompt.SetActive(false);
         if (crosshairDefault) crosshairDefault.SetActive(false);
         if (crosshairInteract) crosshairInteract.SetActive(false);
-
-        // --- THE ANIMATION FIX ---
-        if (playerAnim != null)
-        {
-            playerAnim.SetFloat("Speed", 0f); 
-        }
 
         camSavedLocalPos = playerMove.playerCamera.transform.localPosition;
         camSavedLocalRot = playerMove.playerCamera.transform.localRotation;
