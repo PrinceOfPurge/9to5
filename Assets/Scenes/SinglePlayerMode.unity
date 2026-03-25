@@ -4536,7 +4536,7 @@ GameObject:
   - component: {fileID: 184481531}
   - component: {fileID: 184481530}
   m_Layer: 0
-  m_Name: Plane (2)
+  m_Name: rust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4550,13 +4550,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 184481528}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.69725996, y: 0.11759518, z: 0.11759488, w: 0.69725996}
-  m_LocalPosition: {x: -0.0228, y: -0.0055, z: 0.034}
+  m_LocalRotation: {x: 0.5252742, y: -0.47337866, z: -0.47337887, w: 0.52527344}
+  m_LocalPosition: {x: -0.0223, y: -0.0066, z: 0.034}
   m_LocalScale: {x: 0.0009, y: 0.0009, z: 0.0009}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 648761662}
-  m_LocalEulerAnglesHint: {x: 70.854, y: 90, z: 90}
+  m_LocalEulerAnglesHint: {x: 174.051, y: 90, z: 90}
 --- !u!64 &184481530
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -19872,13 +19872,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 613154671}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.71745956, z: -0, w: 0.69660026}
-  m_LocalPosition: {x: -367.655, y: 4.51, z: -14.222}
+  m_LocalRotation: {x: -0, y: 0.065453626, z: -0, w: 0.99785566}
+  m_LocalPosition: {x: -367.159, y: 4.51, z: -14.083}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 91.69, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 7.506, z: 0}
 --- !u!4 &614890614 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 28062650617314948, guid: 2dfc8a761fb36be489e5d5f7b804f89c, type: 3}
@@ -32399,7 +32399,7 @@ GameObject:
   - component: {fileID: 1065661887}
   - component: {fileID: 1065661886}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: rust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32414,7 +32414,7 @@ Transform:
   m_GameObject: {fileID: 1065661884}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 0, z: 0.034}
+  m_LocalPosition: {x: -0, y: 0, z: 0.0412}
   m_LocalScale: {x: 0.0009, y: 0.0009, z: 0.0009}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -52825,13 +52825,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1663452459}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -367.911, y: 4.51, z: -14.222}
+  m_LocalRotation: {x: -0, y: -0.97509354, z: -0, w: 0.22179414}
+  m_LocalPosition: {x: -368.548, y: 4.51, z: -14.497}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -154.371, z: 0}
 --- !u!1 &1665758820
 GameObject:
   m_ObjectHideFlags: 0
@@ -58473,7 +58473,7 @@ GameObject:
   - component: {fileID: 1867988171}
   - component: {fileID: 1867988170}
   m_Layer: 0
-  m_Name: Plane (1)
+  m_Name: rust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
