@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: Quantum Nexus Games
-  productName: NinetoFive
+  productName: 9INE TO 5IVE
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.1490565, g: 0.37298894, b: 1, a: 1}
@@ -39,7 +39,9 @@ PlayerSettings:
     y: 0
     width: 1
     height: 1
-  m_SplashScreenLogos: []
+  m_SplashScreenLogos:
+  - logo: {fileID: 21300000, guid: 03a5459786fb93341a6dea5cb47ed6a3, type: 3}
+    duration: 3
   m_VirtualRealitySplashScreen: {fileID: 0}
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 1920
@@ -164,7 +166,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Standalone: com.Quantum-Nexus-Games.NinetoFive
+    Standalone: com.Quantum-Nexus-Games.9INE-TO-5IVE
   buildNumber:
     Standalone: 0
     VisionOS: 0
@@ -292,7 +294,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 360b9660837dfef4b81c09dd7b9c8000, type: 3}
+      m_Icon: {fileID: 2800000, guid: 2fbd072cd3d7c864885a6225fb1826da, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
