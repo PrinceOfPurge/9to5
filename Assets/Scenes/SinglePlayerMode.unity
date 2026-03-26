@@ -86600,6 +86600,10 @@ PrefabInstance:
       value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1725127191602543299, guid: 6299044d98d00c049b5002a912e0fa38, type: 3}
+      propertyPath: winHoldTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1725127191602543299, guid: 6299044d98d00c049b5002a912e0fa38, type: 3}
       propertyPath: plungerObject
       value: 
       objectReference: {fileID: 2460905461178157488}

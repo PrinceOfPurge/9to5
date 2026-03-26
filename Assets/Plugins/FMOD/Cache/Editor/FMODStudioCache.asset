@@ -211,7 +211,6 @@ MonoBehaviour:
     Data3: 1013287599
     Data4: 319991147
   Banks:
-  - {fileID: 1640576777819759634}
   - {fileID: 420874186844364336}
   IsStream: 1
   Is3D: 1
@@ -239,7 +238,6 @@ MonoBehaviour:
     Data3: -1152623200
     Data4: -1903149686
   Banks:
-  - {fileID: 1640576777819759634}
   - {fileID: 420874186844364336}
   IsStream: 1
   Is3D: 0
@@ -294,7 +292,7 @@ MonoBehaviour:
   FileSizes:
   - Name: Desktop
     Value: 1486
-  Exists: 1
+  Exists: 0
 --- !u!114 &-1473435627692871961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -422,7 +420,7 @@ MonoBehaviour:
   - {fileID: -1856225702813662801}
   StringsBanks:
   - {fileID: 624774501610172950}
-  cacheTime: 639099102557642928
+  cacheTime: 639100501023602754
   cacheVersion: 131620
 --- !u!114 &86615865890799009
 MonoBehaviour:
@@ -470,7 +468,7 @@ MonoBehaviour:
   FileSizes:
   - Name: Desktop
     Value: 4523392
-  Exists: 1
+  Exists: 0
 --- !u!114 &624774501610172950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,10 +484,10 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639099099459313639
+  lastModified: 639100501023389851
   FileSizes:
   - Name: Desktop
-    Value: 2124
+    Value: 2280
   Exists: 1
 --- !u!114 &1586390637041817182
 MonoBehaviour:
@@ -533,7 +531,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/Ambience.bank
   Name: Ambience
   StudioPath: bank:/Ambience
-  lastModified: 639099072226342494
+  lastModified: 639100501023380044
   FileSizes:
   - Name: Desktop
     Value: 1661888
@@ -831,7 +829,7 @@ MonoBehaviour:
   FileSizes:
   - Name: Desktop
     Value: 1239136
-  Exists: 1
+  Exists: 0
 --- !u!114 &8829321649719133776
 MonoBehaviour:
   m_ObjectHideFlags: 0
