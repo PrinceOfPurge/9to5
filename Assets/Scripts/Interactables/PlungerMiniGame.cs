@@ -10,6 +10,7 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
     public GameObject crosshairDefault; 
     public GameObject crosshairInteract; 
     public HighlightEffectToilet highlightScript;
+    
 
     [Header("Mini-Game UI Bar")]
     public GameObject barParent;    
@@ -130,7 +131,6 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
         plungeProgress = Mathf.Clamp01(plungeProgress + inputStrength - resistance);
         playerAnim.SetFloat("PlungeDepth", plungeProgress);
         
-        // --- AUDIO: UPDATE STRUGGLE (Inverted Logic) ---
         float currentClogIntensity = 1f - plungeProgress;
         struggleInstance.setParameterByName("PlungeSpeed", currentClogIntensity);
 
@@ -150,7 +150,7 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
         
         if (plungeProgress >= 0.96f)
         {
-            // --- AUDIO: PLUNGE ONCE ---
+            
             if (!hasPlayedPlungeSound)
             {
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.Plunge, transform.position);
@@ -182,15 +182,31 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
     private void UpdateUIFeedback()
     {
         if (!barFill || !barParent) return;
-        barFill.fillAmount = plungeProgress;
-        barFill.color = Color.Lerp(startColor, dangerColor, plungeProgress);
+        
+        Color struggleColor = Color.white; // Or new Color(0, 1, 1); for Cyan
+        Color winChargeColor = new Color(1f, 0.92f, 0.016f); // Bright Neon Yellow
+
+        if (plungeProgress >= 0.96f)
+        {
+            barFill.fillAmount = Mathf.Clamp01(victoryTimer / winHoldTime);
+            barFill.color = winChargeColor; 
+        }
+        else
+        {
+            barFill.fillAmount = plungeProgress;
+            barFill.color = struggleColor; 
+        }
+        
         RectTransform rt = barParent.GetComponent<RectTransform>();
         if (plungeProgress > 0.8f)
         {
-            float shake = shakeAmount * plungeProgress;
+            float shake = shakeAmount * (plungeProgress >= 0.96f ? 1.0f : plungeProgress);
             rt.anchoredPosition = barOriginalPos + new Vector2(Random.Range(-shake, shake), Random.Range(-shake, shake));
         }
-        else rt.anchoredPosition = barOriginalPos;
+        else 
+        {
+            rt.anchoredPosition = barOriginalPos;
+        }
     }
 
     private IEnumerator HandleTutorialUI()
@@ -217,7 +233,7 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
     void WinGame()
     {
         isWon = true;
-        // --- AUDIO: VICTORY ---
+        
         AudioManager.instance.PlayOneShot(FMODEvents.instance.Done, transform.position);
         
         if (poopCylinder) poopCylinder.gameObject.SetActive(false);
@@ -239,8 +255,7 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
         if (plungerPrompt) plungerPrompt.SetActive(false);
         if (crosshairDefault) crosshairDefault.SetActive(false);
         if (crosshairInteract) crosshairInteract.SetActive(false);
-
-        // --- THE ANIMATION FIX ---
+        
         if (playerAnim != null)
         {
             playerAnim.SetFloat("Speed", 0f); 
@@ -284,7 +299,6 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
     {
         isPlaying = false;
         
-        // --- AUDIO: STOP ---
         struggleInstance.stop(STOP_MODE.ALLOWFADEOUT);
         struggleInstance.release();
 

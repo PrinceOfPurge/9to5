@@ -62948,9 +62948,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b644e824cb4a134883d8ec92ddf9970, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transitionSpeed: 3.5
-  exitDuration: 0.75
-  entryDuration: 0.25
+  transitionSpeed: 3
+  exitDuration: 0.4
+  entryDuration: 1
 --- !u!1 &2065335768
 GameObject:
   m_ObjectHideFlags: 0
@@ -83714,6 +83714,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BananaMess
       objectReference: {fileID: 0}
+    - target: {fileID: 3641249080217316756, guid: dc4bea226faa26642a05b7f2f63d894e, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7691303140050283624, guid: dc4bea226faa26642a05b7f2f63d894e, type: 3}
       propertyPath: doneVFX
       value: 
@@ -83780,6 +83784,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8020547269035415032, guid: dc4bea226faa26642a05b7f2f63d894e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8525551876998536339, guid: dc4bea226faa26642a05b7f2f63d894e, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -86573,7 +86581,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1344195103992541061, guid: 6299044d98d00c049b5002a912e0fa38, type: 3}
       propertyPath: m_text
-      value: Keep it Down!
+      value: keep it down!
       objectReference: {fileID: 0}
     - target: {fileID: 1344195103992541061, guid: 6299044d98d00c049b5002a912e0fa38, type: 3}
       propertyPath: m_margin.w
@@ -86602,6 +86610,42 @@ PrefabInstance:
     - target: {fileID: 1725127191602543299, guid: 6299044d98d00c049b5002a912e0fa38, type: 3}
       propertyPath: winHoldTime
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1725127191602543299, guid: 6299044d98d00c049b5002a912e0fa38, type: 3}
+      propertyPath: flashColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1725127191602543299, guid: 6299044d98d00c049b5002a912e0fa38, type: 3}
+      propertyPath: flashColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1725127191602543299, guid: 6299044d98d00c049b5002a912e0fa38, type: 3}
+      propertyPath: flashColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1725127191602543299, guid: 6299044d98d00c049b5002a912e0fa38, type: 3}
+      propertyPath: startColor.b
+      value: 0.9221222
+      objectReference: {fileID: 0}
+    - target: {fileID: 1725127191602543299, guid: 6299044d98d00c049b5002a912e0fa38, type: 3}
+      propertyPath: startColor.g
+      value: 0.8191527
+      objectReference: {fileID: 0}
+    - target: {fileID: 1725127191602543299, guid: 6299044d98d00c049b5002a912e0fa38, type: 3}
+      propertyPath: startColor.r
+      value: 0.9811321
+      objectReference: {fileID: 0}
+    - target: {fileID: 1725127191602543299, guid: 6299044d98d00c049b5002a912e0fa38, type: 3}
+      propertyPath: dangerColor.b
+      value: 0.07843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 1725127191602543299, guid: 6299044d98d00c049b5002a912e0fa38, type: 3}
+      propertyPath: dangerColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1725127191602543299, guid: 6299044d98d00c049b5002a912e0fa38, type: 3}
+      propertyPath: dangerColor.r
+      value: 0.2025086
       objectReference: {fileID: 0}
     - target: {fileID: 1725127191602543299, guid: 6299044d98d00c049b5002a912e0fa38, type: 3}
       propertyPath: plungerObject

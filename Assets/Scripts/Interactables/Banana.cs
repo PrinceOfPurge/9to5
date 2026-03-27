@@ -13,7 +13,6 @@ public class Banana : MonoBehaviour, IInteractable
     public int points = 100;
 
     [Header("Positioning")]
-    [Tooltip("Ideal distance for the player to stand from the banana")]
     public float interactionDistance = 1.5f; 
     public Vector3 lookOffset = new Vector3(0, 0, 0);
 
@@ -50,7 +49,6 @@ public class Banana : MonoBehaviour, IInteractable
     public GameObject timerUI;
 
     private bool playerInRange;
-    private bool isPlaying;
     private bool isCleaned;
     private bool isProcessingAnimation = false;
 
@@ -61,14 +59,11 @@ public class Banana : MonoBehaviour, IInteractable
 
     private Dictionary<Image, Color> originalColors = new Dictionary<Image, Color>();
     private PlayerMovement playerMovement;
-    private Camera playerCam;
 
     private KeyCode[] keyPool = new KeyCode[] { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D };
 
-    private void Awake()
+    private void Start()
     {
-        playerCam = Camera.main;
-
         PrincipalMinigame principal = FindObjectOfType<PrincipalMinigame>();
         if (principal != null)
         {
@@ -89,57 +84,66 @@ public class Banana : MonoBehaviour, IInteractable
 
     public void OnFocus()
     {
-        if (isCleaned || isPlaying) return;
+        if (isMinigameActive || isCleaned) return;
         playerInRange = true;
-
-        if (highlightScript) highlightScript.ToggleHighlight(true);
         
-        if (crosshair1) crosshair1.SetActive(false);
-        if (crosshair2) crosshair2.SetActive(true);
-    
-        if (garbagePrompt) garbagePrompt.SetActive(true);
+        if (highlightScript != null) highlightScript.ToggleHighlight(true);
+        if (garbagePrompt != null) garbagePrompt.SetActive(true);
+        
+        if (crosshair1 != null) crosshair1.SetActive(false);
+        if (crosshair2 != null) crosshair2.SetActive(true);
     }
 
     public void OnLoseFocus()
     {
+        if (isMinigameActive) return;
         playerInRange = false;
-        if (highlightScript) highlightScript.ToggleHighlight(false);
+        
+        if (highlightScript != null) highlightScript.ToggleHighlight(false);
+        if (garbagePrompt != null) garbagePrompt.SetActive(false);
     
-        if (!isPlaying)
-        {
-            if (crosshair1) crosshair1.SetActive(true);
-            if (crosshair2) crosshair2.SetActive(false);
-        }
-
-        if (garbagePrompt) garbagePrompt.SetActive(false);
+        if (crosshair1 != null) crosshair1.SetActive(true);
+        if (crosshair2 != null) crosshair2.SetActive(false);
     }
 
     public void OnInteract()
     {
-        if (playerInRange && !isPlaying && !isCleaned) StartMinigame();
+        if (!isMinigameActive && playerInRange && !isCleaned) 
+        {
+            StartMiniGame();
+        }
     }
 
     private void Update()
     {
-        if (isPlaying && Time.timeScale == 0)
+        if (isMinigameActive && Time.timeScale == 0)
         {
-            EndMinigame(false);
+            CancelMiniGame();
             return;
         }
 
-        if (isCleaned || !isPlaying || isProcessingAnimation) return;
-        if (ignoreInputThisFrame) { ignoreInputThisFrame = false; return; }
+        if (isCleaned || !isMinigameActive || isProcessingAnimation) return;
+        
+        if (ignoreInputThisFrame) 
+        { 
+            ignoreInputThisFrame = false; 
+            return; 
+        }
 
         if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
         {
-            EndMinigame(false);
+            CancelMiniGame();
             return;
         }
 
         timer -= Time.deltaTime;
         if (timerBarUI != null) timerBarUI.fillAmount = timer / maxTime;
 
-        if (timer <= 0f) { StartCoroutine(HandleWrong()); return; }
+        if (timer <= 0f) 
+        { 
+            StartCoroutine(HandleWrong()); 
+            return; 
+        }
 
         if (Input.GetKeyDown(currentKey))
         {
@@ -155,78 +159,83 @@ public class Banana : MonoBehaviour, IInteractable
         }
     }
 
-    void StartMinigame()
+    private void StartMiniGame()
     {
-        isPlaying = true;
         isMinigameActive = true;
         
-        if (highlightScript) highlightScript.ToggleHighlight(false);
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        
+        if (crosshair1 != null) crosshair1.SetActive(false);
+        if (crosshair2 != null) crosshair2.SetActive(false);
+
+        if (highlightScript != null) highlightScript.ToggleHighlight(false);
         if (garbagePrompt != null) garbagePrompt.SetActive(false);
-        if (crosshair1) crosshair1.SetActive(false);
-        if (crosshair2) crosshair2.SetActive(false);
 
         if (miniGameUIParent != null) miniGameUIParent.SetActive(true);
+        if (timerUI != null) timerUI.SetActive(true);
 
         playerMovement = FindObjectOfType<PlayerMovement>();
         if (playerMovement != null)
         {
             Animator anim = playerMovement.GetComponentInChildren<Animator>();
-            if (anim != null)
-            {
-                anim.SetFloat("Speed", 0f); 
-            }
+            if (anim != null) anim.SetFloat("Speed", 0f); 
 
             playerMovement.enabled = false;
             
-            // Hand off to the Focus Manager
             Transform targetTransform = uiLocation != null ? uiLocation : transform;
             MinigameFocusManager.Instance.StartFocus(targetTransform, lookOffset, interactionDistance);
         }
 
         remainingKeys = totalKeysNeeded;
         timer = maxTime;
-        if (timerUI != null) timerUI.SetActive(true);
         ShowRandomKey();
     }
 
-    void EndMinigame(bool completed)
+    private void CancelMiniGame()
     {
-        isPlaying = false;
         isMinigameActive = false;
-
-        // Trigger the smooth exit in the Focus Manager
         MinigameFocusManager.Instance.StopFocus();
-
-        if (miniGameUIParent != null) miniGameUIParent.SetActive(false);
-
+        
         // --- REMOVED: playerMovement.enabled = true; ---
+        
+        RestoreAllArrowColorsToOriginal();
+        ResetUIStates();
+    }
 
+    private void FinishMiniGame()
+    {
+        isMinigameActive = false;
+        isCleaned = true;
+        MinigameFocusManager.Instance.StopFocus();
+        
+        // --- REMOVED: playerMovement.enabled = true; ---
+        
+        ResetUIStates();
+        
+        PrincipalMinigame principal = FindObjectOfType<PrincipalMinigame>();
+        if (principal != null) principal.NotifyMessCleaned();
+        
+        SinglePlayerModeManager.Instance.SinglePlayerScore += points;
+        SinglePlayerModeManager.Instance.BagsRemaining--;
+
+        if (AudioManager.instance) AudioManager.instance.PlayOneShot(FMODEvents.instance.Done, transform.position);
+        if (doneVFX != null) Destroy(Instantiate(doneVFX, transform.position, Quaternion.identity), 2f);
+        if (Bananas != null) Destroy(Bananas);
+        Destroy(gameObject); 
+    }
+
+    private void ResetUIStates()
+    {
+        Cursor.visible = false; 
+        Cursor.lockState = CursorLockMode.Locked;
+        
+        if (crosshair1 != null) crosshair1.SetActive(true);
+        if (crosshair2 != null) crosshair2.SetActive(false);
+        
+        if (miniGameUIParent != null) miniGameUIParent.SetActive(false);
         if (timerUI != null) timerUI.SetActive(false);
         HideAllArrows();
-        if (crosshair1) crosshair1.SetActive(true);
-        if (crosshair2) crosshair2.SetActive(false);
-
-        if (completed)
-        {
-            isCleaned = true;
-
-            PrincipalMinigame principal = FindObjectOfType<PrincipalMinigame>();
-            if (principal != null)
-            {
-                principal.NotifyMessCleaned();
-            }
-            SinglePlayerModeManager.Instance.SinglePlayerScore += points;
-            SinglePlayerModeManager.Instance.BagsRemaining--;
-
-            if (AudioManager.instance) AudioManager.instance.PlayOneShot(FMODEvents.instance.Done, transform.position);
-            if (doneVFX != null) Destroy(Instantiate(doneVFX, transform.position, Quaternion.identity), 2f);
-            if (Bananas != null) Destroy(Bananas);
-            Destroy(gameObject); 
-        }
-        else
-        {
-            RestoreAllArrowColorsToOriginal();
-        }
     }
 
     private IEnumerator HandleCorrect()
@@ -255,8 +264,11 @@ public class Banana : MonoBehaviour, IInteractable
 
         remainingKeys--;
         isProcessingAnimation = false;
-        if (remainingKeys <= 0) EndMinigame(true);
-        else ShowRandomKey();
+        
+        if (remainingKeys <= 0) 
+            FinishMiniGame();
+        else 
+            ShowRandomKey();
     }
 
     private IEnumerator HandleWrong()
@@ -286,8 +298,40 @@ public class Banana : MonoBehaviour, IInteractable
         ShowRandomKey();
     }
 
-    void HideAllArrows() { upArrowUI?.gameObject.SetActive(false); downArrowUI?.gameObject.SetActive(false); leftArrowUI?.gameObject.SetActive(false); rightArrowUI?.gameObject.SetActive(false); }
-    void ShowRandomKey() { HideAllArrows(); RestoreAllArrowColorsToOriginal(); currentKey = keyPool[Random.Range(0, keyPool.Length)]; Image img = GetArrowImage(currentKey); if (img != null) img.gameObject.SetActive(true); }
-    Image GetArrowImage(KeyCode k) { switch (k) { case KeyCode.W: return upArrowUI; case KeyCode.S: return downArrowUI; case KeyCode.A: return leftArrowUI; case KeyCode.D: return rightArrowUI; } return null; }
-    void RestoreAllArrowColorsToOriginal() { foreach (var kv in originalColors) { if (kv.Key != null) kv.Key.color = kv.Value; } }
+    void HideAllArrows() 
+    { 
+        if (upArrowUI != null) upArrowUI.gameObject.SetActive(false); 
+        if (downArrowUI != null) downArrowUI.gameObject.SetActive(false); 
+        if (leftArrowUI != null) leftArrowUI.gameObject.SetActive(false); 
+        if (rightArrowUI != null) rightArrowUI.gameObject.SetActive(false); 
+    }
+    
+    void ShowRandomKey() 
+    { 
+        HideAllArrows(); 
+        RestoreAllArrowColorsToOriginal(); 
+        currentKey = keyPool[Random.Range(0, keyPool.Length)]; 
+        Image img = GetArrowImage(currentKey); 
+        if (img != null) img.gameObject.SetActive(true); 
+    }
+    
+    Image GetArrowImage(KeyCode k) 
+    { 
+        switch (k) 
+        { 
+            case KeyCode.W: return upArrowUI; 
+            case KeyCode.S: return downArrowUI; 
+            case KeyCode.A: return leftArrowUI; 
+            case KeyCode.D: return rightArrowUI; 
+        } 
+        return null; 
+    }
+    
+    void RestoreAllArrowColorsToOriginal() 
+    { 
+        foreach (var kv in originalColors) 
+        { 
+            if (kv.Key != null) kv.Key.color = kv.Value; 
+        } 
+    }
 }

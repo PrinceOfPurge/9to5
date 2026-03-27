@@ -7,7 +7,7 @@ public class MinigameFocusManager : MonoBehaviour
 
     [Header("Settings")]
     public float transitionSpeed = 5f;
-    public float exitDuration = 0.4f; 
+    public float exitDuration = 0.5f; 
     public float entryDuration = 0.25f;
 
     private Coroutine movementRoutine;
@@ -37,7 +37,7 @@ public class MinigameFocusManager : MonoBehaviour
             player.isMiniGameActive = true;
             
             originalBodyRot = player.transform.rotation;
-            originalCamRot = playerCam.transform.localRotation;
+            originalCamRot = playerCam.transform.rotation; 
 
             CharacterController cc = player.GetComponent<CharacterController>();
             if (cc != null) cc.Move(Vector3.zero);
@@ -48,7 +48,6 @@ public class MinigameFocusManager : MonoBehaviour
         if (exitRoutine != null) StopCoroutine(exitRoutine);
         if (alignmentRoutine != null) StopCoroutine(alignmentRoutine);
         
-        // --- NEW: Start the slide, and start rotating the camera immediately ---
         alignmentRoutine = StartCoroutine(EntryAlignmentRoutine(target, distance));
         cameraRoutine = StartCoroutine(CameraRoutine(target, offset));
     }
@@ -62,23 +61,19 @@ public class MinigameFocusManager : MonoBehaviour
         exitRoutine = StartCoroutine(SmoothExitRoutine());
     }
 
-    // --- NEW: The centralized smooth slide logic ---
     private IEnumerator EntryAlignmentRoutine(Transform target, float distance)
     {
         Vector3 startPos = player.transform.position;
         
-        // Calculate the direction from target to player
         Vector3 dirFromTarget = startPos - target.position;
         dirFromTarget.y = 0;
         dirFromTarget.Normalize();
         
-        // Failsafe if they are standing in the exact same mathematical spot
         if (dirFromTarget == Vector3.zero) dirFromTarget = player.transform.forward;
 
         Vector3 targetPos = target.position + dirFromTarget * distance;
-        targetPos.y = startPos.y; // Keep feet on the floor
+        targetPos.y = startPos.y; 
 
-        // Disable CharacterController temporarily so we can hard-override position safely
         CharacterController cc = player.GetComponent<CharacterController>();
         bool ccWasEnabled = cc != null && cc.enabled;
         if (ccWasEnabled) cc.enabled = false;
@@ -87,7 +82,7 @@ public class MinigameFocusManager : MonoBehaviour
         while (elapsed < entryDuration)
         {
             elapsed += Time.deltaTime;
-            float t = 1f - Mathf.Pow(1f - (elapsed / entryDuration), 3f); // Smooth ease-out
+            float t = 1f - Mathf.Pow(1f - (elapsed / entryDuration), 3f); 
             
             player.transform.position = Vector3.Lerp(startPos, targetPos, t);
             yield return null;
@@ -96,7 +91,6 @@ public class MinigameFocusManager : MonoBehaviour
         player.transform.position = targetPos;
         if (ccWasEnabled) cc.enabled = true;
 
-        // Once the slide is done, hand off to the continuous movement lock to keep them there
         movementRoutine = StartCoroutine(MovementRoutine(target, distance));
     }
 
@@ -104,29 +98,36 @@ public class MinigameFocusManager : MonoBehaviour
     {
         if (player == null || playerCam == null) yield break;
 
+        player.enabled = false;
+        player.isMiniGameActive = true;
+
         float elapsed = 0f;
         Quaternion currentBodyRot = player.transform.rotation;
-        Quaternion currentCamRot = playerCam.transform.localRotation;
+        Quaternion currentCamRot = playerCam.transform.rotation;
 
         while (elapsed < exitDuration)
         {
-            player.enabled = false;
-            player.isMiniGameActive = true;
-
             elapsed += Time.deltaTime;
             float t = Mathf.SmoothStep(0f, 1f, elapsed / exitDuration);
 
             player.transform.rotation = Quaternion.Slerp(currentBodyRot, originalBodyRot, t);
-            playerCam.transform.localRotation = Quaternion.Slerp(currentCamRot, originalCamRot, t);
+            playerCam.transform.rotation = Quaternion.Slerp(currentCamRot, originalCamRot, t);
 
             yield return null;
         }
 
+        // Snap exactly to target
         player.transform.rotation = originalBodyRot;
-        playerCam.transform.localRotation = originalCamRot;
+        playerCam.transform.rotation = originalCamRot;
 
-        player.SyncRotation(playerCam.transform.localEulerAngles.x);
+        // FIX: We no longer extract eulerAngles! Just flush the inputs and wake up.
+        player.PrepareForWakeUp();
+        
         player.isMiniGameActive = false;
+
+        CharacterController cc = player.GetComponent<CharacterController>();
+        if (cc != null) cc.enabled = true;
+
         player.enabled = true;
     }
 
@@ -176,17 +177,11 @@ public class MinigameFocusManager : MonoBehaviour
                     player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetBodyRot, Time.deltaTime * transitionSpeed);
                 }
 
-                Vector3 localTargetPos = player.transform.InverseTransformPoint(targetPos);
-                Vector3 localCamDir = localTargetPos - playerCam.transform.localPosition;
-                
-                if (localCamDir.sqrMagnitude > 0.001f)
+                Vector3 camLookDir = targetPos - playerCam.transform.position;
+                if (camLookDir.sqrMagnitude > 0.001f)
                 {
-                    Quaternion localLook = Quaternion.LookRotation(localCamDir);
-                    float pitch = localLook.eulerAngles.x;
-                    if (pitch > 180) pitch -= 360; 
-                    
-                    Quaternion targetCamRot = Quaternion.Euler(pitch, 0, 0);
-                    playerCam.transform.localRotation = Quaternion.Slerp(playerCam.transform.localRotation, targetCamRot, Time.deltaTime * transitionSpeed);
+                    Quaternion targetCamRot = Quaternion.LookRotation(camLookDir);
+                    playerCam.transform.rotation = Quaternion.Slerp(playerCam.transform.rotation, targetCamRot, Time.deltaTime * transitionSpeed);
                 }
             }
         }

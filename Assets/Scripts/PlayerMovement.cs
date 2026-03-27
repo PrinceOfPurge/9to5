@@ -53,11 +53,10 @@ public class PlayerMovement : MonoBehaviour
     public float sprintBobSpeed = 18f;
     public float sprintBobAmount = 0.09f;
 
-    [Header("Camera Following (New)")]
-    [Tooltip("Drag the 'CameraAnchor' child of your Head Bone here.")]
+    [Header("Camera Following")]
     public Transform cameraAnchor; 
     public float cameraFollowSpeed = 20f;
-    [HideInInspector] public bool isMiniGameActive = false; // Set this to true from your Toilet script
+    [HideInInspector] public bool isMiniGameActive = false;
 
     [SerializeField] Animator playerAnimator;
 
@@ -75,6 +74,16 @@ public class PlayerMovement : MonoBehaviour
     private bool wasGrounded;
     private Vector3 cameraDefaultLocalPos;
     private float bobTimer;
+    
+    // NEW: Grace period timer to prevent build input dumps
+    private float inputIgnoreTimer = 0f;
+
+    void OnEnable()
+    {
+        lookInput = Vector2.zero;
+        inputDirection = Vector2.zero;
+        inputIgnoreTimer = 0.15f; // Ignore mouse for 150ms after turning on
+    }
 
     void Start()
     {
@@ -92,9 +101,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (redWheel != null) originalRedWheelColor = redWheel.color;
         
-        // This is the starting relative position of the camera
         cameraDefaultLocalPos = playerCamera.transform.localPosition;
-        
         playerFootsteps = AudioManager.instance.CreateInstance(FMODEvents.instance.playerFootsteps);
 
         if (ShopInfo.Instance != null)
@@ -125,17 +132,16 @@ public class PlayerMovement : MonoBehaviour
         float rayLength = controller.bounds.extents.y + 0.15f; 
         grounded = Physics.Raycast(controller.bounds.center, Vector3.down, rayLength, whatIsGround);
 
-        // NEW: Landing Detection
-        if (grounded && !wasGrounded && verticalVelocity.y < -5f) // -5f check prevents sound on tiny slopes
+        if (grounded && !wasGrounded && verticalVelocity.y < -5f)
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.Land, transform.position);
         }
-        wasGrounded = grounded; //
+        wasGrounded = grounded;
 
         HandleLook();
         HandleStamina();
         ApplyMovement();
-        HandleHeadBob(); // Updated with Hybrid logic
+        HandleHeadBob();
         UpdateAnimations();
         UpdateSound();
     }
@@ -187,6 +193,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void ApplyMovement()
     {
+        if (controller == null || !controller.enabled) return;
+
         if (isMiniGameActive) 
         {
             verticalVelocity.y += gravity * Time.deltaTime;
@@ -235,10 +243,18 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isMiniGameActive) return;
         
-            xRotation -= lookInput.y * mouseSensitivity;
-            xRotation = Mathf.Clamp(xRotation, -80f, 80f);
-            transform.Rotate(Vector3.up * (lookInput.x * mouseSensitivity));
-            playerCamera.transform.rotation = Quaternion.Euler(xRotation, transform.eulerAngles.y, 0f);
+        // NEW: Crush any buffered mouse dumps from the build during the grace period
+        if (inputIgnoreTimer > 0f)
+        {
+            inputIgnoreTimer -= Time.deltaTime;
+            lookInput = Vector2.zero; 
+        }
+
+        xRotation -= lookInput.y * mouseSensitivity;
+        xRotation = Mathf.Clamp(xRotation, -80f, 80f);
+        transform.Rotate(Vector3.up * (lookInput.x * mouseSensitivity));
+        
+        playerCamera.transform.rotation = Quaternion.Euler(xRotation, transform.eulerAngles.y, 0f);
     }
 
     private void HandleHeadBob()
@@ -301,11 +317,30 @@ public class PlayerMovement : MonoBehaviour
         playerAnimator.SetLayerWeight(index, target);
     }
     
-    public void SyncRotation(float newXRotation)
+    public void PrepareForWakeUp()
     {
-        if (newXRotation > 180) newXRotation -= 360;
-        xRotation = newXRotation;
+        // Flush inputs to prevent the build buffer dumps
+        lookInput = Vector2.zero; 
+        inputDirection = Vector2.zero;
+        inputIgnoreTimer = 0.15f; 
+
+        // Force camera local position instantly back to normal
+        if (playerCamera != null)
+        {
+            playerCamera.transform.localPosition = cameraDefaultLocalPos;
+        }
     }
 
+    // RESTORED: So the PlungerMinigame doesn't throw a compile error!
+    public void SyncRotation(float newXRotation)
+    {
+        if (newXRotation > 180f) newXRotation -= 360f;
+        xRotation = newXRotation;
+
+        // Still run all the safety flushes so the plunger game doesn't snap either
+        PrepareForWakeUp(); 
+    }
+    
+    
     public void SetMouseSensitivity(float newSensitivity) => mouseSensitivity = newSensitivity;
 }
