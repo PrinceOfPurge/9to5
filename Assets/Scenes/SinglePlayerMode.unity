@@ -17516,9 +17516,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 690c702135d500a4bb1441ff950cc903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  studentPrefab: {fileID: 0}
-  spawnPoints: []
-  studentsPerLevel: 
+  studentPrefab: {fileID: 1872598530004892905, guid: 5b7f436bedceeaa4b8ad2fa81c0cdd56, type: 3}
+  spawnPoints:
+  - {fileID: 2016392635}
+  - {fileID: 2123931729}
+  - {fileID: 1117410738}
+  - {fileID: 1615113613}
+  - {fileID: 2112918205}
+  - {fileID: 1401512045}
+  - {fileID: 1232957486}
+  studentsPerLevel: 01000000
   currentLevel: 1
 --- !u!4 &537618216
 Transform:
@@ -65447,35 +65454,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
       propertyPath: <Throw>k__BackingField.Guid.Data1
-      value: -274555875
+      value: -73991550
       objectReference: {fileID: 0}
     - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
       propertyPath: <Throw>k__BackingField.Guid.Data2
-      value: 1126818259
+      value: 1156647516
       objectReference: {fileID: 0}
     - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
       propertyPath: <Throw>k__BackingField.Guid.Data3
-      value: 588178048
+      value: 1822102685
       objectReference: {fileID: 0}
     - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
       propertyPath: <Throw>k__BackingField.Guid.Data4
-      value: 1182305465
+      value: -1594095330
       objectReference: {fileID: 0}
     - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
       propertyPath: <Pickup>k__BackingField.Guid.Data1
-      value: -1841820774
+      value: -2080537335
       objectReference: {fileID: 0}
     - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
       propertyPath: <Pickup>k__BackingField.Guid.Data2
-      value: 1207514740
+      value: 1111640325
       objectReference: {fileID: 0}
     - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
       propertyPath: <Pickup>k__BackingField.Guid.Data3
-      value: -627319371
+      value: -572396655
       objectReference: {fileID: 0}
     - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
       propertyPath: <Pickup>k__BackingField.Guid.Data4
-      value: 1041808566
+      value: -1288692109
       objectReference: {fileID: 0}
     - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
       propertyPath: <PlayerToilet>k__BackingField.Path
@@ -83756,7 +83763,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8020547269035415032, guid: dc4bea226faa26642a05b7f2f63d894e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.53
+      value: 12.7
       objectReference: {fileID: 0}
     - target: {fileID: 8020547269035415032, guid: dc4bea226faa26642a05b7f2f63d894e, type: 3}
       propertyPath: m_LocalRotation.w

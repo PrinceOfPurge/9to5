@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Banana : MonoBehaviour, IInteractable
 {
-    public static bool isMinigameActive = false;
+    public static Banana ActiveBanana = null;
 
     [Header("Interaction")]
     public GameObject garbagePrompt;
@@ -51,6 +51,7 @@ public class Banana : MonoBehaviour, IInteractable
     private bool playerInRange;
     private bool isCleaned;
     private bool isProcessingAnimation = false;
+    private bool isThisBananaActive = false; // Individual state
 
     private float timer;
     private KeyCode currentKey;
@@ -84,7 +85,7 @@ public class Banana : MonoBehaviour, IInteractable
 
     public void OnFocus()
     {
-        if (isMinigameActive || isCleaned) return;
+        if (ActiveBanana != null || isCleaned) return;
         playerInRange = true;
         
         if (highlightScript != null) highlightScript.ToggleHighlight(true);
@@ -96,7 +97,7 @@ public class Banana : MonoBehaviour, IInteractable
 
     public void OnLoseFocus()
     {
-        if (isMinigameActive) return;
+        if (isThisBananaActive) return;
         playerInRange = false;
         
         if (highlightScript != null) highlightScript.ToggleHighlight(false);
@@ -108,7 +109,7 @@ public class Banana : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
-        if (!isMinigameActive && playerInRange && !isCleaned) 
+        if (ActiveBanana == null && playerInRange && !isCleaned) 
         {
             StartMiniGame();
         }
@@ -116,13 +117,16 @@ public class Banana : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        if (isMinigameActive && Time.timeScale == 0)
+        
+        if (!isThisBananaActive) return;
+
+        if (Time.timeScale == 0)
         {
             CancelMiniGame();
             return;
         }
 
-        if (isCleaned || !isMinigameActive || isProcessingAnimation) return;
+        if (isCleaned || isProcessingAnimation) return;
         
         if (ignoreInputThisFrame) 
         { 
@@ -161,7 +165,8 @@ public class Banana : MonoBehaviour, IInteractable
 
     private void StartMiniGame()
     {
-        isMinigameActive = true;
+        ActiveBanana = this; // Set the global lock
+        isThisBananaActive = true;
         
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -194,10 +199,10 @@ public class Banana : MonoBehaviour, IInteractable
 
     private void CancelMiniGame()
     {
-        isMinigameActive = false;
-        MinigameFocusManager.Instance.StopFocus();
+        isThisBananaActive = false;
+        if (ActiveBanana == this) ActiveBanana = null; // Release the lock
         
-        // --- REMOVED: playerMovement.enabled = true; ---
+        MinigameFocusManager.Instance.StopFocus();
         
         RestoreAllArrowColorsToOriginal();
         ResetUIStates();
@@ -205,11 +210,11 @@ public class Banana : MonoBehaviour, IInteractable
 
     private void FinishMiniGame()
     {
-        isMinigameActive = false;
+        isThisBananaActive = false;
+        if (ActiveBanana == this) ActiveBanana = null; // Release the lock
+        
         isCleaned = true;
         MinigameFocusManager.Instance.StopFocus();
-        
-        // --- REMOVED: playerMovement.enabled = true; ---
         
         ResetUIStates();
         

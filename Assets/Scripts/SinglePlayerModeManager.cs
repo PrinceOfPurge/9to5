@@ -101,12 +101,19 @@ public class SinglePlayerModeManager : MonoBehaviour
     
     //---------------------------------------------------------
 
-    void UpdateTimerUI()
+void UpdateTimerUI()
+{
+    // Check if the reference exists before trying to use it
+    if (TimerText != null)
     {
-        //TimerText.text = "TIMER: " + TimerValue.ToString();
-        SinglePlayerModeManager.Instance.TimerText.text = FormatTime(SinglePlayerModeManager.Instance.TimerValue);
-
-    } 
+        TimerText.text = FormatTime(TimerValue);
+    }
+    else 
+    {
+        // Try to find it again if it went missing
+        TimerText = GameObject.Find("TimerText")?.GetComponent<TextMeshProUGUI>();
+    }
+}
     
     // MM:SS formatter
     string FormatTime(float time)
