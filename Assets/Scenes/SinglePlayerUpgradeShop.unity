@@ -6031,7 +6031,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Equip Upgrades
+  m_text: View Upgrades
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5de5febaaf86070419ad2c66b3c427a6, type: 2}
   m_sharedMaterial: {fileID: 570208702219392913, guid: 5de5febaaf86070419ad2c66b3c427a6, type: 2}
@@ -15087,7 +15087,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: CONTINUE
+  m_text: CONTINUE>>>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5de5febaaf86070419ad2c66b3c427a6, type: 2}
   m_sharedMaterial: {fileID: 570208702219392913, guid: 5de5febaaf86070419ad2c66b3c427a6, type: 2}
