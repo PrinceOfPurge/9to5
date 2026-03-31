@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class StudentAI : MonoBehaviour
 {
     NavMeshAgent agent;
+    Animator animator; 
 
     public float moveSpeed = 3.5f;
     public float maxWaitTime = 25f;
@@ -28,6 +29,8 @@ public class StudentAI : MonoBehaviour
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        
+        animator = GetComponentInChildren<Animator>(); 
 
         agent.speed = moveSpeed;
 
@@ -49,17 +52,31 @@ public class StudentAI : MonoBehaviour
 
     private void Update()
     {
+        if (animator != null)
+        {
+            bool isMoving = agent.velocity.magnitude > 0.1f;
+            animator.SetBool("IsRunning", isMoving);
+        }
+
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && !makingMess)
         {
             if (returningHome)
             {
                 agent.isStopped = true;
+                
+                // stop animating when they reach home
+                if (animator != null) animator.SetBool("IsRunning", false); 
+                
                 return;
             }
 
             if (currentSpawn != null)
             {
                 makingMess = true;
+                
+                // stop animating while making a mess
+                if (animator != null) animator.SetBool("IsRunning", false);
+                
                 MakeMess();
             }
         }
@@ -101,7 +118,11 @@ public class StudentAI : MonoBehaviour
 
     void ReturnHome()
     {
-        returningHome = true;
-        agent.SetDestination(homePosition);
+        if (!returningHome) // Prevent this from triggering multiple times
+        {
+            returningHome = true;
+            SinglePlayerModeManager.Instance.ActiveStudents--; // Tell the manager they are done!
+            agent.SetDestination(homePosition);
+        }
     }
 }

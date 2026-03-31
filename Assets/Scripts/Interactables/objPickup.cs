@@ -175,7 +175,7 @@ public class objPickup : MonoBehaviour, IInteractable
         pickedup = true;
         isPlayerHoldingSomething = true; 
 
-    //    if (AudioManager.instance) AudioManager.instance.PlayOneShot(FMODEvents.instance.Pickup, transform.position);
+        if (AudioManager.instance) AudioManager.instance.PlayOneShot(FMODEvents.instance.Pickup, transform.position);
         
         if (playerAnimator != null) playerAnimator.SetTrigger(pickupTrigger);
         
@@ -199,7 +199,7 @@ public class objPickup : MonoBehaviour, IInteractable
         pickedup = false;
         isPlayerHoldingSomething = false; 
 
-       // if (AudioManager.instance) AudioManager.instance.PlayOneShot(FMODEvents.instance.Throw, transform.position);
+        if (AudioManager.instance) AudioManager.instance.PlayOneShot(FMODEvents.instance.Throw, transform.position);
         
         if (playerAnimator != null) playerAnimator.SetTrigger(throwTrigger);
         

@@ -1,32 +1,22 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SinglePlayerModeManager : MonoBehaviour
 {
-    [SerializeField]
-    // Timer
-    public TextMeshProUGUI TimerText;
-    public float maxTimerValue = 120f;
-    public float TimerValue;
-    public bool TimerisRunning;
-    public float upgradedMaxTimerValue = 150f;
-
-    // Score
+    // Score & Bags
     public TextMeshProUGUI BagsRemainingText;
     public int BagsRemaining;
     public int SinglePlayerScore;
+    public int ActiveStudents = 0;
 
     public int level = 1;
-
-    private bool gameEnded = false;
-
     public int PlayerMoney;
 
+    private bool gameEnded = false;
 
     public static SinglePlayerModeManager Instance;
 
@@ -46,35 +36,20 @@ public class SinglePlayerModeManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Try to find TimerText again when a scene loads
-        TimerText = GameObject.Find("TimerText")?.GetComponent<TextMeshProUGUI>();
         BagsRemainingText = GameObject.Find("BagsRemainingText")?.GetComponent<TextMeshProUGUI>();
 
-        if (ShopInfo.Instance != null)
-        {
-            if (ShopInfo.Instance.Overtime_Active)
-                maxTimerValue = upgradedMaxTimerValue;
-            else
-                maxTimerValue = 120f;
-        }
-
-        // If we're back in the gameplay scene, restart the timer
+        // If we're back in the gameplay scene, reset the level variables
         if (scene.name == "SinglePlayerMode")
         {
             gameEnded = false;
-            TimerValue = maxTimerValue;
-            TimerisRunning = true;
             BagsRemaining = 1;
             SinglePlayerScore = 0;
         }
     }
 
-
-
     void Start()
     {
-        TimerisRunning = true;
-        TimerValue = maxTimerValue;
+        // Start logic (if needed in the future) goes here
     }
 
     void Update()
@@ -82,90 +57,43 @@ public class SinglePlayerModeManager : MonoBehaviour
         if (gameEnded)
             return;
 
-        if (TimerisRunning)
-        {
-            TimerValue -= Time.deltaTime;
-            TimerValue = Mathf.Max(TimerValue, 0f); // prevent negative
-        }
-        
-        if (TimerisRunning == false) {
-            TimerValue = maxTimerValue;
-        }
-
-        UpdateTimerUI();
         UpdateBagsRemainingUI();
-
         EndTheGame();
-        
     }
     
     //---------------------------------------------------------
 
-void UpdateTimerUI()
-{
-    // Check if the reference exists before trying to use it
-    if (TimerText != null)
-    {
-        TimerText.text = FormatTime(TimerValue);
-    }
-    else 
-    {
-        // Try to find it again if it went missing
-        TimerText = GameObject.Find("TimerText")?.GetComponent<TextMeshProUGUI>();
-    }
-}
-    
-    // MM:SS formatter
-    string FormatTime(float time)
-    {
-        int minutes = Mathf.FloorToInt(time / 60f);
-        int seconds = Mathf.FloorToInt(time % 60f);
-        return string.Format("{0}:{1:00}", minutes, seconds);
-    }
-
     void UpdateBagsRemainingUI()
     {
-        SinglePlayerModeManager.Instance.BagsRemainingText.text = "X" + SinglePlayerModeManager.Instance.BagsRemaining;
+        // Directly update the text if the reference exists
+        if (BagsRemainingText != null)
+        {
+            BagsRemainingText.text = "X" + BagsRemaining;
+        }
     }
 
     void EndTheGame()
     {
-        // When 0 bags remaining, or Time Over, End the Game
-        //if (BagsRemaining == 0)
-        if (Input.GetKeyDown(KeyCode.B) || SinglePlayerModeManager.Instance.BagsRemaining == 0)
+        // The game only ends if there are 0 bags AND 0 students still making messes
+        // (Or if the player uses the 'B' debug key)
+        if (Input.GetKeyDown(KeyCode.B) || (BagsRemaining <= 0 && ActiveStudents <= 0))
         {
-            TimerisRunning = false;
-
             DisplayResults();
         }
-        if (SinglePlayerModeManager.Instance.BagsRemaining == 0)
-        {
-            TimerisRunning = false;
-
-            DisplayResults();
-        }
-
-        
-
-
-        //Show results UI
-
-        //Go to shop
-
-
     }
-    
-    
 
     void DisplayResults()
     {
-        // Show Results UI
+        // Prevent this from running multiple times
+        if (gameEnded) return; 
+
         Debug.Log("END DA GAME");
 
         gameEnded = true;
         level++;
 
-        PlayerMoney += SinglePlayerScore + (Mathf.RoundToInt(TimerValue) * 10);
+        // Add score to money (Timer bonus has been removed)
+        PlayerMoney += SinglePlayerScore;
 
         StartCoroutine(GotoShop());
     }

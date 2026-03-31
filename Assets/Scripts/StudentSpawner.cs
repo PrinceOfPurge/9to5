@@ -50,6 +50,7 @@ public class StudentSpawner : MonoBehaviour
             if (NavMesh.SamplePosition(spawnPoint.position, out hit, 5f, NavMesh.AllAreas))
             {
                 Instantiate(studentPrefab, hit.position, spawnPoint.rotation);
+                SinglePlayerModeManager.Instance.ActiveStudents++;
             }
             else
             {
