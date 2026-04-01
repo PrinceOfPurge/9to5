@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: OutlineMaterial 8
+  m_Name: PinkOutlineMopHighLightEffect
   m_Shader: {fileID: 4800000, guid: 49d065513426275469e84eb4c25a8d20, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0

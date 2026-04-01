@@ -16,7 +16,7 @@ public class DirtCleaner : MonoBehaviour, IInteractable
     public int interactionLayerIndex = 1;
 
     [Header("Highlighting")]
-    public HighlightEffectMultiMesh highlightScript; 
+    public MopHighLighEffect highlightScript;
 
     [Header("Positioning & Alignment")]
     public float interactionDistance = 1.8f; 
