@@ -66,7 +66,7 @@ public class PASystem : MonoBehaviour
                 activeTasks.Add(AnnouncementType.FoodFight);
 
             // Check Gym Mop
-            if (Nets.instance != null && !Nets.instance.isWon)
+            if (!Nets.IsMinigameWon)
                 activeTasks.Add(AnnouncementType.MopGym);
 
             if (activeTasks.Count > 0)
@@ -86,7 +86,7 @@ public class PASystem : MonoBehaviour
                 bool bagsDone = SinglePlayerModeManager.Instance == null || SinglePlayerModeManager.Instance.BagsRemaining <= 0;
                 bool plungerDone = PlungerMiniGame.instance == null || PlungerMiniGame.instance.isWon;
                 bool principalDone = PrincipalMinigame.instance == null || PrincipalMinigame.instance.hasWon;
-                bool gymDone = Nets.instance == null || Nets.instance.isWon;
+                bool gymDone = Nets.IsMinigameWon;
 
                 if (bagsDone && plungerDone && gymDone && principalDone)
                 {
@@ -112,7 +112,7 @@ public class PASystem : MonoBehaviour
             case AnnouncementType.FoodFight:
                 return PrincipalMinigame.instance != null && !PrincipalMinigame.instance.hasWon;
             case AnnouncementType.MopGym:
-                return Nets.instance != null && !Nets.instance.isWon;
+                return !Nets.IsMinigameWon;
             default: return false;
         }
     }
