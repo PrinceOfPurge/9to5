@@ -12,16 +12,23 @@ public class Nets : MonoBehaviour
     [Header("Settings")]
     public int bucketsNeeded = 3;
 
+    [Header("Timer Settings")]
+    public float timeLimit = 30f; // How long they have to make the shots
+    private static float gameEndTime; // Shared deadline for all hoops
+
     [Header("UI Reference (World Space)")]
     public GameObject uiCanvas; 
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI timerText;
     public Color activeColor = Color.white;
+    public Color timerActiveColor = new Color(1.0f, 0.55f, 0.0f); // NEW: Orange for the shot clock!
     public Color winColor = Color.green;
+    public Color failColor = Color.red; 
 
     private ParticleSystem hoopParticles;
     private static List<Nets> allHoops = new List<Nets>();
     
-    // --- NEW: Double-Count Protection ---
+    // Double-Count Protection 
     private List<GameObject> recentlyScoredGarbage = new List<GameObject>();
 
     void Awake()
@@ -36,6 +43,23 @@ public class Nets : MonoBehaviour
         UpdateScoreUI();
     }
 
+    void Update()
+    {
+        // Timer Countdown Logic
+        if (IsMinigameActive && !IsMinigameWon)
+        {
+            float timeLeft = gameEndTime - Time.time;
+
+            if (timeLeft <= 0)
+            {
+                timeLeft = 0;
+                FailGame();
+            }
+
+            UpdateTimerUI(timeLeft);
+        }
+    }
+
     public void StartBasketballGame()
     {
         if (IsMinigameWon) return;
@@ -43,11 +67,21 @@ public class Nets : MonoBehaviour
         TotalBucketsScored = 0;
         IsMinigameActive = true;
         
+        // Set the global deadline based on the time limit
+        gameEndTime = Time.time + timeLimit;
+        
         foreach (Nets hoop in allHoops)
         {
             if (hoop.uiCanvas != null) hoop.uiCanvas.SetActive(true);
+            hoop.recentlyScoredGarbage.Clear(); 
+            
+            // Reset colors
+            if (hoop.scoreText != null) hoop.scoreText.color = hoop.activeColor;
+            
+            // NEW: Set the timer text to the dedicated orange color
+            if (hoop.timerText != null) hoop.timerText.color = hoop.timerActiveColor;
+
             hoop.UpdateScoreUI();
-            hoop.recentlyScoredGarbage.Clear(); // Clear the list on start
         }
     }
 
@@ -57,14 +91,9 @@ public class Nets : MonoBehaviour
 
         if (other.CompareTag("Garbage"))
         {
-            // NEW: If we already counted this exact piece of trash, ignore it!
             if (recentlyScoredGarbage.Contains(other.gameObject)) return;
 
-            // Add it to the list to prevent double-counting
             recentlyScoredGarbage.Add(other.gameObject);
-            
-            // Start a timer to "forget" this trash after 2 seconds 
-            // (so if the player picks it up and throws it again, it still works)
             StartCoroutine(ClearGarbageMemory(other.gameObject));
 
             TotalBucketsScored++;
@@ -85,7 +114,6 @@ public class Nets : MonoBehaviour
         }
     }
 
-    // --- NEW: Forgetting the garbage after a short delay ---
     private IEnumerator ClearGarbageMemory(GameObject garbageObj)
     {
         yield return new WaitForSeconds(2.0f);
@@ -104,6 +132,31 @@ public class Nets : MonoBehaviour
         }
     }
 
+    private void UpdateTimerUI(float timeRemaining)
+    {
+        if (timerText != null)
+        {
+            timerText.text = timeRemaining.ToString("F1");
+        }
+    }
+
+    void FailGame()
+    {
+        IsMinigameActive = false;
+
+        foreach (Nets hoop in allHoops)
+        {
+            if (hoop.scoreText != null) hoop.scoreText.color = hoop.failColor;
+            if (hoop.timerText != null) 
+            {
+                hoop.timerText.color = hoop.failColor;
+                hoop.timerText.text = "0.0";
+            }
+
+            hoop.StartCoroutine(hoop.HideUIAfterDelay(3f));
+        }
+    }
+
     void CompleteGame()
     {
         IsMinigameWon = true;
@@ -112,6 +165,7 @@ public class Nets : MonoBehaviour
         foreach (Nets hoop in allHoops)
         {
             hoop.UpdateScoreUI();
+            if (hoop.timerText != null) hoop.timerText.color = hoop.winColor;
         }
         
         PASystem pa = FindFirstObjectByType<PASystem>();
