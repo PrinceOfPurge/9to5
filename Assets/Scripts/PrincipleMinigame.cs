@@ -70,6 +70,11 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     private Transform playerTransform;
     private bool isInvulnerableToAudio = false; // Internal flag for the grace period
 
+    // NEW: VFX to play when a mess GameObject is destroyed
+    [Header("Mess VFX")]
+    [Tooltip("ParticleSystem prefab to play when an individual mess is destroyed.")]
+    public ParticleSystem messDestroyVfxPrefab;
+
     // ... [Awake, Start, DrawBoundaryRing, OnFocus, OnLoseFocus, OnInteract are unchanged] ...
 
     private void Awake()
@@ -216,6 +221,10 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
             {
                 GameObject newMess = Instantiate(messPrefab, point.position, point.rotation);
                 RegisterMess(newMess);
+
+                // Attach a notifier so we can react when this mess is destroyed
+                // (plays VFX from PrincipalMinigame.OnMessDestroyed)
+                if (newMess.GetComponent<MessDestroyNotifier>() == null) newMess.AddComponent<MessDestroyNotifier>();
             }
         }
     }
@@ -224,6 +233,39 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
         if (!activeMesses.Contains(mess)) {
             activeMesses.Add(mess);
         }
+
+        // Ensure the notifier is present for any mess registered at runtime.
+        // This covers messes instantiated elsewhere that call RegisterMess.
+        if (mess != null && mess.GetComponent<MessDestroyNotifier>() == null)
+        {
+            mess.AddComponent<MessDestroyNotifier>();
+        }
+    }
+
+    // Called by MessDestroyNotifier when a mess GameObject is destroyed or disabled
+    public void OnMessDestroyed(Vector3 worldPosition)
+    {
+        if (messDestroyVfxPrefab == null) return;
+
+        ParticleSystem ps = Instantiate(messDestroyVfxPrefab, worldPosition, Quaternion.identity);
+        ps.Play();
+
+        // Destroy instantiated VFX after its lifetime
+        var main = ps.main;
+        float life = main.duration;
+        // attempt to add startLifetime if constant
+        if (main.startLifetime.mode == ParticleSystemCurveMode.Constant)
+        {
+            life += main.startLifetime.constant;
+        }
+        else
+        {
+            // safe fallback: add 1 second
+            life += 1f;
+        }
+
+        if (life <= 0f) life = main.duration + 1f;
+        Destroy(ps.gameObject, life + 0.1f);
     }
 
     // --- UPDATED: NotifyMessCleaned now starts a grace period ---
@@ -358,5 +400,35 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
+    }
+
+    // Notifier component attached to each mess instance so we can detect when it's destroyed.
+    // Using a nested class keeps the notifier implementation local and simple.
+    private class MessDestroyNotifier : MonoBehaviour
+    {
+        private bool notified = false;
+
+        private void OnDisable()
+        {
+            // If the mess is being returned to a pool it is commonly deactivated --
+            // treat that as a destruction for VFX purposes, but ensure we only notify once.
+            NotifyOnce();
+        }
+
+        private void OnDestroy()
+        {
+            NotifyOnce();
+        }
+
+        private void NotifyOnce()
+        {
+            if (notified) return;
+            notified = true;
+
+            if (PrincipalMinigame.instance != null)
+            {
+                PrincipalMinigame.instance.OnMessDestroyed(transform.position);
+            }
+        }
     }
 }

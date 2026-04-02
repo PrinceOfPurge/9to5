@@ -35357,7 +35357,7 @@ GameObject:
   - component: {fileID: 1164481385}
   - component: {fileID: 1164481387}
   m_Layer: 0
-  m_Name: Trashcan.003 (2)
+  m_Name: CafeTrashCan
   m_TagString: GarbageCan
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43431,7 +43431,7 @@ GameObject:
   - component: {fileID: 1494202786}
   - component: {fileID: 1494202788}
   m_Layer: 0
-  m_Name: Trashcan.003 (1)
+  m_Name: CafeTrashCanMid
   m_TagString: GarbageCan
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58540,15 +58540,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 329291781802519642, guid: 192099d2c29199a4c85c18215e0fd3f8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -354.55
+      value: -228.6
       objectReference: {fileID: 0}
     - target: {fileID: 329291781802519642, guid: 192099d2c29199a4c85c18215e0fd3f8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.9756625
+      value: 4.1
       objectReference: {fileID: 0}
     - target: {fileID: 329291781802519642, guid: 192099d2c29199a4c85c18215e0fd3f8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 28.36
+      value: 25.4
       objectReference: {fileID: 0}
     - target: {fileID: 329291781802519642, guid: 192099d2c29199a4c85c18215e0fd3f8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -89811,6 +89811,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2080741727}
     - target: {fileID: 4837738556171156491, guid: d3cc27669595b8c408a2156498066401, type: 3}
+      propertyPath: garbageBinPS
+      value: 
+      objectReference: {fileID: 7662869999383113155, guid: 5378361e80f9a7d4cb56220a9697b70b, type: 3}
+    - target: {fileID: 4837738556171156491, guid: d3cc27669595b8c408a2156498066401, type: 3}
       propertyPath: defaultCursorObj
       value: 
       objectReference: {fileID: 109628774}
@@ -89826,6 +89830,10 @@ PrefabInstance:
       propertyPath: screenPatienceFill
       value: 
       objectReference: {fileID: 616272456}
+    - target: {fileID: 4837738556171156491, guid: d3cc27669595b8c408a2156498066401, type: 3}
+      propertyPath: messDestroyVfxPrefab
+      value: 
+      objectReference: {fileID: 7662869999383113155, guid: 5378361e80f9a7d4cb56220a9697b70b, type: 3}
     - target: {fileID: 4837738556171156491, guid: d3cc27669595b8c408a2156498066401, type: 3}
       propertyPath: patienceRestorePerClean
       value: 25
