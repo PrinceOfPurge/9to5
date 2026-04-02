@@ -18,6 +18,10 @@ public class Door : MonoBehaviour, IInteractable
     private bool isOpen = false;
     private bool isFocused = false;
 
+    // ---  AI TRACKING VARIABLES ---
+    private int studentsInProximity = 0;
+    private bool openedByPlayer = false; 
+
     void Start()
     {
         if (doorClosed) doorClosed.SetActive(true);
@@ -25,7 +29,6 @@ public class Door : MonoBehaviour, IInteractable
         
         if (openPrompt) openPrompt.SetActive(false);
         if (closePrompt) closePrompt.SetActive(false);
-        
     }
 
     public void OnFocus()
@@ -47,9 +50,15 @@ public class Door : MonoBehaviour, IInteractable
     public void OnInteract()
     {
         if (!isOpen) 
+        {
+            openedByPlayer = true; // The player manually claimed this door
             OpenDoor();
+        }
         else 
+        {
+            openedByPlayer = false; // The player explicitly closed it
             CloseDoor();
+        }
     }
 
     void OpenDoor()
@@ -59,7 +68,6 @@ public class Door : MonoBehaviour, IInteractable
         if (doorOpened) doorOpened.SetActive(true);
         
         PlayDoorSound(true);
-
         UpdatePrompts();
     }
 
@@ -70,30 +78,50 @@ public class Door : MonoBehaviour, IInteractable
         if (doorClosed) doorClosed.SetActive(true);
         
         PlayDoorSound(false);
-
         UpdatePrompts();
     }
 
+    // ---  AI Proximity Detection ---
+    private void OnTriggerEnter(Collider other)
+    {
+        // Make sure you tag your student prefab as "Student"!
+        if (other.CompareTag("Student"))
+        {
+            studentsInProximity++;
+            
+            // If the door is closed, open it for them
+            if (!isOpen)
+            {
+                OpenDoor();
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        //Debug.Log("DOOR TRIGGER HIT BY: " + other.gameObject.name + " with Tag: " + other.tag);
+        if (other.CompareTag("Student"))
+        {
+            studentsInProximity--;
+            
+            // Only auto-close if no more students are near, 
+            // AND the player didn't manually open this door themselves
+            if (studentsInProximity <= 0 && !openedByPlayer && isOpen)
+            {
+                CloseDoor();
+            }
+        }
+    }
+    // -----------------------------------
+
     private void PlayDoorSound(bool opening)
     {
-        // Check if Manager exists
-        if (AudioManager.instance == null)
-        {
-            //Debug.LogError("DEBUG: Cannot play sound. AudioManager.instance is null.");
-            return;
-        }
+        if (AudioManager.instance == null) return;
 
-        // 2. Select Event and Check if Reference is assigned
         FMODUnity.EventReference targetEvent = opening ? FMODEvents.instance.DoorOpen : FMODEvents.instance.DoorClose;
 
-        if (targetEvent.IsNull)
-        {
-            //Debug.LogError($"DEBUG: FMOD Event '{(opening ? "DoorOpen" : "DoorClose")}' is NOT assigned in FMODEvents inspector!");
-            return;
-        }
+        if (targetEvent.IsNull) return;
 
-        // 3. Try to play
-        //Debug.Log($"DEBUG: Attempting to play {(opening ? "Open" : "Close")} sound at {transform.position}");
         AudioManager.instance.PlayOneShot(targetEvent, Camera.main.transform.position);
     }
 
@@ -101,10 +129,7 @@ public class Door : MonoBehaviour, IInteractable
     {
         if (!gameObject.activeInHierarchy) return;
 
-        if (openPrompt)
-            openPrompt.SetActive(isFocused && !isOpen);
-
-        if (closePrompt)
-            closePrompt.SetActive(isFocused && isOpen);
+        if (openPrompt) openPrompt.SetActive(isFocused && !isOpen);
+        if (closePrompt) closePrompt.SetActive(isFocused && isOpen);
     }
 }

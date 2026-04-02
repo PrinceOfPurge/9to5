@@ -6,6 +6,9 @@ using FMOD.Studio;
 [RequireComponent(typeof(SpriteRenderer), typeof(BoxCollider))]
 public class DirtCleaner : MonoBehaviour, IInteractable
 {
+    [HideInInspector] 
+    public DirtSpawn originSpawnPoint;
+
     [Header("Interaction Settings")]
     public GameObject cleaningPrompt;
     public KeyCode interactKey = KeyCode.E;
@@ -16,7 +19,7 @@ public class DirtCleaner : MonoBehaviour, IInteractable
     public int interactionLayerIndex = 1;
 
     [Header("Highlighting")]
-    public MopHighLighEffect highlightScript;
+    public HighlightEffectMultiMesh highlightScript;
 
     [Header("Positioning & Alignment")]
     public float interactionDistance = 1.8f; 
@@ -27,10 +30,8 @@ public class DirtCleaner : MonoBehaviour, IInteractable
     public Image fillImage;
     public GameObject miniGamePrompt;
 
-    [Header("Cursor")]
-    public Image cursorUI;
-    public Sprite defaultCursorSprite;
-    public Sprite interactCursorSprite;
+    private GameObject crosshair1;
+    private GameObject crosshair2;
 
     [Header("Flash & Feedback")]
     public Color successColor = Color.green;
@@ -49,7 +50,10 @@ public class DirtCleaner : MonoBehaviour, IInteractable
 
     private Vector3 mopStartPos;
     private SpriteRenderer sr;
-    private bool playerInRange = false;
+    
+    private bool isLookedAt = false; 
+    private bool isUIActive = false; 
+
     private bool miniGameActive = false;
     private float holdTimer = 0f;
     private float currentAlpha = 1f;
@@ -57,7 +61,9 @@ public class DirtCleaner : MonoBehaviour, IInteractable
 
     private Vector3 originalUIScale;
     private Color originalFillColor;
+    
     private PlayerMovement playerMovement;
+    private Transform playerTransform;
     private Animator playerAnimator;
     private EventInstance mopSoundInstance;
 
@@ -65,6 +71,35 @@ public class DirtCleaner : MonoBehaviour, IInteractable
     {
         sr = GetComponent<SpriteRenderer>();
         currentAlpha = sr.color.a;
+
+        if (highlightScript == null)
+            highlightScript = GetComponentInChildren<HighlightEffectMultiMesh>();
+
+        playerMovement = FindObjectOfType<PlayerMovement>();
+        if (playerMovement != null)
+        {
+            playerTransform = playerMovement.transform;
+            playerAnimator = playerMovement.GetComponentInChildren<Animator>();
+
+            if (playerHandMop == null)
+            {
+                Transform[] playerChildren = playerMovement.GetComponentsInChildren<Transform>(true);
+                foreach (Transform child in playerChildren)
+                {
+                    if (child.name == "NewMop") 
+                    {
+                        playerHandMop = child.gameObject;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (UIManager.Instance != null)
+        {
+            crosshair1 = UIManager.Instance.crosshair1;
+            crosshair2 = UIManager.Instance.crosshair2;
+        }
 
         if (fillImage != null) originalFillColor = fillImage.color;
 
@@ -76,39 +111,78 @@ public class DirtCleaner : MonoBehaviour, IInteractable
 
         if (cleaningPrompt != null) cleaningPrompt.SetActive(false);
         if (miniGamePrompt != null) miniGamePrompt.SetActive(false);
-        if (playerHandMop != null) playerHandMop.SetActive(false);
+        
+        if (crosshair1 != null) crosshair1.SetActive(true);
+        if (crosshair2 != null) crosshair2.SetActive(false);
 
-        if (cursorUI != null && defaultCursorSprite != null)
-            cursorUI.sprite = defaultCursorSprite;
-
-        if (worldMop != null) mopStartPos = worldMop.transform.localPosition;
+        if (worldMop != null) 
+        {
+            worldMop.SetActive(true);
+            mopStartPos = worldMop.transform.localPosition;
+        }
     }
 
-    public void OnFocus()
+    private float GetFlatDistanceToPlayer()
     {
+        if (playerTransform == null) return 999f;
+        Vector3 myPosFlat = new Vector3(transform.position.x, 0, transform.position.z);
+        Vector3 playerPosFlat = new Vector3(playerTransform.position.x, 0, playerTransform.position.z);
+        return Vector3.Distance(myPosFlat, playerPosFlat);
+    }
+
+    // --- FOLLOWS BANANA LOGIC ---
+
+    public void OnFocus() 
+    { 
         if (miniGameActive) return;
-        playerInRange = true;
-        if (highlightScript != null) highlightScript.ToggleHighlight(true);
-        if (cleaningPrompt != null) cleaningPrompt.SetActive(true);
-        if (cursorUI != null && interactCursorSprite != null) cursorUI.sprite = interactCursorSprite;
+        isLookedAt = true; 
+        
+        // Only trigger if in range, exactly like the distance check logic
+        if (GetFlatDistanceToPlayer() <= interactionDistance)
+        {
+            ToggleInteractionUI(true);
+        }
     }
 
     public void OnLoseFocus()
     {
+        isLookedAt = false;
         if (miniGameActive) return;
-        playerInRange = false;
-        if (highlightScript != null) highlightScript.ToggleHighlight(false);
-        if (cleaningPrompt != null) cleaningPrompt.SetActive(false);
-        if (cursorUI != null && defaultCursorSprite != null) cursorUI.sprite = defaultCursorSprite;
+        ToggleInteractionUI(false); 
+    }
+
+    private void ToggleInteractionUI(bool show)
+    {
+        if (isUIActive == show) return; 
+        isUIActive = show;
+
+        if (highlightScript != null) highlightScript.ToggleHighlight(show);
+        if (cleaningPrompt != null) cleaningPrompt.SetActive(show);
+        
+        if (crosshair1 != null) crosshair1.SetActive(!show);
+        if (crosshair2 != null) crosshair2.SetActive(show);
     }
 
     public void OnInteract()
     {
-        if (!miniGameActive && playerInRange) StartMiniGame();
+        if (!miniGameActive && isLookedAt && GetFlatDistanceToPlayer() <= interactionDistance) 
+            StartMiniGame();
     }
 
     private void Update()
     {
+        // Continuous check: If you walk out of range while looking at it, turn highlight OFF.
+        // If you walk INTO range while looking at it, turn highlight ON.
+        if (isLookedAt && !miniGameActive)
+        {
+            bool inRange = GetFlatDistanceToPlayer() <= interactionDistance;
+            if (inRange != isUIActive) 
+            {
+                ToggleInteractionUI(inRange);
+            }
+        }
+
+        // Rest of the logic (World Mop, Minigame input, etc) stays identical
         if (miniGameActive && Time.timeScale == 0)
         {
             CancelMiniGame();
@@ -124,11 +198,7 @@ public class DirtCleaner : MonoBehaviour, IInteractable
 
         if (!miniGameActive || isProcessingResult) return;
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            CancelMiniGame();
-            return;
-        }
+        if (Input.GetMouseButtonDown(1)) { CancelMiniGame(); return; }
 
         if (Input.GetKey(interactKey)) holdTimer += Time.deltaTime;
         if (fillImage != null) fillImage.fillAmount = Mathf.Clamp01(holdTimer / holdTime);
@@ -139,11 +209,8 @@ public class DirtCleaner : MonoBehaviour, IInteractable
         {
             float perfectStart = holdTime - perfectWindow;
             float perfectEnd = holdTime + perfectWindow;
-
-            if (holdTimer >= perfectStart && holdTimer <= perfectEnd)
-                StartCoroutine(SuccessSequence());
-            else
-                StartCoroutine(FailSequence());
+            if (holdTimer >= perfectStart && holdTimer <= perfectEnd) StartCoroutine(SuccessSequence());
+            else StartCoroutine(FailSequence());
         }
     }
 
@@ -152,36 +219,23 @@ public class DirtCleaner : MonoBehaviour, IInteractable
         miniGameActive = true;
         isProcessingResult = false;
         holdTimer = 0f;
-        
+        ToggleInteractionUI(false); 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        if (cursorUI != null) cursorUI.enabled = false; 
-
-        if (highlightScript != null) highlightScript.ToggleHighlight(false);
-
+        if (crosshair1 != null) crosshair1.SetActive(false);
+        if (crosshair2 != null) crosshair2.SetActive(false);
         if (miniGameUIParent != null)
         {
             miniGameUIParent.SetActive(true);
             miniGameUIParent.transform.localScale = originalUIScale; 
         }
-
         if (miniGamePrompt != null) miniGamePrompt.SetActive(true);
-        if (cleaningPrompt != null) cleaningPrompt.SetActive(false);
         if (worldMop != null) worldMop.SetActive(false);
-
-        playerMovement = FindObjectOfType<PlayerMovement>();
+        if (playerHandMop != null) playerHandMop.SetActive(true);
         if (playerMovement != null)
         {
-            playerAnimator = playerMovement.GetComponentInChildren<Animator>();
-            
-            if (playerAnimator != null)
-            {
-                playerAnimator.SetFloat("Speed", 0f);
-            }
-
+            if (playerAnimator != null) playerAnimator.SetFloat("Speed", 0f);
             playerMovement.enabled = false; 
-            
-            // The MinigameFocusManager now handles the distance alignment!
             MinigameFocusManager.Instance.StartFocus(transform, lookOffset, interactionDistance);
         }
     }
@@ -190,12 +244,11 @@ public class DirtCleaner : MonoBehaviour, IInteractable
     {
         miniGameActive = false;
         MinigameFocusManager.Instance.StopFocus();
-        
-        // --- REMOVED: playerMovement.enabled = true; ---
-        
         StopMopSound();
         ResetUIStates();
+        if (isLookedAt) ToggleInteractionUI(GetFlatDistanceToPlayer() <= interactionDistance);
         if (worldMop != null) worldMop.SetActive(true);
+        if (playerHandMop != null) playerHandMop.SetActive(false);
     }
 
     private IEnumerator SuccessSequence()
@@ -203,21 +256,15 @@ public class DirtCleaner : MonoBehaviour, IInteractable
         isProcessingResult = true;
         if (fillImage != null) fillImage.color = successColor;
         miniGameUIParent.transform.localScale = originalUIScale * successPulseAmount;
-
         if (playerAnimator != null)
         {
             playerAnimator.SetBool("InteractionActive", true);
             StartCoroutine(FadeLayerWeight(interactionLayerIndex, 1f, 0.2f));
-            
             mopSoundInstance = AudioManager.instance.CreateInstance(FMODEvents.instance.Broom);
             mopSoundInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
             mopSoundInstance.start();
-
-            if (playerHandMop != null) playerHandMop.SetActive(true);
         }
-
         yield return new WaitForSeconds(0.2f);
-
         float t = 0;
         while (t < 0.4f)
         {
@@ -225,7 +272,6 @@ public class DirtCleaner : MonoBehaviour, IInteractable
             miniGameUIParent.transform.localScale = Vector3.Lerp(originalUIScale * successPulseAmount, Vector3.zero, t / 0.4f);
             yield return null;
         }
-
         miniGameUIParent.SetActive(false);
         if (miniGamePrompt != null) miniGamePrompt.SetActive(false);
         StartCoroutine(FadeDirt());
@@ -236,14 +282,12 @@ public class DirtCleaner : MonoBehaviour, IInteractable
         isProcessingResult = true;
         if (fillImage != null) fillImage.color = failColor;
         Vector3 originalLocalPos = miniGameUIParent.transform.localPosition;
-        
         for (int i = 0; i < 8; i++)
         {
             miniGameUIParent.transform.localPosition = originalLocalPos + (Random.insideUnitSphere * 0.05f); 
             yield return new WaitForSeconds(0.015f);
         }
         miniGameUIParent.transform.localPosition = originalLocalPos;
-
         float startFill = fillImage != null ? fillImage.fillAmount : 0;
         float elapsed = 0f;
         while (fillImage != null && fillImage.fillAmount > 0)
@@ -252,7 +296,6 @@ public class DirtCleaner : MonoBehaviour, IInteractable
             fillImage.fillAmount = Mathf.Lerp(startFill, 0, elapsed);
             yield return null;
         }
-
         if (fillImage != null) fillImage.color = originalFillColor;
         holdTimer = 0f;
         isProcessingResult = false; 
@@ -273,20 +316,16 @@ public class DirtCleaner : MonoBehaviour, IInteractable
     {
         miniGameActive = false;
         MinigameFocusManager.Instance.StopFocus();
-        
-        // --- REMOVED: playerMovement.enabled = true; ---
-        
         StopMopSound();
-        
         if (playerAnimator != null)
         {
             playerAnimator.SetBool("InteractionActive", false);
             StartCoroutine(FadeLayerWeight(interactionLayerIndex, 0f, 0.3f));
         }
-        
         if (playerHandMop != null) playerHandMop.SetActive(false);
         ResetUIStates();
-        
+        if (originSpawnPoint != null) originSpawnPoint.isSpawned = false;
+        if (SinglePlayerModeManager.Instance != null) SinglePlayerModeManager.Instance.BagsRemaining--;
         if (doneVFX != null) Destroy(Instantiate(doneVFX, transform.position, Quaternion.identity), 2f);
         Destroy(gameObject);
     }
@@ -319,11 +358,8 @@ public class DirtCleaner : MonoBehaviour, IInteractable
     {
         Cursor.visible = false; 
         Cursor.lockState = CursorLockMode.Locked;
-        if (cursorUI != null)
-        {
-            cursorUI.enabled = true;
-            cursorUI.sprite = defaultCursorSprite;
-        }
+        if (crosshair1 != null) crosshair1.SetActive(true);
+        if (crosshair2 != null) crosshair2.SetActive(false);
         if (miniGameUIParent != null) miniGameUIParent.SetActive(false);
         if (miniGamePrompt != null) miniGamePrompt.SetActive(false);
     }

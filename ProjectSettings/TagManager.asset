@@ -13,6 +13,7 @@ TagManager:
   - Floor
   - Principal
   - MessSpawn
+  - Student
   layers:
   - Default
   - TransparentFX

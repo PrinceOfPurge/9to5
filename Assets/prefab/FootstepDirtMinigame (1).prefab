@@ -530,26 +530,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa7a548dbd40aaa45a421855394c1aa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originSpawnPoint: {fileID: 0}
   cleaningPrompt: {fileID: 4698404577804319326}
   interactKey: 101
   holdTime: 1
   fadeSpeed: 0.5
   perfectWindow: 0.05
   doneVFX: {fileID: 0}
+  interactionLayerIndex: 1
   highlightScript: {fileID: 3491666802988249558}
   interactionDistance: 10
-  positioningSpeed: 5
+  lookOffset: {x: 2, y: -0.5, z: 0}
   miniGameUIParent: {fileID: 5241715338122511641}
   fillImage: {fileID: 4932766670178117129}
-  sweetSpotMarker: {fileID: 0}
-  lookOffset: {x: 2, y: -0.5, z: 0}
   miniGamePrompt: {fileID: 5213446444750497099}
-  cursorUI: {fileID: 0}
-  defaultCursorSprite: {fileID: 21300000, guid: a6204814fee7d8d44a3042a6a2c44ce4, type: 3}
-  interactCursorSprite: {fileID: 21300000, guid: f426d6a276223ca4abdf892fafba7d30, type: 3}
   successColor: {r: 0, g: 1, b: 0, a: 1}
   failColor: {r: 1, g: 0, b: 0, a: 1}
-  flashDuration: 0.15
   rewindSpeed: 2.5
   successPulseAmount: 1.2
   worldMop: {fileID: 2318077865211039078}
@@ -557,7 +553,6 @@ MonoBehaviour:
   mopFloatHeight: 0.1
   mopFloatSpeed: 2
   playerHandMop: {fileID: 0}
-  cameraLockSpeed: 5
 --- !u!1 &8059481498094591732
 GameObject:
   m_ObjectHideFlags: 0

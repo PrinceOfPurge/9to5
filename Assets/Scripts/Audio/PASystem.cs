@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class PASystem : MonoBehaviour
 {
+    public static PASystem Instance;
+
     public enum AnnouncementType
     {
         Student = 0,
@@ -17,21 +19,33 @@ public class PASystem : MonoBehaviour
     [Header("Loop Settings")]
     public float delayBetweenAnnouncements = 15f; 
     private bool allTasksDone = false;
+    
+    [HideInInspector]
+    public bool finalAnnouncementFinished = false; // Required for SinglePlayerModeManager
 
     private List<EventInstance> activeInstances = new List<EventInstance>();
+
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else { Destroy(gameObject); return; }
+    }
 
     private void Start()
     {
         StartCoroutine(AnnouncementLoop());
     }
 
-    // --- THIS IS THE FIXED METHOD ---
+    // --- THIS IS THE FUNCTION YOUR ERRORS WERE MISSING ---
     public void CheckForInstantUpdate()
     {
-        StopAllCoroutines();
-        StartCoroutine(AnnouncementLoop());
+        // If we aren't currently playing a broadcast, restart the loop to check tasks
+        if (activeInstances.Count == 0)
+        {
+            StopAllCoroutines();
+            StartCoroutine(AnnouncementLoop());
+        }
     }
-    // --------------------------------
 
     private IEnumerator AnnouncementLoop()
     {
@@ -39,12 +53,19 @@ public class PASystem : MonoBehaviour
         {
             List<AnnouncementType> activeTasks = new List<AnnouncementType>();
 
+            // Check Student Messes
+            if (SinglePlayerModeManager.Instance != null && SinglePlayerModeManager.Instance.BagsRemaining > 0)
+                activeTasks.Add(AnnouncementType.Student);
+
+            // Check Clogged Toilets
             if (PlungerMiniGame.instance != null && !PlungerMiniGame.instance.isWon)
                 activeTasks.Add(AnnouncementType.CloggedToilet);
 
+            // Check Food Fight
             if (PrincipalMinigame.instance != null && !PrincipalMinigame.instance.hasWon)
                 activeTasks.Add(AnnouncementType.FoodFight);
 
+            // Check Gym Mop
             if (Nets.instance != null && !Nets.instance.isWon)
                 activeTasks.Add(AnnouncementType.MopGym);
 
@@ -61,14 +82,19 @@ public class PASystem : MonoBehaviour
             }
             else
             {
+                // Check if absolutely everything is finished
+                bool bagsDone = SinglePlayerModeManager.Instance == null || SinglePlayerModeManager.Instance.BagsRemaining <= 0;
                 bool plungerDone = PlungerMiniGame.instance == null || PlungerMiniGame.instance.isWon;
                 bool principalDone = PrincipalMinigame.instance == null || PrincipalMinigame.instance.hasWon;
                 bool gymDone = Nets.instance == null || Nets.instance.isWon;
 
-                if (plungerDone && principalDone && gymDone)
+                if (bagsDone && plungerDone && gymDone && principalDone)
                 {
                     allTasksDone = true;
                     yield return StartCoroutine(PlayBroadcast(AnnouncementType.AllComplete));
+                    
+                    // This tells the Game Manager it is safe to load the Shop scene
+                    finalAnnouncementFinished = true; 
                 }
             }
             yield return new WaitForSeconds(2f);
@@ -79,47 +105,48 @@ public class PASystem : MonoBehaviour
     {
         switch (type)
         {
+            case AnnouncementType.Student:
+                return SinglePlayerModeManager.Instance != null && SinglePlayerModeManager.Instance.BagsRemaining > 0;
             case AnnouncementType.CloggedToilet:
                 return PlungerMiniGame.instance != null && !PlungerMiniGame.instance.isWon;
             case AnnouncementType.FoodFight:
                 return PrincipalMinigame.instance != null && !PrincipalMinigame.instance.hasWon;
             case AnnouncementType.MopGym:
                 return Nets.instance != null && !Nets.instance.isWon;
-            default:
-                return false;
+            default: return false;
         }
     }
 
     private IEnumerator PlayBroadcast(AnnouncementType type)
     {
         PASpeakerLocation[] speakers = FindObjectsOfType<PASpeakerLocation>();
-        activeInstances.Clear();
-
         if (speakers.Length == 0) yield break;
 
+        activeInstances.Clear();
         foreach (PASpeakerLocation speaker in speakers)
         {
             EventInstance inst = AudioManager.instance.CreateInstance(FMODEvents.instance.PAannouncement);
             inst.setParameterByName("AnouncementType", (float)type);
-            inst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(speaker.gameObject));
+            inst.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(speaker.transform.position));
             inst.start();
             activeInstances.Add(inst);
         }
 
-        if (activeInstances.Count > 0)
+        // Wait for audio to finish playing fully
+        bool isPlaying = true;
+        while (isPlaying)
         {
-            PLAYBACK_STATE state;
-            activeInstances[0].getPlaybackState(out state);
-            while (state != PLAYBACK_STATE.STOPPED)
+            isPlaying = false;
+            foreach (EventInstance inst in activeInstances)
             {
-                activeInstances[0].getPlaybackState(out state);
-                yield return null;
+                inst.getPlaybackState(out PLAYBACK_STATE state);
+                if (state != PLAYBACK_STATE.STOPPED) { isPlaying = true; break; }
             }
+            yield return new WaitForSeconds(0.1f);
         }
 
-        foreach (EventInstance inst in activeInstances)
-        {
-            inst.release();
-        }
+        // Cleanup
+        foreach (EventInstance inst in activeInstances) inst.release();
+        activeInstances.Clear();
     }
 }

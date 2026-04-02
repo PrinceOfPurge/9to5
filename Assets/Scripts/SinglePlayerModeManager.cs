@@ -8,7 +8,9 @@ using UnityEngine.SceneManagement;
 public class SinglePlayerModeManager : MonoBehaviour
 {
     // Score & Bags
+    public GameObject BagsRemainingUIContainer; 
     public TextMeshProUGUI BagsRemainingText;
+    
     public int BagsRemaining;
     public int SinglePlayerScore;
     public int ActiveStudents = 0;
@@ -17,6 +19,7 @@ public class SinglePlayerModeManager : MonoBehaviour
     public int PlayerMoney;
 
     private bool gameEnded = false;
+    private float sceneLoadTime; 
 
     public static SinglePlayerModeManager Instance;
 
@@ -36,20 +39,16 @@ public class SinglePlayerModeManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        BagsRemainingUIContainer = GameObject.Find("UI_BagsRemaining"); 
         BagsRemainingText = GameObject.Find("BagsRemainingText")?.GetComponent<TextMeshProUGUI>();
 
-        // If we're back in the gameplay scene, reset the level variables
         if (scene.name == "SinglePlayerMode")
         {
             gameEnded = false;
-            BagsRemaining = 1;
+            BagsRemaining = 0; 
             SinglePlayerScore = 0;
+            sceneLoadTime = Time.time; 
         }
-    }
-
-    void Start()
-    {
-        // Start logic (if needed in the future) goes here
     }
 
     void Update()
@@ -61,38 +60,68 @@ public class SinglePlayerModeManager : MonoBehaviour
         EndTheGame();
     }
     
-    //---------------------------------------------------------
-
     void UpdateBagsRemainingUI()
     {
-        // Directly update the text if the reference exists
-        if (BagsRemainingText != null)
+        GameObject uiToToggle = BagsRemainingUIContainer != null ? BagsRemainingUIContainer : (BagsRemainingText != null ? BagsRemainingText.gameObject : null);
+
+        if (uiToToggle != null && BagsRemainingText != null)
         {
-            BagsRemainingText.text = "X" + BagsRemaining;
+            if (BagsRemaining <= 0)
+            {
+                uiToToggle.SetActive(false); 
+            }
+            else
+            {
+                uiToToggle.SetActive(true);
+                BagsRemainingText.text = "X" + BagsRemaining;
+            }
         }
     }
 
     void EndTheGame()
     {
-        // The game only ends if there are 0 bags AND 0 students still making messes
-        // (Or if the player uses the 'B' debug key)
-        if (Input.GetKeyDown(KeyCode.B) || (BagsRemaining <= 0 && ActiveStudents <= 0))
+        // Don't check for end game immediately after scene loads
+        if (Time.time - sceneLoadTime < 2.0f) return; 
+
+        // Debug key
+        if (Input.GetKeyDown(KeyCode.B))
         {
             DisplayResults();
+            return;
+        }
+
+        // --- NEW LOGIC ---
+        // 1. Check if the physical tasks are finished
+        bool tasksPhysicallyDone = (BagsRemaining <= 0 && ActiveStudents <= 0);
+
+        if (tasksPhysicallyDone && !gameEnded)
+        {
+            // 2. Check for the PA System. 
+            // We only end if the PA System has finished its final victory broadcast.
+            if (PASystem.Instance != null)
+            {
+                if (PASystem.Instance.finalAnnouncementFinished)
+                {
+                    DisplayResults();
+                }
+            }
+            else
+            {
+                // Fallback: If there is no PA System in this scene, end the game normally.
+                DisplayResults();
+            }
         }
     }
 
     void DisplayResults()
     {
-        // Prevent this from running multiple times
         if (gameEnded) return; 
 
-        Debug.Log("END DA GAME");
+        Debug.Log("END DA GAME - Tasks and PA Announcement Complete");
 
         gameEnded = true;
         level++;
 
-        // Add score to money (Timer bonus has been removed)
         PlayerMoney += SinglePlayerScore;
 
         StartCoroutine(GotoShop());
@@ -100,9 +129,12 @@ public class SinglePlayerModeManager : MonoBehaviour
 
     IEnumerator GotoShop()
     {
-        BagsRemaining = 1;
+        // Safety reset
+        BagsRemaining = 0; 
 
-        yield return new WaitForSeconds(3f);
+        // Short delay before loading the shop (PA System already provided the main delay)
+        yield return new WaitForSeconds(1.5f);
+        
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         SceneManager.LoadScene("SinglePlayerUpgradeShop");
