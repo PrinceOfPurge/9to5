@@ -18,10 +18,8 @@ public class MinigameFocusManager : MonoBehaviour
     private PlayerMovement player;
     private Camera playerCam;
 
-    // We store raw forward vectors instead of Quaternions to prevent Gimbal Lock corruption
-    private Vector3 originalBodyForward;
-    private Vector3 originalCamForward;
-    private float storedXRotation;
+    private Quaternion originalBodyRot;
+    private Quaternion originalCamRot;
 
     void Awake() 
     { 
@@ -29,7 +27,7 @@ public class MinigameFocusManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    public void StartFocus(Transform uiTarget, Vector3 offset, float distance)
+    public void StartFocus(Transform target, Vector3 offset, float distance)
     {
         if (player == null) player = FindObjectOfType<PlayerMovement>();
         if (playerCam == null) playerCam = Camera.main;
@@ -38,10 +36,8 @@ public class MinigameFocusManager : MonoBehaviour
         {
             player.isMiniGameActive = true;
             
-            // Store literal vectors and raw float values instead of Quaternions
-            originalBodyForward = player.transform.forward;
-            originalCamForward = playerCam.transform.forward; 
-            storedXRotation = player.GetCurrentXRotation();
+            originalBodyRot = player.transform.rotation;
+            originalCamRot = playerCam.transform.rotation; 
 
             CharacterController cc = player.GetComponent<CharacterController>();
             if (cc != null) cc.Move(Vector3.zero);
@@ -52,8 +48,8 @@ public class MinigameFocusManager : MonoBehaviour
         if (exitRoutine != null) StopCoroutine(exitRoutine);
         if (alignmentRoutine != null) StopCoroutine(alignmentRoutine);
         
-        alignmentRoutine = StartCoroutine(EntryAlignmentRoutine(uiTarget, distance));
-        cameraRoutine = StartCoroutine(CameraRoutine(uiTarget));
+        alignmentRoutine = StartCoroutine(EntryAlignmentRoutine(target, distance));
+        cameraRoutine = StartCoroutine(CameraRoutine(target, offset));
     }
 
     public void StopFocus()
@@ -106,30 +102,26 @@ public class MinigameFocusManager : MonoBehaviour
         player.isMiniGameActive = true;
 
         float elapsed = 0f;
-        
-        Vector3 currentBodyForward = player.transform.forward;
-        Vector3 currentCamForward = playerCam.transform.forward;
+        Quaternion currentBodyRot = player.transform.rotation;
+        Quaternion currentCamRot = playerCam.transform.rotation;
 
         while (elapsed < exitDuration)
         {
             elapsed += Time.deltaTime;
             float t = Mathf.SmoothStep(0f, 1f, elapsed / exitDuration);
 
-            // Slerp the directional vectors, completely bypassing quaternion singularities
-            Vector3 targetBodyDir = Vector3.Slerp(currentBodyForward, originalBodyForward, t);
-            player.transform.rotation = Quaternion.LookRotation(targetBodyDir, Vector3.up);
-
-            Vector3 targetCamDir = Vector3.Slerp(currentCamForward, originalCamForward, t);
-            playerCam.transform.rotation = Quaternion.LookRotation(targetCamDir, player.transform.up);
+            player.transform.rotation = Quaternion.Slerp(currentBodyRot, originalBodyRot, t);
+            playerCam.transform.rotation = Quaternion.Slerp(currentCamRot, originalCamRot, t);
 
             yield return null;
         }
 
-        player.transform.rotation = Quaternion.LookRotation(originalBodyForward, Vector3.up);
-        playerCam.transform.rotation = Quaternion.LookRotation(originalCamForward, Vector3.up);
+        // Snap exactly to target
+        player.transform.rotation = originalBodyRot;
+        playerCam.transform.rotation = originalCamRot;
 
-        // Pass the raw original float back in, guaranteeing no math errors
-        player.SyncRotation(storedXRotation);
+        // FIX: We no longer extract eulerAngles! Just flush the inputs and wake up.
+        player.PrepareForWakeUp();
         
         player.isMiniGameActive = false;
 
@@ -166,7 +158,7 @@ public class MinigameFocusManager : MonoBehaviour
         }
     }
 
-    private IEnumerator CameraRoutine(Transform uiTarget)
+    private IEnumerator CameraRoutine(Transform target, Vector3 offset)
     {
         while (player.isMiniGameActive)
         {
@@ -174,28 +166,22 @@ public class MinigameFocusManager : MonoBehaviour
 
             if (Time.timeScale > 0 && playerCam != null && player != null)
             {
-                Vector3 focusPoint = uiTarget.position;
+                Vector3 targetPos = target.position + offset;
                 
-                // --- Body Rotation ---
-                Vector3 bodyLookDir = focusPoint - player.transform.position;
+                Vector3 bodyLookDir = targetPos - player.transform.position;
                 bodyLookDir.y = 0; 
                 
                 if (bodyLookDir.sqrMagnitude > 0.001f)
                 {
-                    Vector3 newBodyDir = Vector3.RotateTowards(player.transform.forward, bodyLookDir, Time.deltaTime * transitionSpeed, 0f);
-                    player.transform.rotation = Quaternion.LookRotation(newBodyDir, Vector3.up);
+                    Quaternion targetBodyRot = Quaternion.LookRotation(bodyLookDir);
+                    player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetBodyRot, Time.deltaTime * transitionSpeed);
                 }
 
-                // --- Camera Rotation ---
-                Vector3 camLookDir = (focusPoint - playerCam.transform.position).normalized;
-                
+                Vector3 camLookDir = targetPos - playerCam.transform.position;
                 if (camLookDir.sqrMagnitude > 0.001f)
                 {
-                    Vector3 newCamDir = Vector3.RotateTowards(playerCam.transform.forward, camLookDir, Time.deltaTime * transitionSpeed, 0f);
-                    
-                    // Constrain the 'Up' direction to the player's Up direction. 
-                    // This physically stops the camera from barrel-rolling when looking straight down.
-                    playerCam.transform.rotation = Quaternion.LookRotation(newCamDir, player.transform.up);
+                    Quaternion targetCamRot = Quaternion.LookRotation(camLookDir);
+                    playerCam.transform.rotation = Quaternion.Slerp(playerCam.transform.rotation, targetCamRot, Time.deltaTime * transitionSpeed);
                 }
             }
         }
