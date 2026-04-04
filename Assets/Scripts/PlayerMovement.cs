@@ -79,6 +79,9 @@ public class PlayerMovement : MonoBehaviour
     
     private float inputIgnoreTimer = 0f;
 
+    // Provide safe access to raw rotation float
+    public float GetCurrentXRotation() => xRotation;
+
     void OnEnable()
     {
         lookInput = Vector2.zero;
@@ -343,7 +346,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void SyncRotation(float newXRotation)
     {
-        if (newXRotation > 180f) newXRotation -= 360f;
+        // Set the float directly—no calculation, no inversion possible
         xRotation = newXRotation;
         PrepareForWakeUp(); 
     }
