@@ -39,10 +39,12 @@ public class PlayerMovement : MonoBehaviour
     public Transform orientation; 
     public Camera playerCamera;
 
-    [Header("Upgrades")]
-    public float jumpBoostUpgradeHeight;
-    public float staminaBoostUpgradeMax;
-    public float rushHourUpgradeSpeedMultiplier;
+    [Header("Upgrades (Safe Defaults)")]
+    public float jumpBoostUpgradeHeight = 4f; 
+    public float staminaBoostUpgradeMax = 200f; 
+    public float rushHourUpgradeSpeedMultiplier = 1.35f;
+    public float ironLungsRegenRate = 40f;
+    [Range(0, 1)] public float ironLungsRecoveryThreshold = 0.15f;
 
     [Header("Sensitivity")]
     public float mouseSensitivity = 7f;
@@ -75,20 +77,18 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 cameraDefaultLocalPos;
     private float bobTimer;
     
-    // NEW: Grace period timer to prevent build input dumps
     private float inputIgnoreTimer = 0f;
 
     void OnEnable()
     {
         lookInput = Vector2.zero;
         inputDirection = Vector2.zero;
-        inputIgnoreTimer = 0.15f; // Ignore mouse for 150ms after turning on
+        inputIgnoreTimer = 0.15f; 
     }
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        stamina = maxStamina;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
@@ -106,14 +106,27 @@ public class PlayerMovement : MonoBehaviour
 
         if (ShopInfo.Instance != null)
         {
-            if (ShopInfo.Instance.JumpBoost_Active) jumpHeight = jumpBoostUpgradeHeight;
-            if (ShopInfo.Instance.StamBoost_Active) maxStamina = staminaBoostUpgradeMax;
+            if (ShopInfo.Instance.JumpBoost_Active) 
+                jumpHeight = Mathf.Max(jumpHeight, jumpBoostUpgradeHeight);
+                
+            if (ShopInfo.Instance.StamBoost_Active) 
+                maxStamina = Mathf.Max(maxStamina, staminaBoostUpgradeMax);
+                
             if (ShopInfo.Instance.RushHour_Active)
             {
-                sprintSpeed *= rushHourUpgradeSpeedMultiplier;
-                walkSpeed *= rushHourUpgradeSpeedMultiplier;
+                float multi = Mathf.Max(1.1f, rushHourUpgradeSpeedMultiplier);
+                sprintSpeed *= multi;
+                walkSpeed *= multi;
+            }
+
+            if (ShopInfo.Instance.IronLungs_Active)
+            {
+                staminaRegenRate = Mathf.Max(staminaRegenRate, ironLungsRegenRate);
+                recoveryThreshold = Mathf.Min(recoveryThreshold, ironLungsRecoveryThreshold);
             }
         }
+
+        stamina = maxStamina;
     }
 
     public void OnMove(InputValue value) => inputDirection = value.Get<Vector2>();
@@ -243,7 +256,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isMiniGameActive) return;
         
-        // NEW: Crush any buffered mouse dumps from the build during the grace period
         if (inputIgnoreTimer > 0f)
         {
             inputIgnoreTimer -= Time.deltaTime;
@@ -319,28 +331,22 @@ public class PlayerMovement : MonoBehaviour
     
     public void PrepareForWakeUp()
     {
-        // Flush inputs to prevent the build buffer dumps
         lookInput = Vector2.zero; 
         inputDirection = Vector2.zero;
         inputIgnoreTimer = 0.15f; 
 
-        // Force camera local position instantly back to normal
         if (playerCamera != null)
         {
             playerCamera.transform.localPosition = cameraDefaultLocalPos;
         }
     }
 
-    // RESTORED: So the PlungerMinigame doesn't throw a compile error!
     public void SyncRotation(float newXRotation)
     {
         if (newXRotation > 180f) newXRotation -= 360f;
         xRotation = newXRotation;
-
-        // Still run all the safety flushes so the plunger game doesn't snap either
         PrepareForWakeUp(); 
     }
-    
     
     public void SetMouseSensitivity(float newSensitivity) => mouseSensitivity = newSensitivity;
 }

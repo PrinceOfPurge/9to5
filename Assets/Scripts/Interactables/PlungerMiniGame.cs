@@ -11,7 +11,6 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
     public GameObject crosshairInteract; 
     public HighlightEffectToilet highlightScript;
     
-
     [Header("Mini-Game UI Bar")]
     public GameObject barParent;    
     public Image barFill;           
@@ -38,10 +37,14 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
     public float transitionDuration = 0.8f;
     public float exitBackoffDistance = 1.2f; 
 
-    [Header("Resistance Gameplay Settings")]
-    public float sensitivity = 2.0f;     
+    [Header("Gameplay Settings")]
+    [Tooltip("How much the bar fills per raw unit of mouse movement. Keep this VERY LOW (e.g., 0.005) because it reads direct mouse DPI.")]
+    public float sensitivity = 0.005f;     
+    [Tooltip("How fast the bar drains when you aren't plunging.")]
     public float upwardPressure = 0.1f; 
-    public float winHoldTime = 0.3f;    
+    [Tooltip("How long (in seconds) the drain pauses when you lift your mouse to reposition.")]
+    public float drainPauseTime = 1.5f; 
+    public float winHoldTime = 0.3f;   
     
     [Header("Poop Settings")]
     public float idlePoopHeight = 0.01f; 
@@ -50,6 +53,7 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
     
     private float plungeProgress = 0f;
     private float victoryTimer = 0f;
+    private float drainPauseTimer = 0f; 
     private bool isPlaying = false;
     public bool isWon { get; private set; } = false;
     private int layerIndex;
@@ -111,7 +115,6 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
         if (plungerPrompt) plungerPrompt.SetActive(false);
         
         if (crosshairDefault) crosshairDefault.SetActive(true); 
-        
         if (crosshairInteract) crosshairInteract.SetActive(false);
     }
 
@@ -124,9 +127,30 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
     {
         if (!isPlaying) return;
 
-        float mouseInputY = -Input.GetAxis("Mouse Y");
-        float inputStrength = mouseInputY * sensitivity * Time.deltaTime;
-        float resistance = upwardPressure * Time.deltaTime;
+        if (crosshairDefault && crosshairDefault.activeSelf) crosshairDefault.SetActive(false);
+        if (crosshairInteract && crosshairInteract.activeSelf) crosshairInteract.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        float rawMouseInputY = -Input.GetAxisRaw("Mouse Y");
+        float plungedInputY = Mathf.Max(0f, rawMouseInputY);
+
+        if (plungedInputY > 0.1f)
+        {
+            drainPauseTimer = drainPauseTime;
+        }
+        else
+        {
+            drainPauseTimer -= Time.deltaTime;
+        }
+
+        float inputStrength = plungedInputY * sensitivity;
+        
+        float resistance = 0f;
+        if (drainPauseTimer <= 0f)
+        {
+            resistance = upwardPressure * Time.deltaTime;
+        }
     
         plungeProgress = Mathf.Clamp01(plungeProgress + inputStrength - resistance);
         playerAnim.SetFloat("PlungeDepth", plungeProgress);
@@ -150,14 +174,17 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
         
         if (plungeProgress >= 0.96f)
         {
-            
             if (!hasPlayedPlungeSound)
             {
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.Plunge, transform.position);
                 hasPlayedPlungeSound = true;
             }
 
-            victoryTimer += Time.deltaTime;
+            if (plungedInputY > 0.05f)
+            {
+                victoryTimer += Time.deltaTime;
+            }
+
             if (victoryTimer < winHoldTime)
             {
                 if (holdDownPrompt && !holdDownPrompt.activeSelf) holdDownPrompt.SetActive(true);
@@ -183,16 +210,18 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
     {
         if (!barFill || !barParent) return;
         
-        Color struggleColor = Color.white; // Or new Color(0, 1, 1); for Cyan
-        Color winChargeColor = new Color(1f, 0.92f, 0.016f); // Bright Neon Yellow
+        Color struggleColor = Color.white; 
+        Color winChargeColor = new Color(1f, 0.65f, 0f); // Bright Orange/Yellow
 
         if (plungeProgress >= 0.96f)
         {
+            // PHASE 2: Reset visual bar to 0 and fill it up based on the victory timer
             barFill.fillAmount = Mathf.Clamp01(victoryTimer / winHoldTime);
             barFill.color = winChargeColor; 
         }
         else
         {
+            // PHASE 1: Normal swiping progress
             barFill.fillAmount = plungeProgress;
             barFill.color = struggleColor; 
         }
@@ -214,12 +243,12 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
         if (mouseTutorialObject == null) yield break;
         mouseTutorialObject.SetActive(true);
         yield return new WaitForSeconds(initialVisibilityTime);
-        while (Mathf.Abs(Input.GetAxis("Mouse Y")) < 0.2f) yield return null;
+        while (Mathf.Abs(Input.GetAxisRaw("Mouse Y")) < 0.2f) yield return null;
         mouseTutorialObject.SetActive(false);
         while (isPlaying)
         {
             float idleCounter = 0f;
-            while (Mathf.Abs(Input.GetAxis("Mouse Y")) < 0.1f)
+            while (Mathf.Abs(Input.GetAxisRaw("Mouse Y")) < 0.1f)
             {
                 idleCounter += Time.deltaTime;
                 if (idleCounter >= tutorialDelay) mouseTutorialObject.SetActive(true);
@@ -246,6 +275,7 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
         if (highlightScript) highlightScript.ToggleHighlight(false);
         isPlaying = true;
         plungeProgress = 0f;
+        drainPauseTimer = drainPauseTime; 
         
         struggleInstance = AudioManager.instance.CreateInstance(FMODEvents.instance.ToiletStruggle);
         struggleInstance.start();

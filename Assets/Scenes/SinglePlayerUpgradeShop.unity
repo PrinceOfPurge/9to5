@@ -11590,11 +11590,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2fa194bb89f23ee18f8531a956de77a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overtimeDisabled: {fileID: 382688636}
-  overtimeUpgradeIcon: {fileID: 1678153665}
-  overtimeUpgradeIconCover: {fileID: 2039855413}
-  But_OvertimeYes: {fileID: 68584384}
-  But_OvertimeNo: {fileID: 796930046}
+  ironLungsDisabled: {fileID: 382688636}
+  ironLungsUpgradeIcon: {fileID: 1678153665}
+  ironLungsUpgradeIconCover: {fileID: 2039855413}
+  But_IronLungsYes: {fileID: 68584384}
+  But_IronLungsNo: {fileID: 796930046}
   rushhourDisabled: {fileID: 1202510018}
   rushhourUpgradeIcon: {fileID: 1493740153}
   rushhourUpgradeIconCover: {fileID: 328043424}
@@ -11610,8 +11610,8 @@ MonoBehaviour:
   coffeebreakUpgradeIconCover: {fileID: 1242296233}
   But_CoffeebreakYes: {fileID: 1417556855}
   But_CoffeebreakNo: {fileID: 131064059}
-  Overtime_Button: {fileID: 1002339041}
-  Overtime_Cost: 0
+  IronLungs_Button: {fileID: 1002339041}
+  IronLungs_Cost: 0
   RushHour_Button: {fileID: 1632467482}
   RushHour_Cost: 0
   JumpBoost_Button: {fileID: 42674940}
@@ -13753,8 +13753,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fae8284f12cd13429ae5c0354d20666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Overtime_Purchased: 0
-  Overtime_Active: 0
+  IronLungs_Purchased: 0
+  IronLungs_Active: 0
   RushHour_Purchased: 0
   RushHour_Active: 0
   JumpBoost_Purchased: 0
