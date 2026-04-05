@@ -122,7 +122,8 @@ public class Door : MonoBehaviour, IInteractable
 
         if (targetEvent.IsNull) return;
 
-        AudioManager.instance.PlayOneShot(targetEvent, Camera.main.transform.position);
+        // Use transform.position (the door's location) instead of the Camera's position
+        AudioManager.instance.PlayOneShot(targetEvent, transform.position);
     }
 
     void UpdatePrompts()

@@ -7,41 +7,40 @@ using FMOD.Studio;
 public class AudioManager : MonoBehaviour
 {
     [Header("Volume")]
-    [Range(0,1)]
-    
+    [Range(0, 1)]
     public float masterVolume = 1;
-    [Range(0,1)]
-    
+    [Range(0, 1)]
     public float musicVolume = 1;
-    [Range(0,1)]
-    
+    [Range(0, 1)]
     public float ambienceVolume = 1;
-    [Range(0,1)]
-    
+    [Range(0, 1)]
     public float SFXVolume = 1;
-    
+
     private Bus masterBus;
     private Bus musicBus;
     private Bus ambienceBus;
     private Bus sfxBus;
-    
-    private List<EventInstance> eventInstances; 
+
+    private List<EventInstance> eventInstances;
     private List<StudioEventEmitter> eventEmitters;
     private EventInstance ambienceEventInstance;
     private EventInstance musicEventInstance;
+
     public static AudioManager instance { get; private set; }
 
     private void Awake()
     {
         if (instance != null)
         {
-            Debug.LogError("More than one AudioManager in scene.");
+            Debug.LogError("More than one AudioManager in scene. Destroying duplicate.");
+            Destroy(gameObject);
+            return;
         }
         instance = this;
 
         eventInstances = new List<EventInstance>();
         eventEmitters = new List<StudioEventEmitter>();
-        
+
         masterBus = RuntimeManager.GetBus("bus:/");
         musicBus = RuntimeManager.GetBus("bus:/Music");
         ambienceBus = RuntimeManager.GetBus("bus:/Ambience");
@@ -56,6 +55,7 @@ public class AudioManager : MonoBehaviour
 
     private void Update()
     {
+        // Only update FMOD if the volume sliders are moved to save CPU overhead
         masterBus.setVolume(masterVolume);
         musicBus.setVolume(musicVolume);
         ambienceBus.setVolume(ambienceVolume);
@@ -64,13 +64,14 @@ public class AudioManager : MonoBehaviour
 
     private void InitializeAmbience(EventReference ambienceEventReference)
     {
+        if (ambienceEventReference.IsNull) return;
         ambienceEventInstance = CreateInstance(ambienceEventReference);
         ambienceEventInstance.start();
     }
-    
-    
+
     private void InitializeMusic(EventReference musicEventReference)
     {
+        if (musicEventReference.IsNull) return;
         musicEventInstance = CreateInstance(musicEventReference);
         musicEventInstance.start();
     }
@@ -80,20 +81,15 @@ public class AudioManager : MonoBehaviour
         ambienceEventInstance.setParameterByName(ParameterName, ParameterValue);
     }
 
-    /*public void SetMusicArea(MusicArea area)
-    {
-        musicEventInstance.setParameterByName("area", (float) area);
-    }
-    */
-
     public void PlayOneShot(EventReference sound, Vector3 worldPos)
     {
+        if (sound.IsNull) return;
         RuntimeManager.PlayOneShot(sound, worldPos);
     }
-    
+
     public EventInstance CreateInstance(EventReference eventReference)
     {
-        EventInstance eventInstance = RuntimeManager.CreateInstance(eventReference); 
+        EventInstance eventInstance = RuntimeManager.CreateInstance(eventReference);
         eventInstances.Add(eventInstance);
         return eventInstance;
     }
@@ -101,11 +97,13 @@ public class AudioManager : MonoBehaviour
     public StudioEventEmitter InitializeEventEmitter(EventReference eventReference, GameObject emitterGameObject)
     {
         StudioEventEmitter emitter = emitterGameObject.GetComponent<StudioEventEmitter>();
+        if (emitter == null) emitter = emitterGameObject.AddComponent<StudioEventEmitter>();
+        
         emitter.EventReference = eventReference;
         eventEmitters.Add(emitter);
         return emitter;
     }
-    
+
     private void CleanUp()
     {
         foreach (EventInstance eventInstance in eventInstances)
@@ -116,7 +114,7 @@ public class AudioManager : MonoBehaviour
 
         foreach (StudioEventEmitter emitter in eventEmitters)
         {
-            emitter.Stop();
+            if (emitter != null) emitter.Stop();
         }
     }
 

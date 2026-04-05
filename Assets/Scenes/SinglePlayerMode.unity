@@ -67013,6 +67013,10 @@ PrefabInstance:
       value: 447767030
       objectReference: {fileID: 0}
     - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <GetOutOfWay>k__BackingField.Path
+      value: event:/SFX/Player/GetOutDaWay
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
       propertyPath: <KidsPlaying>k__BackingField.Path
       value: event:/SFX/NPCs/Kids
       objectReference: {fileID: 0}
@@ -67111,6 +67115,22 @@ PrefabInstance:
     - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
       propertyPath: <Principal>k__BackingField.Guid.Data4
       value: 1449512162
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <GetOutOfWay>k__BackingField.Guid.Data1
+      value: -2026503202
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <GetOutOfWay>k__BackingField.Guid.Data2
+      value: 1143154563
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <GetOutOfWay>k__BackingField.Guid.Data3
+      value: -1150798176
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <GetOutOfWay>k__BackingField.Guid.Data4
+      value: -210611886
       objectReference: {fileID: 0}
     - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
       propertyPath: <OutOfBreath>k__BackingField.Guid.Data1

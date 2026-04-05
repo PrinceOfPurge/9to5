@@ -33,6 +33,10 @@ public class PlayerMovement : MonoBehaviour
     public float jumpStaminaCost = 15f; 
     [Range(0, 1)] public float recoveryThreshold = 0.3f; 
     public float criticalStaminaLevel = 20f; 
+
+    [Header("Janitor Voice Settings")]
+    public float collisionVoiceCooldown = 2.5f;
+    private float lastCollisionVoiceTime;
     
     [Header("Detection")]
     public LayerMask whatIsGround;
@@ -64,8 +68,6 @@ public class PlayerMovement : MonoBehaviour
 
     private CharacterController controller;
     private EventInstance playerFootsteps;
-    
-    // We bring back the EventInstance to strictly control playback
     private EventInstance outOfBreathSound;
 
     private Vector2 inputDirection;
@@ -80,7 +82,6 @@ public class PlayerMovement : MonoBehaviour
     private bool wasGrounded;
     private Vector3 cameraDefaultLocalPos;
     private float bobTimer;
-    
     private float inputIgnoreTimer = 0f;
 
     void OnEnable()
@@ -96,75 +97,101 @@ public class PlayerMovement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        if (StaminaUI != null)
-        {
-            StaminaUI.SetActive(true);
-            if (greenWheel == null) greenWheel = StaminaUI.transform.Find("Green Wheel")?.GetComponent<Image>();
-            if (redWheel == null) redWheel = StaminaUI.transform.Find("Red Wheel")?.GetComponent<Image>();
-        }
-
-        if (redWheel != null) originalRedWheelColor = redWheel.color;
-        
-        cameraDefaultLocalPos = playerCamera.transform.localPosition;
-        
-        playerFootsteps = AudioManager.instance.CreateInstance(FMODEvents.instance.playerFootsteps);
-        
-        // Initialize the VO instance
-        outOfBreathSound = AudioManager.instance.CreateInstance(FMODEvents.instance.OutOfBreath);
-
-        if (ShopInfo.Instance != null)
-        {
-            if (ShopInfo.Instance.JumpBoost_Active) 
-                jumpHeight = Mathf.Max(jumpHeight, jumpBoostUpgradeHeight);
-                
-            if (ShopInfo.Instance.StamBoost_Active) 
-                maxStamina = Mathf.Max(maxStamina, staminaBoostUpgradeMax);
-                
-            if (ShopInfo.Instance.RushHour_Active)
-            {
-                float multi = Mathf.Max(1.1f, rushHourUpgradeSpeedMultiplier);
-                sprintSpeed *= multi;
-                walkSpeed *= multi;
-            }
-
-            if (ShopInfo.Instance.IronLungs_Active)
-            {
-                staminaRegenRate = Mathf.Max(staminaRegenRate, ironLungsRegenRate);
-                recoveryThreshold = Mathf.Min(recoveryThreshold, ironLungsRecoveryThreshold);
-            }
-        }
+        InitializeUI();
+        InitializeAudio();
+        ApplyUpgrades();
 
         stamina = maxStamina;
     }
 
-    public void OnMove(InputValue value) => inputDirection = value.Get<Vector2>();
-    public void OnLook(InputValue value) => lookInput = value.Get<Vector2>();
-    
-    public void OnJump(InputValue value) 
-    { 
-        if (readyToJump && grounded && !staminaExhausted && stamina >= jumpStaminaCost) 
-            Jump(); 
-    }
-    
-    public void OnSprint(InputValue value) => sprinting = value.isPressed;
-
     void Update()
     {
-        float rayLength = controller.bounds.extents.y + 0.15f; 
-        grounded = Physics.Raycast(controller.bounds.center, Vector3.down, rayLength, whatIsGround);
-
-        if (grounded && !wasGrounded && verticalVelocity.y < -5f)
-        {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.Land, transform.position);
-        }
-        wasGrounded = grounded;
-
+        CheckGrounded();
         HandleLook();
         HandleStamina();
         ApplyMovement();
         HandleHeadBob();
         UpdateAnimations();
         UpdateSound();
+    }
+
+    // --- COLLISION LOGIC ---
+
+    private void OnControllerColliderHit(ControllerColliderHit hit) => HandleCollision(hit.gameObject);
+    private void OnTriggerEnter(Collider other) => HandleCollision(other.gameObject);
+
+    private void HandleCollision(GameObject hitObject)
+    {
+        if (hitObject.CompareTag("Student") && Time.time > lastCollisionVoiceTime + collisionVoiceCooldown)
+        {
+            PlayCollisionVoice();
+            lastCollisionVoiceTime = Time.time;
+        }
+    }
+
+    private void PlayCollisionVoice()
+    {
+        if (AudioManager.instance == null) return;
+
+        // Priority: Stop outOfBreath before playing shout
+        outOfBreathSound.getPlaybackState(out PLAYBACK_STATE state);
+        if (state != PLAYBACK_STATE.STOPPED) outOfBreathSound.stop(STOP_MODE.IMMEDIATE);
+
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.GetOutOfWay, transform.position);
+    }
+
+    // --- INITIALIZATION HELPERS ---
+
+    private void InitializeUI()
+    {
+        if (StaminaUI != null)
+        {
+            StaminaUI.SetActive(true);
+            if (greenWheel == null) greenWheel = StaminaUI.transform.Find("Green Wheel")?.GetComponent<Image>();
+            if (redWheel == null) redWheel = StaminaUI.transform.Find("Red Wheel")?.GetComponent<Image>();
+        }
+        if (redWheel != null) originalRedWheelColor = redWheel.color;
+        cameraDefaultLocalPos = playerCamera.transform.localPosition;
+    }
+
+    private void InitializeAudio()
+    {
+        playerFootsteps = AudioManager.instance.CreateInstance(FMODEvents.instance.playerFootsteps);
+        outOfBreathSound = AudioManager.instance.CreateInstance(FMODEvents.instance.OutOfBreath);
+    }
+
+    private void ApplyUpgrades()
+    {
+        if (ShopInfo.Instance == null) return;
+
+        if (ShopInfo.Instance.JumpBoost_Active) 
+            jumpHeight = Mathf.Max(jumpHeight, jumpBoostUpgradeHeight);
+        if (ShopInfo.Instance.StamBoost_Active) 
+            maxStamina = Mathf.Max(maxStamina, staminaBoostUpgradeMax);
+        if (ShopInfo.Instance.RushHour_Active)
+        {
+            float multi = Mathf.Max(1.1f, rushHourUpgradeSpeedMultiplier);
+            sprintSpeed *= multi;
+            walkSpeed *= multi;
+        }
+        if (ShopInfo.Instance.IronLungs_Active)
+        {
+            staminaRegenRate = Mathf.Max(staminaRegenRate, ironLungsRegenRate);
+            recoveryThreshold = Mathf.Min(recoveryThreshold, ironLungsRecoveryThreshold);
+        }
+    }
+
+    // --- MOVEMENT & STAMINA CORE ---
+
+    private void CheckGrounded()
+    {
+        float rayLength = controller.bounds.extents.y + 0.15f; 
+        grounded = Physics.Raycast(controller.bounds.center, Vector3.down, rayLength, whatIsGround);
+
+        if (grounded && !wasGrounded && verticalVelocity.y < -5f)
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.Land, transform.position);
+
+        wasGrounded = grounded;
     }
 
     private void HandleStamina()
@@ -177,39 +204,31 @@ public class PlayerMovement : MonoBehaviour
             if (stamina <= 0)
             {
                 stamina = 0;
-                
                 if (!staminaExhausted)
                 {
                     staminaExhausted = true;
                     if (greenWheel) greenWheel.enabled = false;
-                    
-                    // CHECK PLAYBACK STATE: Only play the line if the previous one is completely finished
                     outOfBreathSound.getPlaybackState(out PLAYBACK_STATE state);
-                    if (state == PLAYBACK_STATE.STOPPED)
-                    {
-                        outOfBreathSound.start();
-                    }
+                    if (state == PLAYBACK_STATE.STOPPED) outOfBreathSound.start();
                 }
             }
         }
-        else
+        else if (stamina < maxStamina)
         {
-            if (stamina < maxStamina)
+            stamina += staminaRegenRate * Time.deltaTime;
+            if (staminaExhausted && stamina >= (maxStamina * recoveryThreshold))
             {
-                stamina += staminaRegenRate * Time.deltaTime;
-                if (staminaExhausted && stamina >= (maxStamina * recoveryThreshold))
-                {
-                    staminaExhausted = false;
-                    if (greenWheel) greenWheel.enabled = true;
-                    
-                    // We intentionally DO NOT call outOfBreathSound.stop() here anymore.
-                    // This allows the funny line to finish playing naturally!
-                }
+                staminaExhausted = false;
+                if (greenWheel) greenWheel.enabled = true;
             }
         }
 
         stamina = Mathf.Clamp(stamina, 0, maxStamina);
+        UpdateStaminaUI();
+    }
 
+    private void UpdateStaminaUI()
+    {
         bool shouldPulse = staminaExhausted || (stamina < criticalStaminaLevel);
         if (shouldPulse && redWheel != null)
         {
@@ -217,10 +236,7 @@ public class PlayerMovement : MonoBehaviour
             float alpha = Mathf.Lerp(minPulseOpacity, maxPulseOpacity, lerp);
             redWheel.color = new Color(originalRedWheelColor.r, originalRedWheelColor.g, originalRedWheelColor.b, alpha);
         }
-        else if (redWheel != null)
-        {
-            redWheel.color = originalRedWheelColor;
-        }
+        else if (redWheel != null) redWheel.color = originalRedWheelColor;
 
         if (greenWheel) greenWheel.fillAmount = stamina / maxStamina;
         if (redWheel) redWheel.fillAmount = 1f; 
@@ -229,46 +245,36 @@ public class PlayerMovement : MonoBehaviour
     private void ApplyMovement()
     {
         if (controller == null || !controller.enabled) return;
-
-        if (isMiniGameActive) 
-        {
-            verticalVelocity.y += gravity * Time.deltaTime;
-            if (grounded && verticalVelocity.y < 0) verticalVelocity.y = -2f;
-            controller.Move(verticalVelocity * Time.deltaTime);
-            return;
-        }
+        if (isMiniGameActive) { ApplyGravityOnly(); return; }
 
         Transform moveRef = orientation != null ? orientation : playerCamera.transform;
-        Vector3 forward = moveRef.forward;
-        Vector3 right = moveRef.right;
-        forward.y = 0; right.y = 0; 
+        Vector3 forward = Vector3.ProjectOnPlane(moveRef.forward, Vector3.up).normalized;
+        Vector3 right = Vector3.ProjectOnPlane(moveRef.right, Vector3.up).normalized;
 
-        Vector3 moveDir = (forward.normalized * inputDirection.y + right.normalized * inputDirection.x).normalized;
-
+        Vector3 moveDir = (forward * inputDirection.y + right * inputDirection.x).normalized;
         float targetSpeed = (sprinting && !staminaExhausted) ? sprintSpeed : walkSpeed;
         float speed = grounded ? targetSpeed : targetSpeed * airMultiplier;
-        
-        Vector3 horizontalMove = moveDir * speed;
 
         verticalVelocity.y += gravity * Time.deltaTime;
         if (verticalVelocity.y < -50f) verticalVelocity.y = -50f; 
 
-        Vector3 finalVelocity = horizontalMove + verticalVelocity;
-        controller.Move(finalVelocity * Time.deltaTime);
+        controller.Move((moveDir * speed + verticalVelocity) * Time.deltaTime);
+    }
+
+    private void ApplyGravityOnly()
+    {
+        verticalVelocity.y += gravity * Time.deltaTime;
+        if (grounded && verticalVelocity.y < 0) verticalVelocity.y = -2f;
+        controller.Move(verticalVelocity * Time.deltaTime);
     }
 
     private void Jump()
     {
         readyToJump = false;
         verticalVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        
         AudioManager.instance.PlayOneShot(FMODEvents.instance.Jump, transform.position);
-
         if (playerAnimator != null) playerAnimator.SetTrigger("Jump");
-
         stamina -= jumpStaminaCost;
-        if (stamina < 0) stamina = 0;
-    
         Invoke(nameof(ResetJump), 0.2f);
     }
 
@@ -277,17 +283,11 @@ public class PlayerMovement : MonoBehaviour
     private void HandleLook()
     {
         if (isMiniGameActive) return;
-        
-        if (inputIgnoreTimer > 0f)
-        {
-            inputIgnoreTimer -= Time.deltaTime;
-            lookInput = Vector2.zero; 
-        }
+        if (inputIgnoreTimer > 0f) { inputIgnoreTimer -= Time.deltaTime; lookInput = Vector2.zero; }
 
         xRotation -= lookInput.y * mouseSensitivity;
         xRotation = Mathf.Clamp(xRotation, -80f, 80f);
         transform.Rotate(Vector3.up * (lookInput.x * mouseSensitivity));
-        
         playerCamera.transform.rotation = Quaternion.Euler(xRotation, transform.eulerAngles.y, 0f);
     }
 
@@ -296,32 +296,23 @@ public class PlayerMovement : MonoBehaviour
         if ((!grounded || isMiniGameActive) && cameraAnchor != null)
         {
             playerCamera.transform.position = Vector3.Lerp(playerCamera.transform.position, cameraAnchor.position, Time.deltaTime * cameraFollowSpeed);
-            if (!isMiniGameActive)
-            {
-                playerCamera.transform.rotation = Quaternion.Euler(xRotation, transform.eulerAngles.y, 0f);
-            }
             return;
         }
-        
         if (inputDirection.sqrMagnitude < 0.1f)
         {
             bobTimer = 0f;
             playerCamera.transform.localPosition = Vector3.Lerp(playerCamera.transform.localPosition, cameraDefaultLocalPos, Time.deltaTime * 8f);
             return;
         }
-        
         float speed = (sprinting && !staminaExhausted) ? sprintBobSpeed : walkBobSpeed;
         float amount = (sprinting && !staminaExhausted) ? sprintBobAmount : walkBobAmount;
         bobTimer += Time.deltaTime * speed;
-        
-        Vector3 targetBobPos = new Vector3(cameraDefaultLocalPos.x, cameraDefaultLocalPos.y + (Mathf.Sin(bobTimer) * amount), cameraDefaultLocalPos.z);
-        playerCamera.transform.localPosition = targetBobPos;
+        playerCamera.transform.localPosition = new Vector3(cameraDefaultLocalPos.x, cameraDefaultLocalPos.y + (Mathf.Sin(bobTimer) * amount), cameraDefaultLocalPos.z);
     }
 
     private void UpdateAnimations()
     {
         if (!playerAnimator) return;
-        
         float animSpeed = (inputDirection.sqrMagnitude < 0.1f) ? 0f : ((sprinting && !staminaExhausted) ? 1.5f : 0.5f);
         playerAnimator.SetFloat("Speed", animSpeed);
         playerAnimator.SetBool("isGrounded", grounded);
@@ -337,7 +328,14 @@ public class PlayerMovement : MonoBehaviour
         }
         else playerFootsteps.stop(STOP_MODE.ALLOWFADEOUT);
     }
-    
+
+    // --- EXTERNAL HELPERS ---
+
+    public void OnMove(InputValue value) => inputDirection = value.Get<Vector2>();
+    public void OnLook(InputValue value) => lookInput = value.Get<Vector2>();
+    public void OnJump(InputValue value) { if (readyToJump && grounded && !staminaExhausted && stamina >= jumpStaminaCost) Jump(); }
+    public void OnSprint(InputValue value) => sprinting = value.isPressed;
+
     public IEnumerator FadePlungerLayer(int index, float target, float duration)
     {
         float startWeight = playerAnimator.GetLayerWeight(index);
@@ -356,11 +354,7 @@ public class PlayerMovement : MonoBehaviour
         lookInput = Vector2.zero; 
         inputDirection = Vector2.zero;
         inputIgnoreTimer = 0.15f; 
-
-        if (playerCamera != null)
-        {
-            playerCamera.transform.localPosition = cameraDefaultLocalPos;
-        }
+        if (playerCamera != null) playerCamera.transform.localPosition = cameraDefaultLocalPos;
     }
 
     public void SyncRotation(float newXRotation)
@@ -376,5 +370,7 @@ public class PlayerMovement : MonoBehaviour
     {
         outOfBreathSound.stop(STOP_MODE.IMMEDIATE);
         outOfBreathSound.release();
+        playerFootsteps.stop(STOP_MODE.IMMEDIATE);
+        playerFootsteps.release();
     }
 }
