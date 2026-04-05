@@ -10,6 +10,7 @@ public class DirtCleaner : MonoBehaviour, IInteractable
     public DirtSpawn originSpawnPoint;
 
     [Header("Interaction Settings")]
+    public int points = 50;
     public GameObject cleaningPrompt;
     public KeyCode interactKey = KeyCode.E;
     public float holdTime = 2f;
@@ -130,14 +131,11 @@ public class DirtCleaner : MonoBehaviour, IInteractable
         return Vector3.Distance(myPosFlat, playerPosFlat);
     }
 
-    // --- FOLLOWS BANANA LOGIC ---
-
     public void OnFocus() 
     { 
         if (miniGameActive) return;
         isLookedAt = true; 
         
-        // Only trigger if in range, exactly like the distance check logic
         if (GetFlatDistanceToPlayer() <= interactionDistance)
         {
             ToggleInteractionUI(true);
@@ -171,8 +169,6 @@ public class DirtCleaner : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        // Continuous check: If you walk out of range while looking at it, turn highlight OFF.
-        // If you walk INTO range while looking at it, turn highlight ON.
         if (isLookedAt && !miniGameActive)
         {
             bool inRange = GetFlatDistanceToPlayer() <= interactionDistance;
@@ -182,7 +178,6 @@ public class DirtCleaner : MonoBehaviour, IInteractable
             }
         }
 
-        // Rest of the logic (World Mop, Minigame input, etc) stays identical
         if (miniGameActive && Time.timeScale == 0)
         {
             CancelMiniGame();
@@ -325,7 +320,13 @@ public class DirtCleaner : MonoBehaviour, IInteractable
         if (playerHandMop != null) playerHandMop.SetActive(false);
         ResetUIStates();
         if (originSpawnPoint != null) originSpawnPoint.isSpawned = false;
-        if (SinglePlayerModeManager.Instance != null) SinglePlayerModeManager.Instance.BagsRemaining--;
+        
+        if (SinglePlayerModeManager.Instance != null)
+        {
+            SinglePlayerModeManager.Instance.BagsRemaining--;
+            SinglePlayerModeManager.Instance.SinglePlayerScore += points;
+        }
+
         if (doneVFX != null) Destroy(Instantiate(doneVFX, transform.position, Quaternion.identity), 2f);
         Destroy(gameObject);
     }

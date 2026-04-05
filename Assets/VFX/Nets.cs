@@ -11,24 +11,24 @@ public class Nets : MonoBehaviour
 
     [Header("Settings")]
     public int bucketsNeeded = 3;
+    public int points = 150;
 
     [Header("Timer Settings")]
-    public float timeLimit = 30f; // How long they have to make the shots
-    private static float gameEndTime; // Shared deadline for all hoops
+    public float timeLimit = 30f; 
+    private static float gameEndTime; 
 
     [Header("UI Reference (World Space)")]
     public GameObject uiCanvas; 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI timerText;
     public Color activeColor = Color.white;
-    public Color timerActiveColor = new Color(1.0f, 0.55f, 0.0f); // NEW: Orange for the shot clock!
+    public Color timerActiveColor = new Color(1.0f, 0.55f, 0.0f); 
     public Color winColor = Color.green;
     public Color failColor = Color.red; 
 
     private ParticleSystem hoopParticles;
     private static List<Nets> allHoops = new List<Nets>();
     
-    // Double-Count Protection 
     private List<GameObject> recentlyScoredGarbage = new List<GameObject>();
 
     void Awake()
@@ -45,7 +45,6 @@ public class Nets : MonoBehaviour
 
     void Update()
     {
-        // Timer Countdown Logic
         if (IsMinigameActive && !IsMinigameWon)
         {
             float timeLeft = gameEndTime - Time.time;
@@ -67,7 +66,6 @@ public class Nets : MonoBehaviour
         TotalBucketsScored = 0;
         IsMinigameActive = true;
         
-        // Set the global deadline based on the time limit
         gameEndTime = Time.time + timeLimit;
         
         foreach (Nets hoop in allHoops)
@@ -75,10 +73,8 @@ public class Nets : MonoBehaviour
             if (hoop.uiCanvas != null) hoop.uiCanvas.SetActive(true);
             hoop.recentlyScoredGarbage.Clear(); 
             
-            // Reset colors
             if (hoop.scoreText != null) hoop.scoreText.color = hoop.activeColor;
             
-            // NEW: Set the timer text to the dedicated orange color
             if (hoop.timerText != null) hoop.timerText.color = hoop.timerActiveColor;
 
             hoop.UpdateScoreUI();
@@ -161,6 +157,11 @@ public class Nets : MonoBehaviour
     {
         IsMinigameWon = true;
         IsMinigameActive = false;
+
+        if (SinglePlayerModeManager.Instance != null)
+        {
+            SinglePlayerModeManager.Instance.SinglePlayerScore += points;
+        }
 
         foreach (Nets hoop in allHoops)
         {

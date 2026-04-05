@@ -14043,6 +14043,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bucketsNeeded: 3
+  points: 150
   timeLimit: 30
   uiCanvas: {fileID: 364307820}
   scoreText: {fileID: 16585835}
@@ -42671,6 +42672,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bucketsNeeded: 3
+  points: 150
   timeLimit: 30
   uiCanvas: {fileID: 1901922394}
   scoreText: {fileID: 1804216177}
@@ -67015,6 +67017,10 @@ PrefabInstance:
       value: event:/SFX/NPCs/Kids
       objectReference: {fileID: 0}
     - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <OutOfBreath>k__BackingField.Path
+      value: event:/SFX/Player/OutOfBreath
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
       propertyPath: <Throw>k__BackingField.Guid.Data1
       value: -73991550
       objectReference: {fileID: 0}
@@ -67105,6 +67111,22 @@ PrefabInstance:
     - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
       propertyPath: <Principal>k__BackingField.Guid.Data4
       value: 1449512162
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <OutOfBreath>k__BackingField.Guid.Data1
+      value: -1519581675
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <OutOfBreath>k__BackingField.Guid.Data2
+      value: 1334070074
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <OutOfBreath>k__BackingField.Guid.Data3
+      value: -236107391
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
+      propertyPath: <OutOfBreath>k__BackingField.Guid.Data4
+      value: -1178053625
       objectReference: {fileID: 0}
     - target: {fileID: 7346253736496124653, guid: 570ca132736242e46bd368b0f4df19d7, type: 3}
       propertyPath: <PlayerToilet>k__BackingField.Guid.Data1
@@ -77245,6 +77267,14 @@ PrefabInstance:
       value: StudentSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 3802598736380937517, guid: 036e8cb21f4431f4a95188b4a8ab7814, type: 3}
+      propertyPath: messyStudentPrefab
+      value: 
+      objectReference: {fileID: 1872598530004892905, guid: 5b7f436bedceeaa4b8ad2fa81c0cdd56, type: 3}
+    - target: {fileID: 3802598736380937517, guid: 036e8cb21f4431f4a95188b4a8ab7814, type: 3}
+      propertyPath: harmlessStudentPrefab
+      value: 
+      objectReference: {fileID: 1872598530004892905, guid: 48ec7e17e3417424d94888416170d29c, type: 3}
+    - target: {fileID: 3802598736380937517, guid: 036e8cb21f4431f4a95188b4a8ab7814, type: 3}
       propertyPath: spawnPoints.Array.data[0]
       value: 
       objectReference: {fileID: 2016392635}
@@ -77272,6 +77302,66 @@ PrefabInstance:
       propertyPath: spawnPoints.Array.data[6]
       value: 
       objectReference: {fileID: 1232957486}
+    - target: {fileID: 3802598736380937517, guid: 036e8cb21f4431f4a95188b4a8ab7814, type: 3}
+      propertyPath: studentPrefabs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3802598736380937517, guid: 036e8cb21f4431f4a95188b4a8ab7814, type: 3}
+      propertyPath: studentPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 1872598530004892905, guid: 48ec7e17e3417424d94888416170d29c, type: 3}
+    - target: {fileID: 3802598736380937517, guid: 036e8cb21f4431f4a95188b4a8ab7814, type: 3}
+      propertyPath: studentPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 1872598530004892905, guid: 5b7f436bedceeaa4b8ad2fa81c0cdd56, type: 3}
+    - target: {fileID: 3802598736380937517, guid: 036e8cb21f4431f4a95188b4a8ab7814, type: 3}
+      propertyPath: messyStudentsPerLevel.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3802598736380937517, guid: 036e8cb21f4431f4a95188b4a8ab7814, type: 3}
+      propertyPath: harmlessStudentsPerLevel.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3802598736380937517, guid: 036e8cb21f4431f4a95188b4a8ab7814, type: 3}
+      propertyPath: messyStudentsPerLevel.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3802598736380937517, guid: 036e8cb21f4431f4a95188b4a8ab7814, type: 3}
+      propertyPath: messyStudentsPerLevel.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3802598736380937517, guid: 036e8cb21f4431f4a95188b4a8ab7814, type: 3}
+      propertyPath: messyStudentsPerLevel.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3802598736380937517, guid: 036e8cb21f4431f4a95188b4a8ab7814, type: 3}
+      propertyPath: messyStudentsPerLevel.Array.data[3]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3802598736380937517, guid: 036e8cb21f4431f4a95188b4a8ab7814, type: 3}
+      propertyPath: messyStudentsPerLevel.Array.data[4]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3802598736380937517, guid: 036e8cb21f4431f4a95188b4a8ab7814, type: 3}
+      propertyPath: harmlessStudentsPerLevel.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3802598736380937517, guid: 036e8cb21f4431f4a95188b4a8ab7814, type: 3}
+      propertyPath: harmlessStudentsPerLevel.Array.data[1]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3802598736380937517, guid: 036e8cb21f4431f4a95188b4a8ab7814, type: 3}
+      propertyPath: harmlessStudentsPerLevel.Array.data[2]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3802598736380937517, guid: 036e8cb21f4431f4a95188b4a8ab7814, type: 3}
+      propertyPath: harmlessStudentsPerLevel.Array.data[3]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3802598736380937517, guid: 036e8cb21f4431f4a95188b4a8ab7814, type: 3}
+      propertyPath: harmlessStudentsPerLevel.Array.data[4]
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

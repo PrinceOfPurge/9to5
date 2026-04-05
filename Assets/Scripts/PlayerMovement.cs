@@ -64,6 +64,10 @@ public class PlayerMovement : MonoBehaviour
 
     private CharacterController controller;
     private EventInstance playerFootsteps;
+    
+    // We bring back the EventInstance to strictly control playback
+    private EventInstance outOfBreathSound;
+
     private Vector2 inputDirection;
     private Vector2 lookInput;
     private Vector3 verticalVelocity;
@@ -102,7 +106,11 @@ public class PlayerMovement : MonoBehaviour
         if (redWheel != null) originalRedWheelColor = redWheel.color;
         
         cameraDefaultLocalPos = playerCamera.transform.localPosition;
+        
         playerFootsteps = AudioManager.instance.CreateInstance(FMODEvents.instance.playerFootsteps);
+        
+        // Initialize the VO instance
+        outOfBreathSound = AudioManager.instance.CreateInstance(FMODEvents.instance.OutOfBreath);
 
         if (ShopInfo.Instance != null)
         {
@@ -169,8 +177,19 @@ public class PlayerMovement : MonoBehaviour
             if (stamina <= 0)
             {
                 stamina = 0;
-                staminaExhausted = true;
-                if (greenWheel) greenWheel.enabled = false;
+                
+                if (!staminaExhausted)
+                {
+                    staminaExhausted = true;
+                    if (greenWheel) greenWheel.enabled = false;
+                    
+                    // CHECK PLAYBACK STATE: Only play the line if the previous one is completely finished
+                    outOfBreathSound.getPlaybackState(out PLAYBACK_STATE state);
+                    if (state == PLAYBACK_STATE.STOPPED)
+                    {
+                        outOfBreathSound.start();
+                    }
+                }
             }
         }
         else
@@ -182,6 +201,9 @@ public class PlayerMovement : MonoBehaviour
                 {
                     staminaExhausted = false;
                     if (greenWheel) greenWheel.enabled = true;
+                    
+                    // We intentionally DO NOT call outOfBreathSound.stop() here anymore.
+                    // This allows the funny line to finish playing naturally!
                 }
             }
         }
@@ -349,4 +371,10 @@ public class PlayerMovement : MonoBehaviour
     }
     
     public void SetMouseSensitivity(float newSensitivity) => mouseSensitivity = newSensitivity;
+    
+    void OnDestroy()
+    {
+        outOfBreathSound.stop(STOP_MODE.IMMEDIATE);
+        outOfBreathSound.release();
+    }
 }
