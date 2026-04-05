@@ -38,11 +38,9 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
     public float exitBackoffDistance = 1.2f; 
 
     [Header("Gameplay Settings")]
-    [Tooltip("How much the bar fills per raw unit of mouse movement. Keep this VERY LOW (e.g., 0.005) because it reads direct mouse DPI.")]
+    public int points = 100;
     public float sensitivity = 0.005f;     
-    [Tooltip("How fast the bar drains when you aren't plunging.")]
     public float upwardPressure = 0.1f; 
-    [Tooltip("How long (in seconds) the drain pauses when you lift your mouse to reposition.")]
     public float drainPauseTime = 1.5f; 
     public float winHoldTime = 0.3f;   
     
@@ -65,7 +63,6 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
     private Vector3 camSavedLocalPos;
     private Quaternion camSavedLocalRot;
     
-    //sound stuff
     private EventInstance struggleInstance;
     private bool hasPlayedPlungeSound = false; 
     public static PlungerMiniGame instance { get; private set; }
@@ -211,17 +208,15 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
         if (!barFill || !barParent) return;
         
         Color struggleColor = Color.white; 
-        Color winChargeColor = new Color(1f, 0.65f, 0f); // Bright Orange/Yellow
+        Color winChargeColor = new Color(1f, 0.65f, 0f);
 
         if (plungeProgress >= 0.96f)
         {
-            // PHASE 2: Reset visual bar to 0 and fill it up based on the victory timer
             barFill.fillAmount = Mathf.Clamp01(victoryTimer / winHoldTime);
             barFill.color = winChargeColor; 
         }
         else
         {
-            // PHASE 1: Normal swiping progress
             barFill.fillAmount = plungeProgress;
             barFill.color = struggleColor; 
         }
@@ -262,6 +257,11 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
     void WinGame()
     {
         isWon = true;
+
+        if (SinglePlayerModeManager.Instance != null)
+        {
+            SinglePlayerModeManager.Instance.SinglePlayerScore += points;
+        }
         
         AudioManager.instance.PlayOneShot(FMODEvents.instance.Done, transform.position);
         

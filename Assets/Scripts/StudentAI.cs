@@ -9,7 +9,9 @@ public class StudentAI : MonoBehaviour
     Animator animator; 
 
     public float moveSpeed = 3.5f;
-    public float maxWaitTime = 25f;
+
+    [Header("Difficulty Control")]
+    public bool isHarmless = false;
 
     [Header("Garbage/Banana Messes")]
     public int minMessessToSpawn = 1;
@@ -19,20 +21,25 @@ public class StudentAI : MonoBehaviour
     [Header("Dirty Footstep Messes")]
     public GameObject dirtPrefab; 
     public int maxDirtSpawns = 2;              
-    // Note: Timer logic removed because students now WALK to these spots
+
+    [Header("Endless Wandering Settings")]
+    public float wanderRadius = 15f;
+    public float wanderWaitTime = 4f;
+
+    [Header("Collision Settings")]
+    public float fallRecoveryTime = 3.0f;
 
     private int currentDirtSpawns = 0;
     int messesRemainingToSpawn;
 
-    Vector3 homePosition;
-    Quaternion homeRotation; 
-    
-    // The current target can now be either a MessSpawn or a DirtSpawn
     MonoBehaviour currentTargetPoint;
 
-    bool returningHome = false;
     bool makingMess = false;
-    bool isExiting = false;
+    bool isWanderingForever = false;
+    bool isWaitingToWander = false;
+    bool isFalling = false; 
+
+    private float stuckTimer = 0f;
 
     List<MonoBehaviour> visitedSpawns = new List<MonoBehaviour>();
 
@@ -41,40 +48,59 @@ public class StudentAI : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>(); 
 
-        if (agent != null) agent.speed = moveSpeed;
+        if (agent != null) 
+        {
+            agent.speed = moveSpeed;
+            agent.avoidancePriority = Random.Range(10, 90); 
+        }
         
-        homePosition = transform.position;
-        homeRotation = transform.rotation; 
+        if (isHarmless)
+        {
+            messesRemainingToSpawn = 0;
+            currentDirtSpawns = maxDirtSpawns; 
+        }
+        else
+        {
+            messesRemainingToSpawn = Random.Range(minMessessToSpawn, maxMessessToSpawn + 1);
+        }
 
-        messesRemainingToSpawn = Random.Range(minMessessToSpawn, maxMessessToSpawn + 1);
-
-        StartCoroutine(DelayedStart());
-    }
-
-    IEnumerator DelayedStart()
-    {
-        float delay = Random.Range(0f, maxWaitTime);
-        yield return new WaitForSeconds(delay);
-        MoveToNextSpawn();
+        // The "Middle Ground": A tiny random jitter (0 to 0.5 seconds)
+        // Spreads the CPU pathfinding load and makes their starts feel natural.
+        Invoke("MoveToNextSpawn", Random.Range(0f, 0.5f));
     }
 
     private void Update()
     {
-        if (isExiting) return;
+        if (isFalling) return;
 
         bool isMoving = agent != null && agent.enabled && agent.velocity.sqrMagnitude > 0.01f; 
         if (animator != null) animator.SetBool("IsRunning", isMoving);
 
-        // --- Arrival Logic ---
-        if (returningHome)
+        if (isWanderingForever)
         {
-            Vector3 flatPos = new Vector3(transform.position.x, 0, transform.position.z);
-            Vector3 flatHome = new Vector3(homePosition.x, 0, homePosition.z);
-            float flatDist = Vector3.Distance(flatPos, flatHome);
-
-            if (flatDist < 2.0f || (flatDist < 3.5f && !isMoving))
+            if (agent != null && agent.enabled && !agent.pathPending)
             {
-                StartCoroutine(PerformClumsyExit());
+                if (agent.remainingDistance <= agent.stoppingDistance && !isWaitingToWander)
+                {
+                    stuckTimer = 0f; 
+                    StartCoroutine(WaitThenWander());
+                }
+                else if (!isWaitingToWander)
+                {
+                    if (agent.velocity.sqrMagnitude < 0.1f)
+                    {
+                        stuckTimer += Time.deltaTime;
+                        if (stuckTimer > 2.0f) 
+                        {
+                            stuckTimer = 0f;
+                            PickNewWanderDestination(); 
+                        }
+                    }
+                    else
+                    {
+                        stuckTimer = 0f; 
+                    }
+                }
             }
         }
         else if (agent != null && agent.enabled && !agent.pathPending && !makingMess)
@@ -84,17 +110,56 @@ public class StudentAI : MonoBehaviour
                 makingMess = true;
                 if (animator != null) animator.SetBool("IsRunning", false);
                 
-                // Determine if we are at a Dirt point or a Banana point
                 if (currentTargetPoint is DirtSpawn) SpawnDirt();
                 else MakeMess();
             }
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && !isFalling)
+        {
+            StartCoroutine(KnockdownRoutine());
+        }
+    }
+
+    private IEnumerator KnockdownRoutine()
+    {
+        isFalling = true;
+
+        if (agent != null && agent.isActiveAndEnabled)
+        {
+            agent.isStopped = true;
+            agent.velocity = Vector3.zero;
+        }
+
+        if (animator != null)
+        {
+            animator.SetBool("IsRunning", false); 
+            animator.SetTrigger("Fall");
+        }
+
+        yield return new WaitForSeconds(fallRecoveryTime);
+
+        if (animator != null)
+        {
+            animator.ResetTrigger("Fall"); 
+        }
+
+        if (agent != null && agent.isActiveAndEnabled)
+        {
+            agent.isStopped = false;
+        }
+
+        stuckTimer = 0f; 
+        isFalling = false;
+    }
+
     void SpawnDirt()
     {
         DirtSpawn dp = currentTargetPoint as DirtSpawn;
-        if (dp != null)
+        if (dp != null && dirtPrefab != null)
         {
             currentDirtSpawns++;
             GameObject spawnedDirt = Instantiate(dirtPrefab, dp.transform.position, dirtPrefab.transform.rotation);
@@ -114,7 +179,7 @@ public class StudentAI : MonoBehaviour
     void MakeMess()
     {
         MessSpawn ms = currentTargetPoint as MessSpawn;
-        if (ms != null)
+        if (ms != null && messPrefab != null)
         {
             messesRemainingToSpawn--;
             Instantiate(messPrefab, ms.transform.position, Quaternion.identity);
@@ -130,78 +195,68 @@ public class StudentAI : MonoBehaviour
 
     void MoveToNextSpawn()
     {
-        // If we finished banana messes AND dirt messes, go home
         if (messesRemainingToSpawn <= 0 && currentDirtSpawns >= maxDirtSpawns)
         {
-            ReturnHome();
+            StartWanderingForever();
             return;
         }
 
         makingMess = false;
 
-        // Decide whether to go to a Dirt spot or a Banana spot
-        // If we still need dirt and (randomly chosen OR no banana messes left)
         if (currentDirtSpawns < maxDirtSpawns && (Random.value > 0.5f || messesRemainingToSpawn <= 0))
         {
-            currentTargetPoint = DirtSpawnHolder.instance.GetRandomDirtSpawn();
+            if (DirtSpawnHolder.instance != null) 
+                currentTargetPoint = DirtSpawnHolder.instance.GetRandomDirtSpawn();
         }
         else if (messesRemainingToSpawn > 0)
         {
-            // Note: We need to cast our visited list to MessSpawn for the old holder logic
             List<MessSpawn> excluded = new List<MessSpawn>();
             foreach(var v in visitedSpawns) if(v is MessSpawn) excluded.Add(v as MessSpawn);
             
-            currentTargetPoint = MessSpawnHolder.instance.GetRandomMessSpawn(excluded);
+            if (MessSpawnHolder.instance != null) 
+                currentTargetPoint = MessSpawnHolder.instance.GetRandomMessSpawn(excluded);
         }
 
-        // Set destination
         if (currentTargetPoint != null && agent != null && agent.enabled)
         {
             agent.SetDestination(currentTargetPoint.transform.position);
         }
         else
         {
-            // If we couldn't find a spot but still have "messes" to make, go home early
-            ReturnHome();
+            StartWanderingForever(); 
         }
     }
 
-    void ReturnHome()
+    void StartWanderingForever()
     {
-        returningHome = true;
-        if (agent != null && agent.isActiveAndEnabled && agent.isOnNavMesh)
+        isWanderingForever = true;
+        PickNewWanderDestination();
+    }
+
+    void PickNewWanderDestination()
+    {
+        Vector3 randomDirection = Random.insideUnitSphere * wanderRadius;
+        randomDirection += transform.position;
+        
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(randomDirection, out hit, wanderRadius, NavMesh.AllAreas))
         {
-            agent.stoppingDistance = 0.5f; 
-            agent.SetDestination(homePosition);
+            if (agent != null && agent.enabled)
+            {
+                agent.SetDestination(hit.position);
+                stuckTimer = 0f; 
+            }
         }
     }
 
-    IEnumerator PerformClumsyExit()
+    IEnumerator WaitThenWander()
     {
-        if (isExiting) yield break;
-        isExiting = true;
-        if (agent != null) agent.enabled = false;
-
-        transform.position = homePosition + new Vector3(0, 1.2f, 0); 
-        if (animator != null) animator.SetBool("IsRunning", false); 
-
-        float turnDuration = 0.3f; 
-        float elapsed = 0f;
-        Quaternion currentRot = transform.rotation;
-        while (elapsed < turnDuration)
-        {
-            elapsed += Time.deltaTime;
-            transform.rotation = Quaternion.Slerp(currentRot, homeRotation, elapsed / turnDuration);
-            yield return null;
-        }
-        transform.rotation = homeRotation; 
-
-        if (animator != null) animator.SetTrigger("Fall"); 
-        yield return new WaitForSeconds(3.0f);
-
-        if (SinglePlayerModeManager.Instance != null)
-            SinglePlayerModeManager.Instance.ActiveStudents--;
-
-        Destroy(gameObject);
+        isWaitingToWander = true;
+        if (animator != null) animator.SetBool("IsRunning", false);
+        
+        yield return new WaitForSeconds(Random.Range(1f, wanderWaitTime));
+        
+        PickNewWanderDestination();
+        isWaitingToWander = false;
     }
 }

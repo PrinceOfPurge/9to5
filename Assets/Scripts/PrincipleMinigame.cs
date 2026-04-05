@@ -2,14 +2,13 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Collections; // Required for Coroutines
+using System.Collections; 
 using System.Collections.Generic;
 using FMOD.Studio;
 using Random = UnityEngine.Random;
 
 public class PrincipalMinigame : MonoBehaviour, IInteractable
 {
-    // ... [Keeping all your existing UI and Setting headers the same] ...
     [Header("UI Elements")]
     public GameObject promptUI;        
     public GameObject externalGarbageUI; 
@@ -31,6 +30,7 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     public GameObject interactCursorObj;  
 
     [Header("Settings")]
+    public int points = 250;
     public float maxPatience = 5000f;     
     public float hitPenalty = 25f;        
     public float messNearPenalty = 15f;   
@@ -44,7 +44,7 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     public float yOffset = 0.05f;
 
     [Header("Audio Tweak Settings")]
-    public float winGracePeriod = 1.5f; // Time in seconds he stays "un-hittable" after you clean a mess
+    public float winGracePeriod = 1.5f; 
 
     public bool hasWon { get; private set; } = false;
     public static PrincipalMinigame instance;
@@ -62,20 +62,16 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     private List<GameObject> activeMesses = new List<GameObject>(); 
     private Camera mainCam;
 
-    // Audio shtuff
     private float idleTimer;
     private float nextIdleTime = 10f;
     private EventInstance voiceInstance;
     private bool hasGreeted = false; 
     private Transform playerTransform;
-    private bool isInvulnerableToAudio = false; // Internal flag for the grace period
+    private bool isInvulnerableToAudio = false; 
 
-    // NEW: VFX to play when a mess GameObject is destroyed
     [Header("Mess VFX")]
     [Tooltip("ParticleSystem prefab to play when an individual mess is destroyed.")]
     public ParticleSystem messDestroyVfxPrefab;
-
-    // ... [Awake, Start, DrawBoundaryRing, OnFocus, OnLoseFocus, OnInteract are unchanged] ...
 
     private void Awake()
     {
@@ -222,8 +218,6 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
                 GameObject newMess = Instantiate(messPrefab, point.position, point.rotation);
                 RegisterMess(newMess);
 
-                // Attach a notifier so we can react when this mess is destroyed
-                // (plays VFX from PrincipalMinigame.OnMessDestroyed)
                 if (newMess.GetComponent<MessDestroyNotifier>() == null) newMess.AddComponent<MessDestroyNotifier>();
             }
         }
@@ -234,15 +228,12 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
             activeMesses.Add(mess);
         }
 
-        // Ensure the notifier is present for any mess registered at runtime.
-        // This covers messes instantiated elsewhere that call RegisterMess.
         if (mess != null && mess.GetComponent<MessDestroyNotifier>() == null)
         {
             mess.AddComponent<MessDestroyNotifier>();
         }
     }
 
-    // Called by MessDestroyNotifier when a mess GameObject is destroyed or disabled
     public void OnMessDestroyed(Vector3 worldPosition)
     {
         if (messDestroyVfxPrefab == null) return;
@@ -250,17 +241,14 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
         ParticleSystem ps = Instantiate(messDestroyVfxPrefab, worldPosition, Quaternion.identity);
         ps.Play();
 
-        // Destroy instantiated VFX after its lifetime
         var main = ps.main;
         float life = main.duration;
-        // attempt to add startLifetime if constant
         if (main.startLifetime.mode == ParticleSystemCurveMode.Constant)
         {
             life += main.startLifetime.constant;
         }
         else
         {
-            // safe fallback: add 1 second
             life += 1f;
         }
 
@@ -268,7 +256,6 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
         Destroy(ps.gameObject, life + 0.1f);
     }
 
-    // --- UPDATED: NotifyMessCleaned now starts a grace period ---
     public void NotifyMessCleaned() 
     {
         if (isGameActive)
@@ -276,8 +263,7 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
             currentPatience += patienceRestorePerClean;
             currentPatience = Mathf.Clamp(currentPatience, 0, maxPatience);
             
-            // Start the grace period so hitting him right after a clean doesn't trigger audio
-            StopCoroutine("AudioGracePeriod"); // Reset if one was already running
+            StopCoroutine("AudioGracePeriod"); 
             StartCoroutine(AudioGracePeriod());
         }
 
@@ -309,11 +295,9 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
         if (screenPatienceFill) screenPatienceFill.fillAmount = ratio;
     }
 
-    // --- UPDATED: GetHit now respects the grace period and current speech ---
     public void GetHit() {
-        if (isInvulnerableToAudio) return; // Skip if we just won or cleaned a mess
+        if (isInvulnerableToAudio) return; 
 
-        // If he is currently playing an idle line or a greet line, DON'T play hit sound
         if (voiceInstance.isValid())
         {
             PLAYBACK_STATE pbState;
@@ -323,7 +307,6 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
 
         if (principalAnim != null) principalAnim.Play(hitStateName, 0, 0f); 
         
-        // Pass 'true' because we actually DO want to play the hit sound now
         PlayVoice(2, true);
 
         if (!isGameActive) return;
@@ -345,6 +328,12 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     private void WinGame()
     {
         hasWon = true; 
+        
+        if (SinglePlayerModeManager.Instance != null)
+        {
+            SinglePlayerModeManager.Instance.SinglePlayerScore += points;
+        }
+
         PlayVoice(3, true); 
         PooledThrower[] students = FindObjectsOfType<PooledThrower>();
         foreach (PooledThrower s in students) s.StopThrowingPermanently();
@@ -402,16 +391,12 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
 
-    // Notifier component attached to each mess instance so we can detect when it's destroyed.
-    // Using a nested class keeps the notifier implementation local and simple.
     private class MessDestroyNotifier : MonoBehaviour
     {
         private bool notified = false;
 
         private void OnDisable()
         {
-            // If the mess is being returned to a pool it is commonly deactivated --
-            // treat that as a destruction for VFX purposes, but ensure we only notify once.
             NotifyOnce();
         }
 

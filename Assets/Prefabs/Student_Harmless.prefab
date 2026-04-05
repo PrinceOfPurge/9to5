@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 9116444056830798204}
   - component: {fileID: 5830019878934568168}
   m_Layer: 0
-  m_Name: Student
+  m_Name: Student_Harmless
   m_TagString: Student
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -104,14 +104,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 13
   maxWaitTime: 10
+  isHarmless: 1
   minMessessToSpawn: 2
   maxMessessToSpawn: 4
   messPrefab: {fileID: 3641249080217316756, guid: dc4bea226faa26642a05b7f2f63d894e, type: 3}
   dirtPrefab: {fileID: 9158853786948293770, guid: c3c6ddd7e482a0b48b06a79cb3d4acbb, type: 3}
   maxDirtSpawns: 2
-  timeBetweenDirtChecks: 4
-  dirtSpawnChance: 0.4
-  dirtSpawnOffset: {x: 0, y: -2.6, z: 0}
+  wanderRadius: 15
+  wanderWaitTime: 4
+  fallRecoveryTime: 1
 --- !u!54 &5830019878934568168
 Rigidbody:
   m_ObjectHideFlags: 0

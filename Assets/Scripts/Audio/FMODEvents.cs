@@ -22,6 +22,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference PlayerToilet { get; private set; } 
     [field: SerializeField] public EventReference Throw { get; private set; }
     [field: SerializeField] public EventReference Pickup { get; private set; } 
+    [field: SerializeField] public EventReference OutOfBreath { get; private set; } 
     
     [field: Header("NPC SFX")]
     [field: SerializeField] public EventReference GymTeacherGreet { get; private set; }
