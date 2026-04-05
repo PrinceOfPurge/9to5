@@ -418,7 +418,7 @@ MonoBehaviour:
   Path: Sound/GameAudio/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639109494412722413
+  lastModified: 639109573023986684
   FileSizes:
   - Name: Desktop
     Value: 4057344
@@ -688,7 +688,7 @@ MonoBehaviour:
   - {fileID: 2252221356520387648}
   StringsBanks:
   - {fileID: 3174544110914334489}
-  cacheTime: 639109494412722413
+  cacheTime: 639109573023986684
   cacheVersion: 131620
 --- !u!114 &617042756782656065
 MonoBehaviour:

@@ -21,7 +21,7 @@ public class PASystem : MonoBehaviour
     private bool allTasksDone = false;
     
     [HideInInspector]
-    public bool finalAnnouncementFinished = false; // Required for SinglePlayerModeManager
+    public bool finalAnnouncementFinished = false; 
 
     private List<EventInstance> activeInstances = new List<EventInstance>();
 
@@ -36,10 +36,8 @@ public class PASystem : MonoBehaviour
         StartCoroutine(AnnouncementLoop());
     }
 
-    // --- THIS IS THE FUNCTION YOUR ERRORS WERE MISSING ---
     public void CheckForInstantUpdate()
     {
-        // If we aren't currently playing a broadcast, restart the loop to check tasks
         if (activeInstances.Count == 0)
         {
             StopAllCoroutines();
@@ -53,19 +51,15 @@ public class PASystem : MonoBehaviour
         {
             List<AnnouncementType> activeTasks = new List<AnnouncementType>();
 
-            // Check Student Messes
             if (SinglePlayerModeManager.Instance != null && SinglePlayerModeManager.Instance.BagsRemaining > 0)
                 activeTasks.Add(AnnouncementType.Student);
 
-            // Check Clogged Toilets
             if (PlungerMiniGame.instance != null && !PlungerMiniGame.instance.isWon)
                 activeTasks.Add(AnnouncementType.CloggedToilet);
 
-            // Check Food Fight
             if (PrincipalMinigame.instance != null && !PrincipalMinigame.instance.hasWon)
                 activeTasks.Add(AnnouncementType.FoodFight);
 
-            // Check Gym Mop
             if (!Nets.IsMinigameWon)
                 activeTasks.Add(AnnouncementType.MopGym);
 
@@ -82,7 +76,7 @@ public class PASystem : MonoBehaviour
             }
             else
             {
-                // Check if absolutely everything is finished
+                // Verify all conditions one last time
                 bool bagsDone = SinglePlayerModeManager.Instance == null || SinglePlayerModeManager.Instance.BagsRemaining <= 0;
                 bool plungerDone = PlungerMiniGame.instance == null || PlungerMiniGame.instance.isWon;
                 bool principalDone = PrincipalMinigame.instance == null || PrincipalMinigame.instance.hasWon;
@@ -92,9 +86,8 @@ public class PASystem : MonoBehaviour
                 {
                     allTasksDone = true;
                     yield return StartCoroutine(PlayBroadcast(AnnouncementType.AllComplete));
-                    
-                    // This tells the Game Manager it is safe to load the Shop scene
                     finalAnnouncementFinished = true; 
+                    Debug.Log("PA System: Final Announcement Finished.");
                 }
             }
             yield return new WaitForSeconds(2f);
@@ -132,7 +125,6 @@ public class PASystem : MonoBehaviour
             activeInstances.Add(inst);
         }
 
-        // Wait for audio to finish playing fully
         bool isPlaying = true;
         while (isPlaying)
         {
@@ -145,7 +137,6 @@ public class PASystem : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
 
-        // Cleanup
         foreach (EventInstance inst in activeInstances) inst.release();
         activeInstances.Clear();
     }

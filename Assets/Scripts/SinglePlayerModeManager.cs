@@ -7,13 +7,13 @@ using UnityEngine.SceneManagement;
 
 public class SinglePlayerModeManager : MonoBehaviour
 {
-    // Score & Bags
+    [Header("UI & Scoring")]
     public GameObject BagsRemainingUIContainer; 
     public TextMeshProUGUI BagsRemainingText;
     
     public int BagsRemaining;
     public int SinglePlayerScore;
-    public int ActiveStudents = 0;
+    public int ActiveStudents = 0; // If you aren't strictly counting them down to 0, we'll ignore this for the win
 
     public int level = 1;
     public int PlayerMoney;
@@ -42,6 +42,7 @@ public class SinglePlayerModeManager : MonoBehaviour
         BagsRemainingUIContainer = GameObject.Find("UI_BagsRemaining"); 
         BagsRemainingText = GameObject.Find("BagsRemainingText")?.GetComponent<TextMeshProUGUI>();
 
+        // Reset state for new level
         if (scene.name == "SinglePlayerMode")
         {
             gameEnded = false;
@@ -53,8 +54,7 @@ public class SinglePlayerModeManager : MonoBehaviour
 
     void Update()
     {
-        if (gameEnded)
-            return;
+        if (gameEnded) return;
 
         UpdateBagsRemainingUI();
         EndTheGame();
@@ -66,10 +66,7 @@ public class SinglePlayerModeManager : MonoBehaviour
 
         if (uiToToggle != null && BagsRemainingText != null)
         {
-            if (BagsRemaining <= 0)
-            {
-                uiToToggle.SetActive(false); 
-            }
+            if (BagsRemaining <= 0) uiToToggle.SetActive(false); 
             else
             {
                 uiToToggle.SetActive(true);
@@ -80,24 +77,20 @@ public class SinglePlayerModeManager : MonoBehaviour
 
     void EndTheGame()
     {
-        // Don't check for end game immediately after scene loads
-        if (Time.time - sceneLoadTime < 2.0f) return; 
+        if (Time.time - sceneLoadTime < 3.0f) return; 
 
-        // Debug key
         if (Input.GetKeyDown(KeyCode.B))
         {
             DisplayResults();
             return;
         }
 
-        // --- NEW LOGIC ---
-        // 1. Check if the physical tasks are finished
-        bool tasksPhysicallyDone = (BagsRemaining <= 0 && ActiveStudents <= 0);
+        // PHYSICAL TASKS CHECK
+        // We removed ActiveStudents from this check because they wander forever
+        bool tasksPhysicallyDone = (BagsRemaining <= 0);
 
         if (tasksPhysicallyDone && !gameEnded)
         {
-            // 2. Check for the PA System. 
-            // We only end if the PA System has finished its final victory broadcast.
             if (PASystem.Instance != null)
             {
                 if (PASystem.Instance.finalAnnouncementFinished)
@@ -107,7 +100,6 @@ public class SinglePlayerModeManager : MonoBehaviour
             }
             else
             {
-                // Fallback: If there is no PA System in this scene, end the game normally.
                 DisplayResults();
             }
         }
@@ -117,26 +109,23 @@ public class SinglePlayerModeManager : MonoBehaviour
     {
         if (gameEnded) return; 
 
-        Debug.Log("END DA GAME - Tasks and PA Announcement Complete");
-
+        Debug.Log("LEVEL COMPLETE: Transitioning to Shop...");
         gameEnded = true;
         level++;
 
         PlayerMoney += SinglePlayerScore;
-
         StartCoroutine(GotoShop());
     }
 
     IEnumerator GotoShop()
     {
-        // Safety reset
         BagsRemaining = 0; 
-
-        // Short delay before loading the shop (PA System already provided the main delay)
         yield return new WaitForSeconds(1.5f);
         
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        // CRITICAL: Ensure this string matches your Scene name in Build Settings exactly!
         SceneManager.LoadScene("SinglePlayerUpgradeShop");
     }
 }
