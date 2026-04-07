@@ -58650,7 +58650,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 329291781802519642, guid: 192099d2c29199a4c85c18215e0fd3f8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -373.1
+      value: -387.31
       objectReference: {fileID: 0}
     - target: {fileID: 329291781802519642, guid: 192099d2c29199a4c85c18215e0fd3f8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -58658,23 +58658,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 329291781802519642, guid: 192099d2c29199a4c85c18215e0fd3f8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -98.5
+      value: 48.11
       objectReference: {fileID: 0}
     - target: {fileID: 329291781802519642, guid: 192099d2c29199a4c85c18215e0fd3f8, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.100116834
+      value: 0.7114789
       objectReference: {fileID: 0}
     - target: {fileID: 329291781802519642, guid: 192099d2c29199a4c85c18215e0fd3f8, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.0014321834
+      value: -0.0112462975
       objectReference: {fileID: 0}
     - target: {fileID: 329291781802519642, guid: 192099d2c29199a4c85c18215e0fd3f8, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.99478614
+      value: 0.70243907
       objectReference: {fileID: 0}
     - target: {fileID: 329291781802519642, guid: 192099d2c29199a4c85c18215e0fd3f8, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.019368315
+      value: 0.015834415
       objectReference: {fileID: 0}
     - target: {fileID: 329291781802519642, guid: 192099d2c29199a4c85c18215e0fd3f8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -58682,7 +58682,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 329291781802519642, guid: 192099d2c29199a4c85c18215e0fd3f8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 168.499
+      value: 89.26
       objectReference: {fileID: 0}
     - target: {fileID: 329291781802519642, guid: 192099d2c29199a4c85c18215e0fd3f8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -79423,6 +79423,18 @@ PrefabInstance:
     - target: {fileID: 2961408912755288712, guid: 2467c01f778679a458fd88f8018ca55b, type: 3}
       propertyPath: EventStopTrigger
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2961408912755288712, guid: 2467c01f778679a458fd88f8018ca55b, type: 3}
+      propertyPath: EventReference.Path
+      value: event:/SFX/NPCs/Kids
+      objectReference: {fileID: 0}
+    - target: {fileID: 2961408912755288712, guid: 2467c01f778679a458fd88f8018ca55b, type: 3}
+      propertyPath: OverrideAttenuation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2961408912755288712, guid: 2467c01f778679a458fd88f8018ca55b, type: 3}
+      propertyPath: OverrideMaxDistance
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6445002542501270134, guid: 2467c01f778679a458fd88f8018ca55b, type: 3}
       propertyPath: m_LocalPosition.x

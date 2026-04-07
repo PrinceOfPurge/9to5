@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{dcea2b1d-b899-41ef-bf51-b35c37a61aba}">
+		<property name="assetPath">
+			<value>dyjltus.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>1.750204081632653</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{2c9eddcb-8ffc-421f-ac12-17c198863c50}</destination>
+		</relationship>
+	</object>
+</objects>
