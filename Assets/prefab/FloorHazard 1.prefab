@@ -672,7 +672,8 @@ MonoBehaviour:
   interactKey: 101
   points: 100
   interactionDistance: 10
-  positioningSpeed: 5
+  minDistanceToInteract: 10
+  lookOffset: {x: 0, y: 0, z: 0}
   crosshair1: {fileID: 0}
   crosshair2: {fileID: 0}
   miniGameUIParent: {fileID: 8997579537509114355}
@@ -684,8 +685,6 @@ MonoBehaviour:
   pulseScale: 1.3
   pulseSpeed: 10
   shakeIntensity: 0.05
-  cameraLockSpeed: 5
-  lookOffset: {x: 0, y: 0, z: 0}
   correctFlashTime: 0.15
   wrongFlashTime: 0.15
   totalKeysNeeded: 6
