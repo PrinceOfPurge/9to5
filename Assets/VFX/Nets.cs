@@ -9,8 +9,11 @@ public class Nets : MonoBehaviour
     public static bool IsMinigameActive = false;
     public static bool IsMinigameWon = false;
 
+    // Static persists across scene loads to remember progression
+    private static int currentBucketsNeeded = 0; 
+
     [Header("Settings")]
-    public int bucketsNeeded = 3;
+    public int initialBucketsNeeded = 3; 
     [Tooltip("How many extra buckets are added to the goal when starting the next level?")]
     public int bucketsIncreasePerLevel = 2; 
     public int points = 150;
@@ -32,11 +35,17 @@ public class Nets : MonoBehaviour
     private static List<Nets> allHoops = new List<Nets>();
     
     private List<GameObject> recentlyScoredGarbage = new List<GameObject>();
-    private Coroutine hideUICoroutine; // NEW: Tracks the delay so we can cancel it if they shoot quickly
+    private Coroutine hideUICoroutine;
 
     void Awake()
     {
         if (!allHoops.Contains(this)) allHoops.Add(this);
+
+        // Initialize difficulty if this is the very first level
+        if (currentBucketsNeeded == 0) 
+        {
+            currentBucketsNeeded = initialBucketsNeeded;
+        }
     }
 
     void Start()
@@ -72,7 +81,6 @@ public class Nets : MonoBehaviour
         
         foreach (Nets hoop in allHoops)
         {
-            // Cancel the hiding coroutine if they start a new game while the UI is fading out
             if (hoop.hideUICoroutine != null)
             {
                 hoop.StopCoroutine(hoop.hideUICoroutine);
@@ -83,7 +91,6 @@ public class Nets : MonoBehaviour
             hoop.recentlyScoredGarbage.Clear(); 
             
             if (hoop.scoreText != null) hoop.scoreText.color = hoop.activeColor;
-            
             if (hoop.timerText != null) hoop.timerText.color = hoop.timerActiveColor;
 
             hoop.UpdateScoreUI();
@@ -94,24 +101,13 @@ public class Nets : MonoBehaviour
     {
         if (other.CompareTag("Garbage"))
         {
+            // If already won, don't process anymore shots in this scene
+            if (IsMinigameWon) return;
+
             if (recentlyScoredGarbage.Contains(other.gameObject)) return;
 
-            // --- PROGRESSION & AUTO-START LOGIC ---
-            if (IsMinigameWon)
+            if (!IsMinigameActive)
             {
-                // They won the last round! Increase difficulty and start the next level.
-                foreach (Nets hoop in allHoops)
-                {
-                    hoop.bucketsNeeded += hoop.bucketsIncreasePerLevel;
-                    // Optional: You could also add more time here! (e.g., hoop.timeLimit += 5f;)
-                }
-                
-                StartBasketballGame();
-                TriggerTeacherGreeting();
-            }
-            else if (!IsMinigameActive)
-            {
-                // Starting for the first time, or retrying after a fail.
                 StartBasketballGame();
                 TriggerTeacherGreeting();
             }
@@ -133,7 +129,7 @@ public class Nets : MonoBehaviour
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.Swish, transform.position);
             }
 
-            if (TotalBucketsScored >= bucketsNeeded)
+            if (TotalBucketsScored >= currentBucketsNeeded)
             {
                 CompleteGame();
             }
@@ -159,7 +155,11 @@ public class Nets : MonoBehaviour
     {
         if (scoreText != null)
         {
-            scoreText.text = $"{TotalBucketsScored} / {bucketsNeeded}";
+            // If we just won, show the Total Scored (e.g. 3/3) so the 
+            // "Next Level" static increase doesn't flicker on the screen yet.
+            int displayGoal = IsMinigameWon ? TotalBucketsScored : currentBucketsNeeded;
+
+            scoreText.text = $"{TotalBucketsScored} / {displayGoal}";
             scoreText.color = IsMinigameWon ? winColor : activeColor;
         }
     }
@@ -193,6 +193,9 @@ public class Nets : MonoBehaviour
     {
         IsMinigameWon = true;
         IsMinigameActive = false;
+
+        // Increase difficulty for the NEXT scene load
+        currentBucketsNeeded += bucketsIncreasePerLevel;
 
         if (SinglePlayerModeManager.Instance != null)
         {

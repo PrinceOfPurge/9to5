@@ -709,8 +709,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 8.054542, y: 6.782911, z: 20.135357}
-  m_Center: {x: 0.99390894, y: -1.5619103, z: 7.40562}
+  m_Size: {x: 8.054542, y: 6.782911, z: 8.319397}
+  m_Center: {x: 0.99390894, y: -1.5619103, z: 5.785758}
 --- !u!114 &5160298734622279616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -725,19 +725,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   garbagePrompt: {fileID: 8957341131261522677}
   interactKey: 102
-  cursorUI: {fileID: 0}
-  defaultCursorSprite: {fileID: 21300000, guid: a6204814fee7d8d44a3042a6a2c44ce4, type: 3}
-  interactCursorSprite: {fileID: 21300000, guid: f426d6a276223ca4abdf892fafba7d30, type: 3}
+  points: 100
+  interactionDistance: 1.5
+  lookOffset: {x: 0, y: 0, z: 0}
+  crosshair1: {fileID: 0}
+  crosshair2: {fileID: 0}
+  miniGameUIParent: {fileID: 0}
   upArrowUI: {fileID: 3247821066685528644}
   downArrowUI: {fileID: 7076409281869084696}
   leftArrowUI: {fileID: 4436418283597059783}
   rightArrowUI: {fileID: 1459393615378885585}
+  uiLocation: {fileID: 0}
+  pulseScale: 1.3
+  pulseSpeed: 10
+  shakeIntensity: 0.05
   correctFlashTime: 0.15
   wrongFlashTime: 0.15
   totalKeysNeeded: 6
-  mainColor: {fileID: 2461311996554687863}
   doneVFX: {fileID: 0}
   Bananas: {fileID: 3291312055460527492}
+  highlightScript: {fileID: 0}
   maxTime: 5
   timerBarUI: {fileID: 4101530056592193281}
   timerUI: {fileID: 4460041933165823783}

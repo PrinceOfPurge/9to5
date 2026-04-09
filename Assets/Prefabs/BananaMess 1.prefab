@@ -217,6 +217,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8020547269035415032}
     m_Modifications:
+    - target: {fileID: 1175093081442935240, guid: 75782b16332cda24abcfb54cba074272, type: 3}
+      propertyPath: m_Size.z
+      value: 4.9333186
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175093081442935240, guid: 75782b16332cda24abcfb54cba074272, type: 3}
+      propertyPath: m_Center.y
+      value: -1.5619103
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175093081442935240, guid: 75782b16332cda24abcfb54cba074272, type: 3}
+      propertyPath: m_Center.z
+      value: 9.251146
+      objectReference: {fileID: 0}
     - target: {fileID: 1927695967311332938, guid: 75782b16332cda24abcfb54cba074272, type: 3}
       propertyPath: m_Name
       value: FloorHazard 1
