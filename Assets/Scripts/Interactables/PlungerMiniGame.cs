@@ -53,7 +53,10 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
     private float victoryTimer = 0f;
     private float drainPauseTimer = 0f; 
     private bool isPlaying = false;
+    
+    public bool isMinigameActive => isPlaying; 
     public bool isWon { get; private set; } = false;
+    
     private int layerIndex;
     private Vector3 originalPoopScale;
     private Vector2 barOriginalPos;

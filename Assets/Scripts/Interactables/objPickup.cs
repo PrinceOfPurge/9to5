@@ -53,6 +53,9 @@ public class objPickup : MonoBehaviour, IInteractable
     [HideInInspector] public bool pickedup;
     private bool canShowPrompt = true;
     private Collider[] allColliders;
+    
+    // NEW: Store the original layer so we can return it to normal when thrown
+    private int originalLayer;
 
     void Awake()
     {
@@ -62,11 +65,8 @@ public class objPickup : MonoBehaviour, IInteractable
         if (objRigidbody == null) 
             objRigidbody = GetComponent<Rigidbody>();
 
-        // --- THE REAL FIX: Only find the camera if it's missing (Prefabs). 
-        // Leave the scene objects alone! ---
         if (cameraTrans == null)
         {
-            // Use your custom PlayerMovement script to find the absolute correct camera
             PlayerMovement pm = FindObjectOfType<PlayerMovement>();
             if (pm != null && pm.playerCamera != null)
             {
@@ -74,13 +74,15 @@ public class objPickup : MonoBehaviour, IInteractable
             }
             else if (Camera.main != null) 
             {
-                cameraTrans = Camera.main.transform; // Fallback
+                cameraTrans = Camera.main.transform; 
             }
         }
     }
 
     void Start()
     {
+        originalLayer = gameObject.layer; // Store the layer it starts with
+
         if (UIManager.Instance != null)
         {
             crosshair1 = UIManager.Instance.crosshair1;
@@ -89,7 +91,6 @@ public class objPickup : MonoBehaviour, IInteractable
         
         allColliders = GetComponentsInChildren<Collider>();
 
-        // Auto-find the player references if they are missing (for spawned prefabs)
         if (playerCollider == null || playerAnimator == null)
         {
             PlayerMovement pm = FindObjectOfType<PlayerMovement>();
@@ -132,6 +133,12 @@ public class objPickup : MonoBehaviour, IInteractable
         if (!pickedup)
         {
             if(crosshair1) crosshair1.SetActive(true);
+            if(crosshair2) crosshair2.SetActive(false);
+        }
+        else
+        {
+            // NEW: Force cursors off if this triggers while we hold it
+            if(crosshair1) crosshair1.SetActive(false);
             if(crosshair2) crosshair2.SetActive(false);
         }
 
@@ -179,6 +186,7 @@ public class objPickup : MonoBehaviour, IInteractable
         
         if (playerAnimator != null) playerAnimator.SetTrigger(pickupTrigger);
         
+        // Force cursors off
         if (crosshair1) crosshair1.SetActive(false);
         if (crosshair2) crosshair2.SetActive(false);
 
@@ -189,6 +197,9 @@ public class objPickup : MonoBehaviour, IInteractable
         objTransform.parent = cameraTrans;
 
         foreach (Collider col in allColliders) col.enabled = false;
+        
+        // NEW: Change object and all children to "Ignore Raycast" (Layer 2)
+        SetLayerRecursively(gameObject, 2);
 
         if (worldPrompt) worldPrompt.SetActive(false);
         StartCoroutine(ShowThrowPromptAfterDelay(0.4f));
@@ -213,10 +224,25 @@ public class objPickup : MonoBehaviour, IInteractable
 
         foreach (Collider col in allColliders) col.enabled = true;
         
+        // NEW: Restore original layer
+        SetLayerRecursively(gameObject, originalLayer);
+        
         objRigidbody.velocity = cameraTrans.forward * throwAmount;
 
         if (throwPrompt) throwPrompt.SetActive(false);
         StartCoroutine(PromptCooldownRoutine());
+    }
+
+    // NEW: Helper method to ensure the entire object is ignored by raycasts
+    private void SetLayerRecursively(GameObject obj, int newLayer)
+    {
+        if (obj == null) return;
+        obj.layer = newLayer;
+        foreach (Transform child in obj.transform)
+        {
+            if (child == null) continue;
+            SetLayerRecursively(child.gameObject, newLayer);
+        }
     }
 
     IEnumerator ShowThrowPromptAfterDelay(float delay)

@@ -10,12 +10,18 @@ public class PooledThrower : MonoBehaviour
     public bool lookAtTarget = true;
 
     [Header("Chaos Timing")]
-    public float minDelay = 2f;    
-    public float maxDelay = 5f;
+    public float minDelay = 1f;    
+    public float maxDelay = 3f;
+
+    [Header("Balance Settings")]
+    [Tooltip("Minimum time (in seconds) that MUST pass after ANY student throws before another can throw.")]
+    public float globalCooldown = 0.6f; 
+    
+    private static float _globalLastThrowTime = 0f;
 
     private Quaternion _initialRotation;
     private Animator _anim;
-    private bool _isStopped = false; // NEW: Local flag to kill the loop
+    private bool _isStopped = false; 
 
     void Awake()
     {
@@ -25,13 +31,21 @@ public class PooledThrower : MonoBehaviour
 
     void Start()
     {
-        // Start throwing immediately when the scene loads
-        Invoke("StartThrowCycle", Random.Range(0.5f, 2f));
+        Invoke("StartThrowCycle", Random.Range(0.5f, 3f));
     }
 
     void StartThrowCycle()
     {
-        if (_isStopped) return; // Stop forever if the player won
+        if (_isStopped) return; 
+
+        if (Time.time - _globalLastThrowTime < globalCooldown)
+        {
+            // FIX: Make them impatient! Check back in 0.1 to 0.2 seconds instead of 1.5s.
+            Invoke("StartThrowCycle", Random.Range(0.1f, 0.2f));
+            return;
+        }
+
+        _globalLastThrowTime = Time.time;
 
         float nextDelay = Random.Range(minDelay, maxDelay);
 
@@ -54,7 +68,7 @@ public class PooledThrower : MonoBehaviour
 
     public void LaunchFood()
     {
-        if (_isStopped) return; // Double check in case win happened mid-animation
+        if (_isStopped) return; 
 
         PooledFood food = FoodPooler.Instance.GetFood(Random.Range(0, 4));
         if (food == null) return;
@@ -76,7 +90,6 @@ public class PooledThrower : MonoBehaviour
         }
     }
 
-    // This is called by the Principal when the player wins
     public void StopThrowingPermanently()
     {
         _isStopped = true;

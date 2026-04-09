@@ -51,38 +51,44 @@ public class PASystem : MonoBehaviour
         {
             List<AnnouncementType> activeTasks = new List<AnnouncementType>();
 
+            // ONLY add tasks to the queue if they are NOT won AND NOT currently active
+
             if (SinglePlayerModeManager.Instance != null && SinglePlayerModeManager.Instance.BagsRemaining > 0)
                 activeTasks.Add(AnnouncementType.Student);
 
-            if (PlungerMiniGame.instance != null && !PlungerMiniGame.instance.isWon)
+            if (PlungerMiniGame.instance != null && !PlungerMiniGame.instance.isWon && !PlungerMiniGame.instance.isMinigameActive)
                 activeTasks.Add(AnnouncementType.CloggedToilet);
 
-            if (PrincipalMinigame.instance != null && !PrincipalMinigame.instance.hasWon)
+            if (PrincipalMinigame.instance != null && !PrincipalMinigame.instance.hasWon && !PrincipalMinigame.instance.isMinigameActive)
                 activeTasks.Add(AnnouncementType.FoodFight);
 
-            if (!Nets.IsMinigameWon)
+            if (!Nets.IsMinigameWon && !Nets.IsMinigameActive)
                 activeTasks.Add(AnnouncementType.MopGym);
 
             if (activeTasks.Count > 0)
             {
                 foreach (AnnouncementType task in activeTasks)
                 {
+                    // Double-check just in case the player started the game while we were waiting in the loop
                     if (IsTaskStillActive(task))
                     {
                         yield return StartCoroutine(PlayBroadcast(task));
-                        yield return new WaitForSeconds(delayBetweenAnnouncements);
+                        
+                        // SMART WAIT: Checks if game is won while waiting, cutting the 15s delay short if true
+                        float timeWaited = 0f;
+                        while (timeWaited < delayBetweenAnnouncements)
+                        {
+                            if (CheckIfAllTasksComplete()) break; 
+                            
+                            timeWaited += 1f;
+                            yield return new WaitForSeconds(1f);
+                        }
                     }
                 }
             }
             else
             {
-                // Verify all conditions one last time
-                bool bagsDone = SinglePlayerModeManager.Instance == null || SinglePlayerModeManager.Instance.BagsRemaining <= 0;
-                bool plungerDone = PlungerMiniGame.instance == null || PlungerMiniGame.instance.isWon;
-                bool principalDone = PrincipalMinigame.instance == null || PrincipalMinigame.instance.hasWon;
-                bool gymDone = Nets.IsMinigameWon;
-
-                if (bagsDone && plungerDone && gymDone && principalDone)
+                if (CheckIfAllTasksComplete())
                 {
                     allTasksDone = true;
                     yield return StartCoroutine(PlayBroadcast(AnnouncementType.AllComplete));
@@ -94,18 +100,32 @@ public class PASystem : MonoBehaviour
         }
     }
 
+    private bool CheckIfAllTasksComplete()
+    {
+        bool bagsDone = SinglePlayerModeManager.Instance == null || SinglePlayerModeManager.Instance.BagsRemaining <= 0;
+        bool plungerDone = PlungerMiniGame.instance == null || PlungerMiniGame.instance.isWon;
+        bool principalDone = PrincipalMinigame.instance == null || PrincipalMinigame.instance.hasWon;
+        bool gymDone = Nets.IsMinigameWon;
+
+        return bagsDone && plungerDone && gymDone && principalDone;
+    }
+
     private bool IsTaskStillActive(AnnouncementType type)
     {
         switch (type)
         {
             case AnnouncementType.Student:
                 return SinglePlayerModeManager.Instance != null && SinglePlayerModeManager.Instance.BagsRemaining > 0;
+            
             case AnnouncementType.CloggedToilet:
-                return PlungerMiniGame.instance != null && !PlungerMiniGame.instance.isWon;
+                return PlungerMiniGame.instance != null && !PlungerMiniGame.instance.isWon && !PlungerMiniGame.instance.isMinigameActive;
+            
             case AnnouncementType.FoodFight:
-                return PrincipalMinigame.instance != null && !PrincipalMinigame.instance.hasWon;
+                return PrincipalMinigame.instance != null && !PrincipalMinigame.instance.hasWon && !PrincipalMinigame.instance.isMinigameActive;
+            
             case AnnouncementType.MopGym:
-                return !Nets.IsMinigameWon;
+                return !Nets.IsMinigameWon && !Nets.IsMinigameActive;
+            
             default: return false;
         }
     }

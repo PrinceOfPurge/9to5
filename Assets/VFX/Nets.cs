@@ -11,6 +11,8 @@ public class Nets : MonoBehaviour
 
     [Header("Settings")]
     public int bucketsNeeded = 3;
+    [Tooltip("How many extra buckets are added to the goal when starting the next level?")]
+    public int bucketsIncreasePerLevel = 2; 
     public int points = 150;
 
     [Header("Timer Settings")]
@@ -30,6 +32,7 @@ public class Nets : MonoBehaviour
     private static List<Nets> allHoops = new List<Nets>();
     
     private List<GameObject> recentlyScoredGarbage = new List<GameObject>();
+    private Coroutine hideUICoroutine; // NEW: Tracks the delay so we can cancel it if they shoot quickly
 
     void Awake()
     {
@@ -61,15 +64,21 @@ public class Nets : MonoBehaviour
 
     public void StartBasketballGame()
     {
-        if (IsMinigameWon) return;
-        
         TotalBucketsScored = 0;
         IsMinigameActive = true;
+        IsMinigameWon = false;
         
         gameEndTime = Time.time + timeLimit;
         
         foreach (Nets hoop in allHoops)
         {
+            // Cancel the hiding coroutine if they start a new game while the UI is fading out
+            if (hoop.hideUICoroutine != null)
+            {
+                hoop.StopCoroutine(hoop.hideUICoroutine);
+                hoop.hideUICoroutine = null;
+            }
+
             if (hoop.uiCanvas != null) hoop.uiCanvas.SetActive(true);
             hoop.recentlyScoredGarbage.Clear(); 
             
@@ -83,11 +92,29 @@ public class Nets : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (IsMinigameWon || !IsMinigameActive) return;
-
         if (other.CompareTag("Garbage"))
         {
             if (recentlyScoredGarbage.Contains(other.gameObject)) return;
+
+            // --- PROGRESSION & AUTO-START LOGIC ---
+            if (IsMinigameWon)
+            {
+                // They won the last round! Increase difficulty and start the next level.
+                foreach (Nets hoop in allHoops)
+                {
+                    hoop.bucketsNeeded += hoop.bucketsIncreasePerLevel;
+                    // Optional: You could also add more time here! (e.g., hoop.timeLimit += 5f;)
+                }
+                
+                StartBasketballGame();
+                TriggerTeacherGreeting();
+            }
+            else if (!IsMinigameActive)
+            {
+                // Starting for the first time, or retrying after a fail.
+                StartBasketballGame();
+                TriggerTeacherGreeting();
+            }
 
             recentlyScoredGarbage.Add(other.gameObject);
             StartCoroutine(ClearGarbageMemory(other.gameObject));
@@ -101,13 +128,22 @@ public class Nets : MonoBehaviour
             
             if (hoopParticles != null) hoopParticles.Play();
             
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.Swish, transform.position);
+            if (AudioManager.instance && FMODEvents.instance)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.Swish, transform.position);
+            }
 
             if (TotalBucketsScored >= bucketsNeeded)
             {
                 CompleteGame();
             }
         }
+    }
+
+    private void TriggerTeacherGreeting()
+    {
+        GymTeacherVO teacher = FindFirstObjectByType<GymTeacherVO>();
+        if (teacher != null) teacher.TriggerGreeting();
     }
 
     private IEnumerator ClearGarbageMemory(GameObject garbageObj)
@@ -149,7 +185,7 @@ public class Nets : MonoBehaviour
                 hoop.timerText.text = "0.0";
             }
 
-            hoop.StartCoroutine(hoop.HideUIAfterDelay(3f));
+            hoop.hideUICoroutine = hoop.StartCoroutine(hoop.HideUIAfterDelay(3f));
         }
     }
 
@@ -167,6 +203,8 @@ public class Nets : MonoBehaviour
         {
             hoop.UpdateScoreUI();
             if (hoop.timerText != null) hoop.timerText.color = hoop.winColor;
+            
+            hoop.hideUICoroutine = hoop.StartCoroutine(hoop.HideUIAfterDelay(3f));
         }
         
         PASystem pa = FindFirstObjectByType<PASystem>();

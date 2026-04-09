@@ -26,8 +26,8 @@ public class GymTeacherVO : MonoBehaviour, IInteractable
     // --- IINTERACTABLE IMPLEMENTATION ---
     public void OnFocus()
     {
-        // Only show prompt and change cursor if the game hasn't been started/won
-        if (!Nets.IsMinigameWon && !Nets.IsMinigameActive)
+        // Only show prompt and change cursor if the game hasn't been started
+        if (!Nets.IsMinigameActive)
         {
             if (promptUI) promptUI.SetActive(true);
             if (defaultCursorObj) defaultCursorObj.SetActive(false);
@@ -43,7 +43,7 @@ public class GymTeacherVO : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
-        if (!Nets.IsMinigameWon && !Nets.IsMinigameActive)
+        if (!Nets.IsMinigameActive)
         {
             // Hide the prompt and reset the cursor immediately upon starting
             if (promptUI) promptUI.SetActive(false);

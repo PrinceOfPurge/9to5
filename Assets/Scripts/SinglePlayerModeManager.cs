@@ -49,6 +49,11 @@ public class SinglePlayerModeManager : MonoBehaviour
             BagsRemaining = 0; 
             SinglePlayerScore = 0;
             sceneLoadTime = Time.time; 
+
+            // Reset minigame statics on level load
+            Nets.IsMinigameActive = false;
+            Nets.IsMinigameWon = false;
+            Nets.TotalBucketsScored = 0;
         }
     }
 
