@@ -5,6 +5,11 @@ using FMOD.Studio;
 
 public class PlungerMiniGame : MonoBehaviour, IInteractable
 {
+    public static PlungerMiniGame instance { get; private set; }
+
+    // --- GLOBAL DIFFICULTY TRACKER ---
+    public static int DifficultyLevel = 1;
+
     [Header("Interaction & UI")]
     public GameObject plungerPrompt; 
     public GameObject crosshairDefault; 
@@ -37,7 +42,7 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
     public float transitionDuration = 0.8f;
     public float exitBackoffDistance = 1.2f; 
 
-    [Header("Gameplay Settings")]
+    [Header("Gameplay Settings (Level 1 Base Stats)")]
     public int points = 100;
     public float sensitivity = 0.005f;     
     public float upwardPressure = 0.1f; 
@@ -56,6 +61,12 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
     
     public bool isMinigameActive => isPlaying; 
     public bool isWon { get; private set; } = false;
+
+    // Active Difficulty Stats (Calculated dynamically)
+    private float currentSensitivity;
+    private float currentUpwardPressure;
+    private float currentDrainPauseTime;
+    private float currentWinHoldTime;
     
     private int layerIndex;
     private Vector3 originalPoopScale;
@@ -68,7 +79,6 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
     
     private EventInstance struggleInstance;
     private bool hasPlayedPlungeSound = false; 
-    public static PlungerMiniGame instance { get; private set; }
 
     private void Awake()
     {
@@ -97,6 +107,22 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
     {
         if (barParent) barParent.SetActive(false);
         if (mouseTutorialObject) mouseTutorialObject.SetActive(false);
+    }
+
+    private void CalculateDifficulty()
+    {
+        // 1. MAKE THEM SWIPE HARDER: Decrease mouse sensitivity as levels go up (caps at a brutal 0.0015f)
+        currentSensitivity = Mathf.Max(0.0015f, sensitivity - ((DifficultyLevel - 1) * 0.0007f));
+
+        // 2. MASSIVE RESISTANCE: Multiply the base pressure so it gets significantly stronger
+        currentUpwardPressure = upwardPressure * (1f + ((DifficultyLevel - 1) * 0.6f));
+        currentUpwardPressure = Mathf.Min(1.5f, currentUpwardPressure); // Cap it so it's not actually impossible
+
+        // 3. FASTER PUSHBACK: The toilet fights back almost instantly when you stop moving the mouse
+        currentDrainPauseTime = Mathf.Max(0.1f, drainPauseTime - ((DifficultyLevel - 1) * 0.2f));
+
+        // 4. LONGER FINAL HOLD: Make them sweat at the bottom
+        currentWinHoldTime = Mathf.Min(2.0f, winHoldTime + ((DifficultyLevel - 1) * 0.2f));
     }
 
     public void OnFocus()
@@ -137,19 +163,20 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
 
         if (plungedInputY > 0.1f)
         {
-            drainPauseTimer = drainPauseTime;
+            drainPauseTimer = currentDrainPauseTime;
         }
         else
         {
             drainPauseTimer -= Time.deltaTime;
         }
 
-        float inputStrength = plungedInputY * sensitivity;
+        // Use the new SCALED sensitivity here so they have to work harder
+        float inputStrength = plungedInputY * currentSensitivity;
         
         float resistance = 0f;
         if (drainPauseTimer <= 0f)
         {
-            resistance = upwardPressure * Time.deltaTime;
+            resistance = currentUpwardPressure * Time.deltaTime;
         }
     
         plungeProgress = Mathf.Clamp01(plungeProgress + inputStrength - resistance);
@@ -185,7 +212,7 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
                 victoryTimer += Time.deltaTime;
             }
 
-            if (victoryTimer < winHoldTime)
+            if (victoryTimer < currentWinHoldTime)
             {
                 if (holdDownPrompt && !holdDownPrompt.activeSelf) holdDownPrompt.SetActive(true);
             }
@@ -215,7 +242,7 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
 
         if (plungeProgress >= 0.96f)
         {
-            barFill.fillAmount = Mathf.Clamp01(victoryTimer / winHoldTime);
+            barFill.fillAmount = Mathf.Clamp01(victoryTimer / currentWinHoldTime);
             barFill.color = winChargeColor; 
         }
         else
@@ -275,10 +302,13 @@ public class PlungerMiniGame : MonoBehaviour, IInteractable
 
     private IEnumerator MountAndStartSequence()
     {
+        CalculateDifficulty(); 
+
         if (highlightScript) highlightScript.ToggleHighlight(false);
         isPlaying = true;
         plungeProgress = 0f;
-        drainPauseTimer = drainPauseTime; 
+        
+        drainPauseTimer = currentDrainPauseTime; 
         
         struggleInstance = AudioManager.instance.CreateInstance(FMODEvents.instance.ToiletStruggle);
         struggleInstance.start();

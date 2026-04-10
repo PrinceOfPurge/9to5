@@ -54,6 +54,11 @@ public class SinglePlayerModeManager : MonoBehaviour
             Nets.IsMinigameActive = false;
             Nets.IsMinigameWon = false;
             Nets.TotalBucketsScored = 0;
+
+            // --- MINIGAME DIFFICULTY SYNC ---
+            DirtCleaner.DifficultyLevel = this.level;
+            Banana.DifficultyLevel = this.level;
+            PlungerMiniGame.DifficultyLevel = this.level;
         }
     }
 
@@ -118,6 +123,11 @@ public class SinglePlayerModeManager : MonoBehaviour
         gameEnded = true;
         level++;
 
+        // --- UPDATE MINIGAME DIFFICULTIES HERE ---
+        DirtCleaner.DifficultyLevel = level;
+        Banana.DifficultyLevel = level;
+        PlungerMiniGame.DifficultyLevel = level;
+        
         PlayerMoney += SinglePlayerScore;
         StartCoroutine(GotoShop());
     }

@@ -8,14 +8,20 @@ public class DirtCleaner : MonoBehaviour, IInteractable
 {
     [HideInInspector] 
     public DirtSpawn originSpawnPoint;
+    
+    public static int DifficultyLevel = 1;
 
     [Header("Interaction Settings")]
     public int points = 50;
     public GameObject cleaningPrompt;
     public KeyCode interactKey = KeyCode.E;
-    public float holdTime = 2f;
+    
+    [Tooltip("Base hold time for Level 1. Automatically scales down by 20% per level.")]
+    public float startingHoldTime = 1.2f; 
+    [Tooltip("Base margin of error for Level 1.")]
+    public float startingPerfectWindow = 0.2f; 
+    
     public float fadeSpeed = 1f;
-    public float perfectWindow = 0.3f;
     public GameObject doneVFX;
     public int interactionLayerIndex = 1;
 
@@ -67,6 +73,10 @@ public class DirtCleaner : MonoBehaviour, IInteractable
     private Transform playerTransform;
     private Animator playerAnimator;
     private EventInstance mopSoundInstance;
+
+    // Active Difficulty Stats
+    private float currentHoldTime;
+    private float currentPerfectWindow;
 
     private void Start()
     {
@@ -121,6 +131,15 @@ public class DirtCleaner : MonoBehaviour, IInteractable
             worldMop.SetActive(true);
             mopStartPos = worldMop.transform.localPosition;
         }
+    }
+
+    private void CalculateDifficulty()
+    {
+        // 20% FASTER PER LEVEL: Multiplies the required hold time by 0.80 each level. Caps at 0.3 seconds.
+        currentHoldTime = Mathf.Max(0.3f, startingHoldTime * Mathf.Pow(0.80f, DifficultyLevel - 1));
+        
+        // TIGHTER WINDOW: Shrinks the perfect window by 15% each level. Caps at 0.04 seconds.
+        currentPerfectWindow = Mathf.Max(0.04f, startingPerfectWindow * Mathf.Pow(0.85f, DifficultyLevel - 1));
     }
 
     private float GetFlatDistanceToPlayer()
@@ -196,14 +215,16 @@ public class DirtCleaner : MonoBehaviour, IInteractable
         if (Input.GetMouseButtonDown(1)) { CancelMiniGame(); return; }
 
         if (Input.GetKey(interactKey)) holdTimer += Time.deltaTime;
-        if (fillImage != null) fillImage.fillAmount = Mathf.Clamp01(holdTimer / holdTime);
+        if (fillImage != null) fillImage.fillAmount = Mathf.Clamp01(holdTimer / currentHoldTime);
 
-        if (holdTimer >= (holdTime + perfectWindow)) StartCoroutine(FailSequence());
+        // Fail if held too long based on dynamic window
+        if (holdTimer >= (currentHoldTime + currentPerfectWindow)) StartCoroutine(FailSequence());
 
         if (Input.GetKeyUp(interactKey))
         {
-            float perfectStart = holdTime - perfectWindow;
-            float perfectEnd = holdTime + perfectWindow;
+            float perfectStart = currentHoldTime - currentPerfectWindow;
+            float perfectEnd = currentHoldTime + currentPerfectWindow;
+            
             if (holdTimer >= perfectStart && holdTimer <= perfectEnd) StartCoroutine(SuccessSequence());
             else StartCoroutine(FailSequence());
         }
@@ -211,6 +232,8 @@ public class DirtCleaner : MonoBehaviour, IInteractable
 
     private void StartMiniGame()
     {
+        CalculateDifficulty(); // Apply the math right before they start
+
         miniGameActive = true;
         isProcessingResult = false;
         holdTimer = 0f;

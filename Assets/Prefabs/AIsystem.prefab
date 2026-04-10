@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1495713580867091730}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.6493889, y: -0.2798108, z: 0.27981088, w: 0.64938885}
+  m_LocalRotation: {x: -0.64938843, y: -0.2798119, z: 0.2798119, w: 0.64938843}
   m_LocalPosition: {x: 128, y: 241, z: 19}
   m_LocalScale: {x: 204.9, y: 204.90005, z: 204.90009}
   m_ConstrainProportionsScale: 0
@@ -35,7 +35,97 @@ Transform:
   - {fileID: 7939891324072563108}
   - {fileID: 576728018626830730}
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: -43.379, y: -90, z: 90}
+--- !u!1 &6191189146406294652
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8418334542851666522}
+  - component: {fileID: 1323348882287751695}
+  m_Layer: 0
+  m_Name: DirtSpawn (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8418334542851666522
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6191189146406294652}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -297.1, y: 0.6, z: 56.81}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2166959472319225470}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1323348882287751695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6191189146406294652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1be7f5bbf7b96d04ea0a861a30a24495, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpawned: 0
+--- !u!1 &7054584588406510858
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1448128699746908775}
+  - component: {fileID: 1665300093548429424}
+  m_Layer: 0
+  m_Name: DirtSpawn (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1448128699746908775
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7054584588406510858}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -268.73, y: 0.6, z: 56.81}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2166959472319225470}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1665300093548429424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7054584588406510858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1be7f5bbf7b96d04ea0a861a30a24495, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpawned: 0
 --- !u!1001 &3796935365295243167
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -463,6 +553,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: DirtSpawns
       objectReference: {fileID: 0}
+    - target: {fileID: 7823346912776965096, guid: 0624af3865685934eac5db7e96e799a8, type: 3}
+      propertyPath: dirtSpawns.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7823346912776965096, guid: 0624af3865685934eac5db7e96e799a8, type: 3}
+      propertyPath: dirtSpawns.Array.data[5]
+      value: 
+      objectReference: {fileID: 1323348882287751695}
+    - target: {fileID: 7823346912776965096, guid: 0624af3865685934eac5db7e96e799a8, type: 3}
+      propertyPath: dirtSpawns.Array.data[6]
+      value: 
+      objectReference: {fileID: 1665300093548429424}
     - target: {fileID: 7993672374614826855, guid: 0624af3865685934eac5db7e96e799a8, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.0048804283
@@ -517,7 +619,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7993672374614826855, guid: 0624af3865685934eac5db7e96e799a8, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 8418334542851666522}
+    - targetCorrespondingSourceObject: {fileID: 7993672374614826855, guid: 0624af3865685934eac5db7e96e799a8, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 1448128699746908775}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0624af3865685934eac5db7e96e799a8, type: 3}
 --- !u!4 &2166959472319225470 stripped

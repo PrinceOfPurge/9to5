@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Banana : MonoBehaviour, IInteractable
 {
     public static Banana ActiveBanana = null;
+    public static int DifficultyLevel = 1;
 
     [Header("Interaction")]
     public GameObject garbagePrompt;
@@ -36,6 +37,8 @@ public class Banana : MonoBehaviour, IInteractable
     [Header("Feedback")]
     public float correctFlashTime = 0.15f;
     public float wrongFlashTime = 0.15f;
+    
+    // Kept original name so Inspector doesn't break
     public int totalKeysNeeded = 6;
 
     [Header("Effects")]
@@ -44,6 +47,7 @@ public class Banana : MonoBehaviour, IInteractable
     public HighlightEffectBananaAndGarbage highlightScript;
 
     [Header("Timer")]
+    // Kept original name so Inspector doesn't break
     public float maxTime = 10f;
     public Image timerBarUI;
     public GameObject timerUI;
@@ -51,12 +55,16 @@ public class Banana : MonoBehaviour, IInteractable
     private bool playerInRange;
     private bool isCleaned;
     private bool isProcessingAnimation = false;
-    private bool isThisBananaActive = false; // Individual state
+    private bool isThisBananaActive = false; 
 
     private float timer;
     private KeyCode currentKey;
     private int remainingKeys;
     private bool ignoreInputThisFrame;
+
+    // Active Difficulty Stats (calculated quietly)
+    private int currentTotalKeysNeeded;
+    private float currentMaxTime;
 
     private Dictionary<Image, Color> originalColors = new Dictionary<Image, Color>();
     private PlayerMovement playerMovement;
@@ -81,6 +89,15 @@ public class Banana : MonoBehaviour, IInteractable
         if (rightArrowUI != null) originalColors[rightArrowUI] = rightArrowUI.color;
 
         if (timerUI != null) timerUI.SetActive(false);
+    }
+
+    private void CalculateDifficulty()
+    {
+        // Add 1 extra key sequence per level
+        currentTotalKeysNeeded = totalKeysNeeded + (DifficultyLevel - 1);
+        
+        // Subtract 0.5 seconds from the timer per level (but never let it drop below 3.5 seconds)
+        currentMaxTime = Mathf.Max(3.5f, maxTime - ((DifficultyLevel - 1) * 0.5f));
     }
 
     public void OnFocus()
@@ -141,7 +158,9 @@ public class Banana : MonoBehaviour, IInteractable
         }
 
         timer -= Time.deltaTime;
-        if (timerBarUI != null) timerBarUI.fillAmount = timer / maxTime;
+        
+        // Uses the scaled time
+        if (timerBarUI != null) timerBarUI.fillAmount = timer / currentMaxTime;
 
         if (timer <= 0f) 
         { 
@@ -165,6 +184,8 @@ public class Banana : MonoBehaviour, IInteractable
 
     private void StartMiniGame()
     {
+        CalculateDifficulty(); // Apply the math right before they start
+
         ActiveBanana = this; // Set the global lock
         isThisBananaActive = true;
         
@@ -192,8 +213,9 @@ public class Banana : MonoBehaviour, IInteractable
             MinigameFocusManager.Instance.StartFocus(targetTransform, lookOffset, interactionDistance);
         }
 
-        remainingKeys = totalKeysNeeded;
-        timer = maxTime;
+        // Uses the scaled values
+        remainingKeys = currentTotalKeysNeeded;
+        timer = currentMaxTime;
         ShowRandomKey();
     }
 
@@ -297,8 +319,10 @@ public class Banana : MonoBehaviour, IInteractable
         if (miniGameUIParent != null) miniGameUIParent.transform.localPosition = originalPos;
         if (img != null) img.color = originalColors[img];
 
-        remainingKeys = totalKeysNeeded;
-        timer = maxTime;
+        // Reset using scaled values
+        remainingKeys = currentTotalKeysNeeded;
+        timer = currentMaxTime;
+        
         isProcessingAnimation = false;
         ShowRandomKey();
     }

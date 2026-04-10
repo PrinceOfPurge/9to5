@@ -18,16 +18,13 @@ public class GymTeacherVO : MonoBehaviour, IInteractable
 
     void Start()
     {
-        // Ensure UI is clean on startup
         if (promptUI) promptUI.SetActive(false);
         ResetCursors();
     }
 
-    // --- IINTERACTABLE IMPLEMENTATION ---
     public void OnFocus()
     {
-        // Only show prompt and change cursor if the game hasn't been started
-        if (!Nets.IsMinigameActive)
+        if (!Nets.IsMinigameActive && !Nets.IsMinigameWon)
         {
             if (promptUI) promptUI.SetActive(true);
             if (defaultCursorObj) defaultCursorObj.SetActive(false);
@@ -43,13 +40,11 @@ public class GymTeacherVO : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
-        if (!Nets.IsMinigameActive)
+        if (!Nets.IsMinigameActive && !Nets.IsMinigameWon)
         {
-            // Hide the prompt and reset the cursor immediately upon starting
             if (promptUI) promptUI.SetActive(false);
             ResetCursors();
 
-            // Kick off the minigame logic
             Nets firstHoop = FindFirstObjectByType<Nets>();
             if (firstHoop != null)
             {
@@ -65,12 +60,10 @@ public class GymTeacherVO : MonoBehaviour, IInteractable
         if (interactCursorObj) interactCursorObj.SetActive(false);
     }
 
-    // --- ANTI-SPAM COLLISION ---
     private void OnCollisionEnter(Collision collision)
     {
         if (!collision.collider.CompareTag(garbageTag)) return;
         
-        // Won't trigger if garbage is just lying there or barely rolling
         if (collision.relativeVelocity.magnitude < minVelocityToReact) return;
 
         if (Time.time < lastHitTime + hitCooldown) return;

@@ -15,7 +15,7 @@ public class PooledThrower : MonoBehaviour
 
     [Header("Balance Settings")]
     [Tooltip("Minimum time (in seconds) that MUST pass after ANY student throws before another can throw.")]
-    public float globalCooldown = 0.6f; 
+    public float baseGlobalCooldown = 0.6f; 
     
     private static float _globalLastThrowTime = 0f;
 
@@ -31,23 +31,33 @@ public class PooledThrower : MonoBehaviour
 
     void Start()
     {
-        Invoke("StartThrowCycle", Random.Range(0.5f, 3f));
+        // Initial delay scaled
+        float startDelay = Random.Range(0.5f, 2.5f) / PrincipalMinigame.ThrowSpeedMultiplier;
+        Invoke("StartThrowCycle", startDelay);
     }
 
     void StartThrowCycle()
     {
         if (_isStopped) return; 
 
-        if (Time.time - _globalLastThrowTime < globalCooldown)
+        // At level 1, this is 0.6. At level 4, this drops near 0.
+        // This allows MULTIPLE kids to throw simultaneously at high levels (Bursts!)
+        float currentGlobalCooldown = Mathf.Max(0.05f, baseGlobalCooldown - (PrincipalMinigame.DifficultyLevel * 0.15f));
+
+        if (Time.time - _globalLastThrowTime < currentGlobalCooldown)
         {
-            // FIX: Make them impatient! Check back in 0.1 to 0.2 seconds instead of 1.5s.
-            Invoke("StartThrowCycle", Random.Range(0.1f, 0.2f));
+            // Keep checking frequently so they don't lose their turn
+            Invoke("StartThrowCycle", Random.Range(0.05f, 0.15f));
             return;
         }
 
         _globalLastThrowTime = Time.time;
 
-        float nextDelay = Random.Range(minDelay, maxDelay);
+        // Tighten the random range at higher levels so throws are consistently relentless
+        float currentMaxDelay = Mathf.Max(minDelay + 0.2f, maxDelay / PrincipalMinigame.ThrowSpeedMultiplier);
+        float currentMinDelay = minDelay / PrincipalMinigame.ThrowSpeedMultiplier;
+        
+        float nextDelay = Random.Range(currentMinDelay, currentMaxDelay);
 
         if (targetOverride != null)
         {

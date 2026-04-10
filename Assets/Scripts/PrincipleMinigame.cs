@@ -29,15 +29,15 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     public GameObject defaultCursorObj;   
     public GameObject interactCursorObj;  
 
-    [Header("Settings")]
+    [Header("Base Settings (Level 1)")]
     public int points = 250;
     public float maxPatience = 5000f;     
-    public float hitPenalty = 25f;        
-    public float messNearPenalty = 15f;   
+    public float baseHitPenalty = 25f;        
+    public float baseMessNearPenalty = 15f;   
     public float detectionRadius = 8f; 
-    public int maxAllowedMesses = 6; 
-    public float patienceRestorePerClean = 800f; 
-    public float bounceForce = 6f; // NEW: How hard the garbage bounces back
+    public int baseMaxAllowedMesses = 6; 
+    public float basePatienceRestorePerClean = 800f; 
+    public float bounceForce = 6f; 
     
     [Header("Boundary Visuals & Constraints")]
     public LineRenderer boundaryLine;
@@ -49,6 +49,16 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
 
     [Header("Audio Tweak Settings")]
     public float winGracePeriod = 1.5f; 
+
+    // --- GLOBAL DIFFICULTY TRACKERS ---
+    public static int DifficultyLevel = 1;
+    public static float ThrowSpeedMultiplier = 1.0f;
+
+    // --- CURRENT LEVEL ACTIVE STATS ---
+    private int currentMaxAllowedMesses;
+    private float currentMessNearPenalty;
+    private float currentPatienceRestore;
+    private float currentHitPenalty;
 
     public bool hasWon { get; private set; } = false;
     public static PrincipalMinigame instance;
@@ -77,7 +87,6 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     private bool isInvulnerableToAudio = false; 
 
     [Header("Mess VFX")]
-    [Tooltip("ParticleSystem prefab to play when an individual mess is destroyed.")]
     public ParticleSystem messDestroyVfxPrefab;
 
     private void Awake()
@@ -117,6 +126,21 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
         ResetCursors();
     }
 
+    private void CalculateDifficulty()
+    {
+        // Increase max messes by 2 every level
+        currentMaxAllowedMesses = baseMaxAllowedMesses + ((DifficultyLevel - 1) * 2);
+        
+        // Increase patience drain by 5 every level
+        currentMessNearPenalty = baseMessNearPenalty + ((DifficultyLevel - 1) * 5f);
+        currentHitPenalty = baseHitPenalty + ((DifficultyLevel - 1) * 10f);
+        
+        // Decrease health restored (but don't let it go below 200)
+        currentPatienceRestore = Mathf.Max(200f, basePatienceRestorePerClean - ((DifficultyLevel - 1) * 150f));
+
+        Debug.Log($"Starting Minigame Level {DifficultyLevel}! Max Messes: {currentMaxAllowedMesses}");
+    }
+
     private void DrawBoundaryRing()
     {
         if (boundaryLine == null) return;
@@ -153,6 +177,8 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
 
     public void StartMiniGame() 
     {
+        CalculateDifficulty(); // Apply level difficulty
+
         isGameActive = true;
         hasWon = false; 
         currentPatience = maxPatience;
@@ -196,14 +222,12 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
 
         if (playerTransform != null)
         {
-            // Only measure horizontal distance to avoid false positives from jumping
             Vector3 centerFlat = new Vector3(transform.position.x, 0, transform.position.z);
             Vector3 playerFlat = new Vector3(playerTransform.position.x, 0, playerTransform.position.z);
             float playerDist = Vector3.Distance(centerFlat, playerFlat);
             
             bool isNearEdge = playerDist > (detectionRadius - warningDistance);
 
-            // Handle Line Color
             if (boundaryLine != null)
             {
                 Color targetColor = isNearEdge ? warningLineColor : normalLineColor;
@@ -211,57 +235,57 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
                 boundaryLine.endColor = targetColor;
             }
 
-            // Forcefully clamp player inside the circle
             if (playerDist > detectionRadius)
             {
-                Vector3 directionFromCenter = playerFlat - centerFlat;
-                directionFromCenter = directionFromCenter.normalized;
+                Vector3 directionFromCenter = (playerFlat - centerFlat).normalized;
+                Vector3 clampedPosition = centerFlat + (directionFromCenter * detectionRadius);
+                clampedPosition.y = playerTransform.position.y; 
 
-                Vector3 clampedPosition = transform.position + (directionFromCenter * detectionRadius);
-                clampedPosition.y = playerTransform.position.y; // Keep player's current jump height
-
-                playerTransform.position = clampedPosition;
+                CharacterController cc = playerTransform.GetComponent<CharacterController>();
+                if (cc != null)
+                {
+                    cc.enabled = false; 
+                    playerTransform.position = clampedPosition;
+                    cc.enabled = true;  
+                }
+                else
+                {
+                    playerTransform.position = clampedPosition;
+                }
             }
         }
 
-        // Handle out-of-bounds messes
         for (int i = activeMesses.Count - 1; i >= 0; i--)
         {
             if (activeMesses[i] != null)
             {
-                float distToMess = Vector3.Distance(transform.position, activeMesses[i].transform.position);
-                if (distToMess > detectionRadius)
+                Vector3 centerPos = transform.position;
+                Vector3 messPos = activeMesses[i].transform.position;
+                
+                Vector3 centerFlat = new Vector3(centerPos.x, 0, centerPos.z);
+                Vector3 messFlat = new Vector3(messPos.x, 0, messPos.z);
+                float horizontalDist = Vector3.Distance(centerFlat, messFlat);
+
+                if (horizontalDist > detectionRadius)
                 {
                     Rigidbody rb = activeMesses[i].GetComponent<Rigidbody>();
-                    
-                    // Check if held by player (has a parent or Rigidbody is currently kinematic)
                     bool isHeld = (activeMesses[i].transform.parent != null) || (rb != null && rb.isKinematic);
 
                     if (!isHeld)
                     {
                         if (rb != null)
                         {
-                            // Calculate direction back to the center of the minigame
-                            Vector3 centerFlat = new Vector3(transform.position.x, 0, transform.position.z);
-                            Vector3 messFlat = new Vector3(activeMesses[i].transform.position.x, 0, activeMesses[i].transform.position.z);
                             Vector3 dirToCenter = (centerFlat - messFlat).normalized;
-
-                            // Move it slightly inside the line to prevent it from getting stuck on the edge
-                            Vector3 clampedPos = transform.position + (-dirToCenter * (detectionRadius - 0.5f));
-                            clampedPos.y = activeMesses[i].transform.position.y;
-                            activeMesses[i].transform.position = clampedPos;
-
-                            // Zero out velocity so it doesn't fight the bounce
                             rb.velocity = Vector3.zero;
                             rb.angularVelocity = Vector3.zero;
-                            
-                            // Add force pointing back towards the center, with a slight upward arc
-                            Vector3 bounceDir = (dirToCenter + (Vector3.up * 0.5f)).normalized;
+                            Vector3 safeInsidePos = centerFlat + (-dirToCenter * (detectionRadius - 0.75f));
+                            safeInsidePos.y = messPos.y; 
+                            activeMesses[i].transform.position = safeInsidePos;
+                            Vector3 bounceDir = (dirToCenter + (Vector3.up * 0.4f)).normalized;
                             rb.AddForce(bounceDir * bounceForce, ForceMode.Impulse);
                         }
                         else
                         {
-                            // If it doesn't have physics (like a flat static texture on the ground), just destroy it
                             Destroy(activeMesses[i]); 
                         }
                     }
@@ -271,7 +295,8 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
 
         activeMesses.RemoveAll(item => item == null);
         if (activeMesses.Count > 0) {
-            currentPatience -= Time.deltaTime * messNearPenalty * activeMesses.Count;
+            // DRAINING USING SCALED PENALTY
+            currentPatience -= Time.deltaTime * currentMessNearPenalty * activeMesses.Count;
         }
 
         HandleHUDVisibility();
@@ -343,7 +368,8 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     {
         if (isGameActive)
         {
-            currentPatience += patienceRestorePerClean;
+            // RESTORING USING SCALED AMOUNT
+            currentPatience += currentPatienceRestore;
             currentPatience = Mathf.Clamp(currentPatience, 0, maxPatience);
             
             StopCoroutine("AudioGracePeriod"); 
@@ -393,13 +419,16 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
         PlayVoice(2, true);
 
         if (!isGameActive) return;
-        currentPatience -= hitPenalty;
+        
+        // HIT USING SCALED PENALTY
+        currentPatience -= currentHitPenalty;
     }
 
     public bool IsGameActive() => isGameActive;
     
     public bool CanSpawnMessAt(Vector3 position) {
-        if (!isGameActive || activeMesses.Count >= maxAllowedMesses) return false;
+        // USING SCALED CAP
+        if (!isGameActive || activeMesses.Count >= currentMaxAllowedMesses) return false;
         if (Vector3.Distance(transform.position, position) > detectionRadius) return false;
         foreach (GameObject mess in activeMesses)
         {
@@ -412,6 +441,10 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     {
         hasWon = true; 
         
+        // INCREMENT LEVEL
+        DifficultyLevel++;
+        ThrowSpeedMultiplier += 0.35f; 
+
         if (SinglePlayerModeManager.Instance != null)
         {
             SinglePlayerModeManager.Instance.SinglePlayerScore += points;
@@ -425,14 +458,7 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
 
     void EndGame() {
         isGameActive = false;
-        Banana[] activeBananas = FindObjectsOfType<Banana>();
-        foreach(Banana b in activeBananas)
-        {
-            b.SendMessage("EndMinigame", false, SendMessageOptions.DontRequireReceiver);
-        }
-        
         if (boundaryLine != null) boundaryLine.enabled = false;
-        
         if (worldMessCountUI) worldMessCountUI.SetActive(false);
         if (worldTimerBar) worldTimerBar.SetActive(false);
         if (screenMessCountUI) screenMessCountUI.SetActive(false);
@@ -443,8 +469,6 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
             if (m != null) Destroy(m);
         }
         activeMesses.Clear();
-        PlayerMovement pm = FindObjectOfType<PlayerMovement>();
-        if (pm != null) pm.enabled = true;
         ResetCursors();
     }
 
@@ -479,26 +503,13 @@ public class PrincipalMinigame : MonoBehaviour, IInteractable
     private class MessDestroyNotifier : MonoBehaviour
     {
         private bool notified = false;
-
-        private void OnDisable()
-        {
-            NotifyOnce();
-        }
-
-        private void OnDestroy()
-        {
-            NotifyOnce();
-        }
-
+        private void OnDisable() { NotifyOnce(); }
+        private void OnDestroy() { NotifyOnce(); }
         private void NotifyOnce()
         {
             if (notified) return;
             notified = true;
-
-            if (PrincipalMinigame.instance != null)
-            {
-                PrincipalMinigame.instance.OnMessDestroyed(transform.position);
-            }
+            if (PrincipalMinigame.instance != null) PrincipalMinigame.instance.OnMessDestroyed(transform.position);
         }
     }
 }
