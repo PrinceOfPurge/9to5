@@ -103,7 +103,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 13
-  maxWaitTime: 10
   isHarmless: 1
   minMessessToSpawn: 2
   maxMessessToSpawn: 4
@@ -192,6 +191,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5956428097727719991, guid: 27f3e6c99c824f94fb44dc3f9eec756b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3212090029325949350, guid: 27f3e6c99c824f94fb44dc3f9eec756b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 40ef957b4c5ded441b52e68bd4aceccf, type: 2}
     - target: {fileID: -2064020894770497338, guid: 27f3e6c99c824f94fb44dc3f9eec756b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -206,12 +213,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2841654513462277692, guid: 27f3e6c99c824f94fb44dc3f9eec756b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3133900134270352308, guid: 27f3e6c99c824f94fb44dc3f9eec756b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 9c9d2d5430f87ce4299bce480035b8bc, type: 2}
+      objectReference: {fileID: 2100000, guid: 47f6ef6372438ae428e7ff59651f56f8, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
